@@ -1,8 +1,7 @@
-
 import { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { cn } from '@/lib/utils';
-import { Menu, X, Home, Plane, Hotel, Car, Map, Crown, Phone } from 'lucide-react';
+import { Menu, X, Home, Plane, Hotel, Car, Map, Crown, Phone, Trophy } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 
 type NavItem = {
@@ -13,6 +12,7 @@ type NavItem = {
 
 const navItems: NavItem[] = [
   { name: "Accueil – CAN 2025", path: "/", icon: Home },
+  { name: "CAN 2025", path: "/can2025", icon: Trophy },
   { name: "Billets d'avion", path: "/billets-avion", icon: Plane },
   { name: "Hôtels", path: "/hotels", icon: Hotel },
   { name: "Voitures", path: "/voitures", icon: Car },

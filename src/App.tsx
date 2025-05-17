@@ -8,6 +8,7 @@ import { useEffect } from "react";
 
 // Pages
 import Index from "./pages/Index";
+import Can2025 from "./pages/Can2025";
 import Flights from "./pages/Flights";
 import Hotels from "./pages/Hotels";
 import Cars from "./pages/Cars";
@@ -50,6 +51,7 @@ const App = () => {
             <main className="flex-1">
               <Routes>
                 <Route path="/" element={<Index />} />
+                <Route path="/can2025" element={<Can2025 />} />
                 <Route path="/billets-avion" element={<Flights />} />
                 <Route path="/hotels" element={<Hotels />} />
                 <Route path="/voitures" element={<Cars />} />
