@@ -1,5 +1,6 @@
 
 import { cn } from "@/lib/utils";
+import { motion } from "framer-motion";
 
 type ServiceCardProps = {
   icon: React.ReactNode;
@@ -10,18 +11,22 @@ type ServiceCardProps = {
 
 const ServiceCard = ({ icon, title, description, className }: ServiceCardProps) => {
   return (
-    <div className={cn(
-      "bg-white p-6 rounded-lg shadow-md border border-gray-100 transition-all hover:shadow-lg fade-in",
-      className
-    )}>
+    <motion.div
+      whileHover={{ y: -8, boxShadow: "0 20px 25px rgba(0, 35, 102, 0.08)" }}
+      transition={{ type: "spring", stiffness: 300 }}
+      className={cn(
+        "bg-white p-8 rounded-2xl shadow-md border border-gray-100 hover:border-primary/20 h-full",
+        className
+      )}
+    >
       <div className="flex flex-col items-center text-center">
-        <div className="mb-4 text-primary w-14 h-14 flex items-center justify-center bg-primary/5 rounded-full">
+        <div className="mb-6 text-primary w-16 h-16 flex items-center justify-center bg-primary/5 rounded-full">
           {icon}
         </div>
-        <h3 className="text-lg font-bold mb-2">{title}</h3>
-        <p className="text-gray-600 text-sm">{description}</p>
+        <h3 className="text-xl font-bold mb-3">{title}</h3>
+        <p className="text-gray-600">{description}</p>
       </div>
-    </div>
+    </motion.div>
   );
 };
 
