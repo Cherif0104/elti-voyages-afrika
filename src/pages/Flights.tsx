@@ -1,7 +1,8 @@
+
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Plane, BadgePercent, Calendar, Filter, SlidersHorizontal, Timer, Check, ArrowRight } from "lucide-react";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Slider } from "@/components/ui/slider";
 import { Switch } from "@/components/ui/switch";
