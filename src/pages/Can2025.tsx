@@ -1,8 +1,7 @@
-
 import { motion } from "framer-motion";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { Trophy, Calendar, Flag, Medal, SoccerBall, UsersRound, Star } from "lucide-react";
+import { Trophy, Calendar, Flag, Medal, Football, UsersRound, Star } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import {
@@ -301,7 +300,7 @@ const Can2025 = () => {
               className="bg-white p-6 rounded-xl shadow-md border border-gray-100"
             >
               <div className="flex items-center mb-4">
-                <SoccerBall className="h-10 w-10 text-primary p-2 bg-primary/5 rounded-full" />
+                <Football className="h-10 w-10 text-primary p-2 bg-primary/5 rounded-full" />
                 <h3 className="text-xl font-bold ml-4">Les équipes</h3>
               </div>
               <p className="text-gray-700 mb-4">
@@ -496,7 +495,7 @@ const Can2025 = () => {
                   >
                     <div className="h-48 bg-gray-200 relative">
                       <div className="absolute inset-0 flex items-center justify-center">
-                        <SoccerBall className="h-16 w-16 text-gray-400" />
+                        <Football className="h-16 w-16 text-gray-400" />
                       </div>
                     </div>
                     <div className="p-6">
@@ -531,7 +530,7 @@ const Can2025 = () => {
                   >
                     <div className="h-48 bg-gray-200 relative">
                       <div className="absolute inset-0 flex items-center justify-center">
-                        <SoccerBall className="h-16 w-16 text-gray-400" />
+                        <Football className="h-16 w-16 text-gray-400" />
                       </div>
                     </div>
                     <div className="p-6">
@@ -566,7 +565,7 @@ const Can2025 = () => {
                   >
                     <div className="h-48 bg-gray-200 relative">
                       <div className="absolute inset-0 flex items-center justify-center">
-                        <SoccerBall className="h-16 w-16 text-gray-400" />
+                        <Football className="h-16 w-16 text-gray-400" />
                       </div>
                     </div>
                     <div className="p-6">
@@ -723,7 +722,7 @@ const Can2025 = () => {
               <div className="bg-white rounded-lg shadow-sm p-6 border border-gray-100">
                 <h3 className="font-bold text-lg text-primary mb-2">Quelles sont les conditions d'annulation ?</h3>
                 <p className="text-gray-700">
-                  Les réservations sont remboursables à 100% jusqu'à 60 jours avant l'événement, puis à 50% 
+                  Les réservations sont remboursables à 100% jusqu'�� 60 jours avant l'événement, puis à 50% 
                   jusqu'à 30 jours avant. À moins de 30 jours, les annulations ne sont plus remboursables, 
                   mais vous pouvez reporter votre voyage ou transférer votre réservation à une autre personne.
                 </p>
@@ -758,7 +757,9 @@ const Can2025 = () => {
               <h3 className="text-xl font-bold mb-4 text-primary">Contactez-nous</h3>
               <div className="space-y-4">
                 <p className="flex items-center">
-                  <Phone className="h-5 w-5 mr-3 text-primary" />
+                  <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 mr-3 text-primary" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                    <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path>
+                  </svg>
                   <a href="tel:+212656136036" className="hover:text-primary">+212 656 13 60 36</a>
                 </p>
                 <p className="flex items-center">
