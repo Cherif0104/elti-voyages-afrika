@@ -41,7 +41,7 @@ const CanPackCard = ({
     <motion.div
       whileHover={{ y: -10 }}
       transition={{ type: "spring", stiffness: 300 }}
-      className={cn(className)}
+      className={cn("h-full", className)}
     >
       <div className={cn(
         "h-full flex flex-col overflow-hidden rounded-xl shadow-sm hover:shadow-xl transition-all duration-300 border",
