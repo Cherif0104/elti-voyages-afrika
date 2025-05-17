@@ -1,4 +1,3 @@
-
 import { useEffect, useState } from "react";
 import { Plane, Hotel, Car, Map, Crown, Star } from "lucide-react";
 import BookingForm from "@/components/BookingForm";
@@ -18,6 +17,9 @@ import { motion } from "framer-motion";
 
 const Index = () => {
   const [isVisible, setIsVisible] = useState(false);
+  const [searchDestination, setSearchDestination] = useState("");
+  const [searchDate, setSearchDate] = useState("");
+  const [searchTravelers, setSearchTravelers] = useState("");
 
   useEffect(() => {
     setIsVisible(true);
@@ -143,6 +145,14 @@ const Index = () => {
     },
   ];
 
+  // Example data for popular destinations
+  const popularDestinations = [
+    { name: "CAN 2025", link: "/can2025" },
+    { name: "Omra Ramadan", link: "#" },
+    { name: "Circuit Sénégal", link: "#" },
+    { name: "Marrakech", link: "#" },
+  ];
+
   // Animation variants
   const container = {
     hidden: { opacity: 0 },
@@ -165,13 +175,20 @@ const Index = () => {
         title="CAN 2025"
         text="Réservez votre pack supporter avant le 31 décembre et bénéficiez de -15%"
         linkText="En savoir plus"
-        linkUrl="#packages"
+        linkUrl="/can2025"
         active={true}
       />
 
       {/* Hero Section */}
       <section className="pt-20 lg:pl-64 relative">
-        <div className="bg-placeholder h-[600px] md:h-[700px] relative overflow-hidden">
+        <div 
+          className="h-[600px] md:h-[700px] relative overflow-hidden" 
+          style={{
+            backgroundImage: "url('https://images.unsplash.com/photo-1466442929976-97f336a657be?q=80&w=2834&auto=format&fit=crop')",
+            backgroundSize: "cover",
+            backgroundPosition: "center",
+          }}
+        >
           <div className="absolute inset-0 bg-gradient-to-r from-primary/90 to-primary/60 flex items-center">
             <div className="container mx-auto px-4">
               <motion.div 
@@ -180,11 +197,12 @@ const Index = () => {
                 transition={{ duration: 0.8 }}
                 className="max-w-xl mx-auto md:mx-0 text-center md:text-left"
               >
+                <span className="text-secondary font-semibold mb-2 inline-block">Votre partenaire de voyage de confiance</span>
                 <h1 className="text-5xl md:text-6xl font-bold text-white mb-6">
-                  CAN 2025
+                  Explorez l'Afrique et le Monde
                 </h1>
                 <p className="text-white/90 text-xl md:text-2xl mb-8">
-                  Vivez la passion du football africain avec notre sélection de packages exclusifs pour la Coupe d'Afrique des Nations 2025.
+                  Des voyages sur mesure, des services VIP et des expériences inoubliables entre l'Afrique et le monde entier.
                 </p>
                 <div className="flex flex-col sm:flex-row gap-4 justify-center md:justify-start">
                   <Button 
@@ -193,7 +211,7 @@ const Index = () => {
                     asChild
                   >
                     <a href="#packages">
-                      Découvrir nos packs
+                      Découvrir nos offres
                     </a>
                   </Button>
                   <Button 
@@ -210,11 +228,138 @@ const Index = () => {
               </motion.div>
             </div>
           </div>
+          
+          {/* Search Bar */}
+          <motion.div 
+            initial={{ opacity: 0, y: 50 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.5, duration: 0.8 }}
+            className="absolute bottom-0 left-0 right-0 translate-y-1/2 px-4 lg:px-0"
+          >
+            <div className="container mx-auto">
+              <div className="bg-white rounded-2xl shadow-xl p-4 md:p-6 max-w-5xl mx-auto">
+                <div className="grid grid-cols-1 md:grid-cols-12 gap-4">
+                  <div className="md:col-span-5">
+                    <label htmlFor="destination" className="text-sm font-medium text-gray-700 mb-1 block">Destination</label>
+                    <div className="relative">
+                      <MapPin className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 h-5 w-5" />
+                      <input
+                        type="text"
+                        id="destination"
+                        placeholder="Où allez-vous ?"
+                        className="pl-10 w-full h-12 rounded-lg border border-gray-300 focus:ring-2 focus:ring-primary focus:border-primary focus:outline-none"
+                        value={searchDestination}
+                        onChange={(e) => setSearchDestination(e.target.value)}
+                      />
+                    </div>
+                  </div>
+                  <div className="md:col-span-3">
+                    <label htmlFor="date" className="text-sm font-medium text-gray-700 mb-1 block">Date</label>
+                    <div className="relative">
+                      <Calendar className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 h-5 w-5" />
+                      <input
+                        type="text"
+                        id="date"
+                        placeholder="jj/mm/aaaa"
+                        className="pl-10 w-full h-12 rounded-lg border border-gray-300 focus:ring-2 focus:ring-primary focus:border-primary focus:outline-none"
+                        value={searchDate}
+                        onChange={(e) => setSearchDate(e.target.value)}
+                      />
+                    </div>
+                  </div>
+                  <div className="md:col-span-2">
+                    <label htmlFor="travelers" className="text-sm font-medium text-gray-700 mb-1 block">Voyageurs</label>
+                    <div className="relative">
+                      <UsersRound className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 h-5 w-5" />
+                      <input
+                        type="number"
+                        min="1"
+                        id="travelers"
+                        placeholder="1"
+                        className="pl-10 w-full h-12 rounded-lg border border-gray-300 focus:ring-2 focus:ring-primary focus:border-primary focus:outline-none"
+                        value={searchTravelers}
+                        onChange={(e) => setSearchTravelers(e.target.value)}
+                      />
+                    </div>
+                  </div>
+                  <div className="md:col-span-2">
+                    <label className="invisible text-sm font-medium text-gray-700 mb-1 block">Rechercher</label>
+                    <Button className="w-full h-12 text-lg" size="lg">
+                      Rechercher
+                    </Button>
+                  </div>
+                </div>
+                
+                {/* Popular destinations */}
+                <div className="mt-4 flex flex-wrap gap-2 items-center">
+                  <span className="text-sm font-medium text-gray-700">Populaire:</span>
+                  {popularDestinations.map((dest, index) => (
+                    <Link 
+                      key={index} 
+                      to={dest.link}
+                      className="text-sm text-primary hover:text-primary/80 hover:underline px-3 py-1 bg-primary/5 rounded-full"
+                    >
+                      {dest.name}
+                    </Link>
+                  ))}
+                </div>
+              </div>
+            </div>
+          </motion.div>
+        </div>
+        
+        {/* Stats section */}
+        <div className="mt-24 lg:mt-32 container mx-auto px-4">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-8">
+            <motion.div 
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6 }}
+              viewport={{ once: true }}
+              className="text-center bg-white p-6 rounded-xl shadow-sm"
+            >
+              <div className="text-3xl md:text-4xl font-bold text-primary mb-2">5000+</div>
+              <div className="text-gray-600">Voyageurs satisfaits</div>
+            </motion.div>
+            
+            <motion.div 
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.1 }}
+              viewport={{ once: true }}
+              className="text-center bg-white p-6 rounded-xl shadow-sm"
+            >
+              <div className="text-3xl md:text-4xl font-bold text-primary mb-2">12+</div>
+              <div className="text-gray-600">Destinations</div>
+            </motion.div>
+            
+            <motion.div 
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.2 }}
+              viewport={{ once: true }}
+              className="text-center bg-white p-6 rounded-xl shadow-sm"
+            >
+              <div className="text-3xl md:text-4xl font-bold text-primary mb-2">8+</div>
+              <div className="text-gray-600">Années d'expérience</div>
+            </motion.div>
+            
+            <motion.div 
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.3 }}
+              viewport={{ once: true }}
+              className="text-center bg-white p-6 rounded-xl shadow-sm"
+            >
+              <div className="text-3xl md:text-4xl font-bold text-primary mb-2">4.8/5</div>
+              <div className="text-gray-600">Note moyenne</div>
+            </motion.div>
+          </div>
         </div>
       </section>
 
       {/* Vision Statement */}
-      <section className="py-12 lg:pl-64 bg-primary/5">
+      <section className="py-24 lg:pl-64 bg-primary/5">
         <div className="container mx-auto px-4">
           <motion.div
             initial={{ opacity: 0 }}
