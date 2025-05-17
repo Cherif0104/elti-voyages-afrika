@@ -44,8 +44,9 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
   ({ className, variant, size, asChild = false, ...props }, ref) => {
     const Comp = asChild ? Slot : "button"
     
+    // Fix for React.Children.only error:
+    // When asChild is true, we need to make sure we don't add any children elements to the Slot
     if (asChild) {
-      // When using asChild, we need to pass only children
       return (
         <Comp
           className={cn(buttonVariants({ variant, size, className }))}
@@ -55,10 +56,10 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
       )
     }
     
-    // Otherwise, we can use the shine effect
+    // For regular buttons, we can add the shine effect
     return (
       <Comp
-        className={cn(buttonVariants({ variant, size, className }), "group")}
+        className={cn(buttonVariants({ variant, size, className }))}
         ref={ref}
         {...props}
       >
