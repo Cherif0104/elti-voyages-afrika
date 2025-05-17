@@ -1,4 +1,3 @@
-
 import { useEffect, useState } from "react";
 import { Plane, Hotel, Car, Map, Crown, Star, MapPin, Calendar, UsersRound } from "lucide-react";
 import { Link } from "react-router-dom";
@@ -22,9 +21,15 @@ const Index = () => {
   const [searchDestination, setSearchDestination] = useState("");
   const [searchDate, setSearchDate] = useState("");
   const [searchTravelers, setSearchTravelers] = useState("");
+  const [animateStats, setAnimateStats] = useState(false);
 
   useEffect(() => {
     setIsVisible(true);
+    
+    // Set a small delay before starting the stats animation
+    setTimeout(() => {
+      setAnimateStats(true);
+    }, 500);
   }, []);
 
   // Example data for packages
@@ -171,6 +176,43 @@ const Index = () => {
     show: { opacity: 1, y: 0, transition: { duration: 0.6 } }
   };
 
+  // Counter animation for stats
+  const Counter = ({ end, duration = 2000, title }) => {
+    const [count, setCount] = useState(0);
+    
+    useEffect(() => {
+      if (!animateStats) return;
+      
+      let start = 0;
+      const step = end / (duration / 16); // Update roughly every 16ms for smooth animation
+      
+      const timer = setInterval(() => {
+        start += step;
+        if (start > end) {
+          setCount(end);
+          clearInterval(timer);
+        } else {
+          setCount(Math.floor(start));
+        }
+      }, 16);
+      
+      return () => clearInterval(timer);
+    }, [end, duration, animateStats]);
+    
+    return (
+      <div>
+        <div className="text-3xl md:text-4xl font-bold text-primary mb-2">
+          {end.toString().includes('.') 
+            ? count >= end 
+              ? end 
+              : count.toFixed(1)
+            : count}{end.toString().endsWith('+') ? '+' : ''}
+        </div>
+        <div className="text-gray-600">{title}</div>
+      </div>
+    );
+  };
+
   return (
     <>
       <PromotionBanner
@@ -315,46 +357,38 @@ const Index = () => {
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-8">
             <motion.div 
               initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
+              animate={{ opacity: animateStats ? 1 : 0, y: animateStats ? 0 : 20 }}
               transition={{ duration: 0.6 }}
-              viewport={{ once: true }}
-              className="text-center bg-white p-6 rounded-xl shadow-sm"
+              className="text-center bg-white p-6 rounded-xl shadow-sm hover:shadow-md transition-all duration-300"
             >
-              <div className="text-3xl md:text-4xl font-bold text-primary mb-2">5000+</div>
-              <div className="text-gray-600">Voyageurs satisfaits</div>
+              <Counter end={5000} title="Voyageurs satisfaits" duration={2500} />
             </motion.div>
             
             <motion.div 
               initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.1 }}
-              viewport={{ once: true }}
-              className="text-center bg-white p-6 rounded-xl shadow-sm"
-            >
-              <div className="text-3xl md:text-4xl font-bold text-primary mb-2">12+</div>
-              <div className="text-gray-600">Destinations</div>
-            </motion.div>
-            
-            <motion.div 
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
+              animate={{ opacity: animateStats ? 1 : 0, y: animateStats ? 0 : 20 }}
               transition={{ duration: 0.6, delay: 0.2 }}
-              viewport={{ once: true }}
-              className="text-center bg-white p-6 rounded-xl shadow-sm"
+              className="text-center bg-white p-6 rounded-xl shadow-sm hover:shadow-md transition-all duration-300"
             >
-              <div className="text-3xl md:text-4xl font-bold text-primary mb-2">8+</div>
-              <div className="text-gray-600">Années d'expérience</div>
+              <Counter end={12} title="Destinations" duration={1800} />
             </motion.div>
             
             <motion.div 
               initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.3 }}
-              viewport={{ once: true }}
-              className="text-center bg-white p-6 rounded-xl shadow-sm"
+              animate={{ opacity: animateStats ? 1 : 0, y: animateStats ? 0 : 20 }}
+              transition={{ duration: 0.6, delay: 0.4 }}
+              className="text-center bg-white p-6 rounded-xl shadow-sm hover:shadow-md transition-all duration-300"
             >
-              <div className="text-3xl md:text-4xl font-bold text-primary mb-2">4.8/5</div>
-              <div className="text-gray-600">Note moyenne</div>
+              <Counter end={8} title="Années d'expérience" duration={1500} />
+            </motion.div>
+            
+            <motion.div 
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: animateStats ? 1 : 0, y: animateStats ? 0 : 20 }}
+              transition={{ duration: 0.6, delay: 0.6 }}
+              className="text-center bg-white p-6 rounded-xl shadow-sm hover:shadow-md transition-all duration-300"
+            >
+              <Counter end={4.8} title="Note moyenne" duration={2000} />
             </motion.div>
           </div>
         </div>
