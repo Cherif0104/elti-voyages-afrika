@@ -1,12 +1,22 @@
 
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
-import { Plane, Calendar, MapPin, Users, Loader2 } from "lucide-react";
+import { Plane, Calendar, MapPin, Users, Loader2, Star, ArrowRight, Check, Filter, SlidersHorizontal, Timer, BadgePercent } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle, CardFooter } from "@/components/ui/card";
+import { Slider } from "@/components/ui/slider";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Checkbox } from "@/components/ui/checkbox";
+import { Switch } from "@/components/ui/switch";
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover";
 import { toast } from "sonner";
+import { motion } from "framer-motion";
 
 // Amadeus API client types
 interface AmadeusAccessToken {
@@ -65,6 +75,375 @@ interface FlightOffer {
   }>;
 }
 
+const popularDestinations = [
+  { from: "CDG", to: "CMN", label: "Paris → Casablanca", price: "132 €" },
+  { from: "ORY", to: "RAK", label: "Paris → Marrakech", price: "154 €" },
+  { from: "BRU", to: "CMN", label: "Bruxelles → Casablanca", price: "165 €" },
+  { from: "TLS", to: "DKR", label: "Toulouse → Dakar", price: "349 €" },
+];
+
+// Create a component for flight card
+const FlightCard = ({ 
+  offer, 
+  onSelect 
+}: { 
+  offer: FlightOffer; 
+  onSelect: () => void; 
+}) => {
+  const formatDate = (dateString: string) => {
+    const date = new Date(dateString);
+    return date.toLocaleString('fr-FR', {
+      weekday: 'short',
+      day: 'numeric',
+      month: 'short',
+      hour: '2-digit',
+      minute: '2-digit'
+    });
+  };
+
+  const formatDuration = (duration: string) => {
+    // PT2H30M -> 2h 30m
+    return duration
+      .replace('PT', '')
+      .replace('H', 'h ')
+      .replace('M', 'm');
+  };
+  
+  const formatTime = (dateString: string) => {
+    const date = new Date(dateString);
+    return date.toLocaleString('fr-FR', {
+      hour: '2-digit',
+      minute: '2-digit'
+    });
+  };
+  
+  // Get first segment for quick display
+  const departure = offer.itineraries[0].segments[0].departure;
+  const lastSegment = offer.itineraries[0].segments[offer.itineraries[0].segments.length - 1];
+  const arrival = lastSegment.arrival;
+  
+  const isNonStop = offer.itineraries[0].segments.length === 1;
+  const stopsCount = offer.itineraries[0].segments.length - 1;
+
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 10 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.3 }}
+    >
+      <Card className="hover:shadow-lg transition-shadow">
+        <CardContent className="p-5">
+          <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4">
+            <div className="flex-1">
+              <div className="flex items-center mb-2">
+                <div className="h-8 w-8 bg-gray-200 rounded-full flex items-center justify-center mr-3">
+                  {offer.itineraries[0].segments[0].carrierCode}
+                </div>
+                <div>
+                  <p className="text-sm text-gray-600">
+                    {offer.itineraries[0].segments[0].carrierCode} {offer.itineraries[0].segments[0].number}
+                  </p>
+                </div>
+              </div>
+              
+              <div className="flex items-center justify-between md:pr-4">
+                <div className="text-center">
+                  <div className="text-xl font-bold">{formatTime(departure.at)}</div>
+                  <div className="text-sm font-medium">{departure.iataCode}</div>
+                </div>
+                
+                <div className="flex-1 px-3 py-2">
+                  <div className="flex items-center justify-center">
+                    <div className="h-[2px] bg-gray-300 flex-grow relative">
+                      <div className="absolute -top-3 left-1/2 transform -translate-x-1/2 bg-white px-2 text-xs text-gray-500">
+                        {formatDuration(offer.itineraries[0].duration)}
+                      </div>
+                      {!isNonStop && (
+                        <div className="absolute -bottom-1 left-1/2 transform -translate-x-1/2 w-2 h-2 rounded-full bg-gray-500"></div>
+                      )}
+                    </div>
+                  </div>
+                  <div className="text-center text-xs text-gray-500 mt-1">
+                    {isNonStop ? 'Direct' : `${stopsCount} escale${stopsCount > 1 ? 's' : ''}`}
+                  </div>
+                </div>
+                
+                <div className="text-center">
+                  <div className="text-xl font-bold">{formatTime(arrival.at)}</div>
+                  <div className="text-sm font-medium">{arrival.iataCode}</div>
+                </div>
+              </div>
+            </div>
+            
+            <div className="flex flex-col md:items-end gap-2 border-t pt-4 lg:pt-0 lg:border-t-0">
+              <div className="text-2xl font-bold text-primary">
+                {parseFloat(offer.price.total).toFixed(0)} {offer.price.currency}
+              </div>
+              <Button 
+                variant="booking"
+                onClick={onSelect}
+                className="w-full md:w-auto"
+              >
+                Sélectionner
+              </Button>
+            </div>
+          </div>
+        </CardContent>
+      </Card>
+    </motion.div>
+  );
+};
+
+const PopularRouteCard = ({ 
+  from, 
+  to, 
+  label, 
+  price, 
+  onSelect 
+}: { 
+  from: string; 
+  to: string; 
+  label: string; 
+  price: string; 
+  onSelect: () => void 
+}) => {
+  return (
+    <motion.div
+      whileHover={{ scale: 1.03 }}
+      transition={{ duration: 0.2 }}
+      className="bg-white rounded-lg shadow-md overflow-hidden border border-gray-200 hover:shadow-lg transition-all cursor-pointer"
+      onClick={onSelect}
+    >
+      <div className="p-4">
+        <div className="flex justify-between items-center mb-2">
+          <div className="flex items-center gap-2 font-medium">
+            <Plane className="h-4 w-4 text-primary" />
+            {label}
+          </div>
+          <BadgePercent className="h-4 w-4 text-green-500" />
+        </div>
+        <div className="flex items-center justify-between mt-2">
+          <div className="flex items-center gap-1 text-sm text-gray-500">
+            <Calendar className="h-3 w-3" />
+            <span>Prochainement</span>
+          </div>
+          <div className="text-lg font-bold text-primary">{price}</div>
+        </div>
+      </div>
+    </motion.div>
+  );
+};
+
+const FilterSection = ({
+  priceRange,
+  setPriceRange,
+  directOnly,
+  setDirectOnly,
+  maxDuration,
+  setMaxDuration,
+}) => {
+  return (
+    <Card className="mb-8">
+      <CardHeader>
+        <CardTitle className="flex items-center">
+          <SlidersHorizontal className="mr-2 h-5 w-5" />
+          Filtres
+        </CardTitle>
+      </CardHeader>
+      <CardContent className="space-y-6">
+        <div>
+          <h3 className="font-medium mb-2">Budget</h3>
+          <div className="space-y-4">
+            <Slider
+              value={priceRange}
+              onValueChange={setPriceRange}
+              max={1000}
+              step={10}
+              className="py-4"
+            />
+            <div className="flex items-center justify-between">
+              <span className="text-sm">Min: {priceRange[0]}€</span>
+              <span className="text-sm">Max: {priceRange[1]}€</span>
+            </div>
+          </div>
+        </div>
+
+        <div>
+          <h3 className="font-medium mb-2">Durée maximale</h3>
+          <div className="space-y-4">
+            <Slider
+              value={[maxDuration]}
+              onValueChange={(value) => setMaxDuration(value[0])}
+              max={24}
+              step={1}
+              className="py-4"
+            />
+            <div className="flex items-center justify-between">
+              <span className="text-sm">Durée: {maxDuration}h maximum</span>
+              <span className="flex items-center text-sm text-gray-500">
+                <Timer className="h-3 w-3 mr-1" />
+              </span>
+            </div>
+          </div>
+        </div>
+
+        <div className="flex items-center justify-between">
+          <div className="space-y-1">
+            <h3 className="font-medium">Vol direct uniquement</h3>
+            <p className="text-sm text-gray-500">Sans escale</p>
+          </div>
+          <Switch 
+            checked={directOnly} 
+            onCheckedChange={setDirectOnly} 
+          />
+        </div>
+      </CardContent>
+      <CardFooter>
+        <Button 
+          variant="outline"
+          className="w-full"
+          onClick={() => {
+            setPriceRange([0, 1000]);
+            setDirectOnly(false);
+            setMaxDuration(24);
+          }}
+        >
+          Réinitialiser les filtres
+        </Button>
+      </CardFooter>
+    </Card>
+  );
+};
+
+const FlightDetailModal = ({ offer, onClose }) => {
+  if (!offer) return null;
+  
+  const formatDate = (dateString: string) => {
+    const date = new Date(dateString);
+    return date.toLocaleString('fr-FR', {
+      weekday: 'short',
+      day: 'numeric',
+      month: 'short',
+      hour: '2-digit',
+      minute: '2-digit'
+    });
+  };
+
+  const formatDuration = (duration: string) => {
+    // PT2H30M -> 2h 30m
+    return duration
+      .replace('PT', '')
+      .replace('H', 'h ')
+      .replace('M', 'm');
+  };
+  
+  return (
+    <div className="fixed inset-0 bg-black/50 z-50 flex items-center justify-center p-4">
+      <div className="bg-white rounded-lg max-w-3xl w-full max-h-[90vh] overflow-y-auto">
+        <div className="p-5 border-b">
+          <div className="flex justify-between items-center">
+            <h3 className="text-xl font-bold">Détails du vol</h3>
+            <button 
+              className="text-gray-500 hover:text-gray-800" 
+              onClick={onClose}
+            >
+              ✕
+            </button>
+          </div>
+        </div>
+        
+        <div className="p-5 space-y-6">
+          {offer.itineraries.map((itinerary, index) => (
+            <div key={index} className="border-b pb-6 last:border-b-0 last:pb-0">
+              <h4 className="text-lg font-bold mb-4">
+                {index === 0 ? "Aller" : "Retour"}
+              </h4>
+              
+              {itinerary.segments.map((segment, segIndex) => (
+                <div key={segIndex} className="mb-4 last:mb-0">
+                  <div className="flex items-center mb-2">
+                    <div className="h-8 w-8 bg-gray-200 rounded-full flex items-center justify-center mr-3">
+                      {segment.carrierCode}
+                    </div>
+                    <p className="text-sm">
+                      Vol {segment.carrierCode} {segment.number}
+                    </p>
+                  </div>
+                  
+                  <div className="flex items-start">
+                    <div className="flex-1">
+                      <div className="text-lg font-bold">{formatDate(segment.departure.at)}</div>
+                      <div className="text-sm text-gray-600">
+                        {segment.departure.iataCode} 
+                        {segment.departure.terminal && ` Terminal ${segment.departure.terminal}`}
+                      </div>
+                    </div>
+                    
+                    <div className="flex flex-col items-center px-4">
+                      <div className="text-xs text-gray-500 mb-1">{formatDuration(segment.duration)}</div>
+                      <div className="w-24 h-[2px] bg-gray-300"></div>
+                      <div className="text-xs text-gray-500 mt-1">
+                        <Plane className="h-3 w-3 inline" />
+                      </div>
+                    </div>
+                    
+                    <div className="flex-1 text-right">
+                      <div className="text-lg font-bold">{formatDate(segment.arrival.at)}</div>
+                      <div className="text-sm text-gray-600">
+                        {segment.arrival.iataCode} 
+                        {segment.arrival.terminal && ` Terminal ${segment.arrival.terminal}`}
+                      </div>
+                    </div>
+                  </div>
+                  
+                  {segIndex < itinerary.segments.length - 1 && (
+                    <div className="flex items-center justify-center my-4">
+                      <div className="px-3 py-1 bg-gray-100 rounded text-xs text-gray-600">
+                        Escale
+                      </div>
+                    </div>
+                  )}
+                </div>
+              ))}
+            </div>
+          ))}
+          
+          <div className="bg-gray-50 p-4 rounded-lg">
+            <div className="flex flex-col md:flex-row justify-between gap-4">
+              <div>
+                <h5 className="font-medium mb-2">Détails tarifaires</h5>
+                <div className="space-y-1">
+                  <p className="text-sm flex justify-between">
+                    <span>Base:</span> 
+                    <span>{offer.price.base} {offer.price.currency}</span>
+                  </p>
+                  <p className="text-sm flex justify-between">
+                    <span>Taxes &amp; frais:</span>
+                    <span>
+                      {(parseFloat(offer.price.total) - parseFloat(offer.price.base)).toFixed(2)} {offer.price.currency}
+                    </span>
+                  </p>
+                  <div className="h-[1px] bg-gray-200 my-1"></div>
+                  <p className="text-sm font-bold flex justify-between">
+                    <span>Total:</span>
+                    <span>{offer.price.total} {offer.price.currency}</span>
+                  </p>
+                </div>
+              </div>
+              
+              <div className="md:text-right md:self-end">
+                <Button className="w-full md:w-auto" variant="booking">
+                  Réserver ce vol
+                </Button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};
+
 const Flights = () => {
   const [origin, setOrigin] = useState("");
   const [destination, setDestination] = useState("");
@@ -73,6 +452,332 @@ const Flights = () => {
   const [adults, setAdults] = useState("1");
   const [isSearching, setIsSearching] = useState(false);
   const [flightOffers, setFlightOffers] = useState<FlightOffer[]>([]);
+  const [searchPerformed, setSearchPerformed] = useState(false);
+  const [showFilters, setShowFilters] = useState(false);
+  const [sortOption, setSortOption] = useState("price_asc");
+  const [priceRange, setPriceRange] = useState([0, 1000]);
+  const [directOnly, setDirectOnly] = useState(false);
+  const [maxDuration, setMaxDuration] = useState(24);
+  const [selectedFlight, setSelectedFlight] = useState<FlightOffer | null>(null);
+
+  // Static flights for demonstration
+  const staticFlights: FlightOffer[] = [
+    {
+      "id": "1",
+      "itineraries": [
+        {
+          "duration": "PT3H20M",
+          "segments": [
+            {
+              "departure": {
+                "iataCode": "CDG",
+                "terminal": "2E",
+                "at": "2023-11-01T10:30:00"
+              },
+              "arrival": {
+                "iataCode": "CMN",
+                "terminal": "1",
+                "at": "2023-11-01T13:50:00"
+              },
+              "carrierCode": "AT",
+              "number": "757",
+              "aircraft": {
+                "code": "738"
+              },
+              "duration": "PT3H20M",
+              "id": "1"
+            }
+          ]
+        }
+      ],
+      "price": {
+        "currency": "EUR",
+        "total": "132.42",
+        "base": "96.00",
+        "fees": [
+          {
+            "amount": "0.00",
+            "type": "SUPPLIER"
+          }
+        ],
+        "grandTotal": "132.42"
+      },
+      "travelerPricings": [
+        {
+          "travelerId": "1",
+          "fareOption": "STANDARD",
+          "travelerType": "ADULT",
+          "price": {
+            "currency": "EUR",
+            "total": "132.42",
+            "base": "96.00"
+          }
+        }
+      ]
+    },
+    {
+      "id": "2",
+      "itineraries": [
+        {
+          "duration": "PT7H30M",
+          "segments": [
+            {
+              "departure": {
+                "iataCode": "ORY",
+                "terminal": "3",
+                "at": "2023-11-01T14:20:00"
+              },
+              "arrival": {
+                "iataCode": "MAD",
+                "terminal": "2",
+                "at": "2023-11-01T16:30:00"
+              },
+              "carrierCode": "IB",
+              "number": "3441",
+              "aircraft": {
+                "code": "320"
+              },
+              "duration": "PT2H10M",
+              "id": "21"
+            },
+            {
+              "departure": {
+                "iataCode": "MAD",
+                "terminal": "2",
+                "at": "2023-11-01T18:50:00"
+              },
+              "arrival": {
+                "iataCode": "RAK",
+                "terminal": "1",
+                "at": "2023-11-01T21:50:00"
+              },
+              "carrierCode": "IB",
+              "number": "8816",
+              "aircraft": {
+                "code": "319"
+              },
+              "duration": "PT3H",
+              "id": "22"
+            }
+          ]
+        }
+      ],
+      "price": {
+        "currency": "EUR",
+        "total": "154.35",
+        "base": "115.00",
+        "fees": [
+          {
+            "amount": "0.00",
+            "type": "SUPPLIER"
+          }
+        ],
+        "grandTotal": "154.35"
+      },
+      "travelerPricings": [
+        {
+          "travelerId": "1",
+          "fareOption": "STANDARD",
+          "travelerType": "ADULT",
+          "price": {
+            "currency": "EUR",
+            "total": "154.35",
+            "base": "115.00"
+          }
+        }
+      ]
+    },
+    {
+      "id": "3",
+      "itineraries": [
+        {
+          "duration": "PT3H15M",
+          "segments": [
+            {
+              "departure": {
+                "iataCode": "BRU",
+                "terminal": "A",
+                "at": "2023-11-01T16:45:00"
+              },
+              "arrival": {
+                "iataCode": "CMN",
+                "terminal": "1",
+                "at": "2023-11-01T20:00:00"
+              },
+              "carrierCode": "AT",
+              "number": "652",
+              "aircraft": {
+                "code": "789"
+              },
+              "duration": "PT3H15M",
+              "id": "3"
+            }
+          ]
+        }
+      ],
+      "price": {
+        "currency": "EUR",
+        "total": "165.23",
+        "base": "120.00",
+        "fees": [
+          {
+            "amount": "0.00",
+            "type": "SUPPLIER"
+          }
+        ],
+        "grandTotal": "165.23"
+      },
+      "travelerPricings": [
+        {
+          "travelerId": "1",
+          "fareOption": "STANDARD",
+          "travelerType": "ADULT",
+          "price": {
+            "currency": "EUR",
+            "total": "165.23",
+            "base": "120.00"
+          }
+        }
+      ]
+    },
+    {
+      "id": "4",
+      "itineraries": [
+        {
+          "duration": "PT9H45M",
+          "segments": [
+            {
+              "departure": {
+                "iataCode": "TLS",
+                "terminal": "1",
+                "at": "2023-11-01T09:15:00"
+              },
+              "arrival": {
+                "iataCode": "CDG",
+                "terminal": "2F",
+                "at": "2023-11-01T10:55:00"
+              },
+              "carrierCode": "AF",
+              "number": "7523",
+              "aircraft": {
+                "code": "320"
+              },
+              "duration": "PT1H40M",
+              "id": "41"
+            },
+            {
+              "departure": {
+                "iataCode": "CDG",
+                "terminal": "2E",
+                "at": "2023-11-01T14:35:00"
+              },
+              "arrival": {
+                "iataCode": "DKR",
+                "terminal": "1",
+                "at": "2023-11-01T19:00:00"
+              },
+              "carrierCode": "AF",
+              "number": "718",
+              "aircraft": {
+                "code": "77W"
+              },
+              "duration": "PT5H25M",
+              "id": "42"
+            }
+          ]
+        }
+      ],
+      "price": {
+        "currency": "EUR",
+        "total": "349.76",
+        "base": "250.00",
+        "fees": [
+          {
+            "amount": "0.00",
+            "type": "SUPPLIER"
+          }
+        ],
+        "grandTotal": "349.76"
+      },
+      "travelerPricings": [
+        {
+          "travelerId": "1",
+          "fareOption": "STANDARD",
+          "travelerType": "ADULT",
+          "price": {
+            "currency": "EUR",
+            "total": "349.76",
+            "base": "250.00"
+          }
+        }
+      ]
+    }
+  ];
+
+  // Apply filters and sort
+  const filteredFlights = searchPerformed ? 
+    (flightOffers.length > 0 ? flightOffers : staticFlights).filter(offer => {
+      // Price filter
+      const price = parseFloat(offer.price.total);
+      if (price < priceRange[0] || price > priceRange[1]) {
+        return false;
+      }
+      
+      // Direct flights filter
+      if (directOnly && offer.itineraries.some(itinerary => itinerary.segments.length > 1)) {
+        return false;
+      }
+      
+      // Max duration filter
+      if (offer.itineraries.some(itinerary => {
+        const durationString = itinerary.duration.replace('PT', '');
+        let hours = 0;
+        
+        if (durationString.includes('H')) {
+          hours = parseInt(durationString.split('H')[0]);
+        }
+        
+        return hours > maxDuration;
+      })) {
+        return false;
+      }
+      
+      return true;
+    }) : [];
+    
+  // Sort flights
+  const sortedFlights = [...filteredFlights].sort((a, b) => {
+    if (sortOption === 'price_asc') {
+      return parseFloat(a.price.total) - parseFloat(b.price.total);
+    }
+    
+    if (sortOption === 'price_desc') {
+      return parseFloat(b.price.total) - parseFloat(a.price.total);
+    }
+    
+    if (sortOption === 'duration_asc') {
+      const getDuration = (itinerary: any) => {
+        const durationString = itinerary.duration.replace('PT', '');
+        let hours = 0;
+        let minutes = 0;
+        
+        if (durationString.includes('H')) {
+          hours = parseInt(durationString.split('H')[0]);
+          if (durationString.includes('M')) {
+            minutes = parseInt(durationString.split('H')[1].replace('M', ''));
+          }
+        } else if (durationString.includes('M')) {
+          minutes = parseInt(durationString.replace('M', ''));
+        }
+        
+        return hours * 60 + minutes;
+      };
+      
+      return getDuration(a.itineraries[0]) - getDuration(b.itineraries[0]);
+    }
+    
+    return 0;
+  });
 
   const handleSearch = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -84,6 +789,7 @@ const Flights = () => {
     
     setIsSearching(true);
     setFlightOffers([]);
+    setSearchPerformed(true);
     
     try {
       // Get access token first
@@ -134,28 +840,35 @@ const Flights = () => {
     } catch (error) {
       console.error("Error searching flights:", error);
       toast.error("Une erreur est survenue lors de la recherche des vols");
+      
+      // Use static flights as fallback
+      setTimeout(() => {
+        toast.info("Affichage des résultats de démonstration");
+      }, 1000);
     } finally {
       setIsSearching(false);
     }
   };
 
-  const formatDate = (dateString: string) => {
-    const date = new Date(dateString);
-    return date.toLocaleString('fr-FR', {
-      weekday: 'short',
-      day: 'numeric',
-      month: 'short',
-      hour: '2-digit',
-      minute: '2-digit'
-    });
-  };
-
-  const formatDuration = (duration: string) => {
-    // PT2H30M -> 2h 30m
-    return duration
-      .replace('PT', '')
-      .replace('H', 'h ')
-      .replace('M', 'm');
+  const handlePopularRouteSelect = (from: string, to: string) => {
+    setOrigin(from);
+    setDestination(to);
+    
+    // Set default dates if not already set
+    if (!departureDate) {
+      const tomorrow = new Date();
+      tomorrow.setDate(tomorrow.getDate() + 1);
+      setDepartureDate(tomorrow.toISOString().split('T')[0]);
+    }
+    
+    if (!returnDate) {
+      const dayAfterTomorrow = new Date();
+      dayAfterTomorrow.setDate(dayAfterTomorrow.getDate() + 7);
+      setReturnDate(dayAfterTomorrow.toISOString().split('T')[0]);
+    }
+    
+    // Scroll to search form
+    document.getElementById('searchForm')?.scrollIntoView({ behavior: 'smooth' });
   };
 
   return (
@@ -166,13 +879,39 @@ const Flights = () => {
           Réservez vos vols vers les destinations de votre choix avec nos partenaires premium. Nous proposons des tarifs compétitifs et un service personnalisé pour tous vos voyages.
         </p>
         
+        {/* Popular Routes */}
+        {!searchPerformed && (
+          <div className="mb-12">
+            <h2 className="text-2xl font-bold text-primary mb-4">Routes populaires</h2>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+              {popularDestinations.map((dest, index) => (
+                <PopularRouteCard
+                  key={index}
+                  from={dest.from}
+                  to={dest.to}
+                  label={dest.label}
+                  price={dest.price}
+                  onSelect={() => handlePopularRouteSelect(dest.from, dest.to)}
+                />
+              ))}
+            </div>
+          </div>
+        )}
+        
         {/* Flight Search Form */}
-        <Card className="mb-10">
+        <Card className="mb-10" id="searchForm">
           <CardHeader>
             <CardTitle>Rechercher des vols</CardTitle>
             <CardDescription>Trouvez les meilleures offres de vols avec Amadeus</CardDescription>
           </CardHeader>
           <CardContent>
+            <Tabs defaultValue="round-trip" className="mb-6">
+              <TabsList className="grid w-full grid-cols-2">
+                <TabsTrigger value="round-trip">Aller-retour</TabsTrigger>
+                <TabsTrigger value="one-way">Aller simple</TabsTrigger>
+              </TabsList>
+            </Tabs>
+            
             <form onSubmit={handleSearch} className="space-y-5">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div>
@@ -257,8 +996,9 @@ const Flights = () => {
                 <div className="flex items-end">
                   <Button 
                     type="submit"
-                    className="w-full mt-1.5 bg-primary hover:bg-primary/90" 
+                    className="w-full mt-1.5" 
                     disabled={isSearching}
+                    variant="gradient"
                   >
                     {isSearching ? (
                       <>
@@ -278,63 +1018,116 @@ const Flights = () => {
           </CardContent>
         </Card>
         
-        {/* Flight Results */}
-        {flightOffers.length > 0 && (
-          <div className="space-y-4 mb-10">
-            <h2 className="text-2xl font-bold text-primary">Résultats ({flightOffers.length})</h2>
-            {flightOffers.map((offer) => (
-              <Card key={offer.id} className="hover:shadow-lg transition-shadow">
-                <CardContent className="p-6">
-                  <div className="space-y-4">
-                    {offer.itineraries.map((itinerary, index) => (
-                      <div key={index} className="border-b pb-4 last:border-0 last:pb-0">
-                        <div className="flex justify-between items-center mb-2">
-                          <div className="font-semibold text-primary">
-                            {index === 0 ? "Aller" : "Retour"}
-                          </div>
-                          <div className="text-sm text-gray-500">
-                            Durée: {formatDuration(itinerary.duration)}
-                          </div>
-                        </div>
-                        
-                        {itinerary.segments.map((segment, segIndex) => (
-                          <div key={segIndex} className="flex justify-between items-center py-2">
-                            <div className="flex-1">
-                              <div className="font-bold">{formatDate(segment.departure.at)}</div>
-                              <div className="text-sm">{segment.departure.iataCode} {segment.departure.terminal && `Terminal ${segment.departure.terminal}`}</div>
-                            </div>
-                            <div className="flex-1 text-center">
-                              <div className="text-xs text-gray-500 mb-1">{formatDuration(segment.duration)}</div>
-                              <div className="border-t border-dashed relative">
-                                <Plane className="w-4 h-4 absolute -top-2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-primary" />
-                              </div>
-                              <div className="text-xs mt-1">{segment.carrierCode} {segment.number}</div>
-                            </div>
-                            <div className="flex-1 text-right">
-                              <div className="font-bold">{formatDate(segment.arrival.at)}</div>
-                              <div className="text-sm">{segment.arrival.iataCode} {segment.arrival.terminal && `Terminal ${segment.arrival.terminal}`}</div>
-                            </div>
-                          </div>
-                        ))}
-                      </div>
-                    ))}
-                    
-                    <div className="flex justify-between items-center pt-4">
-                      <div className="text-2xl font-bold text-primary">
-                        {offer.price.total} {offer.price.currency}
-                      </div>
-                      <Button className="bg-primary hover:bg-primary/90">
-                        Sélectionner
-                      </Button>
+        {/* Flight Results with Filters */}
+        {searchPerformed && (
+          <div className="mb-10">
+            <div className="flex flex-col md:flex-row md:items-center justify-between mb-6">
+              <div>
+                <h2 className="text-2xl font-bold text-primary">Résultats ({sortedFlights.length})</h2>
+                <p className="text-gray-600">Vols disponibles pour votre recherche</p>
+              </div>
+              
+              <div className="mt-4 md:mt-0 flex items-center gap-4">
+                <Button
+                  variant="outline"
+                  size="sm"
+                  className="md:hidden"
+                  onClick={() => setShowFilters(!showFilters)}
+                >
+                  <Filter className="mr-2 h-4 w-4" />
+                  Filtres
+                </Button>
+                
+                <Popover>
+                  <PopoverTrigger asChild>
+                    <Button variant="outline" size="sm" className="flex items-center gap-2">
+                      <span>Trier par</span>
+                      <ArrowRight className="h-4 w-4" />
+                    </Button>
+                  </PopoverTrigger>
+                  <PopoverContent className="w-56 p-0">
+                    <div className="p-1 space-y-0.5">
+                      {[
+                        { value: "price_asc", label: "Prix: croissant" },
+                        { value: "price_desc", label: "Prix: décroissant" },
+                        { value: "duration_asc", label: "Durée: la plus courte" },
+                      ].map((option) => (
+                        <button
+                          key={option.value}
+                          className={`w-full flex items-center px-3 py-2 text-sm rounded-md hover:bg-gray-100 ${
+                            sortOption === option.value ? "bg-gray-100" : ""
+                          }`}
+                          onClick={() => setSortOption(option.value)}
+                        >
+                          {option.label}
+                          {sortOption === option.value && <Check className="h-4 w-4 ml-auto" />}
+                        </button>
+                      ))}
                     </div>
+                  </PopoverContent>
+                </Popover>
+              </div>
+            </div>
+            
+            <div className="grid grid-cols-1 lg:grid-cols-4 gap-6">
+              {/* Filters - Desktop */}
+              <div className="hidden md:block">
+                <FilterSection 
+                  priceRange={priceRange}
+                  setPriceRange={setPriceRange}
+                  directOnly={directOnly}
+                  setDirectOnly={setDirectOnly}
+                  maxDuration={maxDuration}
+                  setMaxDuration={setMaxDuration}
+                />
+              </div>
+              
+              {/* Filters - Mobile */}
+              {showFilters && (
+                <div className="md:hidden">
+                  <FilterSection 
+                    priceRange={priceRange}
+                    setPriceRange={setPriceRange}
+                    directOnly={directOnly}
+                    setDirectOnly={setDirectOnly}
+                    maxDuration={maxDuration}
+                    setMaxDuration={setMaxDuration}
+                  />
+                </div>
+              )}
+              
+              {/* Flights List */}
+              <div className="lg:col-span-3 space-y-4">
+                {sortedFlights.length > 0 ? (
+                  sortedFlights.map((offer) => (
+                    <FlightCard 
+                      key={offer.id} 
+                      offer={offer}
+                      onSelect={() => setSelectedFlight(offer)}
+                    />
+                  ))
+                ) : (
+                  <div className="flex flex-col items-center justify-center py-12 bg-white rounded-lg border border-gray-100 shadow-sm">
+                    <Plane className="h-16 w-16 text-gray-300 mb-4" />
+                    <p className="text-gray-500 text-center mb-2">Aucun vol ne correspond à vos critères</p>
+                    <Button 
+                      variant="outline" 
+                      onClick={() => {
+                        setPriceRange([0, 1000]);
+                        setDirectOnly(false);
+                        setMaxDuration(24);
+                      }}
+                    >
+                      Réinitialiser les filtres
+                    </Button>
                   </div>
-                </CardContent>
-              </Card>
-            ))}
+                )}
+              </div>
+            </div>
           </div>
         )}
         
-        {isSearching === false && flightOffers.length === 0 && (
+        {isSearching === false && !searchPerformed && (
           <div className="flex flex-col items-center justify-center bg-white p-6 rounded-lg shadow-sm border border-gray-100 mb-10">
             <Plane className="h-16 w-16 text-gray-300 mb-4" />
             <p className="text-gray-500 text-center">
@@ -356,8 +1149,52 @@ const Flights = () => {
           ))}
         </div>
         
+        {/* Tabs for Additional Information */}
+        <div className="mb-10">
+          <Tabs defaultValue="info">
+            <TabsList className="grid w-full grid-cols-3">
+              <TabsTrigger value="info">Bagages</TabsTrigger>
+              <TabsTrigger value="payment">Paiement</TabsTrigger>
+              <TabsTrigger value="cancel">Annulation</TabsTrigger>
+            </TabsList>
+            <TabsContent value="info" className="p-4 bg-white rounded-lg shadow-sm mt-2">
+              <h3 className="font-bold mb-2">Informations bagages</h3>
+              <p className="text-gray-600 mb-4">
+                La franchise bagage varie selon la compagnie aérienne et la classe de voyage. 
+                En général, chaque passager a droit à un bagage cabine et à un bagage en soute pour les vols internationaux.
+              </p>
+              <p className="text-gray-600">
+                Pour les vols low-cost, les bagages en soute sont généralement payants. 
+                Nous vous recommandons de vérifier les conditions spécifiques de votre billet avant de voyager.
+              </p>
+            </TabsContent>
+            <TabsContent value="payment" className="p-4 bg-white rounded-lg shadow-sm mt-2">
+              <h3 className="font-bold mb-2">Options de paiement</h3>
+              <p className="text-gray-600 mb-4">
+                Nous acceptons les cartes de crédit Visa, Mastercard et American Express. 
+                Pour certaines offres, un paiement en plusieurs fois peut être proposé sans frais supplémentaires.
+              </p>
+              <p className="text-gray-600">
+                Les prix affichés incluent toutes les taxes aériennes obligatoires. Des frais supplémentaires peuvent s'appliquer 
+                pour des services additionnels (bagages supplémentaires, repas spéciaux, etc.).
+              </p>
+            </TabsContent>
+            <TabsContent value="cancel" className="p-4 bg-white rounded-lg shadow-sm mt-2">
+              <h3 className="font-bold mb-2">Politique d'annulation</h3>
+              <p className="text-gray-600 mb-4">
+                Les conditions d'annulation dépendent du type de billet que vous avez acheté et de la compagnie aérienne.
+                Les billets standards peuvent généralement être modifiés moyennant des frais.
+              </p>
+              <p className="text-gray-600">
+                Les billets non remboursables ne peuvent pas être remboursés en cas d'annulation, mais peuvent parfois être modifiés.
+                Nous vous recommandons de souscrire une assurance voyage pour vous protéger contre les imprévus.
+              </p>
+            </TabsContent>
+          </Tabs>
+        </div>
+        
         {/* Support Call to Action */}
-        <div className="bg-primary rounded-lg p-8 text-white">
+        <div className="bg-gradient-to-r from-primary to-secondary rounded-lg p-8 text-white">
           <div className="flex flex-col md:flex-row items-center justify-between">
             <div className="mb-6 md:mb-0 md:mr-6">
               <h3 className="text-xl font-bold mb-2">Besoin d'aide pour réserver votre vol?</h3>
@@ -377,6 +1214,14 @@ const Flights = () => {
             </Button>
           </div>
         </div>
+        
+        {/* Flight Detail Modal */}
+        {selectedFlight && (
+          <FlightDetailModal 
+            offer={selectedFlight} 
+            onClose={() => setSelectedFlight(null)}
+          />
+        )}
       </div>
     </div>
   );

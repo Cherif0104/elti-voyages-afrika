@@ -19,11 +19,14 @@ const buttonVariants = cva(
           "bg-secondary text-secondary-foreground hover:bg-secondary/80 shadow-md shadow-secondary/10 hover:shadow-lg hover:shadow-secondary/20 hover:-translate-y-0.5",
         ghost: "hover:bg-accent/10 hover:text-accent-foreground",
         link: "text-primary underline-offset-4 hover:underline hover:text-primary/80",
+        gradient: "bg-gradient-to-r from-primary to-secondary text-white shadow-md hover:shadow-lg hover:-translate-y-0.5 hover:shadow-primary/20",
+        booking: "bg-gradient-to-r from-green-500 to-emerald-600 text-white shadow-md hover:shadow-lg hover:-translate-y-0.5 hover:shadow-green-500/20"
       },
       size: {
         default: "h-10 px-4 py-2",
         sm: "h-9 rounded-md px-3",
         lg: "h-11 rounded-md px-8 text-base",
+        xl: "h-12 rounded-md px-10 text-lg",
         icon: "h-10 w-10",
       },
     },
@@ -65,7 +68,7 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
       >
         {props.children}
         {variant !== "outline" && variant !== "ghost" && variant !== "link" && (
-          <span className="absolute inset-0 bg-gradient-to-r from-transparent via-white/30 to-transparent translate-x-[-100%] skew-x-[-15deg] group-hover:animate-[shine_0.85s_ease_forwards]" />
+          <span className="absolute inset-0 bg-gradient-to-r from-transparent via-white/40 to-transparent translate-x-[-100%] skew-x-[-15deg] group-hover:animate-[shine_0.85s_ease_forwards]" />
         )}
       </Comp>
     )
