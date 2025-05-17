@@ -19,60 +19,75 @@ const PackageCard = ({
   isPremium = false,
   className,
 }: PackageCardProps) => {
+  // Convert EUR price to FCFA
+  const formatPrice = (priceStr: string) => {
+    // Extract numeric part and convert to number
+    const numericPrice = parseFloat(priceStr.replace(/[^\d]/g, ''));
+    
+    // Calculate FCFA value (approximate conversion rate 655.957 FCFA = 1 EUR)
+    const fcfaValue = Math.round(numericPrice * 655.957);
+    
+    return {
+      eur: priceStr,
+      fcfa: `${fcfaValue.toLocaleString("fr-FR")} FCFA`
+    };
+  };
+
+  const prices = formatPrice(price);
+
   return (
     <motion.div
       whileHover={{ y: -10 }}
       transition={{ type: "spring", stiffness: 300 }}
       className={cn(
-        "rounded-2xl overflow-hidden shadow-lg h-full flex flex-col",
-        isPremium ? "border-2 border-secondary ring-2 ring-secondary/20" : "border border-gray-200",
+        "h-full flex flex-col overflow-hidden rounded-xl shadow-sm hover:shadow-xl transition-all duration-300 border",
+        isPremium ? "border-secondary" : "border-gray-200",
         className
       )}
     >
-      <div
-        className={cn(
-          "p-8",
-          isPremium ? "bg-gradient-to-br from-primary to-primary-light" : "bg-white"
-        )}
-      >
+      <div className={cn(
+        "p-6",
+        isPremium 
+          ? "bg-gradient-to-br from-primary to-primary-light text-white" 
+          : "bg-white text-gray-800"
+      )}>
         {isPremium && (
-          <div className="flex items-center justify-center mb-3 gap-1">
+          <div className="flex items-center gap-1 mb-2">
             <Star className="h-5 w-5 text-secondary fill-secondary" />
-            <span className="text-secondary text-sm font-bold uppercase tracking-wider">Premium</span>
+            <span className="text-secondary text-sm font-bold uppercase">Premium</span>
           </div>
         )}
         
-        <h3 className={cn(
-          "text-2xl font-bold mb-3",
-          isPremium ? "text-white" : "text-primary"
-        )}>
+        <h3 className="text-2xl font-bold mb-4">
           {name}
         </h3>
         
-        <div className="flex items-end gap-1">
-          <span className={cn(
-            "text-4xl font-bold",
-            isPremium ? "text-secondary" : "text-primary"
-          )}>
-            {price}
+        <div className="flex flex-col items-start">
+          <span className="text-3xl font-bold">
+            {prices.eur}
           </span>
-          <span className={cn(
-            "text-sm pb-1",
-            isPremium ? "text-white/80" : "text-gray-500"
-          )}>
-            / personne
+          <span className="text-sm opacity-80 mt-1">
+            {prices.fcfa} / personne
           </span>
         </div>
       </div>
 
-      <div className="bg-white p-8 flex flex-col flex-grow">
-        <ul className="space-y-4 mb-8 flex-grow">
+      <div className={cn(
+        "flex-grow p-6 bg-white",
+        isPremium ? "border-t border-secondary/20" : ""
+      )}>
+        <ul className="space-y-3 mb-6">
           {features.map((feature, index) => (
-            <li key={index} className="flex items-start gap-3">
-              <div className={`rounded-full p-1 ${isPremium ? 'bg-secondary/10 text-secondary' : 'bg-primary/10 text-primary'}`}>
+            <li key={index} className="flex items-center gap-3 text-sm">
+              <div className={cn(
+                "rounded-full p-1",
+                isPremium 
+                  ? "text-secondary bg-secondary/10" 
+                  : "text-primary bg-primary/10"
+              )}>
                 <Check className="h-4 w-4" />
               </div>
-              <span className="text-sm">{feature}</span>
+              <span>{feature}</span>
             </li>
           ))}
         </ul>
@@ -80,9 +95,9 @@ const PackageCard = ({
         <Button
           asChild
           className={cn(
-            "w-full py-6",
+            "w-full",
             isPremium
-              ? "bg-secondary text-primary hover:bg-secondary/90 shadow-md shadow-secondary/20"
+              ? "bg-secondary text-primary hover:bg-secondary/90" 
               : "bg-primary hover:bg-primary/90"
           )}
         >

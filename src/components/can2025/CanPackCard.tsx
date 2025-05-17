@@ -1,7 +1,6 @@
 
 import { Star, Check } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { Card } from "@/components/ui/card";
 import { cn } from "@/lib/utils";
 import { motion } from "framer-motion";
 
@@ -24,9 +23,19 @@ const CanPackCard = ({
     // Convert price string to number, replace spaces
     const numericPrice = parseInt(price.replace(/\s/g, ""), 10);
     
-    // Format with spaces for thousand separators
-    return numericPrice.toLocaleString("fr-FR") + " FCFA";
+    // Calculate EUR value (approximate conversion rate 655.957 FCFA = 1 EUR)
+    const eurValue = Math.round(numericPrice / 655.957);
+    
+    // Format FCFA with spaces for thousand separators
+    const formattedFCFA = numericPrice.toLocaleString("fr-FR");
+    
+    return {
+      fcfa: `${formattedFCFA} FCFA`,
+      eur: `${eurValue.toLocaleString("fr-FR")} €`
+    };
   };
+
+  const prices = formatPrice(price);
 
   return (
     <motion.div
@@ -34,49 +43,50 @@ const CanPackCard = ({
       transition={{ type: "spring", stiffness: 300 }}
       className={cn(className)}
     >
-      <Card className={cn(
-        "overflow-hidden h-full flex flex-col border border-gray-200 rounded-xl shadow-sm hover:shadow-xl transition duration-300",
-        isPremium ? "border-2 border-yellow-400 ring-2 ring-yellow-400/20" : ""
+      <div className={cn(
+        "h-full flex flex-col overflow-hidden rounded-xl shadow-sm hover:shadow-xl transition-all duration-300 border",
+        isPremium ? "border-blue-400" : "border-gray-200"
       )}>
         <div className={cn(
           "p-6",
-          isPremium ? "bg-gradient-to-br from-blue-800 to-blue-700" : "bg-white"
+          isPremium 
+            ? "bg-gradient-to-br from-blue-800 to-blue-500 text-white" 
+            : "bg-white text-gray-800"
         )}>
           {isPremium && (
-            <div className="flex items-center justify-center mb-3 gap-1">
-              <Star className="h-5 w-5 text-yellow-400 fill-yellow-400" />
-              <span className="text-yellow-400 text-sm font-bold uppercase tracking-wider">Premium</span>
+            <div className="flex items-center gap-1 mb-2">
+              <Star className="h-5 w-5 text-blue-200 fill-blue-200" />
+              <span className="text-blue-200 text-sm font-bold uppercase">Premium</span>
             </div>
           )}
           
-          <h3 className={cn(
-            "text-xl font-semibold mb-3",
-            isPremium ? "text-white" : "text-blue-800"
-          )}>
+          <h3 className="text-2xl font-bold mb-4">
             {title}
           </h3>
           
-          <div className="flex items-end gap-1">
-            <span className={cn(
-              "text-2xl font-bold",
-              isPremium ? "text-yellow-400" : "text-red-600"
-            )}>
-              {formatPrice(price)}
+          <div className="flex flex-col items-start">
+            <span className="text-3xl font-bold">
+              {prices.eur}
             </span>
-            <span className={cn(
-              "text-sm pb-1",
-              isPremium ? "text-white/80" : "text-gray-500"
-            )}>
-              / personne
+            <span className="text-sm opacity-80 mt-1">
+              {prices.fcfa} / personne
             </span>
           </div>
         </div>
 
-        <div className="bg-white p-6 flex flex-col flex-grow">
-          <ul className="text-left text-sm text-gray-700 mb-6 space-y-2 flex-grow">
+        <div className={cn(
+          "flex-grow p-6 bg-white",
+          isPremium ? "border-t border-blue-200" : ""
+        )}>
+          <ul className="space-y-3 mb-6">
             {features.map((feature, index) => (
-              <li key={index} className="flex items-start gap-3">
-                <div className={`rounded-full p-1 ${isPremium ? 'bg-yellow-400/10 text-yellow-500' : 'bg-blue-800/10 text-blue-800'}`}>
+              <li key={index} className="flex items-center gap-3 text-sm">
+                <div className={cn(
+                  "rounded-full p-1",
+                  isPremium 
+                    ? "text-blue-500 bg-blue-50" 
+                    : "text-blue-600 bg-blue-50"
+                )}>
                   <Check className="h-4 w-4" />
                 </div>
                 <span>{feature}</span>
@@ -85,19 +95,18 @@ const CanPackCard = ({
           </ul>
 
           <Button
-            size="lg"
             className={cn(
-              "w-full font-semibold",
+              "w-full mt-auto",
               isPremium
-                ? "bg-yellow-400 text-blue-900 hover:bg-yellow-300"
-                : "bg-blue-800 hover:bg-blue-700"
+                ? "bg-blue-400 hover:bg-blue-500 text-white" 
+                : "bg-blue-600 hover:bg-blue-700 text-white"
             )}
             asChild
           >
             <a href="#reservation">Réserver</a>
           </Button>
         </div>
-      </Card>
+      </div>
     </motion.div>
   );
 };
