@@ -1,27 +1,70 @@
+
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { useEffect } from "react";
+
+// Pages
 import Index from "./pages/Index";
+import Flights from "./pages/Flights";
+import Hotels from "./pages/Hotels";
+import Cars from "./pages/Cars";
+import Excursions from "./pages/Excursions";
+import Vip from "./pages/Vip";
+import Contact from "./pages/Contact";
 import NotFound from "./pages/NotFound";
+
+// Components
+import Sidebar from "./components/Sidebar";
+import Navbar from "./components/Navbar";
+import Footer from "./components/Footer";
 
 const queryClient = new QueryClient();
 
-const App = () => (
-  <QueryClientProvider client={queryClient}>
-    <TooltipProvider>
-      <Toaster />
-      <Sonner />
-      <BrowserRouter>
-        <Routes>
-          <Route path="/" element={<Index />} />
-          {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
-          <Route path="*" element={<NotFound />} />
-        </Routes>
-      </BrowserRouter>
-    </TooltipProvider>
-  </QueryClientProvider>
-);
+const App = () => {
+  useEffect(() => {
+    // Add scroll to top on route change
+    const handleScrollToTop = () => {
+      window.scrollTo(0, 0);
+    };
+    
+    // Listen for route changes
+    window.addEventListener("popstate", handleScrollToTop);
+    
+    return () => {
+      window.removeEventListener("popstate", handleScrollToTop);
+    };
+  }, []);
+
+  return (
+    <QueryClientProvider client={queryClient}>
+      <TooltipProvider>
+        <Toaster />
+        <Sonner />
+        <BrowserRouter>
+          <div className="min-h-screen flex flex-col">
+            <Sidebar />
+            <Navbar />
+            <main className="flex-1">
+              <Routes>
+                <Route path="/" element={<Index />} />
+                <Route path="/billets-avion" element={<Flights />} />
+                <Route path="/hotels" element={<Hotels />} />
+                <Route path="/voitures" element={<Cars />} />
+                <Route path="/excursions" element={<Excursions />} />
+                <Route path="/vip" element={<Vip />} />
+                <Route path="/contact" element={<Contact />} />
+                <Route path="*" element={<NotFound />} />
+              </Routes>
+            </main>
+            <Footer />
+          </div>
+        </BrowserRouter>
+      </TooltipProvider>
+    </QueryClientProvider>
+  );
+};
 
 export default App;
