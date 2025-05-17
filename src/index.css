@@ -1,5 +1,5 @@
 
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;500;600;700&display=swap');
 
 @tailwind base;
@@ -17,17 +17,17 @@
     --popover: 0 0% 100%;
     --popover-foreground: 222.2 84% 4.9%;
 
-    --primary: 222.2 47.4% 11.2%;
+    --primary: 210 100% 12%;
     --primary-foreground: 210 40% 98%;
 
-    --secondary: 210 40% 96.1%;
-    --secondary-foreground: 222.2 47.4% 11.2%;
+    --secondary: 195 84% 54%;
+    --secondary-foreground: 0 0% 100%;
 
     --muted: 210 40% 96.1%;
     --muted-foreground: 215.4 16.3% 46.9%;
 
-    --accent: 210 40% 96.1%;
-    --accent-foreground: 222.2 47.4% 11.2%;
+    --accent: 195 84% 54%;
+    --accent-foreground: 0 0% 100%;
 
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 210 40% 98%;
@@ -36,7 +36,7 @@
     --input: 214.3 31.8% 91.4%;
     --ring: 222.2 84% 4.9%;
 
-    --radius: 0.5rem;
+    --radius: 0.75rem;
   }
 
   * {
@@ -53,6 +53,52 @@
 
   h1, h2, h3, h4, h5, h6 {
     @apply font-poppins font-bold;
+  }
+
+  a {
+    @apply transition-colors duration-200;
+  }
+
+  section {
+    @apply relative overflow-x-hidden;
+  }
+}
+
+@layer components {
+  .btn-primary {
+    @apply bg-primary text-white hover:bg-primary/90 shadow-lg shadow-primary/20 px-8 py-3 rounded-lg font-medium transition-all duration-300;
+  }
+  
+  .btn-secondary {
+    @apply bg-secondary text-white hover:bg-secondary/90 shadow-lg shadow-secondary/20 px-8 py-3 rounded-lg font-medium transition-all duration-300;
+  }
+  
+  .btn-outline {
+    @apply border border-primary text-primary hover:bg-primary/5 px-8 py-3 rounded-lg font-medium transition-all duration-300;
+  }
+  
+  .card {
+    @apply bg-white p-6 rounded-xl shadow-sm border border-gray-100 hover:shadow-md transition-all duration-300;
+  }
+  
+  .card-gradient {
+    @apply bg-gradient-to-br from-white to-gray-50 p-6 rounded-xl shadow-sm border border-gray-100 hover:shadow-md transition-all duration-300;
+  }
+  
+  .section-title {
+    @apply text-3xl md:text-4xl font-bold text-primary mb-4;
+  }
+  
+  .section-subtitle {
+    @apply text-gray-600 text-lg;
+  }
+  
+  .icon-circle {
+    @apply bg-primary/5 p-3 rounded-full flex items-center justify-center;
+  }
+  
+  .tag {
+    @apply inline-block bg-secondary/10 text-secondary text-xs font-medium px-2.5 py-1 rounded;
   }
 }
 
@@ -73,5 +119,13 @@
   .no-scrollbar {
     -ms-overflow-style: none;
     scrollbar-width: none;
+  }
+  
+  .glass {
+    @apply backdrop-blur-lg bg-white/80 border border-white/20 shadow-lg;
+  }
+  
+  .text-balance {
+    text-wrap: balance;
   }
 }
