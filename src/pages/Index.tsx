@@ -1,5 +1,7 @@
+
 import { useEffect, useState } from "react";
-import { Plane, Hotel, Car, Map, Crown, Star } from "lucide-react";
+import { Plane, Hotel, Car, Map, Crown, Star, MapPin, Calendar, UsersRound } from "lucide-react";
+import { Link } from "react-router-dom";
 import BookingForm from "@/components/BookingForm";
 import ServiceCard from "@/components/ServiceCard";
 import PackageCard from "@/components/PackageCard";
