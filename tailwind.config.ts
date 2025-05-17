@@ -178,6 +178,14 @@ export default {
 					'100%': {
 						'transform': 'translateX(100%)'
 					}
+				},
+				'shine': {
+					'0%': {
+						'transform': 'translateX(-100%) skew(-15deg)'
+					},
+					'100%': {
+						'transform': 'translateX(100%) skew(-15deg)'
+					}
 				}
 			},
 			animation: {
@@ -193,7 +201,8 @@ export default {
 				'slide-in-right': 'slide-in-right 0.3s ease-out',
 				'slide-out-right': 'slide-out-right 0.3s ease-in',
 				'pulse-slow': 'pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite',
-				'shine': 'shimmer 0.85s ease forwards'
+				'shimmer': 'shimmer 0.85s ease forwards',
+				'shine': 'shine 0.85s ease forwards'
 			},
 			backgroundImage: {
 				'gradient-card': 'linear-gradient(135deg, var(--tw-gradient-from) 0%, var(--tw-gradient-to) 100%)',
