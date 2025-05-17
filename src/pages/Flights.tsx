@@ -1,22 +1,17 @@
-
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
-import { Plane, Calendar, MapPin, Users, Loader2, Star, ArrowRight, Check, Filter, SlidersHorizontal, Timer, BadgePercent } from "lucide-react";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle, CardFooter } from "@/components/ui/card";
-import { Slider } from "@/components/ui/slider";
+import { Plane, BadgePercent, Calendar, Filter, SlidersHorizontal, Timer, Check, ArrowRight } from "lucide-react";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Checkbox } from "@/components/ui/checkbox";
+import { Slider } from "@/components/ui/slider";
 import { Switch } from "@/components/ui/switch";
-import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-} from "@/components/ui/popover";
+import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { toast } from "sonner";
 import { motion } from "framer-motion";
+import Logo from "@/components/Logo";
+import FlightSearchForm from "@/components/flights/FlightSearchForm";
+import FlightCard from "@/components/flights/FlightCard";
+import FlightCompanySection from "@/components/flights/FlightCompanySection";
 
 // Amadeus API client types
 interface AmadeusAccessToken {
@@ -26,7 +21,7 @@ interface AmadeusAccessToken {
   state: string;
 }
 
-interface FlightOffer {
+export interface FlightOffer {
   id: string;
   itineraries: Array<{
     duration: string;
@@ -82,118 +77,7 @@ const popularDestinations = [
   { from: "TLS", to: "DKR", label: "Toulouse → Dakar", price: "349 €" },
 ];
 
-// Create a component for flight card
-const FlightCard = ({ 
-  offer, 
-  onSelect 
-}: { 
-  offer: FlightOffer; 
-  onSelect: () => void; 
-}) => {
-  const formatDate = (dateString: string) => {
-    const date = new Date(dateString);
-    return date.toLocaleString('fr-FR', {
-      weekday: 'short',
-      day: 'numeric',
-      month: 'short',
-      hour: '2-digit',
-      minute: '2-digit'
-    });
-  };
-
-  const formatDuration = (duration: string) => {
-    // PT2H30M -> 2h 30m
-    return duration
-      .replace('PT', '')
-      .replace('H', 'h ')
-      .replace('M', 'm');
-  };
-  
-  const formatTime = (dateString: string) => {
-    const date = new Date(dateString);
-    return date.toLocaleString('fr-FR', {
-      hour: '2-digit',
-      minute: '2-digit'
-    });
-  };
-  
-  // Get first segment for quick display
-  const departure = offer.itineraries[0].segments[0].departure;
-  const lastSegment = offer.itineraries[0].segments[offer.itineraries[0].segments.length - 1];
-  const arrival = lastSegment.arrival;
-  
-  const isNonStop = offer.itineraries[0].segments.length === 1;
-  const stopsCount = offer.itineraries[0].segments.length - 1;
-
-  return (
-    <motion.div
-      initial={{ opacity: 0, y: 10 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.3 }}
-    >
-      <Card className="hover:shadow-lg transition-shadow">
-        <CardContent className="p-5">
-          <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4">
-            <div className="flex-1">
-              <div className="flex items-center mb-2">
-                <div className="h-8 w-8 bg-gray-200 rounded-full flex items-center justify-center mr-3">
-                  {offer.itineraries[0].segments[0].carrierCode}
-                </div>
-                <div>
-                  <p className="text-sm text-gray-600">
-                    {offer.itineraries[0].segments[0].carrierCode} {offer.itineraries[0].segments[0].number}
-                  </p>
-                </div>
-              </div>
-              
-              <div className="flex items-center justify-between md:pr-4">
-                <div className="text-center">
-                  <div className="text-xl font-bold">{formatTime(departure.at)}</div>
-                  <div className="text-sm font-medium">{departure.iataCode}</div>
-                </div>
-                
-                <div className="flex-1 px-3 py-2">
-                  <div className="flex items-center justify-center">
-                    <div className="h-[2px] bg-gray-300 flex-grow relative">
-                      <div className="absolute -top-3 left-1/2 transform -translate-x-1/2 bg-white px-2 text-xs text-gray-500">
-                        {formatDuration(offer.itineraries[0].duration)}
-                      </div>
-                      {!isNonStop && (
-                        <div className="absolute -bottom-1 left-1/2 transform -translate-x-1/2 w-2 h-2 rounded-full bg-gray-500"></div>
-                      )}
-                    </div>
-                  </div>
-                  <div className="text-center text-xs text-gray-500 mt-1">
-                    {isNonStop ? 'Direct' : `${stopsCount} escale${stopsCount > 1 ? 's' : ''}`}
-                  </div>
-                </div>
-                
-                <div className="text-center">
-                  <div className="text-xl font-bold">{formatTime(arrival.at)}</div>
-                  <div className="text-sm font-medium">{arrival.iataCode}</div>
-                </div>
-              </div>
-            </div>
-            
-            <div className="flex flex-col md:items-end gap-2 border-t pt-4 lg:pt-0 lg:border-t-0">
-              <div className="text-2xl font-bold text-primary">
-                {parseFloat(offer.price.total).toFixed(0)} {offer.price.currency}
-              </div>
-              <Button 
-                variant="booking"
-                onClick={onSelect}
-                className="w-full md:w-auto"
-              >
-                Sélectionner
-              </Button>
-            </div>
-          </div>
-        </CardContent>
-      </Card>
-    </motion.div>
-  );
-};
-
+// Create a component for popular route card
 const PopularRouteCard = ({ 
   from, 
   to, 
@@ -330,19 +214,35 @@ const FlightDetailModal = ({ offer, onClose }) => {
   };
 
   const formatDuration = (duration: string) => {
-    // PT2H30M -> 2h 30m
     return duration
       .replace('PT', '')
       .replace('H', 'h ')
       .replace('M', 'm');
   };
+
+  const getAirlineLogo = (carrierCode: string) => {
+    const airlineLogos: Record<string, string> = {
+      "AT": "https://images.unsplash.com/photo-1464037866556-6812c9d1c72e?q=80&w=50&auto=format&fit=crop",
+      "AF": "https://images.unsplash.com/photo-1554123168-b400f9c806ca?q=80&w=50&auto=format&fit=crop",
+      "IB": "https://images.unsplash.com/photo-1599202889720-d071bd694799?q=80&w=50&auto=format&fit=crop",
+    };
+    
+    return airlineLogos[carrierCode] || "https://images.unsplash.com/photo-1541005520294-1d2dbf2ef448?q=80&w=50&auto=format&fit=crop";
+  };
   
   return (
     <div className="fixed inset-0 bg-black/50 z-50 flex items-center justify-center p-4">
-      <div className="bg-white rounded-lg max-w-3xl w-full max-h-[90vh] overflow-y-auto">
+      <motion.div 
+        initial={{ opacity: 0, scale: 0.9 }}
+        animate={{ opacity: 1, scale: 1 }}
+        className="bg-white rounded-lg max-w-3xl w-full max-h-[90vh] overflow-y-auto"
+      >
         <div className="p-5 border-b">
           <div className="flex justify-between items-center">
-            <h3 className="text-xl font-bold">Détails du vol</h3>
+            <div className="flex items-center gap-2">
+              <Logo size="sm" />
+              <h3 className="text-xl font-bold">Détails du vol</h3>
+            </div>
             <button 
               className="text-gray-500 hover:text-gray-800" 
               onClick={onClose}
@@ -362,8 +262,12 @@ const FlightDetailModal = ({ offer, onClose }) => {
               {itinerary.segments.map((segment, segIndex) => (
                 <div key={segIndex} className="mb-4 last:mb-0">
                   <div className="flex items-center mb-2">
-                    <div className="h-8 w-8 bg-gray-200 rounded-full flex items-center justify-center mr-3">
-                      {segment.carrierCode}
+                    <div className="h-8 w-8 rounded-full overflow-hidden mr-3">
+                      <img 
+                        src={getAirlineLogo(segment.carrierCode)}
+                        alt={`${segment.carrierCode} logo`}
+                        className="h-full w-full object-cover"
+                      />
                     </div>
                     <p className="text-sm">
                       Vol {segment.carrierCode} {segment.number}
@@ -408,7 +312,7 @@ const FlightDetailModal = ({ offer, onClose }) => {
             </div>
           ))}
           
-          <div className="bg-gray-50 p-4 rounded-lg">
+          <div className="bg-gradient-to-r from-primary/5 to-secondary/5 p-4 rounded-lg">
             <div className="flex flex-col md:flex-row justify-between gap-4">
               <div>
                 <h5 className="font-medium mb-2">Détails tarifaires</h5>
@@ -439,7 +343,7 @@ const FlightDetailModal = ({ offer, onClose }) => {
             </div>
           </div>
         </div>
-      </div>
+      </motion.div>
     </div>
   );
 };
@@ -874,10 +778,24 @@ const Flights = () => {
   return (
     <div className="lg:pl-64 pt-20">
       <div className="container mx-auto px-4 py-10">
-        <h1 className="text-3xl font-bold text-primary mb-6">Billets d'avion</h1>
-        <p className="text-gray-600 mb-8">
-          Réservez vos vols vers les destinations de votre choix avec nos partenaires premium. Nous proposons des tarifs compétitifs et un service personnalisé pour tous vos voyages.
-        </p>
+        <div className="flex items-center justify-between mb-4">
+          <h1 className="text-3xl font-bold text-primary">Billets d'avion</h1>
+          <Logo size="md" className="hidden md:block" />
+        </div>
+        
+        <div className="flex items-center mb-8 bg-gradient-to-r from-primary/5 to-secondary/5 p-4 rounded-lg">
+          <div className="mr-4 hidden md:block">
+            <img 
+              src="https://images.unsplash.com/photo-1436491865332-7a61a109cc05?q=80&w=200&auto=format&fit=crop"
+              alt="Avion dans le ciel" 
+              className="w-32 h-20 object-cover rounded-lg shadow-md"
+            />
+          </div>
+          <p className="text-gray-600">
+            Réservez vos vols vers les destinations de votre choix avec nos partenaires premium. 
+            Nous proposons des tarifs compétitifs et un service personnalisé pour tous vos voyages.
+          </p>
+        </div>
         
         {/* Popular Routes */}
         {!searchPerformed && (
@@ -899,124 +817,20 @@ const Flights = () => {
         )}
         
         {/* Flight Search Form */}
-        <Card className="mb-10" id="searchForm">
-          <CardHeader>
-            <CardTitle>Rechercher des vols</CardTitle>
-            <CardDescription>Trouvez les meilleures offres de vols avec Amadeus</CardDescription>
-          </CardHeader>
-          <CardContent>
-            <Tabs defaultValue="round-trip" className="mb-6">
-              <TabsList className="grid w-full grid-cols-2">
-                <TabsTrigger value="round-trip">Aller-retour</TabsTrigger>
-                <TabsTrigger value="one-way">Aller simple</TabsTrigger>
-              </TabsList>
-            </Tabs>
-            
-            <form onSubmit={handleSearch} className="space-y-5">
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <div>
-                  <Label htmlFor="origin">Départ</Label>
-                  <div className="flex items-center mt-1.5">
-                    <MapPin className="w-4 h-4 absolute ml-3 text-gray-500" />
-                    <Input 
-                      id="origin" 
-                      placeholder="Code aéroport (ex: CDG)" 
-                      className="pl-10"
-                      value={origin}
-                      onChange={(e) => setOrigin(e.target.value.toUpperCase())}
-                      maxLength={3}
-                    />
-                  </div>
-                </div>
-                <div>
-                  <Label htmlFor="destination">Destination</Label>
-                  <div className="flex items-center mt-1.5">
-                    <MapPin className="w-4 h-4 absolute ml-3 text-gray-500" />
-                    <Input 
-                      id="destination" 
-                      placeholder="Code aéroport (ex: CMN)" 
-                      className="pl-10"
-                      value={destination}
-                      onChange={(e) => setDestination(e.target.value.toUpperCase())}
-                      maxLength={3}
-                    />
-                  </div>
-                </div>
-              </div>
-
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <div>
-                  <Label htmlFor="departureDate">Date de départ</Label>
-                  <div className="flex items-center mt-1.5">
-                    <Calendar className="w-4 h-4 absolute ml-3 text-gray-500" />
-                    <Input 
-                      id="departureDate" 
-                      type="date" 
-                      className="pl-10"
-                      value={departureDate}
-                      onChange={(e) => setDepartureDate(e.target.value)}
-                    />
-                  </div>
-                </div>
-                <div>
-                  <Label htmlFor="returnDate">Date de retour (optionnel)</Label>
-                  <div className="flex items-center mt-1.5">
-                    <Calendar className="w-4 h-4 absolute ml-3 text-gray-500" />
-                    <Input 
-                      id="returnDate" 
-                      type="date" 
-                      className="pl-10"
-                      value={returnDate}
-                      onChange={(e) => setReturnDate(e.target.value)}
-                    />
-                  </div>
-                </div>
-              </div>
-
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <div>
-                  <Label htmlFor="adults">Voyageurs</Label>
-                  <div className="flex items-center mt-1.5">
-                    <Users className="w-4 h-4 absolute ml-3 text-gray-500" />
-                    <Select
-                      value={adults}
-                      onValueChange={setAdults}
-                    >
-                      <SelectTrigger id="adults" className="pl-10">
-                        <SelectValue placeholder="Nombre de passagers" />
-                      </SelectTrigger>
-                      <SelectContent>
-                        {[1, 2, 3, 4, 5, 6].map((num) => (
-                          <SelectItem key={num} value={num.toString()}>{num} {num === 1 ? "adulte" : "adultes"}</SelectItem>
-                        ))}
-                      </SelectContent>
-                    </Select>
-                  </div>
-                </div>
-                <div className="flex items-end">
-                  <Button 
-                    type="submit"
-                    className="w-full mt-1.5" 
-                    disabled={isSearching}
-                    variant="gradient"
-                  >
-                    {isSearching ? (
-                      <>
-                        <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                        Recherche en cours...
-                      </>
-                    ) : (
-                      <>
-                        <Plane className="mr-2 h-4 w-4" />
-                        Rechercher
-                      </>
-                    )}
-                  </Button>
-                </div>
-              </div>
-            </form>
-          </CardContent>
-        </Card>
+        <FlightSearchForm
+          origin={origin}
+          setOrigin={setOrigin}
+          destination={destination}
+          setDestination={setDestination}
+          departureDate={departureDate}
+          setDepartureDate={setDepartureDate}
+          returnDate={returnDate}
+          setReturnDate={setReturnDate}
+          adults={adults}
+          setAdults={setAdults}
+          handleSearch={handleSearch}
+          isSearching={isSearching}
+        />
         
         {/* Flight Results with Filters */}
         {searchPerformed && (
@@ -1129,25 +943,19 @@ const Flights = () => {
         
         {isSearching === false && !searchPerformed && (
           <div className="flex flex-col items-center justify-center bg-white p-6 rounded-lg shadow-sm border border-gray-100 mb-10">
-            <Plane className="h-16 w-16 text-gray-300 mb-4" />
+            <img 
+              src="https://images.unsplash.com/photo-1556388158-158ea5ccacbd?q=80&w=300&auto=format&fit=crop"
+              alt="Avion en vol" 
+              className="h-32 w-52 object-cover rounded-lg shadow-md mb-4"
+            />
             <p className="text-gray-500 text-center">
               Utilisez le formulaire ci-dessus pour rechercher des vols disponibles
             </p>
           </div>
         )}
         
-        {/* Airline Partners */}
-        <h2 className="text-2xl font-bold text-primary mb-4">Nos compagnies partenaires</h2>
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-6 mb-10">
-          {["Royal Air Maroc", "Air Sénégal", "Turkish Airlines", "Qatar Airways"].map((airline, index) => (
-            <div key={index} className="flex items-center justify-center bg-white p-6 rounded-md shadow-sm border border-gray-100 aspect-[3/2]">
-              <div className="text-center">
-                <div className="h-16 w-16 bg-placeholder rounded-full mx-auto mb-2"></div>
-                <p className="font-medium text-primary">{airline}</p>
-              </div>
-            </div>
-          ))}
-        </div>
+        {/* Airline Partners Section */}
+        <FlightCompanySection />
         
         {/* Tabs for Additional Information */}
         <div className="mb-10">
@@ -1158,37 +966,64 @@ const Flights = () => {
               <TabsTrigger value="cancel">Annulation</TabsTrigger>
             </TabsList>
             <TabsContent value="info" className="p-4 bg-white rounded-lg shadow-sm mt-2">
-              <h3 className="font-bold mb-2">Informations bagages</h3>
-              <p className="text-gray-600 mb-4">
-                La franchise bagage varie selon la compagnie aérienne et la classe de voyage. 
-                En général, chaque passager a droit à un bagage cabine et à un bagage en soute pour les vols internationaux.
-              </p>
-              <p className="text-gray-600">
-                Pour les vols low-cost, les bagages en soute sont généralement payants. 
-                Nous vous recommandons de vérifier les conditions spécifiques de votre billet avant de voyager.
-              </p>
+              <div className="flex items-center gap-4">
+                <img 
+                  src="https://images.unsplash.com/photo-1607237138185-eedd9c632b0b?q=80&w=200&auto=format&fit=crop"
+                  alt="Bagages" 
+                  className="w-24 h-16 object-cover rounded-lg shadow-md hidden md:block"
+                />
+                <div>
+                  <h3 className="font-bold mb-2">Informations bagages</h3>
+                  <p className="text-gray-600 mb-4">
+                    La franchise bagage varie selon la compagnie aérienne et la classe de voyage. 
+                    En général, chaque passager a droit à un bagage cabine et à un bagage en soute pour les vols internationaux.
+                  </p>
+                  <p className="text-gray-600">
+                    Pour les vols low-cost, les bagages en soute sont généralement payants. 
+                    Nous vous recommandons de vérifier les conditions spécifiques de votre billet avant de voyager.
+                  </p>
+                </div>
+              </div>
             </TabsContent>
             <TabsContent value="payment" className="p-4 bg-white rounded-lg shadow-sm mt-2">
-              <h3 className="font-bold mb-2">Options de paiement</h3>
-              <p className="text-gray-600 mb-4">
-                Nous acceptons les cartes de crédit Visa, Mastercard et American Express. 
-                Pour certaines offres, un paiement en plusieurs fois peut être proposé sans frais supplémentaires.
-              </p>
-              <p className="text-gray-600">
-                Les prix affichés incluent toutes les taxes aériennes obligatoires. Des frais supplémentaires peuvent s'appliquer 
-                pour des services additionnels (bagages supplémentaires, repas spéciaux, etc.).
-              </p>
+              <div className="flex items-center gap-4">
+                <img 
+                  src="https://images.unsplash.com/photo-1563013544-824ae1b704d3?q=80&w=200&auto=format&fit=crop"
+                  alt="Paiements" 
+                  className="w-24 h-16 object-cover rounded-lg shadow-md hidden md:block"
+                />
+                <div>
+                  <h3 className="font-bold mb-2">Options de paiement</h3>
+                  <p className="text-gray-600 mb-4">
+                    Nous acceptons les cartes de crédit Visa, Mastercard et American Express. 
+                    Pour certaines offres, un paiement en plusieurs fois peut être proposé sans frais supplémentaires.
+                  </p>
+                  <p className="text-gray-600">
+                    Les prix affichés incluent toutes les taxes aériennes obligatoires. Des frais supplémentaires peuvent s'appliquer 
+                    pour des services additionnels (bagages supplémentaires, repas spéciaux, etc.).
+                  </p>
+                </div>
+              </div>
             </TabsContent>
             <TabsContent value="cancel" className="p-4 bg-white rounded-lg shadow-sm mt-2">
-              <h3 className="font-bold mb-2">Politique d'annulation</h3>
-              <p className="text-gray-600 mb-4">
-                Les conditions d'annulation dépendent du type de billet que vous avez acheté et de la compagnie aérienne.
-                Les billets standards peuvent généralement être modifiés moyennant des frais.
-              </p>
-              <p className="text-gray-600">
-                Les billets non remboursables ne peuvent pas être remboursés en cas d'annulation, mais peuvent parfois être modifiés.
-                Nous vous recommandons de souscrire une assurance voyage pour vous protéger contre les imprévus.
-              </p>
+              <div className="flex items-center gap-4">
+                <img 
+                  src="https://images.unsplash.com/photo-1524678714210-9917a6c619c2?q=80&w=200&auto=format&fit=crop"
+                  alt="Annulations" 
+                  className="w-24 h-16 object-cover rounded-lg shadow-md hidden md:block"
+                />
+                <div>
+                  <h3 className="font-bold mb-2">Politique d'annulation</h3>
+                  <p className="text-gray-600 mb-4">
+                    Les conditions d'annulation dépendent du type de billet que vous avez acheté et de la compagnie aérienne.
+                    Les billets standards peuvent généralement être modifiés moyennant des frais.
+                  </p>
+                  <p className="text-gray-600">
+                    Les billets non remboursables ne peuvent pas être remboursés en cas d'annulation, mais peuvent parfois être modifiés.
+                    Nous vous recommandons de souscrire une assurance voyage pour vous protéger contre les imprévus.
+                  </p>
+                </div>
+              </div>
             </TabsContent>
           </Tabs>
         </div>
@@ -1196,12 +1031,17 @@ const Flights = () => {
         {/* Support Call to Action */}
         <div className="bg-gradient-to-r from-primary to-secondary rounded-lg p-8 text-white">
           <div className="flex flex-col md:flex-row items-center justify-between">
-            <div className="mb-6 md:mb-0 md:mr-6">
-              <h3 className="text-xl font-bold mb-2">Besoin d'aide pour réserver votre vol?</h3>
-              <p className="text-white/80">
-                Notre équipe est disponible 24h/24 pour vous assister dans votre recherche et réservation de vol.
-                Bénéficiez d'un service personnalisé et de tarifs négociés.
-              </p>
+            <div className="flex items-center mb-6 md:mb-0 md:mr-6">
+              <div className="hidden md:block">
+                <Logo size="lg" className="mr-4" />
+              </div>
+              <div>
+                <h3 className="text-xl font-bold mb-2">Besoin d'aide pour réserver votre vol?</h3>
+                <p className="text-white/80">
+                  Notre équipe est disponible 24h/24 pour vous assister dans votre recherche et réservation de vol.
+                  Bénéficiez d'un service personnalisé et de tarifs négociés.
+                </p>
+              </div>
             </div>
             <Button 
               asChild

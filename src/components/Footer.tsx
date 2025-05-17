@@ -1,5 +1,6 @@
 
 import { Link } from "react-router-dom";
+import Logo from "@/components/Logo";
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();
@@ -10,7 +11,10 @@ const Footer = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
           {/* Logo and Tagline */}
           <div className="space-y-4">
-            <h3 className="text-xl font-bold font-poppins">ELTI VOYAGES</h3>
+            <div className="flex items-center">
+              <Logo size="md" />
+              <h3 className="text-xl font-bold font-poppins ml-2">ELTI VOYAGES</h3>
+            </div>
             <p className="text-sm font-light italic">« Voyagez plus loin. Vivez mieux. »</p>
             <div className="pt-4">
               <p className="text-sm">17 Rue El Oraibi Jilali,</p>

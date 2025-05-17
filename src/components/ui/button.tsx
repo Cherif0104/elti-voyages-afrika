@@ -68,7 +68,7 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
       >
         {props.children}
         {variant !== "outline" && variant !== "ghost" && variant !== "link" && (
-          <span className="absolute inset-0 bg-gradient-to-r from-transparent via-white/40 to-transparent translate-x-[-100%] skew-x-[-15deg] group-hover:animate-[shine_0.85s_ease_forwards]" />
+          <span className="absolute inset-0 bg-gradient-to-r from-transparent via-white/50 to-transparent -translate-x-[100%] skew-x-[-20deg] group-hover:animate-[shine_0.75s_ease_forwards]" />
         )}
       </Comp>
     )

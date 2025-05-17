@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { motion, useScroll, useMotionValueEvent } from "framer-motion";
 import { Phone } from "lucide-react";
+import Logo from "@/components/Logo";
 
 const Navbar = () => {
   const [scrolled, setScrolled] = useState(false);
@@ -50,7 +51,10 @@ const Navbar = () => {
         <div className="container mx-auto flex justify-between items-center px-4">
           <div className="flex-1 lg:flex-initial">
             <Link to="/" className="block lg:hidden">
-              <span className="text-xl font-poppins font-bold text-primary">ELTI VOYAGES</span>
+              <div className="flex items-center">
+                <Logo size="md" />
+                <span className="text-xl font-poppins font-bold text-primary ml-2">ELTI VOYAGES</span>
+              </div>
             </Link>
           </div>
           

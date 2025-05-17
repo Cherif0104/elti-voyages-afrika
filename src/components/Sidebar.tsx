@@ -1,8 +1,10 @@
+
 import { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { cn } from '@/lib/utils';
 import { Menu, X, Home, Plane, Hotel, Car, Map, Crown, Phone, Trophy } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import Logo from '@/components/Logo';
 
 type NavItem = {
   name: string;
@@ -93,7 +95,10 @@ const Sidebar = () => {
           {/* Logo */}
           <div className="p-4 border-b">
             <Link to="/" className="flex items-center justify-center">
-              <span className="text-xl font-poppins font-bold text-primary">ELTI VOYAGES</span>
+              <div className="flex items-center">
+                <Logo size="md" />
+                <span className="text-xl font-poppins font-bold text-primary ml-2">ELTI VOYAGES</span>
+              </div>
             </Link>
           </div>
 
