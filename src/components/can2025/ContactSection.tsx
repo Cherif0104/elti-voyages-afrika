@@ -1,22 +1,8 @@
 
 import { motion } from "framer-motion";
+import { fadeInUp } from "./AnimationUtils";
 
 const ContactSection = () => {
-  const fadeInUp = {
-    hidden: {
-      y: 50,
-      opacity: 0,
-    },
-    visible: {
-      y: 0,
-      opacity: 1,
-      transition: {
-        duration: 0.6,
-        ease: "easeInOut",
-      },
-    },
-  };
-
   return (
     <section className="py-16 lg:pl-64 bg-primary/5">
       <div className="container mx-auto px-4">

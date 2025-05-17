@@ -1,23 +1,9 @@
 
 import { motion } from "framer-motion";
 import { Trophy, Calendar, Flag, Medal, MapPin } from "lucide-react";
+import { fadeInUp } from "./AnimationUtils";
 
 const OverviewSection = () => {
-  const fadeInUp = {
-    hidden: {
-      y: 50,
-      opacity: 0,
-    },
-    visible: {
-      y: 0,
-      opacity: 1,
-      transition: {
-        duration: 0.6,
-        ease: "easeInOut",
-      },
-    },
-  };
-
   const overviewItems = [
     {
       icon: <Trophy className="h-10 w-10 text-primary p-2 bg-primary/5 rounded-full" />,

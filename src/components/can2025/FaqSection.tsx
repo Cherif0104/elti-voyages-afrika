@@ -1,22 +1,8 @@
 
 import { motion } from "framer-motion";
+import { fadeInUp } from "./AnimationUtils";
 
 const FaqSection = () => {
-  const fadeInUp = {
-    hidden: {
-      y: 50,
-      opacity: 0,
-    },
-    visible: {
-      y: 0,
-      opacity: 1,
-      transition: {
-        duration: 0.6,
-        ease: "easeInOut",
-      },
-    },
-  };
-
   const faqData = [
     {
       question: "Quand aura lieu la CAN 2025 ?",
