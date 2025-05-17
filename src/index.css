@@ -66,15 +66,35 @@
 
 @layer components {
   .btn-primary {
-    @apply bg-primary text-white hover:bg-primary/90 shadow-lg shadow-primary/20 px-8 py-3 rounded-lg font-medium transition-all duration-300;
+    @apply bg-primary text-white hover:bg-primary/90 shadow-lg shadow-primary/20 px-8 py-3 rounded-lg font-medium transition-all duration-300 relative overflow-hidden;
+  }
+  
+  .btn-primary::after {
+    @apply content-[''] absolute inset-0 bg-white/20 translate-x-[-100%] skew-x-[-15deg];
+  }
+  
+  .btn-primary:hover::after {
+    @apply animate-shine;
   }
   
   .btn-secondary {
-    @apply bg-secondary text-white hover:bg-secondary/90 shadow-lg shadow-secondary/20 px-8 py-3 rounded-lg font-medium transition-all duration-300;
+    @apply bg-secondary text-white hover:bg-secondary/90 shadow-lg shadow-secondary/20 px-8 py-3 rounded-lg font-medium transition-all duration-300 relative overflow-hidden;
+  }
+  
+  .btn-secondary::after {
+    @apply content-[''] absolute inset-0 bg-white/20 translate-x-[-100%] skew-x-[-15deg];
+  }
+  
+  .btn-secondary:hover::after {
+    @apply animate-shine;
   }
   
   .btn-outline {
     @apply border border-primary text-primary hover:bg-primary/5 px-8 py-3 rounded-lg font-medium transition-all duration-300;
+  }
+  
+  .btn-outline:hover {
+    @apply shadow-md;
   }
   
   .card {
@@ -83,6 +103,10 @@
   
   .card-gradient {
     @apply bg-gradient-to-br from-white to-gray-50 p-6 rounded-xl shadow-sm border border-gray-100 hover:shadow-md transition-all duration-300;
+  }
+  
+  .card-glass {
+    @apply backdrop-blur-md bg-white/80 p-6 rounded-xl shadow-sm border border-white/20 hover:shadow-lg transition-all duration-300;
   }
   
   .section-title {
@@ -94,11 +118,19 @@
   }
   
   .icon-circle {
-    @apply bg-primary/5 p-3 rounded-full flex items-center justify-center;
+    @apply bg-primary/5 p-3 rounded-full flex items-center justify-center transition-all duration-300;
+  }
+  
+  .icon-circle:hover {
+    @apply bg-primary/10 scale-105;
   }
   
   .tag {
-    @apply inline-block bg-secondary/10 text-secondary text-xs font-medium px-2.5 py-1 rounded;
+    @apply inline-block bg-secondary/10 text-secondary text-xs font-medium px-2.5 py-1 rounded transition-all duration-300;
+  }
+  
+  .tag:hover {
+    @apply bg-secondary/20;
   }
 }
 
@@ -127,5 +159,96 @@
   
   .text-balance {
     text-wrap: balance;
+  }
+  
+  .text-gradient {
+    @apply bg-clip-text text-transparent bg-gradient-primary;
+  }
+  
+  .link-underline {
+    @apply relative after:absolute after:bottom-0 after:left-0 after:h-0.5 after:w-full after:origin-bottom-right after:scale-x-0 after:bg-secondary after:transition-transform after:duration-300 hover:after:origin-bottom-left hover:after:scale-x-100;
+  }
+
+  .pattern-dots {
+    background-image: radial-gradient(currentColor 1px, transparent 1px);
+    background-size: calc(10 * 1px) calc(10 * 1px);
+  }
+  
+  .pattern-grid {
+    background-image: linear-gradient(to right, rgba(0,0,0,0.05) 1px, transparent 1px),
+                      linear-gradient(to bottom, rgba(0,0,0,0.05) 1px, transparent 1px);
+    background-size: 20px 20px;
+  }
+
+  .animate-float {
+    animation: floating 3s ease-in-out infinite;
+  }
+
+  .animate-pulse-slow {
+    animation: pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+  }
+  
+  .animate-shine {
+    animation: shine 0.85s ease forwards;
+  }
+
+  @keyframes floating {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+  }
+
+  @keyframes shine {
+    0% { transform: translateX(-100%) skewX(-15deg); }
+    100% { transform: translateX(100%) skewX(-15deg); }
+  }
+}
+
+/* Animations globales */
+@keyframes loader {
+  0% { width: 0%; }
+  100% { width: 100%; }
+}
+
+@keyframes fade-in-up {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fade-in-down {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fade-in-left {
+  from {
+    opacity: 0;
+    transform: translateX(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes fade-in-right {
+  from {
+    opacity: 0;
+    transform: translateX(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
   }
 }
