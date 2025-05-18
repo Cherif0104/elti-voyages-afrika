@@ -1,51 +1,11 @@
 
-import { Car } from "lucide-react";
-import { Button } from "@/components/ui/button";
-import { Card, CardContent } from "@/components/ui/card";
-import { Separator } from "@/components/ui/separator";
+import { motion } from "framer-motion";
+import { Card } from "@/components/ui/card";
 import PartnerLogo from "@/components/PartnerLogo";
-
-const CarCard = ({ category, model, price, features, imageClass = "bg-placeholder", imageSrc }) => {
-  return (
-    <Card className="overflow-hidden transition-all hover:shadow-lg">
-      <div className={`w-full h-36 sm:h-48 relative ${!imageSrc ? imageClass : ''}`}>
-        {imageSrc && (
-          <img 
-            src={imageSrc} 
-            alt={`${category} - ${model}`} 
-            className="w-full h-full object-cover"
-          />
-        )}
-      </div>
-      <CardContent className="p-4 sm:p-6">
-        <div className="flex justify-between items-start mb-4">
-          <div>
-            <h3 className="text-lg font-bold text-primary">{category}</h3>
-            <p className="text-sm text-gray-500">{model}</p>
-          </div>
-          <div className="text-xl font-bold">{price}</div>
-        </div>
-        
-        <Separator className="my-4" />
-        
-        <ul className="space-y-2 mb-6">
-          {features.map((feature, idx) => (
-            <li key={idx} className="text-sm flex items-center">
-              <span className="w-2 h-2 rounded-full bg-accent mr-2 flex-shrink-0"></span>
-              <span className="text-sm">{feature}</span>
-            </li>
-          ))}
-        </ul>
-        
-        <div className="flex justify-end">
-          <Button asChild>
-            <a href="#reservation">Réserver</a>
-          </Button>
-        </div>
-      </CardContent>
-    </Card>
-  );
-};
+import CarsHeroSection from "@/components/cars/CarsHeroSection";
+import CarStatsSection from "@/components/cars/CarStatsSection";
+import CarCtaSection from "@/components/cars/CarCtaSection";
+import CarCategoryCard from "@/components/cars/CarCategoryCard";
 
 const Cars = () => {
   const carCategories = [
@@ -99,85 +59,101 @@ const Cars = () => {
   ];
   
   return (
-    <div className="pt-20">
-      <div className="container mx-auto px-4 py-10">
-        <h1 className="text-2xl sm:text-3xl font-bold text-primary mb-4 sm:mb-6">Location de véhicules</h1>
-        <p className="text-gray-600 mb-6 sm:mb-8">
-          De l'économique au luxe, avec ou sans chauffeur, nous proposons une large gamme de véhicules pour tous vos déplacements à travers le Maroc et le Sénégal.
-        </p>
-        
+    <div>
+      {/* Hero Section */}
+      <CarsHeroSection />
+      
+      {/* Stats Section */}
+      <CarStatsSection />
+      
+      {/* Main Content */}
+      <div className="container mx-auto px-4 py-16">
         {/* Rental Companies */}
-        <div className="mb-8 sm:mb-10">
-          <h2 className="text-xl font-bold text-primary mb-4">Nos partenaires location</h2>
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-6">
+        <div className="mb-12">
+          <h2 className="text-2xl font-bold text-primary mb-6">Nos partenaires location</h2>
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
             {rentalCompanies.map((company, index) => (
-              <PartnerLogo 
+              <motion.div
                 key={index}
-                name={company.name}
-                logoSrc={company.logo}
-                className="hover:shadow-lg transition-all duration-300"
-              />
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: index * 0.1 }}
+              >
+                <PartnerLogo 
+                  name={company.name}
+                  logoSrc={company.logo}
+                  className="hover:shadow-lg transition-all duration-300"
+                />
+              </motion.div>
             ))}
           </div>
         </div>
         
         {/* Car Categories */}
-        <h2 className="text-xl font-bold text-primary mb-4 sm:mb-6">Nos catégories de véhicules</h2>
-        
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
-          {carCategories.map((car, index) => (
-            <CarCard
-              key={index}
-              category={car.category}
-              model={car.model}
-              price={car.price}
-              features={car.features}
-              imageSrc={car.imageSrc}
-            />
-          ))}
-        </div>
-        
-        {/* VIP Service Banner */}
-        <div className="bg-primary my-8 sm:my-12 rounded-lg overflow-hidden">
-          <div className="p-4 sm:p-8 text-white">
-            <h2 className="text-xl sm:text-2xl font-bold mb-2 sm:mb-4">Service Chauffeur Privé</h2>
-            <p className="mb-4 sm:mb-6 opacity-90">
-              Optez pour le confort et la sécurité avec notre service de chauffeur privé disponible 24h/24.
-              Nos chauffeurs professionnels connaissent parfaitement les routes et vous accompagnent tout au long de votre séjour.
-            </p>
-            
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 sm:gap-4">
-              <div className="bg-white/10 backdrop-blur p-3 sm:p-4 rounded-md">
-                <h3 className="text-base sm:text-lg font-bold mb-1 sm:mb-2">Transfert Aéroport</h3>
-                <p className="text-xs sm:text-sm opacity-80">À partir de 50€</p>
-              </div>
-              <div className="bg-white/10 backdrop-blur p-3 sm:p-4 rounded-md">
-                <h3 className="text-base sm:text-lg font-bold mb-1 sm:mb-2">Journée complète</h3>
-                <p className="text-xs sm:text-sm opacity-80">À partir de 150€</p>
-              </div>
-              <div className="bg-white/10 backdrop-blur p-3 sm:p-4 rounded-md">
-                <h3 className="text-base sm:text-lg font-bold mb-1 sm:mb-2">Circuit personnalisé</h3>
-                <p className="text-xs sm:text-sm opacity-80">Sur demande</p>
-              </div>
-            </div>
-            
-            <div className="mt-4 sm:mt-6 flex justify-center md:justify-end">
-              <Button 
-                asChild 
-                variant="outline" 
-                className="border-white text-white hover:bg-white hover:text-primary"
+        <div id="cars-categories" className="scroll-mt-20">
+          <h2 className="text-2xl font-bold text-primary mb-6">Nos catégories de véhicules</h2>
+          
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+            {carCategories.map((car, index) => (
+              <motion.div
+                key={index}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: index * 0.1 }}
               >
-                <a href="#reservation">Réserver un chauffeur</a>
-              </Button>
-            </div>
+                <CarCategoryCard
+                  category={car.category}
+                  model={car.model}
+                  price={car.price}
+                  features={car.features}
+                  imageSrc={car.imageSrc}
+                />
+              </motion.div>
+            ))}
           </div>
         </div>
         
+        {/* VIP Service Banner */}
+        <div className="my-16">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+          >
+            <Card className="overflow-hidden">
+              <div className="bg-gradient-to-r from-primary to-primary/90 text-white p-8">
+                <h2 className="text-2xl font-bold mb-4">Service Chauffeur Privé</h2>
+                <p className="mb-6 opacity-90 max-w-2xl">
+                  Optez pour le confort et la sécurité avec notre service de chauffeur privé disponible 24h/24.
+                  Nos chauffeurs professionnels connaissent parfaitement les routes et vous accompagnent tout au long de votre séjour.
+                </p>
+                
+                <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-6">
+                  <div className="bg-white/10 backdrop-blur p-4 rounded-md">
+                    <h3 className="text-lg font-bold mb-2">Transfert Aéroport</h3>
+                    <p className="text-sm opacity-80">À partir de 50€</p>
+                  </div>
+                  <div className="bg-white/10 backdrop-blur p-4 rounded-md">
+                    <h3 className="text-lg font-bold mb-2">Journée complète</h3>
+                    <p className="text-sm opacity-80">À partir de 150€</p>
+                  </div>
+                  <div className="bg-white/10 backdrop-blur p-4 rounded-md">
+                    <h3 className="text-lg font-bold mb-2">Circuit personnalisé</h3>
+                    <p className="text-sm opacity-80">Sur demande</p>
+                  </div>
+                </div>
+              </div>
+            </Card>
+          </motion.div>
+        </div>
+        
         {/* Additional Information */}
-        <div className="bg-gray-50 rounded-lg p-4 sm:p-6">
-          <h3 className="text-lg font-bold text-primary mb-3 sm:mb-4">Informations complémentaires</h3>
+        <div className="bg-gray-50 rounded-lg p-6 mt-12">
+          <h3 className="text-lg font-bold text-primary mb-4">Informations complémentaires</h3>
           
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div>
               <h4 className="font-bold text-sm mb-2">Conditions de location</h4>
               <ul className="space-y-1 text-sm text-gray-600">
@@ -200,6 +176,9 @@ const Cars = () => {
           </div>
         </div>
       </div>
+      
+      {/* CTA Section */}
+      <CarCtaSection />
     </div>
   );
 };
