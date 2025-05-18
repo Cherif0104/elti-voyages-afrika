@@ -2,19 +2,9 @@
 import { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { cn } from '@/lib/utils';
-import { Home, Plane, Hotel, Car, Map, Crown, Phone, Trophy, Menu, X, ChevronDown } from 'lucide-react';
+import { Home, Plane, Hotel, Car, Map, Crown, Phone, Trophy, Menu, X, ChevronDown, Search, User } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import Logo from '@/components/Logo';
-import {
-  NavigationMenu,
-  NavigationMenuContent,
-  NavigationMenuItem,
-  NavigationMenuLink,
-  NavigationMenuList,
-  NavigationMenuTrigger,
-  navigationMenuTriggerStyle,
-} from "@/components/ui/navigation-menu";
-
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -22,7 +12,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 
 type NavItem = {
   name: string;
@@ -84,8 +74,10 @@ const Sidebar = () => {
 
   return (
     <header className={cn(
-      "fixed top-0 z-50 w-full backdrop-blur supports-[backdrop-filter]:bg-background/60 transition-all duration-300",
-      isScrolled ? "border-b border-border/40 bg-white/95 shadow-sm" : "bg-transparent"
+      "fixed top-0 z-50 w-full backdrop-blur-md transition-all duration-500",
+      isScrolled 
+        ? "bg-white/95 shadow-sm border-b border-gray-100" 
+        : "bg-transparent"
     )}>
       <div className="container mx-auto px-4">
         <div className="flex h-16 items-center justify-between">
@@ -97,120 +89,177 @@ const Sidebar = () => {
             </Link>
           </div>
           
-          {/* Desktop Navigation */}
-          <div className="hidden lg:flex items-center space-x-1">
-            <NavigationMenu>
-              <NavigationMenuList className="flex-wrap justify-center">
-                {navItems.map((item) => {
-                  const isActive = 
-                    location.pathname === item.path || 
-                    (item.path === '/' && location.pathname === '/') ||
-                    (activeSection && item.name.toLowerCase().includes(activeSection.substring(1)));
-                  
-                  return (
-                    <NavigationMenuItem key={item.path}>
-                      <Link
-                        to={item.path}
-                        className={cn(
-                          navigationMenuTriggerStyle(),
-                          "px-3 py-2", // Reduce padding for better fit
-                          isActive ? "bg-primary/10 text-primary" : ""
-                        )}
-                      >
-                        <item.icon className={cn("h-4 w-4 mr-1", isActive ? "text-primary" : "text-gray-500")} />
-                        <span className="whitespace-nowrap">{item.name}</span>
-                      </Link>
-                    </NavigationMenuItem>
-                  );
-                })}
-              </NavigationMenuList>
-            </NavigationMenu>
+          {/* Center Search Button (Airbnb-like) */}
+          <div className="hidden md:flex items-center">
+            <motion.div 
+              className="bg-white rounded-full shadow-sm border border-gray-200 flex items-center h-12 pl-5 pr-2 hover:shadow-md transition-all cursor-pointer"
+              whileHover={{ scale: 1.02 }}
+            >
+              <div className="mr-4">
+                <span className="font-medium text-sm">Destination</span>
+              </div>
+              <div className="border-l border-gray-200 h-6 mx-2"></div>
+              <div className="mr-4">
+                <span className="font-medium text-sm">Dates</span>
+              </div>
+              <div className="border-l border-gray-200 h-6 mx-2"></div>
+              <div className="mr-2">
+                <span className="font-medium text-sm">Voyageurs</span>
+              </div>
+              <Button size="icon" variant="primary" className="rounded-full bg-primary flex-shrink-0">
+                <Search className="h-4 w-4" />
+              </Button>
+            </motion.div>
           </div>
           
-          {/* Mobile menu button */}
-          <div className="lg:hidden flex items-center">
+          {/* Right Navigation */}
+          <div className="flex items-center gap-2 md:gap-4">
             <Button
               variant="ghost"
-              size="icon"
-              aria-label={isOpen ? "Close menu" : "Open menu"}
-              onClick={() => setIsOpen(!isOpen)}
-              className="relative z-50"
-            >
-              {isOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
-            </Button>
-          </div>
-          
-          {/* CTA Button */}
-          <div className="hidden sm:block">
-            <Button
+              size="sm"
               asChild
-              className="bg-primary hover:bg-primary/90 whitespace-nowrap"
+              className="hidden md:flex text-sm"
             >
-              <Link to="#reservation">
-                Réserver
-              </Link>
+              <Link to="/billets-avion">Rechercher des vols</Link>
             </Button>
+            
+            <Button
+              variant="ghost"
+              size="sm"
+              asChild
+              className="hidden md:flex text-sm"
+            >
+              <Link to="/contact">Nous contacter</Link>
+            </Button>
+              
+            {/* Mobile menu button */}
+            <div className="md:hidden flex items-center">
+              <Button
+                variant="ghost"
+                size="icon"
+                aria-label={isOpen ? "Close menu" : "Open menu"}
+                onClick={() => setIsOpen(!isOpen)}
+                className="relative z-50"
+              >
+                {isOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
+              </Button>
+            </div>
+            
+            {/* User Profile / Host */}
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <Button variant="outline" size="icon" className="rounded-full border-gray-200">
+                  <User className="h-5 w-5" />
+                </Button>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent align="end" className="w-48">
+                <DropdownMenuItem asChild>
+                  <Link to="#reservation" className="cursor-pointer">Réserver un voyage</Link>
+                </DropdownMenuItem>
+                <DropdownMenuItem asChild>
+                  <Link to="/contact" className="cursor-pointer">Contacter l'agence</Link>
+                </DropdownMenuItem>
+                <DropdownMenuItem asChild>
+                  <Link to="/billets-avion" className="cursor-pointer">Rechercher des vols</Link>
+                </DropdownMenuItem>
+              </DropdownMenuContent>
+            </DropdownMenu>
           </div>
         </div>
       </div>
       
       {/* Mobile Navigation */}
-      {isOpen && (
-        <motion.div 
-          className="fixed inset-0 bg-white z-40 lg:hidden overflow-y-auto"
-          initial={{ opacity: 0, x: "100%" }}
-          animate={{ opacity: 1, x: 0 }}
-          exit={{ opacity: 0, x: "100%" }}
-          transition={{ type: "spring", stiffness: 300, damping: 30 }}
-        >
-          <div className="flex flex-col h-full pt-16">
-            <div className="overflow-y-auto flex-grow">
-              <nav className="flex flex-col space-y-1 p-4">
-                {navItems.map((item) => {
-                  const isActive = 
-                    location.pathname === item.path || 
-                    (item.path === '/' && location.pathname === '/');
-                  
-                  return (
-                    <Link
-                      key={item.path}
-                      to={item.path}
-                      className={cn(
-                        "flex items-center gap-3 px-3 py-4 rounded-md transition-colors border-b border-gray-100",
-                        isActive
-                          ? "bg-primary/5 text-primary"
-                          : "text-gray-700 hover:bg-gray-50"
-                      )}
-                      onClick={() => setIsOpen(false)}
-                    >
-                      <item.icon className={cn("h-5 w-5", isActive ? "text-primary" : "text-primary/60")} />
-                      <span className="font-medium">{item.name}</span>
-                    </Link>
-                  );
-                })}
-              </nav>
-            </div>
-            
-            <div className="p-4 border-t border-gray-100">
-              <Button
-                asChild
-                className="w-full bg-primary hover:bg-primary/90"
-              >
-                <Link to="#reservation" onClick={() => setIsOpen(false)}>
-                  Réserver
-                </Link>
-              </Button>
+      <AnimatePresence>
+        {isOpen && (
+          <motion.div 
+            className="fixed inset-0 bg-white z-40 lg:hidden overflow-y-auto"
+            initial={{ opacity: 0, y: -10 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -10 }}
+            transition={{ type: "spring", stiffness: 300, damping: 30 }}
+          >
+            <div className="flex flex-col h-full pt-16">
+              <div className="overflow-y-auto flex-grow">
+                <nav className="flex flex-col p-4">
+                  {navItems.map((item) => {
+                    const isActive = 
+                      location.pathname === item.path || 
+                      (item.path === '/' && location.pathname === '/');
+                    
+                    return (
+                      <Link
+                        key={item.path}
+                        to={item.path}
+                        className={cn(
+                          "flex items-center gap-3 px-3 py-4 rounded-md transition-colors border-b border-gray-100",
+                          isActive
+                            ? "bg-primary/5 text-primary"
+                            : "text-gray-700 hover:bg-gray-50"
+                        )}
+                        onClick={() => setIsOpen(false)}
+                      >
+                        <item.icon className={cn("h-5 w-5", isActive ? "text-primary" : "text-primary/60")} />
+                        <span className="font-medium">{item.name}</span>
+                      </Link>
+                    );
+                  })}
+                </nav>
+              </div>
               
-              <div className="mt-6 flex justify-between items-center">
-                <a href="tel:+212656136036" className="flex items-center gap-2 text-primary">
-                  <Phone className="h-4 w-4" />
-                  <span>+212 656 13 60 36</span>
-                </a>
+              <div className="p-4 border-t border-gray-100">
+                <Button
+                  asChild
+                  className="w-full bg-primary hover:bg-primary/90"
+                >
+                  <Link to="#reservation" onClick={() => setIsOpen(false)}>
+                    Réserver
+                  </Link>
+                </Button>
+                
+                <div className="mt-6 flex justify-between items-center">
+                  <a href="tel:+212656136036" className="flex items-center gap-2 text-primary">
+                    <Phone className="h-4 w-4" />
+                    <span>+212 656 13 60 36</span>
+                  </a>
+                </div>
               </div>
             </div>
-          </div>
-        </motion.div>
-      )}
+          </motion.div>
+        )}
+      </AnimatePresence>
+      
+      {/* Mobile Bottom Navigation (Airbnb Style) */}
+      <div className="fixed bottom-0 left-0 right-0 border-t border-gray-200 bg-white z-40 md:hidden">
+        <div className="flex justify-around py-2">
+          {navItems.slice(0, 5).map((item) => {
+            const isActive = location.pathname === item.path;
+            
+            return (
+              <Link
+                key={item.path}
+                to={item.path}
+                className="flex flex-col items-center justify-center pt-1 pb-0.5"
+              >
+                <div className={cn(
+                  "p-1.5 rounded-full",
+                  isActive ? "bg-primary/10" : ""
+                )}>
+                  <item.icon className={cn(
+                    "h-5 w-5",
+                    isActive ? "text-primary" : "text-gray-500"
+                  )} />
+                </div>
+                <span className={cn(
+                  "text-[10px] mt-0.5",
+                  isActive ? "text-primary font-medium" : "text-gray-500"
+                )}>
+                  {item.name.split(" ")[0]}
+                </span>
+              </Link>
+            );
+          })}
+        </div>
+      </div>
     </header>
   );
 };

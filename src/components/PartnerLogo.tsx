@@ -14,32 +14,38 @@ const PartnerLogo = ({ name, logoSrc, className }: PartnerLogoProps) => {
   const firstLetter = name.charAt(0).toUpperCase();
 
   return (
-    <div 
+    <motion.div 
       className={cn(
-        "bg-white rounded-lg p-3 sm:p-4 aspect-video flex items-center justify-center overflow-hidden shadow-sm border border-gray-100", 
+        "bg-white rounded-xl p-3 sm:p-4 aspect-video flex items-center justify-center overflow-hidden shadow-sm border border-gray-100 transition-all duration-300", 
         className
       )}
+      whileHover={{ 
+        y: -5, 
+        boxShadow: "0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1)" 
+      }}
     >
       {logoSrc ? (
-        <motion.div 
+        <div 
           className="relative w-full h-full flex items-center justify-center"
-          whileHover={{ scale: 1.05 }}
-          transition={{ type: "spring", stiffness: 400, damping: 10 }}
         >
-          <img 
+          <motion.img 
             src={logoSrc}
             alt={`Logo ${name}`}
             className="max-h-12 sm:max-h-16 max-w-full object-contain"
+            initial={{ scale: 0.9, opacity: 0 }}
+            animate={{ scale: 1, opacity: 1 }}
+            transition={{ duration: 0.3 }}
+            whileHover={{ scale: 1.05 }}
           />
-        </motion.div>
+        </div>
       ) : (
-        <div className="w-full h-full flex flex-col items-center justify-center bg-gray-50 text-gray-400">
-          <div className="text-xl sm:text-3xl font-bold">{firstLetter}</div>
-          <div className="text-xs sm:text-sm mt-1 sm:mt-2">{name}</div>
-          <Badge variant="outline" className="mt-1 sm:mt-2 text-xs">Partenaire</Badge>
+        <div className="w-full h-full flex flex-col items-center justify-center bg-gray-50 rounded-lg">
+          <div className="text-xl sm:text-3xl font-bold text-gray-400">{firstLetter}</div>
+          <div className="text-xs sm:text-sm mt-1 sm:mt-2 text-gray-500">{name}</div>
+          <Badge variant="outline" className="mt-1 sm:mt-2 text-xs bg-white">Partenaire</Badge>
         </div>
       )}
-    </div>
+    </motion.div>
   );
 };
 
