@@ -21,6 +21,7 @@ import NotFound from "./pages/NotFound";
 import Sidebar from "./components/Sidebar";
 import Footer from "./components/Footer";
 import PromotionBanner from "./components/PromotionBanner";
+import SearchWidget from "./components/SearchWidget";
 
 const queryClient = new QueryClient();
 

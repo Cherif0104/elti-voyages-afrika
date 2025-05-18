@@ -6,6 +6,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Trophy, MapPin, AlertCircle, Info } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
+import SearchWidget from "../SearchWidget";
 
 const HeroSection = () => {
   const [isVisible, setIsVisible] = useState(false);
@@ -79,7 +80,7 @@ const HeroSection = () => {
             backgroundPosition: "center 45%"
           }}
         />
-        <div className="absolute inset-0 bg-primary/95" /> {/* Solid dark blue overlay */}
+        <div className="absolute inset-0 bg-gradient-to-b from-primary/95 to-primary/85" /> {/* Gradient overlay */}
         
         {/* CAF Logo - Positioned at top left to match mockup */}
         <div className="absolute top-10 left-10 z-10">
@@ -243,7 +244,9 @@ const HeroSection = () => {
         {/* Info cards at bottom - Added to match mockup */}
         <div className="absolute bottom-0 left-0 right-0 translate-y-1/2 px-4 z-20">
           <div className="container mx-auto">
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <SearchWidget />
+            
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mt-6">
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
