@@ -21,26 +21,26 @@ const SearchWidget = () => {
   
   return (
     <motion.div 
-      className="bg-white rounded-lg shadow-xl p-6 mx-auto max-w-4xl relative z-10 border border-gray-100"
+      className="bg-white rounded-lg shadow-xl p-6 mx-auto max-w-4xl relative border border-gray-100"
       initial={{ y: 50, opacity: 0 }}
       animate={{ y: 0, opacity: 1 }}
       transition={{ duration: 0.5, delay: 0.2 }}
     >
       <Tabs defaultValue="flights" onValueChange={setSearchType} className="w-full">
-        <TabsList className="grid w-full grid-cols-4 mb-6">
-          <TabsTrigger value="flights" className="flex gap-2 items-center">
+        <TabsList className="grid w-full grid-cols-4 mb-6 bg-gray-100">
+          <TabsTrigger value="flights" className="flex gap-2 items-center data-[state=active]:bg-primary data-[state=active]:text-white">
             <Plane className="h-4 w-4" />
             <span>Vols</span>
           </TabsTrigger>
-          <TabsTrigger value="hotels" className="flex gap-2 items-center">
+          <TabsTrigger value="hotels" className="flex gap-2 items-center data-[state=active]:bg-primary data-[state=active]:text-white">
             <Hotel className="h-4 w-4" />
             <span>Hôtels</span>
           </TabsTrigger>
-          <TabsTrigger value="cars" className="flex gap-2 items-center">
+          <TabsTrigger value="cars" className="flex gap-2 items-center data-[state=active]:bg-primary data-[state=active]:text-white">
             <Car className="h-4 w-4" />
             <span>Voitures</span>
           </TabsTrigger>
-          <TabsTrigger value="activities" className="flex gap-2 items-center">
+          <TabsTrigger value="activities" className="flex gap-2 items-center data-[state=active]:bg-primary data-[state=active]:text-white">
             <Map className="h-4 w-4" />
             <span>Activités</span>
           </TabsTrigger>
@@ -67,16 +67,16 @@ const SearchWidget = () => {
           
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
             <div className="flex items-center border rounded-md overflow-hidden">
-              <div className="bg-gray-50 p-3 border-r">
-                <MapPin className="h-5 w-5 text-gray-500" />
+              <div className="bg-primary p-3 border-r">
+                <MapPin className="h-5 w-5 text-white" />
               </div>
-              <Input placeholder="Départ" className="border-0 focus-visible:ring-0" />
+              <Input placeholder="Départ" className="border-0 focus-visible:ring-0 text-base font-medium" />
             </div>
             <div className="flex items-center border rounded-md overflow-hidden">
-              <div className="bg-gray-50 p-3 border-r">
-                <MapPin className="h-5 w-5 text-gray-500" />
+              <div className="bg-primary p-3 border-r">
+                <MapPin className="h-5 w-5 text-white" />
               </div>
-              <Input placeholder="Destination" className="border-0 focus-visible:ring-0" />
+              <Input placeholder="Destination" className="border-0 focus-visible:ring-0 text-base font-medium" />
             </div>
           </div>
           
@@ -84,12 +84,12 @@ const SearchWidget = () => {
             {/* Departure Date */}
             <Popover>
               <PopoverTrigger asChild>
-                <Button variant="outline" className="w-full justify-start text-left flex items-center">
-                  <CalendarIcon className="mr-2 h-4 w-4" />
+                <Button variant="outline" className="w-full justify-start text-left flex items-center h-12 border-gray-300">
+                  <CalendarIcon className="mr-2 h-4 w-4 text-primary" />
                   {departureDate ? (
                     format(departureDate, "dd MMMM yyyy", { locale: fr })
                   ) : (
-                    <span>Date de départ</span>
+                    <span className="text-gray-500">Date de départ</span>
                   )}
                 </Button>
               </PopoverTrigger>
@@ -108,12 +108,12 @@ const SearchWidget = () => {
             {tripType === "round-trip" && (
               <Popover>
                 <PopoverTrigger asChild>
-                  <Button variant="outline" className="w-full justify-start text-left flex items-center">
-                    <CalendarIcon className="mr-2 h-4 w-4" />
+                  <Button variant="outline" className="w-full justify-start text-left flex items-center h-12 border-gray-300">
+                    <CalendarIcon className="mr-2 h-4 w-4 text-primary" />
                     {returnDate ? (
                       format(returnDate, "dd MMMM yyyy", { locale: fr })
                     ) : (
-                      <span>Date de retour</span>
+                      <span className="text-gray-500">Date de retour</span>
                     )}
                   </Button>
                 </PopoverTrigger>
@@ -131,8 +131,8 @@ const SearchWidget = () => {
             
             {/* Passengers */}
             <Select value={passengers} onValueChange={setPassengers}>
-              <SelectTrigger className="w-full flex items-center">
-                <Users className="mr-2 h-4 w-4" />
+              <SelectTrigger className="w-full flex items-center h-12 border-gray-300">
+                <Users className="mr-2 h-4 w-4 text-primary" />
                 <SelectValue placeholder="Passagers" />
               </SelectTrigger>
               <SelectContent>
@@ -145,7 +145,7 @@ const SearchWidget = () => {
             </Select>
           </div>
           
-          <Button className="w-full bg-primary text-white hover:bg-primary/90 py-6 text-lg font-medium">
+          <Button className="w-full bg-secondary text-primary hover:bg-secondary/90 py-6 text-lg font-medium">
             Rechercher <ArrowRight className="ml-2 h-4 w-4" />
           </Button>
         </TabsContent>
@@ -153,19 +153,19 @@ const SearchWidget = () => {
         {/* Hotel Search */}
         <TabsContent value="hotels" className="space-y-4">
           <div className="flex items-center border rounded-md overflow-hidden mb-4">
-            <div className="bg-gray-50 p-3 border-r">
-              <MapPin className="h-5 w-5 text-gray-500" />
+            <div className="bg-primary p-3 border-r">
+              <MapPin className="h-5 w-5 text-white" />
             </div>
-            <Input placeholder="Destination ou nom d'hôtel" className="border-0 focus-visible:ring-0" />
+            <Input placeholder="Destination ou nom d'hôtel" className="border-0 focus-visible:ring-0 text-base font-medium" />
           </div>
           
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
             {/* Check-in */}
             <Popover>
               <PopoverTrigger asChild>
-                <Button variant="outline" className="w-full justify-start text-left flex items-center">
-                  <CalendarIcon className="mr-2 h-4 w-4" />
-                  <span>Date d'arrivée</span>
+                <Button variant="outline" className="w-full justify-start text-left flex items-center h-12 border-gray-300">
+                  <CalendarIcon className="mr-2 h-4 w-4 text-primary" />
+                  <span className="text-gray-500">Date d'arrivée</span>
                 </Button>
               </PopoverTrigger>
               <PopoverContent className="w-auto p-0" align="start">
@@ -176,9 +176,9 @@ const SearchWidget = () => {
             {/* Check-out */}
             <Popover>
               <PopoverTrigger asChild>
-                <Button variant="outline" className="w-full justify-start text-left flex items-center">
-                  <CalendarIcon className="mr-2 h-4 w-4" />
-                  <span>Date de départ</span>
+                <Button variant="outline" className="w-full justify-start text-left flex items-center h-12 border-gray-300">
+                  <CalendarIcon className="mr-2 h-4 w-4 text-primary" />
+                  <span className="text-gray-500">Date de départ</span>
                 </Button>
               </PopoverTrigger>
               <PopoverContent className="w-auto p-0" align="start">
@@ -188,8 +188,8 @@ const SearchWidget = () => {
             
             {/* Guests */}
             <Select>
-              <SelectTrigger className="w-full flex items-center">
-                <Users className="mr-2 h-4 w-4" />
+              <SelectTrigger className="w-full flex items-center h-12 border-gray-300">
+                <Users className="mr-2 h-4 w-4 text-primary" />
                 <SelectValue placeholder="Voyageurs" />
               </SelectTrigger>
               <SelectContent>
@@ -202,7 +202,7 @@ const SearchWidget = () => {
             </Select>
           </div>
           
-          <Button className="w-full bg-primary text-white hover:bg-primary/90 py-6 text-lg font-medium">
+          <Button className="w-full bg-secondary text-primary hover:bg-secondary/90 py-6 text-lg font-medium">
             Rechercher un hôtel <ArrowRight className="ml-2 h-4 w-4" />
           </Button>
         </TabsContent>
@@ -210,19 +210,19 @@ const SearchWidget = () => {
         {/* Car Rental Search */}
         <TabsContent value="cars" className="space-y-4">
           <div className="flex items-center border rounded-md overflow-hidden mb-4">
-            <div className="bg-gray-50 p-3 border-r">
-              <MapPin className="h-5 w-5 text-gray-500" />
+            <div className="bg-primary p-3 border-r">
+              <MapPin className="h-5 w-5 text-white" />
             </div>
-            <Input placeholder="Lieu de prise en charge" className="border-0 focus-visible:ring-0" />
+            <Input placeholder="Lieu de prise en charge" className="border-0 focus-visible:ring-0 text-base font-medium" />
           </div>
           
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
             {/* Pick-up date */}
             <Popover>
               <PopoverTrigger asChild>
-                <Button variant="outline" className="w-full justify-start text-left flex items-center">
-                  <CalendarIcon className="mr-2 h-4 w-4" />
-                  <span>Date de prise en charge</span>
+                <Button variant="outline" className="w-full justify-start text-left flex items-center h-12 border-gray-300">
+                  <CalendarIcon className="mr-2 h-4 w-4 text-primary" />
+                  <span className="text-gray-500">Date de prise en charge</span>
                 </Button>
               </PopoverTrigger>
               <PopoverContent className="w-auto p-0" align="start">
@@ -233,9 +233,9 @@ const SearchWidget = () => {
             {/* Drop-off date */}
             <Popover>
               <PopoverTrigger asChild>
-                <Button variant="outline" className="w-full justify-start text-left flex items-center">
-                  <CalendarIcon className="mr-2 h-4 w-4" />
-                  <span>Date de restitution</span>
+                <Button variant="outline" className="w-full justify-start text-left flex items-center h-12 border-gray-300">
+                  <CalendarIcon className="mr-2 h-4 w-4 text-primary" />
+                  <span className="text-gray-500">Date de restitution</span>
                 </Button>
               </PopoverTrigger>
               <PopoverContent className="w-auto p-0" align="start">
@@ -244,7 +244,7 @@ const SearchWidget = () => {
             </Popover>
           </div>
           
-          <Button className="w-full bg-primary text-white hover:bg-primary/90 py-6 text-lg font-medium">
+          <Button className="w-full bg-secondary text-primary hover:bg-secondary/90 py-6 text-lg font-medium">
             Rechercher une voiture <ArrowRight className="ml-2 h-4 w-4" />
           </Button>
         </TabsContent>
@@ -252,19 +252,19 @@ const SearchWidget = () => {
         {/* Activities Search */}
         <TabsContent value="activities" className="space-y-4">
           <div className="flex items-center border rounded-md overflow-hidden mb-4">
-            <div className="bg-gray-50 p-3 border-r">
-              <MapPin className="h-5 w-5 text-gray-500" />
+            <div className="bg-primary p-3 border-r">
+              <MapPin className="h-5 w-5 text-white" />
             </div>
-            <Input placeholder="Destination" className="border-0 focus-visible:ring-0" />
+            <Input placeholder="Destination" className="border-0 focus-visible:ring-0 text-base font-medium" />
           </div>
           
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
             {/* Date */}
             <Popover>
               <PopoverTrigger asChild>
-                <Button variant="outline" className="w-full justify-start text-left flex items-center">
-                  <CalendarIcon className="mr-2 h-4 w-4" />
-                  <span>Date</span>
+                <Button variant="outline" className="w-full justify-start text-left flex items-center h-12 border-gray-300">
+                  <CalendarIcon className="mr-2 h-4 w-4 text-primary" />
+                  <span className="text-gray-500">Date</span>
                 </Button>
               </PopoverTrigger>
               <PopoverContent className="w-auto p-0" align="start">
@@ -274,8 +274,8 @@ const SearchWidget = () => {
             
             {/* Travelers */}
             <Select>
-              <SelectTrigger className="w-full flex items-center">
-                <Users className="mr-2 h-4 w-4" />
+              <SelectTrigger className="w-full flex items-center h-12 border-gray-300">
+                <Users className="mr-2 h-4 w-4 text-primary" />
                 <SelectValue placeholder="Voyageurs" />
               </SelectTrigger>
               <SelectContent>
@@ -288,7 +288,7 @@ const SearchWidget = () => {
             </Select>
           </div>
           
-          <Button className="w-full bg-primary text-white hover:bg-primary/90 py-6 text-lg font-medium">
+          <Button className="w-full bg-secondary text-primary hover:bg-secondary/90 py-6 text-lg font-medium">
             Rechercher une activité <ArrowRight className="ml-2 h-4 w-4" />
           </Button>
         </TabsContent>

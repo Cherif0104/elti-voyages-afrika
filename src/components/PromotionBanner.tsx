@@ -27,7 +27,7 @@ const PromotionBanner = ({
   const [currentPromoIndex, setCurrentPromoIndex] = useState(0);
   
   const promotions = [
-    { text: text, title: title || "Promotion" },
+    { text: text, title: title || "Offre Spéciale" },
     { text: "Réservez vos vols pour le Maroc à partir de 199€", title: "Offre Spéciale" },
     { text: "20% de réduction sur les réservations d'hôtels", title: "Économisez" }
   ];
@@ -54,13 +54,13 @@ const PromotionBanner = ({
       initial={{ opacity: 0, y: -20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5 }}
-      className="bg-gradient-to-r from-primary to-secondary text-white py-3 px-4 relative z-50 text-center lg:pl-64"
+      className="bg-gradient-to-r from-primary via-primary to-secondary text-white py-3 px-4 relative z-50 text-center lg:pl-64"
     >
       <div className="container mx-auto flex items-center justify-center sm:justify-between">
         <div className="flex items-center">
-          <Bell className="h-4 w-4 mr-2 animate-pulse" />
+          <Bell className="h-5 w-5 mr-3 animate-pulse text-secondary" />
           <p className="text-sm md:text-base">
-            {displayTitle && <span className="font-semibold mr-1">{displayTitle}:</span>}
+            {displayTitle && <span className="font-bold mr-1 text-secondary">{displayTitle}:</span>}
             {displayText}
           </p>
         </div>
@@ -68,7 +68,7 @@ const PromotionBanner = ({
         <div className="hidden sm:flex items-center gap-4">
           <Link 
             to={displayCtaUrl}
-            className="flex items-center text-white hover:text-white/80 text-sm whitespace-nowrap font-medium bg-white/20 px-3 py-1 rounded-full"
+            className="flex items-center text-white hover:text-white/80 text-sm whitespace-nowrap font-medium bg-secondary text-primary px-4 py-1.5 rounded-full hover:bg-secondary/90 transition-all"
           >
             {displayCtaText}
             <ChevronRight className="h-4 w-4 ml-1" />
@@ -85,9 +85,9 @@ const PromotionBanner = ({
       </div>
       
       {/* Progress indicator */}
-      <div className="absolute bottom-0 left-0 right-0 h-0.5 bg-white/20">
+      <div className="absolute bottom-0 left-0 right-0 h-1 bg-white/20">
         <motion.div 
-          className="h-full bg-white"
+          className="h-full bg-secondary"
           initial={{ width: "0%" }}
           animate={{ width: "100%" }}
           transition={{ duration: 5, repeat: Infinity, repeatType: "loop" }}

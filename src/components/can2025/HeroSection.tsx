@@ -72,7 +72,7 @@ const HeroSection = () => {
   return (
     <section className="pt-0 lg:pt-0 relative overflow-hidden">
       <div className="h-[700px] md:h-[800px] relative overflow-hidden">
-        {/* Background image with dark blue overlay */}
+        {/* Background image with dark overlay */}
         <div
           className="absolute inset-0 bg-cover bg-center"
           style={{
@@ -100,20 +100,20 @@ const HeroSection = () => {
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.2 }}
-              className="max-w-2xl mx-auto md:ml-auto text-center md:text-left"
+              className="max-w-2xl mx-auto md:ml-0 text-center md:text-left"
             >
-              <h1 className="text-6xl md:text-7xl font-bold text-white mb-6">
-                <span className="block">CAN 2025</span>
+              <h1 className="text-6xl md:text-8xl font-bold text-white mb-8">
+                <span className="block leading-tight">CAN 2025</span>
                 <motion.span 
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
                   transition={{ duration: 0.5, delay: 0.8 }}
-                  className="text-secondary"
+                  className="text-secondary text-shadow-lg"
                 >
                   au Maroc
                 </motion.span>
               </h1>
-              <p className="text-white/95 text-xl md:text-2xl mb-8 font-light">
+              <p className="text-white text-xl md:text-2xl mb-10 font-light text-shadow-md max-w-xl">
                 Vivez la passion du football africain avec nos offres exclusives pour la Coupe d'Afrique des Nations 2025.
               </p>
               <motion.div 
@@ -124,7 +124,7 @@ const HeroSection = () => {
               >
                 <Button
                   size="lg"
-                  className="text-lg px-8 py-7 font-semibold bg-secondary hover:bg-secondary/90 transition-all duration-300 hover:shadow-lg shadow-secondary/20"
+                  className="text-lg px-8 py-7 font-semibold bg-secondary hover:bg-secondary/90 text-primary transition-all duration-300 hover:shadow-lg shadow-secondary/20"
                   asChild
                 >
                   <Link to="#reservation">
@@ -154,7 +154,7 @@ const HeroSection = () => {
           animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.5, delay: 1.2 }}
         >
-          <Badge className="bg-secondary text-white px-4 py-2 text-sm font-medium rounded-full flex items-center gap-2 shadow-lg animate-pulse">
+          <Badge className="bg-secondary text-primary px-4 py-2 text-sm font-medium rounded-full flex items-center gap-2 shadow-lg animate-pulse">
             <Trophy className="h-5 w-5" />
             Places limitées !
           </Badge>
@@ -223,7 +223,7 @@ const HeroSection = () => {
               >
                 {/* Urgence badge */}
                 <div className="absolute -top-3 -right-3">
-                  <Badge className="bg-secondary text-white shadow-md px-2 py-1 text-xs animate-pulse">
+                  <Badge className="bg-secondary text-primary shadow-md px-2 py-1 text-xs animate-pulse">
                     <AlertCircle className="h-3 w-3 mr-1" /> Urgence
                   </Badge>
                 </div>
@@ -241,11 +241,16 @@ const HeroSection = () => {
           </div>
         </div>
         
+        {/* Search widget - positioned inside the hero section like in the image */}
+        <div className="absolute bottom-52 left-0 right-0 px-4 z-20">
+          <div className="container mx-auto">
+            <SearchWidget />
+          </div>
+        </div>
+        
         {/* Info cards at bottom - Added to match mockup */}
         <div className="absolute bottom-0 left-0 right-0 translate-y-1/2 px-4 z-20">
           <div className="container mx-auto">
-            <SearchWidget />
-            
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mt-6">
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
