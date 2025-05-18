@@ -7,6 +7,7 @@ import { Trophy, MapPin, AlertCircle, Info } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import SearchWidget from "../SearchWidget";
 import { motion } from "framer-motion";
+import Logo from "@/components/Logo";
 
 const HeroSection = () => {
   const [countValues, setCountValues] = useState({
@@ -22,11 +23,11 @@ const HeroSection = () => {
       teams: 24,
       stadiums: 6,
       matches: 52,
-      days: 14 // Changed to match the mockup showing 14 days remaining
+      days: 14
     };
     
-    const duration = 1500; // Animation duration in ms
-    const frameDuration = 16; // ms per frame (approx 60fps)
+    const duration = 1500;
+    const frameDuration = 16;
     const totalFrames = Math.round(duration / frameDuration);
     
     let frame = 0;
@@ -51,34 +52,31 @@ const HeroSection = () => {
   }, []);
 
   return (
-    <section className="relative bg-primary">
+    <section className="relative bg-gradient-to-r from-primary to-primary/80">
       {/* Hero content */}
-      <div className="relative pt-16 pb-32 flex content-center items-center justify-center" style={{ minHeight: "75vh" }}>
-        <div className="absolute top-0 w-full h-full bg-center bg-cover" style={{
-          backgroundImage: "url('/lovable-uploads/47760044-f970-40c3-9b13-a9a245aa5573.png')",
-          backgroundPosition: "center center"
-        }}>
+      <div className="relative pt-16 pb-32 flex content-center items-center justify-center min-h-[75vh]">
+        <div 
+          className="absolute top-0 w-full h-full bg-center bg-cover" 
+          style={{
+            backgroundImage: "url('/lovable-uploads/47760044-f970-40c3-9b13-a9a245aa5573.png')",
+            backgroundPosition: "center center"
+          }}
+        >
           <span className="w-full h-full absolute opacity-75 bg-primary"></span>
         </div>
         
         <div className="container relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 z-10">
           <div className="flex flex-wrap items-center">
             {/* Hero text */}
-            <div className="w-full lg:w-6/12 px-4 ml-auto mr-auto text-center lg:text-left">
-              {/* CAF Logo - Positioned at top left */}
+            <div className="w-full lg:w-1/2 px-4 ml-auto mr-auto text-center lg:text-left">
+              {/* Logo - Positioned at top */}
               <motion.div 
                 initial={{ opacity: 0, y: -20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5 }}
-                className="absolute top-10 left-10 hidden lg:block"
+                className="mb-8 inline-block lg:text-left"
               >
-                <div className="bg-white p-2 rounded-full w-16 h-16 flex items-center justify-center shadow-lg">
-                  <img 
-                    src="https://upload.wikimedia.org/wikipedia/en/thumb/c/c9/Confederation_of_African_Football_logo.svg/1200px-Confederation_of_African_Football_logo.svg.png" 
-                    alt="CAF Logo"
-                    className="w-10 h-10 object-contain"
-                  />
-                </div>
+                <Logo size="lg" />
               </motion.div>
               
               <motion.h1 
@@ -143,10 +141,16 @@ const HeroSection = () => {
         
         {/* Limited availability badge */}
         <div className="absolute top-8 right-8 z-10">
-          <Badge className="bg-secondary text-primary px-3 py-1 text-sm font-medium rounded-md flex items-center gap-2 shadow-lg">
-            <Trophy className="h-4 w-4" />
-            Places limitées !
-          </Badge>
+          <motion.div
+            initial={{ opacity: 0, x: 50 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.5, delay: 1.2 }}
+          >
+            <Badge className="bg-secondary text-primary px-4 py-2 text-sm font-medium rounded-full flex items-center gap-2 shadow-lg">
+              <Trophy className="h-5 w-5" />
+              Places limitées !
+            </Badge>
+          </motion.div>
         </div>
       </div>
       

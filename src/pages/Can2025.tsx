@@ -11,7 +11,7 @@ import CanGallery from "@/components/can2025/CanGallery";
 import SenegalSupportSection from "@/components/can2025/SenegalSupportSection";
 import { motion, useScroll, useTransform, useInView, useAnimation } from "framer-motion";
 import { 
-  staggerContainer, 
+  staggerContainer,
   fadeInUp, 
   hoverScale, 
   scrollReveal, 
@@ -23,7 +23,7 @@ import { Calendar, Users, Clock, MapPin, Flag, Star } from "lucide-react";
 
 const Can2025 = () => {
   const [isVisible, setIsVisible] = useState(false);
-  const [daysRemaining, setDaysRemaining] = useState(14); // Changed to match mockup (14 days)
+  const [daysRemaining, setDaysRemaining] = useState(14);
   const counterRef = useRef(null);
   const isInView = useInView(counterRef, { once: false, margin: "-100px" });
   const controls = useAnimation();
@@ -135,35 +135,8 @@ const Can2025 = () => {
   ];
 
   return (
-    <div className="bg-white">
+    <div className="bg-gray-50">
       <HeroSection />
-      
-      {/* Countdown section with classic styling */}
-      <section className="py-16 bg-primary text-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-10">
-            <h2 className="text-3xl md:text-4xl font-bold mb-4">La CAN 2025 approche</h2>
-            <p className="text-lg opacity-90 max-w-2xl mx-auto">Ne manquez pas l'événement footballistique de l'année</p>
-          </div>
-          
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-6 max-w-4xl mx-auto">
-            {stats.map((stat, index) => (
-              <div 
-                key={index}
-                className="bg-white/10 rounded-lg p-6 text-center"
-              >
-                <div className="flex items-center justify-center mb-3">
-                  {stat.icon}
-                </div>
-                <div className="text-3xl md:text-4xl font-bold">
-                  {stat.value}
-                </div>
-                <div className="text-sm md:text-base mt-1 text-white/80">{stat.label}</div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
       
       {/* Senegal Support Section */}
       <SenegalSupportSection />

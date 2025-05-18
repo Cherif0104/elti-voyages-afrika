@@ -3,14 +3,15 @@ import { useRef } from "react";
 import { Link } from "react-router-dom";
 import { Phone, Calendar } from "lucide-react";
 import { motion } from "framer-motion";
+import Logo from "@/components/Logo";
 
 const CtaSection = () => {
   const ctaRef = useRef(null);
 
   return (
-    <section className="py-20 relative bg-primary">
-      <div className="absolute inset-0 bg-primary" style={{
-        backgroundImage: "url(\"data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.1'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E\")",
+    <section className="py-20 relative bg-white">
+      <div className="absolute inset-0 bg-primary/5" style={{
+        backgroundImage: "url(\"data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23000000' fill-opacity='0.05'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E\")",
       }} />
       
       <div ref={ctaRef} className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
@@ -24,16 +25,19 @@ const CtaSection = () => {
                 viewport={{ once: true }}
                 transition={{ duration: 0.6 }}
               >
-                <span className="inline-block bg-white/20 text-white px-4 py-2 rounded-md text-sm font-medium mb-4">
-                  <Calendar className="inline-block mr-2 h-4 w-4" />
-                  Été 2025
-                </span>
+                <div className="flex items-center justify-center lg:justify-start mb-6">
+                  <Logo size="md" className="mr-4" />
+                  <span className="inline-block bg-primary/10 text-primary px-4 py-2 rounded-md text-sm font-medium">
+                    <Calendar className="inline-block mr-2 h-4 w-4" />
+                    Été 2025
+                  </span>
+                </div>
                 
-                <h2 className="text-3xl md:text-5xl font-bold text-white mb-6">
+                <h2 className="text-3xl md:text-5xl font-bold text-primary mb-6">
                   Prêt à supporter le Sénégal à la CAN 2025 au Maroc ?
                 </h2>
                 
-                <p className="text-white/90 text-lg mb-10 max-w-xl mx-auto lg:mx-0">
+                <p className="text-gray-600 text-lg mb-10 max-w-xl mx-auto lg:mx-0">
                   Réservez dès maintenant votre pack supporter et vivez des moments inoubliables 
                   au cœur du football africain. Places limitées !
                 </p>
@@ -41,14 +45,14 @@ const CtaSection = () => {
                 <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
                   <Link
                     to="#reservation"
-                    className="bg-white text-primary hover:bg-white/90 text-lg px-8 py-4 rounded-md transition-all duration-300 inline-block shadow-lg font-medium"
+                    className="bg-primary text-white hover:bg-primary/90 text-lg px-8 py-4 rounded-md transition-all duration-300 inline-block shadow-lg font-medium"
                   >
                     Réserver mon pack
                   </Link>
                   
                   <a
                     href="tel:+221777748374"
-                    className="flex items-center justify-center gap-2 border border-white/30 text-white hover:bg-white/10 text-lg px-6 py-4 rounded-md transition-all duration-300 font-medium"
+                    className="flex items-center justify-center gap-2 border border-primary/30 text-primary hover:bg-primary/5 text-lg px-6 py-4 rounded-md transition-all duration-300 font-medium"
                   >
                     <Phone className="h-5 w-5" />
                     <span>+221 77 774 83 74</span>
@@ -64,7 +68,7 @@ const CtaSection = () => {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.6, delay: 0.2 }}
-                className="bg-white rounded-lg shadow-xl p-8"
+                className="bg-white rounded-lg shadow-xl p-8 border border-gray-100"
               >
                 <div className="text-center">
                   <div className="mb-4">
@@ -114,25 +118,25 @@ const CtaSection = () => {
               </motion.div>
               
               {/* Contact information */}
-              <div className="mt-6 text-center text-white">
+              <div className="mt-6 text-center">
                 <motion.div
                   initial={{ opacity: 0 }}
                   whileInView={{ opacity: 1 }}
                   viewport={{ once: true }}
                   transition={{ duration: 0.6, delay: 0.4 }}
                 >
-                  <p className="font-medium mb-2">Pour plus d'informations:</p>
+                  <p className="font-medium mb-2 text-gray-700">Pour plus d'informations:</p>
                   <div className="flex flex-col sm:flex-row gap-2 justify-center text-sm">
-                    <div className="bg-white/10 rounded p-2">
+                    <div className="bg-gray-100 rounded p-2">
                       <span className="block">Sénégal : +221 750 10 32 89 - +221 77 774 83 74</span>
                     </div>
-                    <div className="bg-white/10 rounded p-2">
+                    <div className="bg-gray-100 rounded p-2">
                       <span className="block">Maroc : +212 632 25 37 70 - +212 706 06 54 25</span>
                     </div>
                   </div>
-                  <p className="mt-2">
-                    <a href="mailto:contact@eltivoyages.com" className="underline hover:text-secondary">contact@eltivoyages.com</a> | 
-                    <a href="https://www.eltivoyages.com" className="underline hover:text-secondary ml-1" target="_blank" rel="noreferrer">www.eltivoyages.com</a>
+                  <p className="mt-2 text-gray-600">
+                    <a href="mailto:contact@eltivoyages.com" className="underline hover:text-primary">contact@eltivoyages.com</a> | 
+                    <a href="https://www.eltivoyages.com" className="underline hover:text-primary ml-1" target="_blank" rel="noreferrer">www.eltivoyages.com</a>
                   </p>
                 </motion.div>
               </div>
