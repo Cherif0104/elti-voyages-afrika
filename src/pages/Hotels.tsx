@@ -1,11 +1,14 @@
 
-import { Building, Star, MapPin, Calendar, Users } from "lucide-react";
+import { Building, Star, MapPin, Calendar, Users, Trophy, Heart, Plus, Check, ChevronRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
 import { motion } from "framer-motion";
 import { fadeInUp, staggerContainer } from "@/components/can2025/AnimationUtils";
 import PartnerLogo from "@/components/PartnerLogo";
+import HotelsHeroSection from "@/components/hotels/HotelsHeroSection";
+import HotelStatsSection from "@/components/hotels/HotelStatsSection";
+import HotelCtaSection from "@/components/hotels/HotelCtaSection";
 
 const HotelCard = ({ category, city, price, features, imageUrl }) => {
   return (
@@ -35,7 +38,7 @@ const HotelCard = ({ category, city, price, features, imageUrl }) => {
         <ul className="space-y-2 mb-6">
           {features.map((feature, idx) => (
             <li key={idx} className="text-sm flex items-center">
-              <span className="w-2 h-2 rounded-full bg-accent mr-2"></span>
+              <Check className="h-4 w-4 text-primary mr-2" />
               {feature}
             </li>
           ))}
@@ -114,16 +117,24 @@ const Hotels = () => {
   ];
   
   return (
-    <div className="pt-6">
-      <div className="container mx-auto px-4 py-10">
-        <h1 className="text-3xl font-bold text-primary mb-6">Hébergements</h1>
-        <p className="text-gray-600 mb-8">
-          Du riad traditionnel à l'hôtel 5 étoiles en passant par les résidences de standing, nous vous proposons les meilleurs hébergements au Maroc et au Sénégal.
-        </p>
-        
-        {/* Hotel Chains */}
-        <div className="mb-10">
-          <h2 className="text-xl font-bold text-primary mb-4">Nos partenaires hôteliers</h2>
+    <div>
+      {/* Hero Section avec Widget de recherche */}
+      <HotelsHeroSection />
+      
+      {/* Stats Section */}
+      <HotelStatsSection />
+      
+      {/* Hotel Chains */}
+      <section className="bg-white py-16">
+        <div className="container mx-auto px-4">
+          <div className="text-center mb-10">
+            <span className="inline-block px-3 py-1 bg-primary/10 text-primary text-sm font-medium rounded-full mb-3">
+              Partenariats
+            </span>
+            <h2 className="text-3xl font-bold text-primary">Nos partenaires hôteliers</h2>
+            <p className="text-gray-600 mt-2">Nous collaborons avec les meilleures chaînes hôtelières pour vous offrir un service de qualité</p>
+          </div>
+          
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
             {hotelChains.map((chain, index) => (
               <motion.div
@@ -140,15 +151,26 @@ const Hotels = () => {
             ))}
           </div>
         </div>
-        
-        {/* Hotel Categories */}
-        <motion.div
-          variants={staggerContainer}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, margin: "-100px" }}
-        >
-          <h2 className="text-xl font-bold text-primary mb-6">Nos Destinations populaires</h2>
+      </section>
+      
+      {/* Hotel Categories */}
+      <section className="bg-gray-50 py-16">
+        <div className="container mx-auto px-4">
+          <motion.div
+            variants={staggerContainer}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, margin: "-100px" }}
+            className="text-center mb-10"
+          >
+            <span className="inline-block px-3 py-1 bg-primary/10 text-primary text-sm font-medium rounded-full mb-3">
+              Destinations
+            </span>
+            <h2 className="text-3xl font-bold text-primary mb-4">Nos hébergements populaires</h2>
+            <p className="text-gray-600 max-w-2xl mx-auto">
+              Du riad traditionnel à l'hôtel 5 étoiles, nous vous proposons des hébergements adaptés à tous les budgets et tous les styles.
+            </p>
+          </motion.div>
           
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
             {hotelCategories.map((hotel, index) => (
@@ -163,145 +185,90 @@ const Hotels = () => {
               </motion.div>
             ))}
           </div>
-        </motion.div>
-        
-        {/* Additional services */}
-        <div className="mt-12 bg-primary my-12 rounded-lg overflow-hidden shadow-xl">
-          <div className="p-8 text-white">
-            <h2 className="text-2xl font-bold mb-4">Services supplémentaires</h2>
-            <p className="mb-6 opacity-90">
+        </div>
+      </section>
+      
+      {/* Additional services */}
+      <section className="bg-white py-16">
+        <div className="container mx-auto px-4">
+          <div className="text-center mb-10">
+            <span className="inline-block px-3 py-1 bg-primary/10 text-primary text-sm font-medium rounded-full mb-3">
+              Services
+            </span>
+            <h2 className="text-3xl font-bold text-primary mb-4">Services supplémentaires</h2>
+            <p className="text-gray-600 max-w-2xl mx-auto">
               Personnalisez votre séjour avec nos services additionnels pour une expérience sur mesure.
             </p>
-            
-            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
-              <motion.div 
-                whileHover={{ scale: 1.03 }}
-                className="bg-white/10 backdrop-blur p-4 rounded-md hover:bg-white/20 transition-all duration-300"
-              >
-                <h3 className="text-lg font-bold mb-2">Spa & Bien-être</h3>
-                <p className="text-sm opacity-80">Massages, hammam, soins</p>
-              </motion.div>
-              <motion.div 
-                whileHover={{ scale: 1.03 }}
-                className="bg-white/10 backdrop-blur p-4 rounded-md hover:bg-white/20 transition-all duration-300"
-              >
-                <h3 className="text-lg font-bold mb-2">Restauration Privée</h3>
-                <p className="text-sm opacity-80">Chef privé, dîners gastronomiques</p>
-              </motion.div>
-              <motion.div 
-                whileHover={{ scale: 1.03 }}
-                className="bg-white/10 backdrop-blur p-4 rounded-md hover:bg-white/20 transition-all duration-300"
-              >
-                <h3 className="text-lg font-bold mb-2">Célébrations</h3>
-                <p className="text-sm opacity-80">Anniversaires, mariages, événements</p>
-              </motion.div>
-            </div>
-            
-            <div className="mt-6 flex justify-center md:justify-end">
-              <Button 
-                asChild 
-                variant="outline" 
-                className="border-white text-white hover:bg-white hover:text-primary transition-all duration-300"
-              >
-                <a href="#reservation">Réserver des services</a>
-              </Button>
-            </div>
           </div>
-        </div>
-        
-        {/* Hotel search */}
-        <div className="bg-gray-50 rounded-lg p-6 shadow-inner mt-12">
-          <h3 className="text-lg font-bold text-primary mb-4">Trouver un hébergement</h3>
           
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
-            <div>
-              <label htmlFor="city" className="block text-sm font-medium text-gray-700 mb-1">Ville</label>
-              <div className="relative">
-                <MapPin className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 h-5 w-5" />
-                <input
-                  id="city"
-                  type="text"
-                  placeholder="Marrakech, Dakar..."
-                  className="pl-10 w-full h-12 rounded-lg border border-gray-300 focus:ring-2 focus:ring-primary focus:border-primary focus:outline-none transition-shadow duration-300"
-                />
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+            <motion.div 
+              whileHover={{ scale: 1.03 }}
+              className="bg-primary/5 p-6 rounded-lg hover:bg-primary/10 transition-all duration-300"
+            >
+              <div className="bg-primary/10 w-12 h-12 rounded-full flex items-center justify-center mb-4">
+                <Heart className="h-6 w-6 text-primary" />
               </div>
-            </div>
+              <h3 className="text-lg font-bold mb-2 text-primary">Spa & Bien-être</h3>
+              <p className="text-gray-600">Massages, hammam, soins personnalisés et moments de détente absolue.</p>
+            </motion.div>
             
-            <div>
-              <label htmlFor="check-in" className="block text-sm font-medium text-gray-700 mb-1">Arrivée</label>
-              <div className="relative">
-                <Calendar className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 h-5 w-5" />
-                <input
-                  id="check-in"
-                  type="text"
-                  placeholder="jj/mm/aaaa"
-                  className="pl-10 w-full h-12 rounded-lg border border-gray-300 focus:ring-2 focus:ring-primary focus:border-primary focus:outline-none transition-shadow duration-300"
-                />
+            <motion.div 
+              whileHover={{ scale: 1.03 }}
+              className="bg-primary/5 p-6 rounded-lg hover:bg-primary/10 transition-all duration-300"
+            >
+              <div className="bg-primary/10 w-12 h-12 rounded-full flex items-center justify-center mb-4">
+                <Trophy className="h-6 w-6 text-primary" />
               </div>
-            </div>
+              <h3 className="text-lg font-bold mb-2 text-primary">Restauration Privée</h3>
+              <p className="text-gray-600">Chef privé, dîners gastronomiques et expériences culinaires uniques.</p>
+            </motion.div>
             
-            <div>
-              <label htmlFor="check-out" className="block text-sm font-medium text-gray-700 mb-1">Départ</label>
-              <div className="relative">
-                <Calendar className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 h-5 w-5" />
-                <input
-                  id="check-out"
-                  type="text"
-                  placeholder="jj/mm/aaaa"
-                  className="pl-10 w-full h-12 rounded-lg border border-gray-300 focus:ring-2 focus:ring-primary focus:border-primary focus:outline-none transition-shadow duration-300"
-                />
+            <motion.div 
+              whileHover={{ scale: 1.03 }}
+              className="bg-primary/5 p-6 rounded-lg hover:bg-primary/10 transition-all duration-300"
+            >
+              <div className="bg-primary/10 w-12 h-12 rounded-full flex items-center justify-center mb-4">
+                <Plus className="h-6 w-6 text-primary" />
               </div>
-            </div>
-            
-            <div>
-              <label htmlFor="guests" className="block text-sm font-medium text-gray-700 mb-1">Voyageurs</label>
-              <div className="relative">
-                <Users className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 h-5 w-5" />
-                <input
-                  id="guests"
-                  type="number"
-                  min="1"
-                  placeholder="2"
-                  className="pl-10 w-full h-12 rounded-lg border border-gray-300 focus:ring-2 focus:ring-primary focus:border-primary focus:outline-none transition-shadow duration-300"
-                />
-              </div>
-            </div>
-            
-            <div className="md:col-span-4">
-              <Button className="w-full mt-4 transition-all duration-300 hover:shadow-lg">
-                Rechercher des hébergements
-              </Button>
-            </div>
+              <h3 className="text-lg font-bold mb-2 text-primary">Célébrations</h3>
+              <p className="text-gray-600">Anniversaires, mariages, événements spéciaux organisés dans des cadres exceptionnels.</p>
+            </motion.div>
           </div>
         </div>
-        
-        {/* Important information */}
-        <div className="mt-12">
-          <h3 className="text-lg font-bold text-primary mb-4">Informations importantes</h3>
+      </section>
+      
+      {/* CTA Section */}
+      <HotelCtaSection />
+      
+      {/* Important information */}
+      <section className="bg-gray-50 py-16">
+        <div className="container mx-auto px-4">
+          <h3 className="text-xl font-bold text-primary mb-8 text-center">Informations importantes</h3>
           
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div className="bg-white p-6 rounded-lg shadow-sm border border-gray-100 hover:shadow-md transition-shadow duration-300">
               <h4 className="font-bold text-sm mb-2">Politiques de réservation</h4>
               <ul className="space-y-1 text-sm text-gray-600">
-                <li>• Paiement sécurisé en ligne</li>
-                <li>• Confirmation immédiate par email</li>
-                <li>• Garantie du meilleur prix</li>
-                <li>• Assistance 24h/24 et 7j/7</li>
+                <li className="flex items-center"><Check className="h-4 w-4 text-green-500 mr-2" /> Paiement sécurisé en ligne</li>
+                <li className="flex items-center"><Check className="h-4 w-4 text-green-500 mr-2" /> Confirmation immédiate par email</li>
+                <li className="flex items-center"><Check className="h-4 w-4 text-green-500 mr-2" /> Garantie du meilleur prix</li>
+                <li className="flex items-center"><Check className="h-4 w-4 text-green-500 mr-2" /> Assistance 24h/24 et 7j/7</li>
               </ul>
             </div>
             
             <div className="bg-white p-6 rounded-lg shadow-sm border border-gray-100 hover:shadow-md transition-shadow duration-300">
               <h4 className="font-bold text-sm mb-2">Services inclus</h4>
               <ul className="space-y-1 text-sm text-gray-600">
-                <li>• Petit-déjeuner (selon établissement)</li>
-                <li>• Wi-Fi gratuit</li>
-                <li>• Conciergerie ELTI VOYAGES</li>
-                <li>• Support téléphonique multilingue</li>
+                <li className="flex items-center"><Check className="h-4 w-4 text-green-500 mr-2" /> Petit-déjeuner (selon établissement)</li>
+                <li className="flex items-center"><Check className="h-4 w-4 text-green-500 mr-2" /> Wi-Fi gratuit</li>
+                <li className="flex items-center"><Check className="h-4 w-4 text-green-500 mr-2" /> Conciergerie ELTI VOYAGES</li>
+                <li className="flex items-center"><Check className="h-4 w-4 text-green-500 mr-2" /> Support téléphonique multilingue</li>
               </ul>
             </div>
           </div>
         </div>
-      </div>
+      </section>
     </div>
   );
 };
