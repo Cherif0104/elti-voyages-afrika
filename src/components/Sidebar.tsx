@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { cn } from '@/lib/utils';
@@ -81,7 +80,7 @@ const Sidebar = () => {
   return (
     <>
       {/* Desktop Sidebar */}
-      <div className="fixed left-0 top-0 z-40 h-full w-64 bg-white shadow-md hidden lg:block">
+      <div className="fixed left-0 top-0 z-40 h-full w-56 bg-white shadow-md hidden lg:block">
         <div className="flex h-16 items-center px-4 border-b border-gray-100">
           <Link to="/" className="flex items-center">
             <Logo size="md" />
@@ -134,7 +133,7 @@ const Sidebar = () => {
 
       {/* Main Header - Full Width */}
       <header className={cn(
-        "fixed top-0 z-50 w-full backdrop-blur-md transition-all duration-300 lg:pl-64",
+        "fixed top-0 z-50 w-full backdrop-blur-md transition-all duration-300 lg:pl-56",
         isScrolled 
           ? "bg-white shadow-sm border-b border-gray-100" 
           : "bg-white/85"

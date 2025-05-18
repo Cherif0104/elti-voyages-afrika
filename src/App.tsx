@@ -46,8 +46,8 @@ const App = () => {
         <BrowserRouter>
           <div className="min-h-screen flex flex-col">
             <Sidebar />
-            {/* Added lg:pl-64 for sidebar space */}
-            <main className="flex-1 pt-16 lg:pl-64">
+            {/* Updated lg:pl-56 to match the sidebar width */}
+            <main className="flex-1 pt-16 lg:pl-56">
               <Routes>
                 <Route path="/" element={<Index />} />
                 <Route path="/can2025" element={<Can2025 />} />
