@@ -12,7 +12,7 @@ const ExcursionsStatsSection = () => {
     { value: 45, label: "Excursions disponibles", icon: <MapPin className="h-6 w-6 text-secondary" /> },
     { value: 12, label: "Guides experts", icon: <User2 className="h-6 w-6 text-secondary" /> },
     { value: 15, label: "Années d'expérience", icon: <Clock className="h-6 w-6 text-secondary" /> },
-    { value: 2500, label: "Clients par an", icon: <Building className="h-6 w-6 text-secondary" /> }
+    { value: 2500, label: "Clients satisfaits", icon: <Building className="h-6 w-6 text-secondary" /> }
   ];
   
   // Counter animation variants
