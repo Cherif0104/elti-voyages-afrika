@@ -69,7 +69,7 @@ const HeroSection = () => {
   };
 
   return (
-    <section className="pt-16 lg:pt-0 relative overflow-hidden">
+    <section className="pt-0 lg:pt-0 relative overflow-hidden">
       <div className="h-[700px] md:h-[800px] relative overflow-hidden">
         {/* Background image with dark blue overlay */}
         <div
@@ -99,7 +99,7 @@ const HeroSection = () => {
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.2 }}
-              className="max-w-2xl mx-auto md:mx-0 text-center md:text-left"
+              className="max-w-2xl mx-auto md:ml-auto text-center md:text-left"
             >
               <h1 className="text-6xl md:text-7xl font-bold text-white mb-6">
                 <span className="block">CAN 2025</span>
