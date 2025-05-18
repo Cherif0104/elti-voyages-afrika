@@ -50,6 +50,14 @@ const Index = () => {
   const y = useTransform(scrollYProgress, [0, 1], ["0%", "30%"]);
   const opacity = useTransform(scrollYProgress, [0, 0.8], [1, 0.5]);
 
+  // Define the popular destinations to display in the search bar
+  const popularDestinations = [
+    { name: "Marrakech", link: "#" },
+    { name: "Dakar", link: "#" },
+    { name: "Casablanca", link: "#" },
+    { name: "Cap Skirring", link: "#" }
+  ];
+
   useEffect(() => {
     setIsVisible(true);
     
