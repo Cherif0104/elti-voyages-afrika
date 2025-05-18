@@ -80,17 +80,17 @@ const Sidebar = () => {
 
   return (
     <>
-      {/* Desktop Sidebar - Fixed to the left */}
-      <div className="fixed left-0 top-0 z-40 h-full w-[290px] bg-white shadow-md hidden lg:flex flex-col">
-        <div className="flex h-16 items-center px-6 border-b border-gray-100">
+      {/* Desktop Sidebar - Fixé à gauche sans marge */}
+      <div className="fixed left-0 top-0 z-40 h-full w-[290px] bg-white shadow-md hidden lg:block">
+        <div className="flex h-16 items-center px-4 border-b border-gray-100">
           <Link to="/" className="flex items-center">
             <Logo size="md" />
             <span className="text-xl font-poppins font-bold text-primary ml-2">ELTI VOYAGES</span>
           </Link>
         </div>
         
-        <div className="py-6 px-4 flex-1 overflow-y-auto">
-          <nav className="space-y-1.5">
+        <div className="py-4 px-2">
+          <nav className="space-y-1">
             {navItems.map((item) => {
               const isActive = location.pathname === item.path;
               return (
@@ -98,24 +98,25 @@ const Sidebar = () => {
                   key={item.path}
                   to={item.path}
                   className={cn(
-                    "flex items-center gap-3 px-4 py-3.5 rounded-lg transition-all duration-200",
+                    "flex items-center gap-3 px-3 py-3 rounded-md transition-colors",
                     isActive
-                      ? "bg-primary/10 text-primary font-medium border-r-4 border-primary"
-                      : "text-gray-600 hover:bg-gray-50 hover:text-primary"
+                      ? "bg-primary/5 text-accent border-r-2 border-accent"
+                      : "text-gray-700 hover:bg-gray-50"
                   )}
                 >
-                  <item.icon className={cn("h-5 w-5", isActive ? "text-primary" : "text-gray-500")} />
-                  <span>{item.name}</span>
+                  <item.icon className={cn("h-5 w-5", isActive ? "text-accent" : "text-primary/60")} />
+                  <span className="font-medium">{item.name}</span>
                 </Link>
               );
             })}
           </nav>
         </div>
         
-        <div className="p-6 border-t border-gray-100">
+        <div className="absolute bottom-0 w-full p-4 border-t border-gray-100">
           <Button
             asChild
-            className="w-full bg-primary hover:bg-primary/90 text-white shadow-md hover:shadow-lg transition-all duration-300"
+            variant="secondary"
+            className="w-full bg-primary hover:bg-primary/90 text-white"
           >
             <Link to="#reservation">
               Réserver
@@ -123,22 +124,22 @@ const Sidebar = () => {
           </Button>
           
           <div className="mt-4 flex justify-center items-center">
-            <a href="tel:+212656136036" className="flex items-center gap-2 text-primary hover:text-primary/80 transition-colors">
+            <a href="tel:+212656136036" className="flex items-center gap-2 text-primary">
               <Phone className="h-4 w-4" />
-              <span className="font-medium">+212 656 13 60 36</span>
+              <span>+212 656 13 60 36</span>
             </a>
           </div>
         </div>
       </div>
 
-      {/* Main Header - Full Width */}
+      {/* Main Header - Full Width, s'ajuste pour être à côté de la sidebar sur desktop */}
       <header className={cn(
         "fixed top-0 z-50 w-full backdrop-blur-md transition-all duration-300",
         isScrolled 
           ? "bg-white shadow-sm border-b border-gray-100" 
-          : "bg-white/90"
+          : "bg-white/85"
       )}>
-        <div className="lg:ml-[290px] container mx-auto px-4">
+        <div className="lg:pl-[290px] container mx-auto px-4">
           <div className="flex h-16 items-center justify-between">
             {/* Logo for Mobile */}
             <div className="flex items-center gap-2 lg:hidden">
@@ -149,27 +150,28 @@ const Sidebar = () => {
             </div>
             
             {/* Right Navigation */}
-            <div className="flex items-center gap-3 md:gap-5 ml-auto">
+            <div className="flex items-center gap-2 md:gap-4 ml-auto">
               <Button
                 variant="ghost"
                 size="sm"
                 asChild
-                className="hidden md:flex text-sm font-medium hover:bg-primary/5"
+                className="hidden md:flex text-sm"
               >
                 <Link to="/billets-avion">Rechercher des vols</Link>
               </Button>
               
               {/* WhatsApp number */}
-              <a href="tel:+212656136036" className="hidden md:flex items-center text-primary font-medium hover:text-primary/80 transition-colors">
+              <a href="tel:+212656136036" className="hidden md:flex items-center text-primary font-medium">
                 <Phone className="h-4 w-4 mr-1" />
                 <span>+212 656 13 60 36</span>
               </a>
               
               {/* "Réserver" button */}
               <Button
+                variant="secondary"
                 size="sm"
                 asChild
-                className="hidden md:flex bg-secondary hover:bg-secondary/90 text-white shadow-sm hover:shadow-md transition-all"
+                className="hidden md:flex"
               >
                 <Link to="#reservation">Réserver</Link>
               </Button>
@@ -190,19 +192,19 @@ const Sidebar = () => {
               {/* User Profile / Host */}
               <DropdownMenu>
                 <DropdownMenuTrigger asChild>
-                  <Button variant="outline" size="icon" className="rounded-full border-gray-200 hover:bg-primary/5 transition-colors">
+                  <Button variant="outline" size="icon" className="rounded-full border-gray-200">
                     <User className="h-5 w-5" />
                   </Button>
                 </DropdownMenuTrigger>
-                <DropdownMenuContent align="end" className="w-48 shadow-md border-gray-100">
-                  <DropdownMenuItem asChild className="cursor-pointer hover:bg-primary/5 focus:bg-primary/5">
-                    <Link to="#reservation">Réserver un voyage</Link>
+                <DropdownMenuContent align="end" className="w-48">
+                  <DropdownMenuItem asChild>
+                    <Link to="#reservation" className="cursor-pointer">Réserver un voyage</Link>
                   </DropdownMenuItem>
-                  <DropdownMenuItem asChild className="cursor-pointer hover:bg-primary/5 focus:bg-primary/5">
-                    <Link to="/contact">Contacter l'agence</Link>
+                  <DropdownMenuItem asChild>
+                    <Link to="/contact" className="cursor-pointer">Contacter l'agence</Link>
                   </DropdownMenuItem>
-                  <DropdownMenuItem asChild className="cursor-pointer hover:bg-primary/5 focus:bg-primary/5">
-                    <Link to="/billets-avion">Rechercher des vols</Link>
+                  <DropdownMenuItem asChild>
+                    <Link to="/billets-avion" className="cursor-pointer">Rechercher des vols</Link>
                   </DropdownMenuItem>
                 </DropdownMenuContent>
               </DropdownMenu>
@@ -234,25 +236,26 @@ const Sidebar = () => {
                         key={item.path}
                         to={item.path}
                         className={cn(
-                          "flex items-center gap-3 px-4 py-4 rounded-lg transition-all duration-200 border-b border-gray-50",
+                          "flex items-center gap-3 px-3 py-4 rounded-md transition-colors border-b border-gray-100",
                           isActive
-                            ? "bg-primary/5 text-primary font-medium"
-                            : "text-gray-600 hover:bg-gray-50 hover:text-primary"
+                            ? "bg-primary/5 text-accent"
+                            : "text-gray-700 hover:bg-gray-50"
                         )}
                         onClick={() => setIsOpen(false)}
                       >
-                        <item.icon className={cn("h-5 w-5", isActive ? "text-primary" : "text-gray-500")} />
-                        <span>{item.name}</span>
+                        <item.icon className={cn("h-5 w-5", isActive ? "text-accent" : "text-primary/60")} />
+                        <span className="font-medium">{item.name}</span>
                       </Link>
                     );
                   })}
                 </nav>
               </div>
               
-              <div className="p-6 border-t border-gray-100">
+              <div className="p-4 border-t border-gray-100">
                 <Button
                   asChild
-                  className="w-full bg-primary hover:bg-primary/90 text-white shadow-md hover:shadow-lg transition-all duration-300"
+                  variant="secondary"
+                  className="w-full bg-primary hover:bg-primary/90 text-white"
                 >
                   <Link to="#reservation" onClick={() => setIsOpen(false)}>
                     Réserver
@@ -260,8 +263,8 @@ const Sidebar = () => {
                 </Button>
                 
                 <div className="mt-6 flex justify-between items-center">
-                  <a href="tel:+212656136036" className="flex items-center gap-2 text-primary font-medium hover:text-primary/80 transition-colors">
-                    <Phone className="h-5 w-5" />
+                  <a href="tel:+212656136036" className="flex items-center gap-2 text-primary">
+                    <Phone className="h-4 w-4" />
                     <span>+212 656 13 60 36</span>
                   </a>
                 </div>
@@ -284,17 +287,17 @@ const Sidebar = () => {
                 className="flex flex-col items-center justify-center pt-1 pb-0.5"
               >
                 <div className={cn(
-                  "p-1.5 rounded-full transition-colors",
+                  "p-1.5 rounded-full",
                   isActive ? "bg-primary/10" : ""
                 )}>
                   <item.icon className={cn(
                     "h-5 w-5",
-                    isActive ? "text-primary" : "text-gray-500"
+                    isActive ? "text-accent" : "text-gray-500"
                   )} />
                 </div>
                 <span className={cn(
                   "text-[10px] mt-0.5",
-                  isActive ? "text-primary font-medium" : "text-gray-500"
+                  isActive ? "text-accent font-medium" : "text-gray-500"
                 )}>
                   {item.name.split(" ")[0]}
                 </span>
@@ -311,7 +314,8 @@ const Sidebar = () => {
           whileTap={{ scale: 0.95 }}
         >
           <Button 
-            className="rounded-full shadow-lg bg-secondary text-white px-6 py-6 h-auto shadow-secondary/20 hover:shadow-secondary/30"
+            variant="secondary" 
+            className="rounded-full shadow-lg bg-primary text-white px-6 py-6 h-auto"
             asChild
           >
             <Link to="#reservation">
