@@ -1,7 +1,6 @@
 
 import { useEffect, useState, useRef } from "react";
 import HeroSection from "@/components/can2025/HeroSection";
-import OverviewSection from "@/components/can2025/OverviewSection";
 import KeyDatesSection from "@/components/can2025/KeyDatesSection";
 import NewsSection from "@/components/can2025/NewsSection";
 import FaqSection from "@/components/can2025/FaqSection";
@@ -136,19 +135,6 @@ const Can2025 = () => {
   return (
     <div className="bg-white">
       <HeroSection />
-      
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
-        <div className="text-center mb-12">
-          <h2 className="text-3xl md:text-4xl font-bold text-primary mb-4">
-            Aperçu de la CAN 2025
-          </h2>
-          <p className="text-gray-600 max-w-2xl mx-auto">
-            La Coupe d'Afrique des Nations 2025 se tiendra au Maroc. Découvrez tout ce que vous devez savoir sur cet événement majeur du football africain.
-          </p>
-        </div>
-        
-        <OverviewSection />
-      </div>
       
       {/* Countdown section with classic styling */}
       <section className="py-16 bg-primary text-white">
