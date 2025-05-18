@@ -1,7 +1,7 @@
 
 import { motion } from "framer-motion";
 import { fadeInUp, staggerContainer, hoverElevate } from "./AnimationUtils";
-import { Calendar } from "lucide-react";
+import { Trophy } from "lucide-react";
 
 const KeyDatesSection = () => {
   return (
@@ -37,7 +37,7 @@ const KeyDatesSection = () => {
             className="bg-gradient-to-br from-white to-gray-50 p-6 rounded-xl shadow-sm border border-gray-100"
           >
             <div className="bg-primary/5 w-12 h-12 rounded-full flex items-center justify-center mb-4">
-              <Calendar className="h-6 w-6 text-primary" />
+              <Trophy className="h-6 w-6 text-primary" />
             </div>
             <h3 className="text-xl font-bold mb-4 text-primary">Tirage au sort</h3>
             <p className="text-gray-700 mb-4">
@@ -58,7 +58,7 @@ const KeyDatesSection = () => {
             className="bg-gradient-to-br from-white to-gray-50 p-6 rounded-xl shadow-sm border border-gray-100"
           >
             <div className="bg-primary/5 w-12 h-12 rounded-full flex items-center justify-center mb-4">
-              <Calendar className="h-6 w-6 text-primary" />
+              <Trophy className="h-6 w-6 text-primary" />
             </div>
             <h3 className="text-xl font-bold mb-4 text-primary">Coup d'envoi</h3>
             <p className="text-gray-700 mb-4">
@@ -79,7 +79,7 @@ const KeyDatesSection = () => {
             className="bg-gradient-to-br from-white to-gray-50 p-6 rounded-xl shadow-sm border border-gray-100"
           >
             <div className="bg-primary/5 w-12 h-12 rounded-full flex items-center justify-center mb-4">
-              <Calendar className="h-6 w-6 text-primary" />
+              <Trophy className="h-6 w-6 text-primary" />
             </div>
             <h3 className="text-xl font-bold mb-4 text-primary">Finale</h3>
             <p className="text-gray-700 mb-4">

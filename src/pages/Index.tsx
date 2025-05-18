@@ -1,5 +1,5 @@
 import { useEffect, useState, useRef } from "react";
-import { Plane, Hotel, Car, Map, Crown, Star, MapPin, Calendar, UsersRound } from "lucide-react";
+import { Plane, Hotel, Car, Map, Crown, Star, MapPin, UsersRound } from "lucide-react";
 import { Link } from "react-router-dom";
 import BookingForm from "@/components/BookingForm";
 import ServiceCard from "@/components/ServiceCard";
@@ -284,10 +284,7 @@ const Index = () => {
 
       {/* Hero Section with Parallax Effect */}
       <section className="pt-20 lg:pl-64 relative overflow-hidden" ref={heroRef}>
-        {/* Decorative floating elements */}
-        <FloatingElement x={5} y={20} delay={0.2} size="lg">
-          <Calendar className="h-full w-full" />
-        </FloatingElement>
+        {/* Decorative floating elements - removed calendar illustrations */}
         <FloatingElement x={85} y={40} delay={0.5} size="md">
           <Star className="h-full w-full" />
         </FloatingElement>
@@ -415,7 +412,7 @@ const Index = () => {
                   <div className="md:col-span-3">
                     <label htmlFor="date" className="text-sm font-medium text-gray-700 mb-1 block">Date</label>
                     <div className="relative">
-                      <Calendar className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 h-5 w-5" />
+                      <Star className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 h-5 w-5" />
                       <input
                         type="text"
                         id="date"

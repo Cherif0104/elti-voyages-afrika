@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
-import { Trophy, Calendar, MapPin, AlertCircle, Info } from "lucide-react";
+import { Trophy, MapPin, AlertCircle, Info } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 
 const HeroSection = () => {
@@ -153,8 +153,8 @@ const HeroSection = () => {
           animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.5, delay: 1.2 }}
         >
-          <Badge className="bg-red-600 text-white px-4 py-2 text-sm font-medium rounded-full flex items-center gap-2 shadow-lg animate-pulse">
-            <Calendar className="h-5 w-5" />
+          <Badge className="bg-secondary text-white px-4 py-2 text-sm font-medium rounded-full flex items-center gap-2 shadow-lg animate-pulse">
+            <Trophy className="h-5 w-5" />
             Places limitées !
           </Badge>
         </motion.div>
@@ -204,7 +204,7 @@ const HeroSection = () => {
                 className="bg-primary/40 backdrop-blur-sm rounded-md p-4 md:p-6 text-center hover:bg-primary/50 transition-all duration-300 cursor-pointer"
               >
                 <div className="text-secondary mb-2">
-                  <Calendar className="h-8 w-8 mx-auto" />
+                  <Trophy className="h-8 w-8 mx-auto" />
                 </div>
                 <div className="text-4xl font-bold text-white">
                   {countValues.matches}
@@ -270,7 +270,7 @@ const HeroSection = () => {
                 <Card className="bg-white shadow-lg border-none hover:shadow-xl transition-all duration-300">
                   <CardContent className="p-4 flex items-center">
                     <div className="bg-secondary/10 rounded-full p-2 mr-3">
-                      <Calendar className="h-6 w-6 text-secondary" />
+                      <Trophy className="h-6 w-6 text-secondary" />
                     </div>
                     <div>
                       <h3 className="font-bold text-primary text-sm">Été 2025</h3>
