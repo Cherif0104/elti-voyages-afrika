@@ -6,8 +6,8 @@ import { Link } from 'react-router-dom';
 
 interface PromotionBannerProps {
   text: string;
-  ctaText?: string;  // Made optional
-  ctaUrl?: string;   // Made optional
+  ctaText?: string;  
+  ctaUrl?: string;   
   title?: string;
   linkText?: string;
   linkUrl?: string;
