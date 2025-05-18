@@ -1,3 +1,4 @@
+
 import { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { cn } from '@/lib/utils';
@@ -133,12 +134,12 @@ const Sidebar = () => {
 
       {/* Main Header - Full Width */}
       <header className={cn(
-        "fixed top-0 z-50 w-full backdrop-blur-md transition-all duration-300 lg:pl-56",
+        "fixed top-0 z-50 w-full backdrop-blur-md transition-all duration-300",
         isScrolled 
           ? "bg-white shadow-sm border-b border-gray-100" 
           : "bg-white/85"
       )}>
-        <div className="container mx-auto px-4 max-w-[1320px]">
+        <div className="container mx-auto px-4 max-w-[1320px] lg:ml-56">
           <div className="flex h-16 items-center justify-between">
             {/* Logo for Mobile */}
             <div className="flex items-center gap-2 lg:hidden">
