@@ -3,6 +3,7 @@ import { motion } from "framer-motion";
 import { Trophy, Star, Flag, Heart, ChevronRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
+import Logo from "@/components/Logo";
 
 const SenegalSupportSection = () => {
   return (
@@ -26,9 +27,12 @@ const SenegalSupportSection = () => {
                 viewport={{ once: true }}
                 transition={{ duration: 0.6 }}
               >
-                <span className="bg-yellow-300 text-green-800 px-4 py-1 rounded-full text-sm font-bold mb-4 inline-block">
-                  ALLEZ LES LIONS !
-                </span>
+                <div className="flex items-center mb-4">
+                  <Logo size="lg" className="mr-3" />
+                  <span className="bg-yellow-300 text-green-800 px-4 py-1 rounded-full text-sm font-bold inline-block">
+                    ALLEZ LES LIONS !
+                  </span>
+                </div>
                 
                 <h2 className="text-3xl md:text-5xl font-bold text-white mb-6">
                   Nous supportons le Sénégal
