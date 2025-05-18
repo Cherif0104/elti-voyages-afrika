@@ -46,7 +46,8 @@ const App = () => {
         <BrowserRouter>
           <div className="min-h-screen flex flex-col">
             <Sidebar />
-            <main className="flex-1">
+            {/* Removed lg:pl-64 to eliminate left whitespace */}
+            <main className="flex-1 pt-16">
               <Routes>
                 <Route path="/" element={<Index />} />
                 <Route path="/can2025" element={<Can2025 />} />

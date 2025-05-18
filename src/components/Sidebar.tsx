@@ -44,7 +44,7 @@ const Sidebar = () => {
 
   useEffect(() => {
     const handleScroll = () => {
-      if (window.scrollY > 80) { // Changed from 50 to 80 per requirements
+      if (window.scrollY > 80) {
         setIsScrolled(true);
       } else {
         setIsScrolled(false);
@@ -73,154 +73,110 @@ const Sidebar = () => {
   }, [location.pathname]);
 
   return (
-    <header className={cn(
-      "fixed top-0 z-50 w-full backdrop-blur-md transition-all duration-300",
-      isScrolled 
-        ? "bg-white shadow-sm border-b border-gray-100" 
-        : "bg-white/85"
-    )}>
-      <div className="container mx-auto px-4 max-w-[1320px]">
-        <div className="flex h-16 items-center justify-between">
-          {/* Logo */}
-          <div className="flex items-center gap-2">
-            <Link to="/" className="flex items-center">
-              <Logo size="md" />
-              <span className="text-xl font-poppins font-bold text-primary ml-2 hidden sm:block">ELTI VOYAGES</span>
-            </Link>
-          </div>
-          
-          {/* Center Search Button (Airbnb-like) */}
-          <div className="hidden md:flex items-center">
-            <motion.div 
-              className="bg-white rounded-full shadow-sm border border-gray-200 flex items-center h-12 pl-5 pr-2 hover:shadow-md transition-all cursor-pointer"
-              whileHover={{ scale: 1.02 }}
-            >
-              <div className="mr-4">
-                <span className="font-medium text-sm">Destination</span>
-              </div>
-              <div className="border-l border-gray-200 h-6 mx-2"></div>
-              <div className="mr-4">
-                <span className="font-medium text-sm">Dates</span>
-              </div>
-              <div className="border-l border-gray-200 h-6 mx-2"></div>
-              <div className="mr-2">
-                <span className="font-medium text-sm">Voyageurs</span>
-              </div>
-              <Button size="icon" variant="secondary" className="rounded-full bg-accent flex-shrink-0">
-                <Search className="h-4 w-4" />
-              </Button>
-            </motion.div>
-          </div>
-          
-          {/* Right Navigation */}
-          <div className="flex items-center gap-2 md:gap-4">
-            <Button
-              variant="ghost"
-              size="sm"
-              asChild
-              className="hidden md:flex text-sm"
-            >
-              <Link to="/billets-avion">Rechercher des vols</Link>
-            </Button>
-            
-            {/* WhatsApp number */}
-            <a href="tel:+212656136036" className="hidden md:flex items-center text-primary font-medium">
-              <Phone className="h-4 w-4 mr-1" />
-              <span>+212 656 13 60 36</span>
-            </a>
-            
-            {/* "Réserver" button */}
-            <Button
-              variant="secondary"
-              size="sm"
-              asChild
-              className="hidden md:flex"
-            >
-              <Link to="#reservation">Réserver</Link>
-            </Button>
-              
-            {/* Mobile menu button */}
-            <div className="lg:hidden flex items-center">
-              <Button
-                variant="ghost"
-                size="icon"
-                aria-label={isOpen ? "Close menu" : "Open menu"}
-                onClick={() => setIsOpen(!isOpen)}
-                className="relative z-50"
-              >
-                {isOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
-              </Button>
+    <>
+      {/* Main Header - Full Width */}
+      <header className={cn(
+        "fixed top-0 z-50 w-full backdrop-blur-md transition-all duration-300",
+        isScrolled 
+          ? "bg-white shadow-sm border-b border-gray-100" 
+          : "bg-white/85"
+      )}>
+        <div className="container mx-auto px-4 max-w-[1320px]">
+          <div className="flex h-16 items-center justify-between">
+            {/* Logo */}
+            <div className="flex items-center gap-2">
+              <Link to="/" className="flex items-center">
+                <Logo size="md" />
+                <span className="text-xl font-poppins font-bold text-primary ml-2 hidden sm:block">ELTI VOYAGES</span>
+              </Link>
             </div>
             
-            {/* User Profile / Host */}
-            <DropdownMenu>
-              <DropdownMenuTrigger asChild>
-                <Button variant="outline" size="icon" className="rounded-full border-gray-200">
-                  <User className="h-5 w-5" />
-                </Button>
-              </DropdownMenuTrigger>
-              <DropdownMenuContent align="end" className="w-48">
-                <DropdownMenuItem asChild>
-                  <Link to="#reservation" className="cursor-pointer">Réserver un voyage</Link>
-                </DropdownMenuItem>
-                <DropdownMenuItem asChild>
-                  <Link to="/contact" className="cursor-pointer">Contacter l'agence</Link>
-                </DropdownMenuItem>
-                <DropdownMenuItem asChild>
-                  <Link to="/billets-avion" className="cursor-pointer">Rechercher des vols</Link>
-                </DropdownMenuItem>
-              </DropdownMenuContent>
-            </DropdownMenu>
-          </div>
-        </div>
-      </div>
-      
-      {/* Desktop Sidebar (≥1024px) */}
-      <div className="fixed left-0 top-0 bottom-0 w-60 bg-white shadow-md border-r border-gray-100 z-40 hidden lg:flex flex-col">
-        <div className="flex-grow p-4 overflow-y-auto">
-          <div className="flex items-center mb-8 pl-2">
-            <Logo size="sm" />
-            <span className="text-lg font-poppins font-bold text-primary ml-2">ELTI VOYAGES</span>
-          </div>
-          
-          <nav className="space-y-1">
-            {navItems.map((item) => {
-              const isActive = 
-                location.pathname === item.path || 
-                (item.path === '/' && location.pathname === '/');
+            {/* Center Navigation */}
+            <nav className="hidden lg:flex items-center">
+              <ul className="flex space-x-1">
+                {navItems.map((item) => {
+                  const isActive = location.pathname === item.path;
+                  return (
+                    <li key={item.path}>
+                      <Link
+                        to={item.path}
+                        className={cn(
+                          "flex items-center px-3 py-2 rounded-md text-sm font-medium transition-colors",
+                          isActive ? "text-accent bg-primary/5" : "text-gray-700 hover:text-primary hover:bg-gray-50"
+                        )}
+                      >
+                        <item.icon className="w-4 h-4 mr-2" />
+                        <span>{item.name}</span>
+                      </Link>
+                    </li>
+                  );
+                })}
+              </ul>
+            </nav>
+            
+            {/* Right Navigation */}
+            <div className="flex items-center gap-2 md:gap-4">
+              <Button
+                variant="ghost"
+                size="sm"
+                asChild
+                className="hidden md:flex text-sm"
+              >
+                <Link to="/billets-avion">Rechercher des vols</Link>
+              </Button>
               
-              return (
-                <Link
-                  key={item.path}
-                  to={item.path}
-                  className={cn(
-                    "flex items-center gap-3 px-4 py-3 rounded-md transition-colors",
-                    isActive
-                      ? "bg-primary/5 text-accent border-r-2 border-accent"
-                      : "text-gray-700 hover:bg-gray-50"
-                  )}
+              {/* WhatsApp number */}
+              <a href="tel:+212656136036" className="hidden md:flex items-center text-primary font-medium">
+                <Phone className="h-4 w-4 mr-1" />
+                <span>+212 656 13 60 36</span>
+              </a>
+              
+              {/* "Réserver" button */}
+              <Button
+                variant="secondary"
+                size="sm"
+                asChild
+                className="hidden md:flex"
+              >
+                <Link to="#reservation">Réserver</Link>
+              </Button>
+                
+              {/* Mobile menu button */}
+              <div className="lg:hidden flex items-center">
+                <Button
+                  variant="ghost"
+                  size="icon"
+                  aria-label={isOpen ? "Close menu" : "Open menu"}
+                  onClick={() => setIsOpen(!isOpen)}
+                  className="relative z-50"
                 >
-                  <item.icon className={cn("h-5 w-5", isActive ? "text-accent" : "text-primary/60")} />
-                  <span className="font-medium">{item.name}</span>
-                </Link>
-              );
-            })}
-          </nav>
+                  {isOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
+                </Button>
+              </div>
+              
+              {/* User Profile / Host */}
+              <DropdownMenu>
+                <DropdownMenuTrigger asChild>
+                  <Button variant="outline" size="icon" className="rounded-full border-gray-200">
+                    <User className="h-5 w-5" />
+                  </Button>
+                </DropdownMenuTrigger>
+                <DropdownMenuContent align="end" className="w-48">
+                  <DropdownMenuItem asChild>
+                    <Link to="#reservation" className="cursor-pointer">Réserver un voyage</Link>
+                  </DropdownMenuItem>
+                  <DropdownMenuItem asChild>
+                    <Link to="/contact" className="cursor-pointer">Contacter l'agence</Link>
+                  </DropdownMenuItem>
+                  <DropdownMenuItem asChild>
+                    <Link to="/billets-avion" className="cursor-pointer">Rechercher des vols</Link>
+                  </DropdownMenuItem>
+                </DropdownMenuContent>
+              </DropdownMenu>
+            </div>
+          </div>
         </div>
-        
-        {/* Sticky "Réserver" button */}
-        <div className="p-4 border-t border-gray-100">
-          <Button
-            variant="secondary"
-            className="w-full bg-primary hover:bg-primary/90"
-            asChild
-          >
-            <Link to="#reservation">
-              Réserver
-            </Link>
-          </Button>
-        </div>
-      </div>
+      </header>
       
       {/* Mobile Navigation */}
       <AnimatePresence>
@@ -333,7 +289,7 @@ const Sidebar = () => {
           </Button>
         </motion.div>
       </div>
-    </header>
+    </>
   );
 };
 
