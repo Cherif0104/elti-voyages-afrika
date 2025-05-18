@@ -1,4 +1,3 @@
-
 import { useEffect, useState, useRef } from "react";
 import HeroSection from "@/components/can2025/HeroSection";
 import OverviewSection from "@/components/can2025/OverviewSection";
@@ -99,7 +98,7 @@ const Can2025 = () => {
     // (en supposant juin 2025)
     const today = new Date();
     const canStartDate = new Date(2025, 5, 1); // 1er juin 2025
-    const diffTime = Math.abs(canStartDate - today);
+    const diffTime = Math.abs(canStartDate.getTime() - today.getTime());
     const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
     
     setDaysRemaining(diffDays);
