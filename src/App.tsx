@@ -46,8 +46,8 @@ const App = () => {
         <BrowserRouter>
           <div className="min-h-screen flex flex-col">
             <Sidebar />
-            {/* Removed left padding completely - content will start right after sidebar */}
-            <main className="flex-1 pt-16 lg:ml-56">
+            {/* Contenu commence immédiatement après la barre latérale, sans marge */}
+            <main className="flex-1 pt-16">
               <Routes>
                 <Route path="/" element={<Index />} />
                 <Route path="/can2025" element={<Can2025 />} />

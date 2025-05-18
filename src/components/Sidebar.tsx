@@ -80,8 +80,8 @@ const Sidebar = () => {
 
   return (
     <>
-      {/* Desktop Sidebar */}
-      <div className="fixed left-0 top-0 z-40 h-full w-56 bg-white shadow-md hidden lg:block">
+      {/* Desktop Sidebar - Fixé à gauche sans marge */}
+      <div className="fixed left-0 top-0 z-40 h-full w-[290px] bg-white shadow-md hidden lg:block">
         <div className="flex h-16 items-center px-4 border-b border-gray-100">
           <Link to="/" className="flex items-center">
             <Logo size="md" />
@@ -132,14 +132,14 @@ const Sidebar = () => {
         </div>
       </div>
 
-      {/* Main Header - Full Width */}
+      {/* Main Header - Full Width, s'ajuste pour être à côté de la sidebar sur desktop */}
       <header className={cn(
         "fixed top-0 z-50 w-full backdrop-blur-md transition-all duration-300",
         isScrolled 
           ? "bg-white shadow-sm border-b border-gray-100" 
           : "bg-white/85"
       )}>
-        <div className="container mx-auto px-4 max-w-[1320px] lg:ml-56">
+        <div className="lg:pl-[290px] container mx-auto px-4">
           <div className="flex h-16 items-center justify-between">
             {/* Logo for Mobile */}
             <div className="flex items-center gap-2 lg:hidden">
