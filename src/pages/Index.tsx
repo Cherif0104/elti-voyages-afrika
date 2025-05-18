@@ -1,4 +1,3 @@
-
 import { useEffect, useState, useRef } from "react";
 import { Plane, Hotel, Car, Map, Crown, Star, MapPin, Calendar, UsersRound } from "lucide-react";
 import { Link } from "react-router-dom";
@@ -7,6 +6,7 @@ import ServiceCard from "@/components/ServiceCard";
 import PackageCard from "@/components/PackageCard";
 import PartnerLogo from "@/components/PartnerLogo";
 import PromotionBanner from "@/components/PromotionBanner";
+import PopularDestinations from "@/components/PopularDestinations";
 import { Button } from "@/components/ui/button";
 import {
   Carousel,
@@ -177,14 +177,6 @@ const Index = () => {
       text: "J'ai découvert le Maroc authentique grâce à leurs circuits sur mesure.",
       rating: 5,
     },
-  ];
-
-  // Example data for popular destinations
-  const popularDestinations = [
-    { name: "CAN 2025", link: "/can2025" },
-    { name: "Omra Ramadan", link: "#" },
-    { name: "Circuit Sénégal", link: "#" },
-    { name: "Marrakech", link: "#" },
   ];
 
   // Animation variants
@@ -666,6 +658,9 @@ const Index = () => {
           </motion.div>
         </div>
       </section>
+
+      {/* Popular Destinations Section */}
+      <PopularDestinations />
 
       {/* Services Section with enhanced animations */}
       <section id="services" className="py-24 lg:pl-64 relative">
