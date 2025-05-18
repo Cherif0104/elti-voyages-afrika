@@ -1,4 +1,3 @@
-
 import { motion } from "framer-motion";
 import { Card } from "@/components/ui/card";
 import PartnerLogo from "@/components/PartnerLogo";
@@ -8,7 +7,6 @@ import CarCtaSection from "@/components/cars/CarCtaSection";
 import CarCategoryCard from "@/components/cars/CarCategoryCard";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { motion } from "framer-motion";
 import { Clock, MapPin, Car } from "lucide-react";
 import { Link } from "react-router-dom";
 
