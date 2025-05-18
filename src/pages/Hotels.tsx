@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from "react";
 import { Hotel, Calendar, MapPin, Users, Loader2, Star, ChevronDown, Check, Filter, SlidersHorizontal, Wifi, Utensils, Dumbbell, Coffee, ParkingSquare } from "lucide-react";
 import { Input } from "@/components/ui/input";
@@ -92,14 +91,21 @@ interface HotelOffer {
   self: string;
 }
 
-const hotelImageClasses = [
-  "bg-[url('https://images.unsplash.com/photo-1564501049412-61c2a3083791?q=80&w=2324&auto=format&fit=crop')]",
-  "bg-[url('https://images.unsplash.com/photo-1566073771259-6a8506099945?q=80&w=2340&auto=format&fit=crop')]",
-  "bg-[url('https://images.unsplash.com/photo-1551882547-ff40c63fe5fa?q=80&w=2340&auto=format&fit=crop')]",
-  "bg-[url('https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?q=80&w=2340&auto=format&fit=crop')]",
-  "bg-[url('https://images.unsplash.com/photo-1445019980597-93fa8acb246c?q=80&w=2348&auto=format&fit=crop')]",
-  "bg-[url('https://images.unsplash.com/photo-1522798514-97ceb8c4f1c8?q=80&w=2335&auto=format&fit=crop')]",
+// Replace placeholder images with real hotel images
+const hotelImages = [
+  "/lovable-uploads/a89fcb9d-cfaf-4079-9105-53594f9f0310.png",
+  "/lovable-uploads/8a02378a-4b7f-4134-874a-8647c54e9c7d.png",
+  "/lovable-uploads/8956ad8a-a3ef-498e-894e-66b72433953c.png",
+  "/lovable-uploads/750af919-190d-4518-a2cf-b3dbf5978059.png",
+  "/lovable-uploads/b57bc564-1577-4c21-9366-5d0355d2aa31.png",
+  "/lovable-uploads/df202a53-b1cc-4f0f-bd88-51af7cd0aec1.png",
+  "/lovable-uploads/ab63324d-f67c-462a-9b92-16f736061c0a.png",
+  "/lovable-uploads/c5b32d58-adc5-4b29-b7d9-8b32a531bfc6.png",
+  "/lovable-uploads/ad2e6352-2bbd-43a0-ad6d-8760c3a39d60.png",
 ];
+
+// Adding Sixt as a car rental partner image
+const carRentalImage = "/lovable-uploads/64fef04f-2443-4df3-9dc2-df7a9691ddb9.png";
 
 const popularCities = [
   { name: "Marrakech", code: "RAK", image: "https://images.unsplash.com/photo-1560095215-5d5ab899a2ac?q=80&w=2342&auto=format&fit=crop" },
@@ -113,7 +119,7 @@ const HotelCard = ({
   location, 
   stars, 
   price, 
-  imageClass = "bg-placeholder",
+  image,
   amenities = [],
   onClick
 }: { 
@@ -121,12 +127,10 @@ const HotelCard = ({
   location: string;
   stars: number;
   price: string;
-  imageClass?: string;
+  image?: string;
   amenities?: string[];
   onClick?: () => void;
 }) => {
-  const randomImage = hotelImageClasses[Math.floor(Math.random() * hotelImageClasses.length)];
-  
   // Handle amenity icons
   const amenityIcons = {
     "WIFI": <Wifi size={16} />,
@@ -142,7 +146,16 @@ const HotelCard = ({
       transition={{ duration: 0.3 }}
       className="rounded-xl overflow-hidden shadow-lg border border-gray-200 transition-all hover:shadow-xl bg-white"
     >
-      <div className={`h-56 ${imageClass || randomImage} bg-cover bg-center`} />
+      {image ? (
+        <div 
+          className="h-56 bg-cover bg-center" 
+          style={{ backgroundImage: `url(${image})` }}
+        />
+      ) : (
+        <div className="h-56 bg-gray-200 flex items-center justify-center">
+          <Hotel className="h-12 w-12 text-gray-400" />
+        </div>
+      )}
       <div className="p-5">
         <div className="flex justify-between items-start mb-2">
           <h3 className="font-bold text-primary text-lg">{name}</h3>
@@ -342,56 +355,64 @@ const Hotels = () => {
       location: "Marrakech, Maroc", 
       stars: 5, 
       price: "280 € / nuit",
-      amenities: ["WIFI", "RESTAURANT", "POOL", "SPA", "BREAKFAST"]
+      amenities: ["WIFI", "RESTAURANT", "POOL", "SPA", "BREAKFAST"],
+      image: hotelImages[0]
     },
     { 
       name: "Radisson Blu", 
       location: "Casablanca, Maroc", 
       stars: 4, 
       price: "150 € / nuit",
-      amenities: ["WIFI", "RESTAURANT", "FITNESS_CENTER", "PARKING"]
+      amenities: ["WIFI", "RESTAURANT", "FITNESS_CENTER", "PARKING"],
+      image: hotelImages[8]
     },
     { 
       name: "Barceló Anfa", 
       location: "Casablanca, Maroc", 
       stars: 5, 
       price: "190 € / nuit",
-      amenities: ["WIFI", "RESTAURANT", "POOL", "FITNESS_CENTER"]
+      amenities: ["WIFI", "RESTAURANT", "POOL", "FITNESS_CENTER"],
+      image: hotelImages[7]
     },
     { 
       name: "Riad El Fenn", 
       location: "Marrakech, Maroc", 
       stars: 4, 
       price: "210 € / nuit",
-      amenities: ["WIFI", "BREAKFAST", "POOL", "SPA"]
+      amenities: ["WIFI", "BREAKFAST", "POOL", "SPA"],
+      image: hotelImages[6]
     },
     { 
       name: "Les Jardins de la Koutoubia", 
       location: "Marrakech, Maroc", 
       stars: 5, 
       price: "250 € / nuit",
-      amenities: ["WIFI", "RESTAURANT", "POOL", "SPA", "FITNESS_CENTER"]
+      amenities: ["WIFI", "RESTAURANT", "POOL", "SPA", "FITNESS_CENTER"],
+      image: hotelImages[5]
     },
     { 
       name: "Movenpick Hotel", 
       location: "Casablanca, Maroc", 
       stars: 5, 
       price: "170 € / nuit",
-      amenities: ["WIFI", "RESTAURANT", "PARKING", "FITNESS_CENTER"]
+      amenities: ["WIFI", "RESTAURANT", "PARKING", "FITNESS_CENTER"],
+      image: hotelImages[4]
     },
     { 
       name: "Hyatt Regency", 
       location: "Casablanca, Maroc", 
       stars: 5, 
       price: "200 € / nuit",
-      amenities: ["WIFI", "RESTAURANT", "POOL", "FITNESS_CENTER", "SPA"]
+      amenities: ["WIFI", "RESTAURANT", "POOL", "FITNESS_CENTER", "SPA"],
+      image: hotelImages[3]
     },
     { 
       name: "Four Seasons", 
       location: "Casablanca, Maroc", 
       stars: 5, 
       price: "320 € / nuit",
-      amenities: ["WIFI", "RESTAURANT", "POOL", "SPA", "FITNESS_CENTER", "BREAKFAST", "PARKING"]
+      amenities: ["WIFI", "RESTAURANT", "POOL", "SPA", "FITNESS_CENTER", "BREAKFAST", "PARKING"],
+      image: hotelImages[2]
     },
   ];
 
@@ -772,6 +793,7 @@ const Hotels = () => {
                       const hotelStars = 'stars' in hotel ? hotel.stars : parseInt(hotel.hotel?.rating || "3");
                       const hotelPrice = 'price' in hotel ? hotel.price : `${hotel.offers?.[0]?.price?.total || "N/A"} ${hotel.offers?.[0]?.price?.currency || "EUR"}`;
                       const hotelAmenities = 'amenities' in hotel ? hotel.amenities : hotel.hotel?.amenities || [];
+                      const hotelImage = 'image' in hotel ? hotel.image : null;
                       
                       return (
                         <HotelCard
@@ -781,6 +803,7 @@ const Hotels = () => {
                           stars={hotelStars || 3}
                           price={hotelPrice || "Prix non disponible"}
                           amenities={hotelAmenities}
+                          image={hotelImage || hotelImages[index % hotelImages.length]}
                           onClick={() => handleHotelSelect(hotel)}
                         />
                       );
@@ -820,9 +843,29 @@ const Hotels = () => {
                   stars={hotel.stars}
                   price={hotel.price}
                   amenities={hotel.amenities}
+                  image={hotel.image}
                   onClick={() => handleHotelSelect(hotel)}
                 />
               ))}
+            </div>
+          </div>
+        )}
+        
+        {/* Car rental partner - Added as new feature */}
+        {!searchPerformed && (
+          <div className="mb-12 bg-white p-6 rounded-lg shadow-sm border border-gray-100">
+            <div className="flex flex-col md:flex-row items-center justify-between gap-6">
+              <div>
+                <h3 className="text-xl font-bold text-primary mb-2">Nos partenaires location de voitures</h3>
+                <p className="text-gray-600">
+                  Complétez votre séjour avec une location de voiture à tarif préférentiel auprès de notre partenaire.
+                </p>
+              </div>
+              <img 
+                src={carRentalImage} 
+                alt="Sixt location de voiture" 
+                className="max-h-24 object-contain"
+              />
             </div>
           </div>
         )}
