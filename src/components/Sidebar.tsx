@@ -2,7 +2,7 @@
 import { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { cn } from '@/lib/utils';
-import { Home, Plane, Hotel, Car, Map, Crown, Phone, Trophy, Menu, X } from 'lucide-react';
+import { Home, Plane, Hotel, Car, Map, Crown, Phone, Trophy, Menu, X, ChevronDown } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import Logo from '@/components/Logo';
 import {
@@ -14,6 +14,15 @@ import {
   NavigationMenuTrigger,
   navigationMenuTriggerStyle,
 } from "@/components/ui/navigation-menu";
+
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
+
+import { motion } from "framer-motion";
 
 type NavItem = {
   name: string;
@@ -36,6 +45,7 @@ const Sidebar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const location = useLocation();
   const [activeSection, setActiveSection] = useState('');
+  const [isScrolled, setIsScrolled] = useState(false);
 
   useEffect(() => {
     // Close the mobile menu when route changes
@@ -44,6 +54,12 @@ const Sidebar = () => {
 
   useEffect(() => {
     const handleScroll = () => {
+      if (window.scrollY > 50) {
+        setIsScrolled(true);
+      } else {
+        setIsScrolled(false);
+      }
+
       if (location.pathname === '/') {
         const sections = document.querySelectorAll('section[id]');
         const scrollPosition = window.scrollY;
@@ -67,108 +83,132 @@ const Sidebar = () => {
   }, [location.pathname]);
 
   return (
-    <header className="sticky top-0 z-50 w-full border-b border-border/40 bg-white/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 shadow-sm">
-      <div className="container mx-auto flex h-16 items-center justify-between">
-        {/* Logo */}
-        <div className="flex items-center gap-2">
-          <Link to="/" className="flex items-center">
-            <Logo size="md" />
-            <span className="text-xl font-poppins font-bold text-primary ml-2 hidden md:block">ELTI VOYAGES</span>
-          </Link>
-        </div>
-        
-        {/* Desktop Navigation */}
-        <div className="hidden md:flex">
-          <NavigationMenu>
-            <NavigationMenuList>
-              {navItems.map((item) => {
-                const isActive = 
-                  location.pathname === item.path || 
-                  (item.path === '/' && location.pathname === '/') ||
-                  (activeSection && item.name.toLowerCase().includes(activeSection.substring(1)));
-                
-                return (
-                  <NavigationMenuItem key={item.path}>
-                    <Link
-                      to={item.path}
-                      className={cn(
-                        navigationMenuTriggerStyle(),
-                        isActive ? "bg-primary/10 text-primary" : ""
-                      )}
-                    >
-                      <item.icon className={cn("h-4 w-4 mr-2", isActive ? "text-primary" : "text-gray-500")} />
-                      {item.name}
-                    </Link>
-                  </NavigationMenuItem>
-                );
-              })}
-            </NavigationMenuList>
-          </NavigationMenu>
-        </div>
-        
-        {/* Mobile menu button */}
-        <div className="md:hidden">
-          <Button
-            variant="outline"
-            size="icon"
-            aria-label={isOpen ? "Close menu" : "Open menu"}
-            className="bg-white shadow-sm"
-            onClick={() => setIsOpen(!isOpen)}
-          >
-            {isOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
-          </Button>
-        </div>
-        
-        {/* CTA Button */}
-        <div className="hidden md:block">
-          <Button
-            asChild
-            className="bg-primary hover:bg-primary/90"
-          >
-            <Link to="#reservation">
-              Réserver
+    <header className={cn(
+      "sticky top-0 z-50 w-full backdrop-blur supports-[backdrop-filter]:bg-background/60 transition-all duration-300",
+      isScrolled ? "border-b border-border/40 bg-white/95 shadow-sm" : "bg-transparent"
+    )}>
+      <div className="container mx-auto px-4">
+        <div className="flex h-16 items-center justify-between">
+          {/* Logo */}
+          <div className="flex items-center gap-2">
+            <Link to="/" className="flex items-center">
+              <Logo size="md" />
+              <span className="text-xl font-poppins font-bold text-primary ml-2 hidden md:block">ELTI VOYAGES</span>
             </Link>
-          </Button>
+          </div>
+          
+          {/* Desktop Navigation */}
+          <div className="hidden lg:flex items-center space-x-1">
+            <NavigationMenu>
+              <NavigationMenuList>
+                {navItems.map((item) => {
+                  const isActive = 
+                    location.pathname === item.path || 
+                    (item.path === '/' && location.pathname === '/') ||
+                    (activeSection && item.name.toLowerCase().includes(activeSection.substring(1)));
+                  
+                  return (
+                    <NavigationMenuItem key={item.path}>
+                      <Link
+                        to={item.path}
+                        className={cn(
+                          navigationMenuTriggerStyle(),
+                          isActive ? "bg-primary/10 text-primary" : ""
+                        )}
+                      >
+                        <item.icon className={cn("h-4 w-4 mr-2", isActive ? "text-primary" : "text-gray-500")} />
+                        {item.name}
+                      </Link>
+                    </NavigationMenuItem>
+                  );
+                })}
+              </NavigationMenuList>
+            </NavigationMenu>
+          </div>
+          
+          {/* Mobile menu button */}
+          <div className="lg:hidden flex items-center">
+            <Button
+              variant="ghost"
+              size="icon"
+              aria-label={isOpen ? "Close menu" : "Open menu"}
+              onClick={() => setIsOpen(!isOpen)}
+              className="relative z-50"
+            >
+              {isOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
+            </Button>
+          </div>
+          
+          {/* CTA Button */}
+          <div className="hidden lg:block">
+            <Button
+              asChild
+              className="bg-primary hover:bg-primary/90"
+            >
+              <Link to="#reservation">
+                Réserver
+              </Link>
+            </Button>
+          </div>
         </div>
       </div>
       
       {/* Mobile Navigation */}
       {isOpen && (
-        <div className="md:hidden">
-          <nav className="flex flex-col space-y-1 p-4 bg-white border-t">
-            {navItems.map((item) => {
-              const isActive = 
-                location.pathname === item.path || 
-                (item.path === '/' && location.pathname === '/');
-              
-              return (
-                <Link
-                  key={item.path}
-                  to={item.path}
-                  className={cn(
-                    "flex items-center gap-3 px-3 py-2 rounded-md transition-colors",
-                    isActive
-                      ? "bg-primary text-white"
-                      : "text-gray-700 hover:bg-gray-100"
-                  )}
-                  onClick={() => setIsOpen(false)}
-                >
-                  <item.icon className={cn("h-5 w-5", isActive ? "text-white" : "text-primary")} />
-                  <span>{item.name}</span>
-                </Link>
-              );
-            })}
+        <motion.div 
+          className="fixed inset-0 bg-white z-40 lg:hidden"
+          initial={{ opacity: 0, x: "100%" }}
+          animate={{ opacity: 1, x: 0 }}
+          exit={{ opacity: 0, x: "100%" }}
+          transition={{ type: "spring", stiffness: 300, damping: 30 }}
+        >
+          <div className="flex flex-col h-full pt-16">
+            <div className="overflow-y-auto flex-grow">
+              <nav className="flex flex-col space-y-1 p-4">
+                {navItems.map((item) => {
+                  const isActive = 
+                    location.pathname === item.path || 
+                    (item.path === '/' && location.pathname === '/');
+                  
+                  return (
+                    <Link
+                      key={item.path}
+                      to={item.path}
+                      className={cn(
+                        "flex items-center gap-3 px-3 py-4 rounded-md transition-colors border-b border-gray-100",
+                        isActive
+                          ? "bg-primary/5 text-primary"
+                          : "text-gray-700 hover:bg-gray-50"
+                      )}
+                      onClick={() => setIsOpen(false)}
+                    >
+                      <item.icon className={cn("h-5 w-5", isActive ? "text-primary" : "text-primary/60")} />
+                      <span className="font-medium">{item.name}</span>
+                    </Link>
+                  );
+                })}
+              </nav>
+            </div>
             
-            <Button
-              asChild
-              className="w-full bg-primary hover:bg-primary/90 mt-4"
-            >
-              <Link to="#reservation" onClick={() => setIsOpen(false)}>
-                Réserver
-              </Link>
-            </Button>
-          </nav>
-        </div>
+            <div className="p-4 border-t border-gray-100">
+              <Button
+                asChild
+                className="w-full bg-primary hover:bg-primary/90"
+              >
+                <Link to="#reservation" onClick={() => setIsOpen(false)}>
+                  Réserver
+                </Link>
+              </Button>
+              
+              <div className="mt-6 flex justify-between items-center">
+                <a href="tel:+212656136036" className="flex items-center gap-2 text-primary">
+                  <Phone className="h-4 w-4" />
+                  <span>+212 656 13 60 36</span>
+                </a>
+              </div>
+            </div>
+          </div>
+        </motion.div>
       )}
     </header>
   );

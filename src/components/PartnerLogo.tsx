@@ -1,39 +1,45 @@
 
-import { cn } from "@/lib/utils";
-import { motion } from "framer-motion";
+import { motion } from 'framer-motion';
+import { cn } from '@/lib/utils';
+import { Badge } from '@/components/ui/badge';
 
-type PartnerLogoProps = {
+interface PartnerLogoProps {
   name: string;
-  logoSrc?: string;
+  logoSrc?: string | null;
   className?: string;
-};
+}
 
 const PartnerLogo = ({ name, logoSrc, className }: PartnerLogoProps) => {
-  // Companies that need special scaling adjustment
-  const needsZoom = ["Sixt", "Hertz", "Inzar", "CTM Transport", "Accor", "Barceló", "Terrou-Bi"].includes(name);
-  
+  // If no logo is provided, create a placeholder
+  const firstLetter = name.charAt(0).toUpperCase();
+
   return (
-    <motion.div 
-      whileHover={{ y: -5, boxShadow: "0 10px 25px rgba(0, 35, 102, 0.1)" }}
-      transition={{ duration: 0.3 }}
+    <div 
       className={cn(
-        "flex items-center justify-center bg-white p-6 rounded-xl overflow-hidden border border-gray-100 aspect-[3/2] hover:border-primary/20",
+        "bg-white rounded-lg p-4 aspect-video flex items-center justify-center overflow-hidden shadow-sm border border-gray-100", 
         className
       )}
     >
       {logoSrc ? (
-        <img 
-          src={logoSrc} 
-          alt={`${name} logo`} 
-          className={cn(
-            "max-h-16 w-auto object-contain transition-transform duration-300",
-            needsZoom && "scale-110 hover:scale-125"
-          )}
-        />
+        <motion.div 
+          className="relative w-full h-full flex items-center justify-center"
+          whileHover={{ scale: 1.1 }}
+          transition={{ type: "spring", stiffness: 400, damping: 10 }}
+        >
+          <img 
+            src={logoSrc}
+            alt={`Logo ${name}`}
+            className="max-h-16 max-w-full object-contain"
+          />
+        </motion.div>
       ) : (
-        <div className="text-gray-400 font-medium text-center">{name}</div>
+        <div className="w-full h-full flex flex-col items-center justify-center bg-gray-50 text-gray-400">
+          <div className="text-3xl font-bold">{firstLetter}</div>
+          <div className="text-sm mt-2">{name}</div>
+          <Badge variant="outline" className="mt-2 text-xs">Partenaire</Badge>
+        </div>
       )}
-    </motion.div>
+    </div>
   );
 };
 

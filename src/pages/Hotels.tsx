@@ -9,13 +9,17 @@ import PartnerLogo from "@/components/PartnerLogo";
 
 const HotelCard = ({ category, city, price, features, imageUrl }) => {
   return (
-    <Card className="overflow-hidden transition-all hover:shadow-lg">
-      <div className="w-full h-48 relative">
+    <Card className="overflow-hidden transition-all hover:shadow-lg hover:translate-y-[-5px] duration-300">
+      <div className="w-full h-48 relative group">
         <img 
           src={imageUrl} 
           alt={`${category} - ${city}`} 
-          className="w-full h-full object-cover"
+          className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
         />
+        <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+        <div className="absolute bottom-0 left-0 p-3 text-white opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+          <MapPin className="h-4 w-4 inline mr-1" /> {city}
+        </div>
       </div>
       <CardContent className="p-6">
         <div className="flex justify-between items-start mb-4">
@@ -38,7 +42,10 @@ const HotelCard = ({ category, city, price, features, imageUrl }) => {
         </ul>
         
         <div className="flex justify-end">
-          <Button asChild>
+          <Button 
+            asChild 
+            className="bg-primary hover:bg-primary/90 transition-all duration-300 hover:shadow-md"
+          >
             <a href="#reservation">Réserver</a>
           </Button>
         </div>
@@ -119,12 +126,17 @@ const Hotels = () => {
           <h2 className="text-xl font-bold text-primary mb-4">Nos partenaires hôteliers</h2>
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
             {hotelChains.map((chain, index) => (
-              <PartnerLogo
+              <motion.div
                 key={index}
-                name={chain.name}
-                logoSrc={chain.logo}
-                className="hover:shadow-lg transition-all duration-300"
-              />
+                whileHover={{ scale: 1.05 }}
+                transition={{ type: "spring", stiffness: 300 }}
+              >
+                <PartnerLogo
+                  name={chain.name}
+                  logoSrc={chain.logo}
+                  className="hover:shadow-lg transition-all duration-300"
+                />
+              </motion.div>
             ))}
           </div>
         </div>
@@ -154,7 +166,7 @@ const Hotels = () => {
         </motion.div>
         
         {/* Additional services */}
-        <div className="mt-12 bg-primary my-12 rounded-lg overflow-hidden">
+        <div className="mt-12 bg-primary my-12 rounded-lg overflow-hidden shadow-xl">
           <div className="p-8 text-white">
             <h2 className="text-2xl font-bold mb-4">Services supplémentaires</h2>
             <p className="mb-6 opacity-90">
@@ -162,25 +174,34 @@ const Hotels = () => {
             </p>
             
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
-              <div className="bg-white/10 backdrop-blur p-4 rounded-md">
+              <motion.div 
+                whileHover={{ scale: 1.03 }}
+                className="bg-white/10 backdrop-blur p-4 rounded-md hover:bg-white/20 transition-all duration-300"
+              >
                 <h3 className="text-lg font-bold mb-2">Spa & Bien-être</h3>
                 <p className="text-sm opacity-80">Massages, hammam, soins</p>
-              </div>
-              <div className="bg-white/10 backdrop-blur p-4 rounded-md">
+              </motion.div>
+              <motion.div 
+                whileHover={{ scale: 1.03 }}
+                className="bg-white/10 backdrop-blur p-4 rounded-md hover:bg-white/20 transition-all duration-300"
+              >
                 <h3 className="text-lg font-bold mb-2">Restauration Privée</h3>
                 <p className="text-sm opacity-80">Chef privé, dîners gastronomiques</p>
-              </div>
-              <div className="bg-white/10 backdrop-blur p-4 rounded-md">
+              </motion.div>
+              <motion.div 
+                whileHover={{ scale: 1.03 }}
+                className="bg-white/10 backdrop-blur p-4 rounded-md hover:bg-white/20 transition-all duration-300"
+              >
                 <h3 className="text-lg font-bold mb-2">Célébrations</h3>
                 <p className="text-sm opacity-80">Anniversaires, mariages, événements</p>
-              </div>
+              </motion.div>
             </div>
             
             <div className="mt-6 flex justify-center md:justify-end">
               <Button 
                 asChild 
                 variant="outline" 
-                className="border-white text-white hover:bg-white hover:text-primary"
+                className="border-white text-white hover:bg-white hover:text-primary transition-all duration-300"
               >
                 <a href="#reservation">Réserver des services</a>
               </Button>
@@ -189,7 +210,7 @@ const Hotels = () => {
         </div>
         
         {/* Hotel search */}
-        <div className="bg-gray-50 rounded-lg p-6 mt-12">
+        <div className="bg-gray-50 rounded-lg p-6 shadow-inner mt-12">
           <h3 className="text-lg font-bold text-primary mb-4">Trouver un hébergement</h3>
           
           <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
@@ -201,7 +222,7 @@ const Hotels = () => {
                   id="city"
                   type="text"
                   placeholder="Marrakech, Dakar..."
-                  className="pl-10 w-full h-12 rounded-lg border border-gray-300 focus:ring-2 focus:ring-primary focus:border-primary focus:outline-none"
+                  className="pl-10 w-full h-12 rounded-lg border border-gray-300 focus:ring-2 focus:ring-primary focus:border-primary focus:outline-none transition-shadow duration-300"
                 />
               </div>
             </div>
@@ -214,7 +235,7 @@ const Hotels = () => {
                   id="check-in"
                   type="text"
                   placeholder="jj/mm/aaaa"
-                  className="pl-10 w-full h-12 rounded-lg border border-gray-300 focus:ring-2 focus:ring-primary focus:border-primary focus:outline-none"
+                  className="pl-10 w-full h-12 rounded-lg border border-gray-300 focus:ring-2 focus:ring-primary focus:border-primary focus:outline-none transition-shadow duration-300"
                 />
               </div>
             </div>
@@ -227,7 +248,7 @@ const Hotels = () => {
                   id="check-out"
                   type="text"
                   placeholder="jj/mm/aaaa"
-                  className="pl-10 w-full h-12 rounded-lg border border-gray-300 focus:ring-2 focus:ring-primary focus:border-primary focus:outline-none"
+                  className="pl-10 w-full h-12 rounded-lg border border-gray-300 focus:ring-2 focus:ring-primary focus:border-primary focus:outline-none transition-shadow duration-300"
                 />
               </div>
             </div>
@@ -241,13 +262,15 @@ const Hotels = () => {
                   type="number"
                   min="1"
                   placeholder="2"
-                  className="pl-10 w-full h-12 rounded-lg border border-gray-300 focus:ring-2 focus:ring-primary focus:border-primary focus:outline-none"
+                  className="pl-10 w-full h-12 rounded-lg border border-gray-300 focus:ring-2 focus:ring-primary focus:border-primary focus:outline-none transition-shadow duration-300"
                 />
               </div>
             </div>
             
             <div className="md:col-span-4">
-              <Button className="w-full mt-4">Rechercher des hébergements</Button>
+              <Button className="w-full mt-4 transition-all duration-300 hover:shadow-lg">
+                Rechercher des hébergements
+              </Button>
             </div>
           </div>
         </div>
@@ -257,7 +280,7 @@ const Hotels = () => {
           <h3 className="text-lg font-bold text-primary mb-4">Informations importantes</h3>
           
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <div className="bg-white p-6 rounded-lg shadow-sm border border-gray-100">
+            <div className="bg-white p-6 rounded-lg shadow-sm border border-gray-100 hover:shadow-md transition-shadow duration-300">
               <h4 className="font-bold text-sm mb-2">Politiques de réservation</h4>
               <ul className="space-y-1 text-sm text-gray-600">
                 <li>• Paiement sécurisé en ligne</li>
@@ -267,7 +290,7 @@ const Hotels = () => {
               </ul>
             </div>
             
-            <div className="bg-white p-6 rounded-lg shadow-sm border border-gray-100">
+            <div className="bg-white p-6 rounded-lg shadow-sm border border-gray-100 hover:shadow-md transition-shadow duration-300">
               <h4 className="font-bold text-sm mb-2">Services inclus</h4>
               <ul className="space-y-1 text-sm text-gray-600">
                 <li>• Petit-déjeuner (selon établissement)</li>
