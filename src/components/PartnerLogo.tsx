@@ -9,8 +9,8 @@ type PartnerLogoProps = {
 };
 
 const PartnerLogo = ({ name, logoSrc, className }: PartnerLogoProps) => {
-  // Determine which logos need to be zoomed
-  const needsZoom = ["Turkish Airlines", "Air Sénégal", "Royal Air Maroc"].includes(name);
+  // Companies that need special scaling adjustment
+  const needsZoom = ["Sixt", "Hertz", "Inzar", "CTM Transport"].includes(name);
   
   return (
     <motion.div 
@@ -26,8 +26,8 @@ const PartnerLogo = ({ name, logoSrc, className }: PartnerLogoProps) => {
           src={logoSrc} 
           alt={`${name} logo`} 
           className={cn(
-            "max-h-14 max-w-full object-contain transition-transform duration-300",
-            needsZoom && "scale-125 hover:scale-[1.35]"
+            "max-h-16 w-auto object-contain transition-transform duration-300",
+            needsZoom && "scale-110 hover:scale-125"
           )}
         />
       ) : (

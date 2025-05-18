@@ -115,6 +115,7 @@ const Cars = () => {
                 key={index}
                 name={company.name}
                 logoSrc={company.logo}
+                className="hover:shadow-lg transition-all duration-300"
               />
             ))}
           </div>
