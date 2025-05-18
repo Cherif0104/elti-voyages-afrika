@@ -134,76 +134,53 @@ const Can2025 = () => {
   ];
 
   return (
-    <>
-      {/* Parallax background effect */}
-      <motion.div 
-        ref={backgroundRef}
-        className="fixed inset-0 -z-10 opacity-20"
-        style={{ y, opacity }}
-      >
-        <div className="absolute inset-0 bg-pattern-grid bg-[size:50px_50px] opacity-30" />
-        <div className="absolute inset-0 bg-gradient-to-b from-transparent to-white" />
-      </motion.div>
-      
+    <div className="bg-white">
       <HeroSection />
       
-      {/* Title for Overview section */}
-      <div className="py-16 pt-40 lg:pl-64 text-center">
-        <h2 className="text-3xl md:text-4xl font-bold text-primary">
-          Aperçu de la CAN 2025
-        </h2>
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+        <div className="text-center mb-12">
+          <h2 className="text-3xl md:text-4xl font-bold text-primary mb-4">
+            Aperçu de la CAN 2025
+          </h2>
+          <p className="text-gray-600 max-w-2xl mx-auto">
+            La Coupe d'Afrique des Nations 2025 se tiendra au Maroc. Découvrez tout ce que vous devez savoir sur cet événement majeur du football africain.
+          </p>
+        </div>
+        
+        <OverviewSection />
       </div>
       
-      <OverviewSection />
-      
-      {/* Countdown section with enhanced animations */}
-      <section className="py-16 lg:pl-64 bg-gradient-primary text-white relative overflow-hidden">
-        <div className="container mx-auto px-4 relative z-10">
-          <motion.div
-            variants={fadeInUp}
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true }}
-            className="text-center mb-8"
-          >
-            <h2 className="text-3xl md:text-4xl font-bold mb-2">La CAN 2025 approche</h2>
-            <p className="text-lg opacity-90">Ne manquez pas l'événement footballistique de l'année</p>
-          </motion.div>
+      {/* Countdown section with classic styling */}
+      <section className="py-16 bg-primary text-white">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-10">
+            <h2 className="text-3xl md:text-4xl font-bold mb-4">La CAN 2025 approche</h2>
+            <p className="text-lg opacity-90 max-w-2xl mx-auto">Ne manquez pas l'événement footballistique de l'année</p>
+          </div>
           
-          <div ref={counterRef} className="grid grid-cols-2 md:grid-cols-4 gap-6 max-w-4xl mx-auto">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-6 max-w-4xl mx-auto">
             {stats.map((stat, index) => (
-              <motion.div 
+              <div 
                 key={index}
-                variants={counterVariants}
-                initial="hidden"
-                animate={isInView ? "visible" : "hidden"}
-                transition={{ duration: 0.5, delay: index * 0.15 }}
-                className="bg-white/10 backdrop-blur-sm rounded-xl p-6 text-center hover:bg-white/15 transition-all duration-300"
-                whileHover={{ y: -5, transition: { duration: 0.2 } }}
+                className="bg-white/10 rounded-lg p-6 text-center"
               >
                 <div className="flex items-center justify-center mb-3">
                   {stat.icon}
                 </div>
-                <motion.div className="text-3xl md:text-4xl font-bold">
+                <div className="text-3xl md:text-4xl font-bold">
                   {stat.value}
-                </motion.div>
+                </div>
                 <div className="text-sm md:text-base mt-1 text-white/80">{stat.label}</div>
-              </motion.div>
+              </div>
             ))}
           </div>
         </div>
       </section>
       
       {/* CAN 2025 Packs Section */}
-      <section id="can2025" className="py-24 lg:pl-64 bg-white relative">
-        <div className="container mx-auto px-4">
-          <motion.div 
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-            viewport={{ once: true }}
-            className="text-center mb-16"
-          >
+      <section id="can2025" className="py-24 bg-white">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-16">
             <span className="inline-block px-3 py-1 bg-primary/10 text-primary text-sm font-medium rounded-full mb-3">
               Offre Spéciale
             </span>
@@ -211,40 +188,28 @@ const Can2025 = () => {
             <p className="text-gray-600 max-w-2xl mx-auto text-lg">
               Des solutions clé en main pour vivre la compétition comme vous le souhaitez. Chaque pack est entièrement personnalisable selon vos besoins.
             </p>
-          </motion.div>
+          </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
             {packOffers.map((pack, index) => (
-              <motion.div 
-                key={index} 
-                whileHover={{ y: -10, transition: { duration: 0.3, type: "spring", stiffness: 300 } }}
-              >
+              <div key={index}>
                 <CanPackCard
                   title={pack.title}
                   price={pack.price}
                   features={pack.features}
                   isPremium={pack.isPremium}
                 />
-              </motion.div>
+              </div>
             ))}
           </div>
           
-          {/* Places limitées indicator with pulsing animation */}
-          <motion.div 
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.4 }}
-            viewport={{ once: true }}
-            className="mt-16 text-center"
-          >
-            <motion.div 
-              animate={limitedAvailabilityPulse}
-              className="inline-flex items-center gap-2 bg-red-50 text-red-600 px-4 py-2 rounded-full border border-red-100"
-            >
+          {/* Places limitées indicator */}
+          <div className="mt-16 text-center">
+            <div className="inline-flex items-center gap-2 bg-red-50 text-red-600 px-4 py-2 rounded-full border border-red-100">
               <Clock className="h-5 w-5" />
               <span className="font-medium">Places limitées — Réservez dès maintenant</span>
-            </motion.div>
-          </motion.div>
+            </div>
+          </div>
         </div>
       </section>
       
@@ -253,7 +218,7 @@ const Can2025 = () => {
       <FaqSection />
       <ContactSection />
       <CtaSection />
-    </>
+    </div>
   );
 };
 

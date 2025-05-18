@@ -1,5 +1,4 @@
 
-import { motion } from "framer-motion";
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
@@ -9,7 +8,6 @@ import { Badge } from "@/components/ui/badge";
 import SearchWidget from "../SearchWidget";
 
 const HeroSection = () => {
-  const [isVisible, setIsVisible] = useState(false);
   const [countValues, setCountValues] = useState({
     teams: 0,
     stadiums: 0,
@@ -18,8 +16,6 @@ const HeroSection = () => {
   });
 
   useEffect(() => {
-    setIsVisible(true);
-    
     // Animated counter for stats
     const targetValues = {
       teams: 24,
@@ -52,79 +48,44 @@ const HeroSection = () => {
     
     return () => clearInterval(counter);
   }, []);
-  
-  // Animation variants
-  const container = {
-    hidden: { opacity: 0 },
-    show: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.2
-      }
-    }
-  };
-
-  const item = {
-    hidden: { opacity: 0, y: 20 },
-    show: { opacity: 1, y: 0, transition: { duration: 0.6 } }
-  };
 
   return (
-    <section className="pt-0 lg:pt-0 relative overflow-hidden">
-      <div className="h-[700px] md:h-[800px] relative overflow-hidden">
-        {/* Background image with dark overlay */}
-        <div
-          className="absolute inset-0 bg-cover bg-center"
-          style={{
-            backgroundImage: "url('https://images.unsplash.com/photo-1523361426107-57cd540162e7?q=80&w=2940&auto=format&fit=crop')",
-            backgroundPosition: "center 45%"
-          }}
-        />
-        <div className="absolute inset-0 bg-gradient-to-b from-primary/95 to-primary/85" /> {/* Gradient overlay */}
-        
-        {/* CAF Logo - Positioned at top left to match mockup */}
-        <div className="absolute top-10 left-10 z-10">
-          <div className="bg-white p-2 rounded-full w-24 h-24 flex items-center justify-center shadow-xl">
-            <img 
-              src="https://upload.wikimedia.org/wikipedia/en/thumb/c/c9/Confederation_of_African_Football_logo.svg/1200px-Confederation_of_African_Football_logo.svg.png" 
-              alt="CAF Logo"
-              className="w-16 h-16 object-contain"
-            />
-          </div>
+    <section className="relative bg-primary">
+      {/* Hero content */}
+      <div className="relative pt-16 pb-32 flex content-center items-center justify-center" style={{ minHeight: "75vh" }}>
+        <div className="absolute top-0 w-full h-full bg-center bg-cover" style={{
+          backgroundImage: "url('https://images.unsplash.com/photo-1523361426107-57cd540162e7?q=80&w=2940&auto=format&fit=crop')",
+          backgroundPosition: "center 45%"
+        }}>
+          <span className="w-full h-full absolute opacity-75 bg-primary"></span>
         </div>
         
-        {/* Content container */}
-        <div className="absolute inset-0 flex items-center">
-          <div className="container mx-auto px-4">
-            <motion.div 
-              initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.2 }}
-              className="max-w-2xl mx-auto md:ml-0 text-center md:text-left"
-            >
-              <h1 className="text-6xl md:text-8xl font-bold text-white mb-8 drop-shadow-xl">
-                <span className="block leading-tight drop-shadow-lg">CAN 2025</span>
-                <motion.span 
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  transition={{ duration: 0.5, delay: 0.8 }}
-                  className="text-secondary text-shadow-lg drop-shadow-xl"
-                >
-                  au Maroc
-                </motion.span>
+        <div className="container relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          <div className="flex flex-wrap items-center">
+            {/* Hero text */}
+            <div className="w-full lg:w-6/12 px-4 ml-auto mr-auto text-center lg:text-left">
+              {/* CAF Logo - Positioned at top left */}
+              <div className="absolute top-10 left-10 hidden lg:block">
+                <div className="bg-white p-2 rounded-full w-16 h-16 flex items-center justify-center shadow-lg">
+                  <img 
+                    src="https://upload.wikimedia.org/wikipedia/en/thumb/c/c9/Confederation_of_African_Football_logo.svg/1200px-Confederation_of_African_Football_logo.svg.png" 
+                    alt="CAF Logo"
+                    className="w-10 h-10 object-contain"
+                  />
+                </div>
+              </div>
+              
+              <h1 className="text-5xl md:text-6xl font-bold text-white mb-8 drop-shadow-lg">
+                <span className="block leading-tight">CAN 2025</span>
+                <span className="text-secondary">au Maroc</span>
               </h1>
-              <p className="text-white text-xl md:text-2xl mb-10 font-medium text-shadow-md max-w-xl drop-shadow-lg">
+              <p className="mt-4 text-lg text-white mb-12 font-medium drop-shadow-md max-w-lg mx-auto lg:mx-0">
                 Vivez la passion du football africain avec nos offres exclusives pour la Coupe d'Afrique des Nations 2025.
               </p>
-              <motion.div 
-                className="flex flex-col sm:flex-row gap-4 justify-center md:justify-start"
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5, delay: 1 }}
-              >
+              <div className="flex flex-wrap gap-4 justify-center lg:justify-start">
                 <Button
                   size="lg"
-                  className="text-lg px-8 py-7 font-semibold bg-secondary hover:bg-secondary/90 text-primary transition-all duration-300 hover:shadow-lg shadow-secondary/20"
+                  className="text-base px-6 py-3 font-medium bg-secondary hover:bg-secondary/90 text-primary transition-all duration-300"
                   asChild
                 >
                   <Link to="#reservation">
@@ -135,132 +96,107 @@ const HeroSection = () => {
                 <Button
                   variant="outline"
                   size="lg"
-                  className="border-white text-white hover:bg-white/10 text-lg px-8 py-7 font-semibold transition-all duration-300"
+                  className="border-white text-white hover:bg-white/10 text-base px-6 py-3 font-medium transition-all duration-300"
                   asChild
                 >
                   <Link to="#news">
                     Dernières actualités
                   </Link>
                 </Button>
-              </motion.div>
-            </motion.div>
-          </div>
-        </div>
-        
-        {/* Limited availability badge - positioned to match mockup */}
-        <motion.div 
-          className="absolute top-8 right-8 z-10"
-          initial={{ opacity: 0, x: 50 }}
-          animate={{ opacity: 1, x: 0 }}
-          transition={{ duration: 0.5, delay: 1.2 }}
-        >
-          <Badge className="bg-secondary text-primary px-4 py-2 text-sm font-medium rounded-full flex items-center gap-2 shadow-lg animate-pulse">
-            <Trophy className="h-5 w-5" />
-            Places limitées !
-          </Badge>
-        </motion.div>
-        
-        {/* Stats counters grid - Updated to match mockup */}
-        <div className="absolute bottom-0 left-0 right-0 px-4 z-10 bg-primary/50 backdrop-blur-sm py-8">
-          <div className="container mx-auto">
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-6">
-              <motion.div 
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5, delay: 0.3 }}
-                className="bg-primary/60 backdrop-blur-sm rounded-md p-4 md:p-6 text-center hover:bg-primary/70 transition-all duration-300 cursor-pointer"
-              >
-                <div className="text-secondary mb-2">
-                  <Trophy className="h-8 w-8 mx-auto" />
-                </div>
-                <div className="text-4xl font-bold text-white drop-shadow-md">
-                  {countValues.teams}
-                </div>
-                <div className="text-base mt-1 text-white/90 font-medium">
-                  Équipes
-                </div>
-              </motion.div>
-              
-              <motion.div 
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5, delay: 0.4 }}
-                className="bg-primary/60 backdrop-blur-sm rounded-md p-4 md:p-6 text-center hover:bg-primary/70 transition-all duration-300 cursor-pointer"
-              >
-                <div className="text-secondary mb-2">
-                  <MapPin className="h-8 w-8 mx-auto" />
-                </div>
-                <div className="text-4xl font-bold text-white drop-shadow-md">
-                  {countValues.stadiums}
-                </div>
-                <div className="text-base mt-1 text-white/90 font-medium">
-                  Stades
-                </div>
-              </motion.div>
-              
-              <motion.div 
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5, delay: 0.5 }}
-                className="bg-primary/60 backdrop-blur-sm rounded-md p-4 md:p-6 text-center hover:bg-primary/70 transition-all duration-300 cursor-pointer"
-              >
-                <div className="text-secondary mb-2">
-                  <Trophy className="h-8 w-8 mx-auto" />
-                </div>
-                <div className="text-4xl font-bold text-white drop-shadow-md">
-                  {countValues.matches}
-                </div>
-                <div className="text-base mt-1 text-white/90 font-medium">
-                  Matchs
-                </div>
-              </motion.div>
-              
-              <motion.div 
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5, delay: 0.6 }}
-                className="bg-primary/60 backdrop-blur-sm rounded-md p-4 md:p-6 text-center relative hover:bg-primary/70 transition-all duration-300 cursor-pointer"
-              >
-                {/* Urgence badge */}
-                <div className="absolute -top-3 -right-3">
-                  <Badge className="bg-secondary text-primary shadow-md px-2 py-1 text-xs animate-pulse">
-                    <AlertCircle className="h-3 w-3 mr-1" /> Urgence
-                  </Badge>
-                </div>
-                <div className="text-secondary mb-2">
-                  <Info className="h-8 w-8 mx-auto" />
-                </div>
-                <div className="text-4xl font-bold text-white drop-shadow-md">
-                  {countValues.days}
-                </div>
-                <div className="text-base mt-1 text-white/90 font-medium">
-                  Jours restants
-                </div>
-              </motion.div>
+              </div>
+            </div>
+            
+            {/* Search widget */}
+            <div className="w-full lg:w-5/12 px-4 mt-12 lg:mt-0">
+              <div className="bg-white rounded-lg shadow-xl p-6">
+                <SearchWidget />
+              </div>
             </div>
           </div>
         </div>
         
-        {/* Search widget - positioned inside the hero section for better visibility */}
-        <div className="absolute bottom-40 left-0 right-0 px-4 z-20">
-          <div className="container mx-auto">
-            <SearchWidget />
-          </div>
+        {/* Limited availability badge */}
+        <div className="absolute top-8 right-8 z-10">
+          <Badge className="bg-secondary text-primary px-3 py-1 text-sm font-medium rounded-md flex items-center gap-2 shadow-lg">
+            <Trophy className="h-4 w-4" />
+            Places limitées !
+          </Badge>
         </div>
-        
-        {/* Info cards at bottom - Added to match mockup */}
-        <div className="absolute bottom-0 left-0 right-0 translate-y-1/2 px-4 z-20">
-          <div className="container mx-auto">
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mt-6">
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5, delay: 0.8 }}
-              >
-                <Card className="bg-white shadow-lg border-none hover:shadow-xl transition-all duration-300">
+      </div>
+      
+      {/* Stats cards section */}
+      <div className="relative -mt-24 z-10">
+        <div className="container mx-auto px-4">
+          <div className="flex flex-wrap">
+            <div className="w-full lg:w-10/12 mx-auto">
+              <div className="bg-white rounded-lg shadow-lg p-8">
+                <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
+                  <div className="bg-gray-50 rounded-md p-4 md:p-6 text-center border hover:border-primary transition-colors duration-300">
+                    <div className="text-secondary mb-2">
+                      <Trophy className="h-8 w-8 mx-auto" />
+                    </div>
+                    <div className="text-3xl font-bold text-primary">
+                      {countValues.teams}
+                    </div>
+                    <div className="text-base mt-1 text-gray-600 font-medium">
+                      Équipes
+                    </div>
+                  </div>
+                  
+                  <div className="bg-gray-50 rounded-md p-4 md:p-6 text-center border hover:border-primary transition-colors duration-300">
+                    <div className="text-secondary mb-2">
+                      <MapPin className="h-8 w-8 mx-auto" />
+                    </div>
+                    <div className="text-3xl font-bold text-primary">
+                      {countValues.stadiums}
+                    </div>
+                    <div className="text-base mt-1 text-gray-600 font-medium">
+                      Stades
+                    </div>
+                  </div>
+                  
+                  <div className="bg-gray-50 rounded-md p-4 md:p-6 text-center border hover:border-primary transition-colors duration-300">
+                    <div className="text-secondary mb-2">
+                      <Trophy className="h-8 w-8 mx-auto" />
+                    </div>
+                    <div className="text-3xl font-bold text-primary">
+                      {countValues.matches}
+                    </div>
+                    <div className="text-base mt-1 text-gray-600 font-medium">
+                      Matchs
+                    </div>
+                  </div>
+                  
+                  <div className="bg-gray-50 rounded-md p-4 md:p-6 text-center relative border hover:border-primary transition-colors duration-300">
+                    {/* Urgence badge */}
+                    <div className="absolute -top-3 -right-3">
+                      <Badge className="bg-red-500 text-white shadow-md px-2 py-1 text-xs">
+                        <AlertCircle className="h-3 w-3 mr-1" /> Urgence
+                      </Badge>
+                    </div>
+                    <div className="text-secondary mb-2">
+                      <Info className="h-8 w-8 mx-auto" />
+                    </div>
+                    <div className="text-3xl font-bold text-primary">
+                      {countValues.days}
+                    </div>
+                    <div className="text-base mt-1 text-gray-600 font-medium">
+                      Jours restants
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          {/* Info cards */}
+          <div className="flex flex-wrap mt-8">
+            <div className="w-full lg:w-10/12 mx-auto">
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                <Card className="bg-white shadow-md hover:shadow-lg transition-all duration-300">
                   <CardContent className="p-4 flex items-center">
                     <div className="bg-secondary/10 rounded-full p-2 mr-3">
-                      <Trophy className="h-6 w-6 text-secondary" />
+                      <Trophy className="h-5 w-5 text-secondary" />
                     </div>
                     <div>
                       <h3 className="font-bold text-primary text-sm">35ème Édition</h3>
@@ -268,17 +204,11 @@ const HeroSection = () => {
                     </div>
                   </CardContent>
                 </Card>
-              </motion.div>
-              
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5, delay: 1 }}
-              >
-                <Card className="bg-white shadow-lg border-none hover:shadow-xl transition-all duration-300">
+                
+                <Card className="bg-white shadow-md hover:shadow-lg transition-all duration-300">
                   <CardContent className="p-4 flex items-center">
                     <div className="bg-secondary/10 rounded-full p-2 mr-3">
-                      <Trophy className="h-6 w-6 text-secondary" />
+                      <Trophy className="h-5 w-5 text-secondary" />
                     </div>
                     <div>
                       <h3 className="font-bold text-primary text-sm">Été 2025</h3>
@@ -286,17 +216,11 @@ const HeroSection = () => {
                     </div>
                   </CardContent>
                 </Card>
-              </motion.div>
-              
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5, delay: 1.2 }}
-              >
-                <Card className="bg-white shadow-lg border-none hover:shadow-xl transition-all duration-300">
+                
+                <Card className="bg-white shadow-md hover:shadow-lg transition-all duration-300">
                   <CardContent className="p-4 flex items-center">
                     <div className="bg-secondary/10 rounded-full p-2 mr-3">
-                      <MapPin className="h-6 w-6 text-secondary" />
+                      <MapPin className="h-5 w-5 text-secondary" />
                     </div>
                     <div>
                       <h3 className="font-bold text-primary text-sm">Maroc</h3>
@@ -304,7 +228,7 @@ const HeroSection = () => {
                     </div>
                   </CardContent>
                 </Card>
-              </motion.div>
+              </div>
             </div>
           </div>
         </div>
