@@ -1,10 +1,9 @@
-
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
-import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
 import { motion, useScroll, useMotionValueEvent } from "framer-motion";
 import { Phone } from "lucide-react";
+import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import Logo from "@/components/Logo";
 
 const Navbar = () => {

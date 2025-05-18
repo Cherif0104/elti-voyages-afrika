@@ -19,7 +19,6 @@ import NotFound from "./pages/NotFound";
 
 // Components
 import Sidebar from "./components/Sidebar";
-import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
 
 const queryClient = new QueryClient();
@@ -47,7 +46,6 @@ const App = () => {
         <BrowserRouter>
           <div className="min-h-screen flex flex-col">
             <Sidebar />
-            <Navbar />
             <main className="flex-1">
               <Routes>
                 <Route path="/" element={<Index />} />
