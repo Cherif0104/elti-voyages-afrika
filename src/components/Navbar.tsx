@@ -57,11 +57,11 @@ const Navbar = () => {
     <header className={cn(
       "sticky top-0 z-50 w-full transition-all duration-300",
       isScrolled 
-        ? "bg-white shadow-sm border-b border-gray-100" 
-        : "bg-white/95"
+        ? "bg-white shadow-md border-b border-gray-200" 
+        : "bg-white"
     )}>
       <div className="container mx-auto px-4">
-        <div className="flex h-16 items-center justify-between">
+        <div className="flex h-20 items-center justify-between">
           {/* Logo */}
           <Link to="/" className="flex items-center">
             <Logo size="md" />
@@ -69,7 +69,7 @@ const Navbar = () => {
           </Link>
           
           {/* Desktop Navigation */}
-          <nav className="hidden lg:flex items-center space-x-1">
+          <nav className="hidden lg:flex items-center space-x-2">
             {navItems.map((item) => {
               const isActive = location.pathname === item.path;
               return (
@@ -77,9 +77,9 @@ const Navbar = () => {
                   key={item.path}
                   to={item.path}
                   className={cn(
-                    "px-3 py-2 rounded-md text-sm font-medium transition-colors",
+                    "px-4 py-2 rounded-md text-sm font-medium transition-colors",
                     isActive
-                      ? "bg-primary/5 text-primary"
+                      ? "bg-primary text-white"
                       : "text-gray-700 hover:bg-gray-100"
                   )}
                 >
@@ -92,25 +92,25 @@ const Navbar = () => {
           {/* Right side elements */}
           <div className="flex items-center gap-4">
             {/* Phone number */}
-            <a href="tel:+212656136036" className="hidden md:flex items-center text-primary font-medium">
-              <Phone className="h-4 w-4 mr-1" />
+            <a href="tel:+212656136036" className="hidden md:flex items-center text-primary font-medium border-r pr-4 border-gray-200">
+              <Phone className="h-4 w-4 mr-2" />
               <span>+212 656 13 60 36</span>
             </a>
             
             {/* Search button */}
             <Button
-              variant="ghost"
+              variant="outline"
               size="icon"
-              className="hidden md:flex"
+              className="hidden md:flex border-gray-300"
             >
-              <Search className="h-5 w-5" />
+              <Search className="h-5 w-5 text-primary" />
             </Button>
             
             {/* "Réserver" button */}
             <Button
               size="sm"
               asChild
-              className="hidden md:flex"
+              className="hidden md:flex bg-secondary text-primary hover:bg-secondary/90"
             >
               <Link to="#reservation">Réserver</Link>
             </Button>
@@ -153,7 +153,7 @@ const Navbar = () => {
       
       {/* Mobile Navigation */}
       {isOpen && (
-        <div className="fixed inset-0 bg-white z-40 lg:hidden overflow-y-auto pt-16">
+        <div className="fixed inset-0 bg-white z-40 lg:hidden overflow-y-auto pt-20">
           <div className="flex flex-col h-full">
             <div className="overflow-y-auto flex-grow">
               <nav className="flex flex-col p-4">
@@ -164,10 +164,10 @@ const Navbar = () => {
                       key={item.path}
                       to={item.path}
                       className={cn(
-                        "flex items-center px-3 py-4 rounded-md transition-colors border-b border-gray-100",
+                        "flex items-center px-4 py-4 mb-2 rounded-md transition-colors",
                         isActive
-                          ? "bg-primary/5 text-primary"
-                          : "text-gray-700 hover:bg-gray-50"
+                          ? "bg-primary text-white"
+                          : "text-gray-700 hover:bg-gray-100"
                       )}
                       onClick={() => setIsOpen(false)}
                     >
@@ -178,19 +178,19 @@ const Navbar = () => {
               </nav>
             </div>
             
-            <div className="p-4 border-t border-gray-100">
+            <div className="p-6 border-t border-gray-200 bg-gray-50">
               <Button
                 asChild
-                className="w-full"
+                className="w-full bg-secondary text-primary hover:bg-secondary/90 mb-4"
               >
                 <Link to="#reservation" onClick={() => setIsOpen(false)}>
                   Réserver
                 </Link>
               </Button>
               
-              <div className="mt-6 flex justify-center items-center">
-                <a href="tel:+212656136036" className="flex items-center gap-2 text-primary">
-                  <Phone className="h-4 w-4" />
+              <div className="mt-4 flex justify-center items-center">
+                <a href="tel:+212656136036" className="flex items-center gap-2 text-primary font-medium">
+                  <Phone className="h-5 w-5" />
                   <span>+212 656 13 60 36</span>
                 </a>
               </div>
