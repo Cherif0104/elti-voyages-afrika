@@ -107,7 +107,7 @@ const Hotels = () => {
           whileInView="visible"
           viewport={{ once: true, margin: "-100px" }}
         >
-          <h2 className="text-xl font-bold text-primary mb-6">Nos catégories d'hébergements</h2>
+          <h2 className="text-xl font-bold text-primary mb-6">Nos Destinations populaires</h2>
           
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
             {hotelCategories.map((hotel, index) => (
