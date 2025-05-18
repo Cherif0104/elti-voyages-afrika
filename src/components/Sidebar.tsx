@@ -137,9 +137,9 @@ const Sidebar = () => {
               asChild
               className="w-full bg-primary hover:bg-primary/90"
             >
-              <Link to="#reservation">
+              <a href="#reservation">
                 Réserver
-              </Link>
+              </a>
             </Button>
           </div>
         </div>

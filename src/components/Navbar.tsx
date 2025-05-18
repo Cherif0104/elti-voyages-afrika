@@ -62,7 +62,7 @@ const Navbar = () => {
             <Button 
               variant="outline" 
               size="sm" 
-              className="flex items-center gap-2 border-primary text-primary hover:bg-primary/10"
+              className="hidden md:flex items-center gap-2 border-primary text-primary hover:bg-primary/10"
               asChild
             >
               <a href="tel:+212656136036">
@@ -72,13 +72,13 @@ const Navbar = () => {
             </Button>
             
             <Button 
-              variant="default"
               asChild 
-              className="bg-primary hover:bg-primary/90"
+              className="bg-primary hover:bg-primary/90 shadow-lg"
+              size={scrolled ? "default" : "lg"}
             >
-              <Link to="#reservation">
+              <a href="#reservation">
                 Réserver
-              </Link>
+              </a>
             </Button>
           </div>
         </div>

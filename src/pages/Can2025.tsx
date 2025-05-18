@@ -22,7 +22,7 @@ import { Calendar, Users, Clock, MapPin, Flag, Star } from "lucide-react";
 
 const Can2025 = () => {
   const [isVisible, setIsVisible] = useState(false);
-  const [daysRemaining, setDaysRemaining] = useState(14); // Changed to match mockup (14 days)
+  const [daysRemaining, setDaysRemaining] = useState(0);
   const counterRef = useRef(null);
   const isInView = useInView(counterRef, { once: false, margin: "-100px" });
   const controls = useAnimation();
@@ -104,13 +104,35 @@ const Can2025 = () => {
   useEffect(() => {
     setIsVisible(true);
     
-    // Set days remaining to 14 to match mockup
-    setDaysRemaining(14);
+    // Calculer les jours restants jusqu'à la date de début estimée de la CAN 2025 
+    // (en supposant juin 2025)
+    const today = new Date();
+    const canStartDate = new Date(2025, 5, 1); // 1er juin 2025
+    const diffTime = Math.abs(canStartDate.getTime() - today.getTime());
+    const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+    
+    setDaysRemaining(diffDays);
     
     // Start animation when component mounts
     controls.start("animate");
   }, [controls]);
 
+  // Animation variants
+  const container = {
+    hidden: { opacity: 0 },
+    show: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.2
+      }
+    }
+  };
+
+  const item = {
+    hidden: { opacity: 0, y: 20 },
+    show: { opacity: 1, y: 0, transition: { duration: 0.6 } }
+  };
+  
   // Counter animation variant
   const counterVariants = {
     hidden: { opacity: 0, scale: 0.8 },
@@ -125,6 +147,36 @@ const Can2025 = () => {
     }
   };
   
+  // Number counter animation
+  const Counter = ({ from = 0, to, duration = 2 }) => {
+    const nodeRef = useRef(null);
+    const [count, setCount] = useState(from);
+    
+    useEffect(() => {
+      if (!isInView) return;
+      
+      let start = from;
+      const step = (to - from) / (duration * 60); // 60fps
+      let rafId: number;
+      
+      const updateCount = () => {
+        start += step;
+        if (start >= to) {
+          setCount(to);
+          cancelAnimationFrame(rafId);
+        } else {
+          setCount(Math.floor(start));
+          rafId = requestAnimationFrame(updateCount);
+        }
+      };
+      
+      rafId = requestAnimationFrame(updateCount);
+      return () => cancelAnimationFrame(rafId);
+    }, [from, to, duration, isInView]);
+    
+    return <span ref={nodeRef}>{count}</span>;
+  };
+  
   // Stats
   const stats = [
     { value: 24, label: "Équipes", icon: <Users className="h-6 w-6 text-secondary" /> },
@@ -132,6 +184,30 @@ const Can2025 = () => {
     { value: 52, label: "Matchs", icon: <Flag className="h-6 w-6 text-secondary" /> },
     { value: daysRemaining, label: "Jours restants", icon: <Clock className="h-6 w-6 text-secondary" /> }
   ];
+
+  // Floating decoration elements
+  const FloatingElement = ({ children, delay = 0, x = 0, y = 0 }) => (
+    <motion.div
+      className="absolute text-primary/10 z-0"
+      style={{ left: `${x}%`, top: `${y}%` }}
+      initial={{ opacity: 0 }}
+      animate={{ 
+        opacity: 0.7,
+        y: [0, -15, 0],
+        transition: { 
+          y: { 
+            repeat: Infinity,
+            duration: 3,
+            ease: "easeInOut", 
+            delay 
+          },
+          opacity: { duration: 1, delay }
+        }
+      }}
+    >
+      {children}
+    </motion.div>
+  );
 
   return (
     <>
@@ -146,18 +222,21 @@ const Can2025 = () => {
       </motion.div>
       
       <HeroSection />
-      
-      {/* Title for Overview section */}
-      <div className="py-16 pt-40 lg:pl-64 text-center">
-        <h2 className="text-3xl md:text-4xl font-bold text-primary">
-          Aperçu de la CAN 2025
-        </h2>
-      </div>
-      
       <OverviewSection />
       
       {/* Countdown section with enhanced animations */}
       <section className="py-16 lg:pl-64 bg-gradient-primary text-white relative overflow-hidden">
+        {/* Decorative floating elements */}
+        <FloatingElement x={5} y={20} delay={0.2}>
+          <Calendar className="h-16 w-16" />
+        </FloatingElement>
+        <FloatingElement x={85} y={70} delay={0.5}>
+          <Star className="h-12 w-12" />
+        </FloatingElement>
+        <FloatingElement x={70} y={30} delay={1.3}>
+          <Flag className="h-14 w-14" />
+        </FloatingElement>
+        
         <div className="container mx-auto px-4 relative z-10">
           <motion.div
             variants={fadeInUp}
@@ -185,7 +264,13 @@ const Can2025 = () => {
                   {stat.icon}
                 </div>
                 <motion.div className="text-3xl md:text-4xl font-bold">
-                  {stat.value}
+                  {isInView && (
+                    <Counter 
+                      from={0} 
+                      to={stat.value} 
+                      duration={1.5 + index * 0.3} 
+                    />
+                  )}
                 </motion.div>
                 <div className="text-sm md:text-base mt-1 text-white/80">{stat.label}</div>
               </motion.div>
@@ -194,7 +279,7 @@ const Can2025 = () => {
         </div>
       </section>
       
-      {/* CAN 2025 Packs Section */}
+      {/* CAN 2025 Packs Section with enhanced animations */}
       <section id="can2025" className="py-24 lg:pl-64 bg-white relative">
         <div className="container mx-auto px-4">
           <motion.div 
@@ -213,11 +298,19 @@ const Can2025 = () => {
             </p>
           </motion.div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+          <motion.div 
+            variants={container}
+            initial="hidden"
+            whileInView="show"
+            viewport={{ once: true }}
+            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8"
+          >
             {packOffers.map((pack, index) => (
               <motion.div 
                 key={index} 
+                variants={item}
                 whileHover={{ y: -10, transition: { duration: 0.3, type: "spring", stiffness: 300 } }}
+                className="h-full transform-gpu will-change-transform"
               >
                 <CanPackCard
                   title={pack.title}
@@ -227,7 +320,7 @@ const Can2025 = () => {
                 />
               </motion.div>
             ))}
-          </div>
+          </motion.div>
           
           {/* Places limitées indicator with pulsing animation */}
           <motion.div 
