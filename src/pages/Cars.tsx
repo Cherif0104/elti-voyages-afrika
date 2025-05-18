@@ -4,10 +4,18 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
 
-const CarCard = ({ category, model, price, features, imageClass = "bg-placeholder" }) => {
+const CarCard = ({ category, model, price, features, imageClass = "bg-placeholder", imageSrc }) => {
   return (
     <Card className="overflow-hidden transition-all hover:shadow-lg">
-      <div className={`w-full h-48 ${imageClass}`} />
+      <div className={`w-full h-48 relative ${!imageSrc ? imageClass : ''}`}>
+        {imageSrc && (
+          <img 
+            src={imageSrc} 
+            alt={`${category} - ${model}`} 
+            className="w-full h-full object-cover"
+          />
+        )}
+      </div>
       <CardContent className="p-6">
         <div className="flex justify-between items-start mb-4">
           <div>
@@ -44,25 +52,29 @@ const Cars = () => {
       category: "Économique",
       model: "Dacia Logan ou similaire",
       price: "30 € / jour",
-      features: ["5 places", "Climatisation", "Kilométrage illimité", "Assurance de base incluse"]
+      features: ["5 places", "Climatisation", "Kilométrage illimité", "Assurance de base incluse"],
+      imageSrc: "/lovable-uploads/55deb0b9-ef29-4fc9-8305-948cf2e3c2a8.png"
     },
     {
       category: "SUV Compact",
       model: "Dacia Duster ou similaire",
       price: "45 € / jour",
-      features: ["5 places", "Climatisation", "Kilométrage illimité", "Assurance de base incluse"]
+      features: ["5 places", "Climatisation", "Kilométrage illimité", "Assurance de base incluse"],
+      imageSrc: "/lovable-uploads/4c49d7c8-dc2d-4f47-8f65-63c7bd6bd975.png"
     },
     {
       category: "Premium",
       model: "Mercedes Classe C ou similaire",
       price: "80 € / jour",
-      features: ["5 places", "Climatisation", "Kilométrage illimité", "Assurance tous risques"]
+      features: ["5 places", "Climatisation", "Kilométrage illimité", "Assurance tous risques"],
+      imageSrc: "/lovable-uploads/0142a976-b82a-4495-8f81-7e28dcbb3852.png"
     },
     {
       category: "Minivan",
       model: "Renault Trafic ou similaire",
       price: "75 € / jour",
-      features: ["9 places", "Climatisation", "Kilométrage illimité", "Assurance de base incluse"]
+      features: ["9 places", "Climatisation", "Kilométrage illimité", "Assurance de base incluse"],
+      imageSrc: "/lovable-uploads/551ad016-1ff4-4e98-932b-fd990f5086f9.png"
     }
   ];
   
@@ -99,6 +111,7 @@ const Cars = () => {
               model={car.model}
               price={car.price}
               features={car.features}
+              imageSrc={car.imageSrc}
             />
           ))}
         </div>
