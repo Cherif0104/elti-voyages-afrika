@@ -46,8 +46,7 @@ const App = () => {
         <BrowserRouter>
           <div className="min-h-screen flex flex-col">
             <Sidebar />
-            {/* Contenu commence immédiatement après la barre latérale, sans marge */}
-            <main className="flex-1 pt-16">
+            <main className="flex-1 lg:ml-[290px] pt-16">
               <Routes>
                 <Route path="/" element={<Index />} />
                 <Route path="/can2025" element={<Can2025 />} />
