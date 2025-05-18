@@ -6,18 +6,18 @@ import { Link } from 'react-router-dom';
 
 interface PromotionBannerProps {
   text: string;
-  ctaText: string;
-  ctaUrl: string;
-  title?: string;         // Added optional title prop
-  linkText?: string;      // Added optional linkText prop
-  linkUrl?: string;       // Added optional linkUrl prop
-  active?: boolean;       // Added optional active prop
+  ctaText?: string;  // Made optional
+  ctaUrl?: string;   // Made optional
+  title?: string;
+  linkText?: string;
+  linkUrl?: string;
+  active?: boolean;
 }
 
 const PromotionBanner = ({ 
   text, 
-  ctaText, 
-  ctaUrl,
+  ctaText = "En savoir plus",  // Default value
+  ctaUrl = "#",               // Default value
   title,
   linkText,
   linkUrl,
