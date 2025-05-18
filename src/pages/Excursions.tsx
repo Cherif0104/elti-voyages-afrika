@@ -1,5 +1,10 @@
 
+import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
+import SearchWidget from "@/components/SearchWidget";
+import { Card, CardContent } from "@/components/ui/card";
+import { MapPin, Clock, BadgeDollarSign } from "lucide-react";
+import ExcursionsStatsSection from "@/components/excursions/ExcursionsStatsSection";
 
 type Excursion = {
   title: string;
@@ -23,34 +28,39 @@ const ExcursionCard = ({ excursion }: { excursion: Excursion }) => {
   const sizeClass = sizeClasses[size || 'small'];
   
   return (
-    <div className={`${sizeClass} relative group overflow-hidden rounded-lg shadow-md transition-all h-64 sm:h-auto`}>
-      <div className="absolute inset-0 bg-placeholder transition-transform group-hover:scale-110 duration-500 ease-in-out"></div>
-      <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent"></div>
-      
-      <div className="absolute inset-0 p-3 sm:p-6 flex flex-col justify-end">
+    <Card className="h-full overflow-hidden hover:shadow-lg transition-all duration-300">
+      <div className="relative h-48 bg-placeholder overflow-hidden">
+        <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent"></div>
         {featured && (
-          <span className="absolute top-2 sm:top-4 right-2 sm:right-4 bg-secondary text-primary text-xs font-bold py-1 px-2 rounded">
+          <span className="absolute top-4 right-4 bg-secondary text-primary text-xs font-bold py-1 px-2 rounded">
             Populaire
           </span>
         )}
-        
-        <div className="flex items-center justify-between mb-1 sm:mb-2">
-          <span className="text-white/80 text-xs sm:text-sm">{location}</span>
-          <span className="text-white/80 text-xs sm:text-sm">{duration}</span>
+      </div>
+      
+      <CardContent className="p-4 sm:p-6">
+        <div className="flex items-center gap-2 mb-2 text-xs text-gray-500">
+          <MapPin className="h-3.5 w-3.5" />
+          <span>{location}</span>
+          <span className="mx-1">•</span>
+          <Clock className="h-3.5 w-3.5" />
+          <span>{duration}</span>
         </div>
         
-        <h3 className="text-lg sm:text-xl font-bold text-white mb-1 sm:mb-2">{title}</h3>
-        
-        <p className="text-white/70 text-xs sm:text-sm mb-2 sm:mb-4 line-clamp-2">{description}</p>
+        <h3 className="text-lg font-bold text-primary mb-2">{title}</h3>
+        <p className="text-gray-600 text-sm mb-4 line-clamp-2">{description}</p>
         
         <div className="flex justify-between items-center">
-          <span className="text-white font-bold text-sm sm:text-base">{price}</span>
-          <Button size="sm" className="bg-white text-primary hover:bg-white/90 text-xs sm:text-sm" asChild>
+          <div className="flex items-center">
+            <BadgeDollarSign className="h-4 w-4 text-secondary mr-1" />
+            <span className="font-bold text-secondary">{price}</span>
+          </div>
+          <Button size="sm" variant="booking" asChild>
             <a href="#reservation">Réserver</a>
           </Button>
         </div>
-      </div>
-    </div>
+      </CardContent>
+    </Card>
   );
 };
 
@@ -117,33 +127,82 @@ const Excursions = () => {
   ];
   
   return (
-    <div className="pt-20">
-      <div className="container mx-auto px-4 py-10">
-        <h1 className="text-2xl sm:text-3xl font-bold text-primary mb-4 sm:mb-6">Excursions & Circuits</h1>
+    <>
+      {/* Hero Section */}
+      <section className="relative bg-gradient-to-r from-primary to-primary/80 text-white">
+        <div className="container mx-auto px-4 py-16">
+          <div className="flex flex-col lg:flex-row items-center">
+            <div className="w-full lg:w-1/2 mb-10 lg:mb-0">
+              <motion.div 
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.8 }}
+                className="text-center lg:text-left"
+              >
+                <span className="inline-block text-secondary font-semibold mb-2 text-lg drop-shadow-md">
+                  Découvrez des lieux extraordinaires
+                </span>
+                <h1 className="text-4xl lg:text-6xl font-bold mb-6 leading-tight drop-shadow-lg">
+                  Excursions &
+                  <span className="block mt-2 text-secondary">Circuits</span>
+                </h1>
+                <p className="text-lg lg:text-xl mb-8 max-w-lg font-medium drop-shadow-md">
+                  Explorez les plus beaux sites du Maroc et du Sénégal avec nos excursions guidées et nos circuits sur mesure.
+                </p>
+                <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
+                  <Button
+                    size="lg"
+                    className="text-lg px-8 py-6 font-semibold bg-secondary hover:bg-secondary/90 text-primary transition-all duration-300"
+                    asChild
+                  >
+                    <a href="#excursions">
+                      Voir les excursions
+                    </a>
+                  </Button>
+                </div>
+              </motion.div>
+            </div>
+            
+            <div className="w-full lg:w-1/2">
+              <div className="bg-white/10 backdrop-blur-sm p-6 rounded-lg shadow-lg">
+                <h2 className="text-2xl font-bold mb-4 text-center">Rechercher</h2>
+                <SearchWidget />
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Main Content */}
+      <div id="excursions" className="container mx-auto px-4 py-10">
+        <h2 className="text-2xl sm:text-3xl font-bold text-primary mb-4 sm:mb-6">Nos excursions populaires</h2>
         <p className="text-gray-600 mb-6 sm:mb-8">
-          Explorez les plus beaux sites du Maroc et du Sénégal avec nos excursions guidées et nos circuits sur mesure. Des expériences authentiques pour découvrir les trésors cachés de l'Afrique.
+          Des expériences authentiques pour découvrir les trésors cachés de l'Afrique. Choisissez parmi nos excursions guidées et circuits sur mesure.
         </p>
         
-        {/* Excursions Masonry Grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3 sm:gap-6 mb-8 sm:mb-12 auto-rows-auto">
+        {/* Excursions Grid */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 mb-12">
           {excursions.map((excursion, index) => (
             <ExcursionCard key={index} excursion={excursion} />
           ))}
         </div>
         
-        {/* Custom Excursion Banner */}
-        <div className="bg-primary rounded-lg p-4 sm:p-8 text-white">
+        {/* Stats Section */}
+        <ExcursionsStatsSection />
+        
+        {/* Custom Excursion CTA */}
+        <div className="bg-white rounded-lg shadow-md p-6 sm:p-10 my-12">
           <div className="flex flex-col md:flex-row items-center justify-between">
-            <div className="mb-4 md:mb-0 md:mr-6">
-              <h3 className="text-xl sm:text-2xl font-bold mb-2">Créez votre circuit sur mesure</h3>
-              <p className="text-white/80 text-sm sm:text-base">
+            <div className="mb-6 md:mb-0 md:mr-6 md:w-2/3">
+              <h3 className="text-xl sm:text-2xl font-bold mb-3 text-primary">Créez votre circuit sur mesure</h3>
+              <p className="text-gray-600">
                 Une destination particulière vous intéresse ? Vous souhaitez un itinéraire personnalisé ?
                 Notre équipe d'experts locaux peut concevoir un voyage unique qui correspond parfaitement à vos envies.
               </p>
             </div>
             <Button 
               asChild
-              className="bg-white text-primary hover:bg-white/90 whitespace-nowrap"
+              className="bg-primary hover:bg-primary/90 whitespace-nowrap"
               size="lg"
             >
               <a href="#reservation">Demander un devis</a>
@@ -152,7 +211,7 @@ const Excursions = () => {
         </div>
         
         {/* What's Included Section */}
-        <div className="my-8 sm:my-12">
+        <div className="my-12">
           <h2 className="text-xl sm:text-2xl font-bold text-primary mb-4 sm:mb-6">Ce qui est inclus</h2>
           
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 sm:gap-6">
@@ -188,7 +247,7 @@ const Excursions = () => {
           </div>
         </div>
       </div>
-    </div>
+    </>
   );
 };
 
