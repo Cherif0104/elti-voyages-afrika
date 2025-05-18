@@ -7,6 +7,7 @@ import FaqSection from "@/components/can2025/FaqSection";
 import ContactSection from "@/components/can2025/ContactSection";
 import CtaSection from "@/components/can2025/CtaSection";
 import CanPackCard from "@/components/can2025/CanPackCard";
+import CanGallery from "@/components/can2025/CanGallery";
 import { motion, useScroll, useTransform, useInView, useAnimation } from "framer-motion";
 import { 
   staggerContainer, 
@@ -162,6 +163,9 @@ const Can2025 = () => {
           </div>
         </div>
       </section>
+      
+      {/* Notre galerie d'offres de la CAN 2025 */}
+      <CanGallery />
       
       {/* CAN 2025 Packs Section */}
       <section id="can2025" className="py-24 bg-white">
