@@ -2,7 +2,7 @@
 import { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { cn } from '@/lib/utils';
-import { Home, Plane, Hotel, Car, Map, Crown, Phone, Trophy, Menu, X, ChevronDown, Search, User } from 'lucide-react';
+import { Home, Plane, Hotel, Car, Map, Crown, Phone, Trophy, Menu, X, User, Search } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import Logo from '@/components/Logo';
 import {
@@ -114,13 +114,6 @@ const Sidebar = () => {
               Réserver
             </Link>
           </Button>
-          
-          <div className="flex justify-center items-center">
-            <a href="tel:+212656136036" className="flex items-center gap-2 text-primary font-medium">
-              <Phone className="h-4 w-4" />
-              <span>+212 656 13 60 36</span>
-            </a>
-          </div>
         </div>
       </div>
 
@@ -151,12 +144,6 @@ const Sidebar = () => {
               >
                 <Link to="/billets-avion">Rechercher des vols</Link>
               </Button>
-              
-              {/* Phone number */}
-              <a href="tel:+212656136036" className="hidden md:flex items-center text-primary font-medium">
-                <Phone className="h-4 w-4 mr-1" />
-                <span>+212 656 13 60 36</span>
-              </a>
               
               {/* "Réserver" button */}
               <Button
@@ -248,13 +235,6 @@ const Sidebar = () => {
                     Réserver
                   </Link>
                 </Button>
-                
-                <div className="mt-6 flex justify-between items-center">
-                  <a href="tel:+212656136036" className="flex items-center gap-2 text-primary">
-                    <Phone className="h-4 w-4" />
-                    <span>+212 656 13 60 36</span>
-                  </a>
-                </div>
               </div>
             </div>
           </motion.div>

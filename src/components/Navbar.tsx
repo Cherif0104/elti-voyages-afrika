@@ -2,7 +2,7 @@
 import { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { cn } from '@/lib/utils';
-import { Trophy, Phone, Menu, X, User, Search } from 'lucide-react';
+import { Trophy, Menu, X, User, Search } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import Logo from '@/components/Logo';
 import {
@@ -91,12 +91,6 @@ const Navbar = () => {
           
           {/* Right side elements */}
           <div className="flex items-center gap-4">
-            {/* Phone number */}
-            <a href="tel:+212656136036" className="hidden md:flex items-center text-primary font-medium border-r pr-4 border-gray-200">
-              <Phone className="h-4 w-4 mr-2" />
-              <span>+212 656 13 60 36</span>
-            </a>
-            
             {/* Search button */}
             <Button
               variant="outline"
@@ -187,13 +181,6 @@ const Navbar = () => {
                   Réserver
                 </Link>
               </Button>
-              
-              <div className="mt-4 flex justify-center items-center">
-                <a href="tel:+212656136036" className="flex items-center gap-2 text-primary font-medium">
-                  <Phone className="h-5 w-5" />
-                  <span>+212 656 13 60 36</span>
-                </a>
-              </div>
             </div>
           </div>
         </div>
