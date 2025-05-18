@@ -102,18 +102,18 @@ const HeroSection = () => {
               transition={{ duration: 0.8, delay: 0.2 }}
               className="max-w-2xl mx-auto md:ml-0 text-center md:text-left"
             >
-              <h1 className="text-6xl md:text-8xl font-bold text-white mb-8">
-                <span className="block leading-tight">CAN 2025</span>
+              <h1 className="text-6xl md:text-8xl font-bold text-white mb-8 drop-shadow-xl">
+                <span className="block leading-tight drop-shadow-lg">CAN 2025</span>
                 <motion.span 
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
                   transition={{ duration: 0.5, delay: 0.8 }}
-                  className="text-secondary text-shadow-lg"
+                  className="text-secondary text-shadow-lg drop-shadow-xl"
                 >
                   au Maroc
                 </motion.span>
               </h1>
-              <p className="text-white text-xl md:text-2xl mb-10 font-light text-shadow-md max-w-xl">
+              <p className="text-white text-xl md:text-2xl mb-10 font-medium text-shadow-md max-w-xl drop-shadow-lg">
                 Vivez la passion du football africain avec nos offres exclusives pour la Coupe d'Afrique des Nations 2025.
               </p>
               <motion.div 
@@ -161,22 +161,22 @@ const HeroSection = () => {
         </motion.div>
         
         {/* Stats counters grid - Updated to match mockup */}
-        <div className="absolute bottom-0 left-0 right-0 px-4 z-10 bg-primary/30 backdrop-blur-sm py-8">
+        <div className="absolute bottom-0 left-0 right-0 px-4 z-10 bg-primary/50 backdrop-blur-sm py-8">
           <div className="container mx-auto">
             <div className="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-6">
               <motion.div 
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5, delay: 0.3 }}
-                className="bg-primary/40 backdrop-blur-sm rounded-md p-4 md:p-6 text-center hover:bg-primary/50 transition-all duration-300 cursor-pointer"
+                className="bg-primary/60 backdrop-blur-sm rounded-md p-4 md:p-6 text-center hover:bg-primary/70 transition-all duration-300 cursor-pointer"
               >
                 <div className="text-secondary mb-2">
                   <Trophy className="h-8 w-8 mx-auto" />
                 </div>
-                <div className="text-4xl font-bold text-white">
+                <div className="text-4xl font-bold text-white drop-shadow-md">
                   {countValues.teams}
                 </div>
-                <div className="text-base mt-1 text-white/80">
+                <div className="text-base mt-1 text-white/90 font-medium">
                   Équipes
                 </div>
               </motion.div>
@@ -185,15 +185,15 @@ const HeroSection = () => {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5, delay: 0.4 }}
-                className="bg-primary/40 backdrop-blur-sm rounded-md p-4 md:p-6 text-center hover:bg-primary/50 transition-all duration-300 cursor-pointer"
+                className="bg-primary/60 backdrop-blur-sm rounded-md p-4 md:p-6 text-center hover:bg-primary/70 transition-all duration-300 cursor-pointer"
               >
                 <div className="text-secondary mb-2">
                   <MapPin className="h-8 w-8 mx-auto" />
                 </div>
-                <div className="text-4xl font-bold text-white">
+                <div className="text-4xl font-bold text-white drop-shadow-md">
                   {countValues.stadiums}
                 </div>
-                <div className="text-base mt-1 text-white/80">
+                <div className="text-base mt-1 text-white/90 font-medium">
                   Stades
                 </div>
               </motion.div>
@@ -202,15 +202,15 @@ const HeroSection = () => {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5, delay: 0.5 }}
-                className="bg-primary/40 backdrop-blur-sm rounded-md p-4 md:p-6 text-center hover:bg-primary/50 transition-all duration-300 cursor-pointer"
+                className="bg-primary/60 backdrop-blur-sm rounded-md p-4 md:p-6 text-center hover:bg-primary/70 transition-all duration-300 cursor-pointer"
               >
                 <div className="text-secondary mb-2">
                   <Trophy className="h-8 w-8 mx-auto" />
                 </div>
-                <div className="text-4xl font-bold text-white">
+                <div className="text-4xl font-bold text-white drop-shadow-md">
                   {countValues.matches}
                 </div>
-                <div className="text-base mt-1 text-white/80">
+                <div className="text-base mt-1 text-white/90 font-medium">
                   Matchs
                 </div>
               </motion.div>
@@ -219,7 +219,7 @@ const HeroSection = () => {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5, delay: 0.6 }}
-                className="bg-primary/40 backdrop-blur-sm rounded-md p-4 md:p-6 text-center relative hover:bg-primary/50 transition-all duration-300 cursor-pointer"
+                className="bg-primary/60 backdrop-blur-sm rounded-md p-4 md:p-6 text-center relative hover:bg-primary/70 transition-all duration-300 cursor-pointer"
               >
                 {/* Urgence badge */}
                 <div className="absolute -top-3 -right-3">
@@ -230,10 +230,10 @@ const HeroSection = () => {
                 <div className="text-secondary mb-2">
                   <Info className="h-8 w-8 mx-auto" />
                 </div>
-                <div className="text-4xl font-bold text-white">
+                <div className="text-4xl font-bold text-white drop-shadow-md">
                   {countValues.days}
                 </div>
-                <div className="text-base mt-1 text-white/80">
+                <div className="text-base mt-1 text-white/90 font-medium">
                   Jours restants
                 </div>
               </motion.div>
@@ -241,8 +241,8 @@ const HeroSection = () => {
           </div>
         </div>
         
-        {/* Search widget - positioned inside the hero section like in the image */}
-        <div className="absolute bottom-52 left-0 right-0 px-4 z-20">
+        {/* Search widget - positioned inside the hero section for better visibility */}
+        <div className="absolute bottom-40 left-0 right-0 px-4 z-20">
           <div className="container mx-auto">
             <SearchWidget />
           </div>

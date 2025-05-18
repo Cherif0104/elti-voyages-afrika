@@ -1,7 +1,7 @@
 import { useEffect, useState, useRef } from "react";
+import { motion, useInView } from "framer-motion";
 import { Plane, Hotel, Car, Map, Crown, Star, MapPin, UsersRound, CalendarDays, Coffee, Trophy } from "lucide-react";
 import { Link } from "react-router-dom";
-import { motion, useInView } from "framer-motion";
 import BookingForm from "@/components/BookingForm";
 import ServiceCard from "@/components/ServiceCard";
 import PackageCard from "@/components/PackageCard";
@@ -304,7 +304,7 @@ const Index = () => {
                   variants={fadeInDown}
                   initial="hidden"
                   animate="visible"
-                  className="text-secondary font-semibold mb-2 inline-block"
+                  className="text-secondary font-semibold mb-2 inline-block text-base md:text-lg drop-shadow-md"
                 >
                   Votre partenaire de voyage officiel
                 </motion.span>
@@ -312,28 +312,147 @@ const Index = () => {
                   variants={fadeInUp}
                   initial="hidden"
                   animate="visible"
-                  className="text-4xl md:text-6xl font-bold text-white mb-6"
+                  className="text-4xl md:text-6xl font-bold text-white mb-6 leading-tight drop-shadow-lg"
                 >
                   Voyagez au cœur de 
-                  <span className="text-secondary block mt-2">l'Afrique</span>
+                  <span className="text-secondary block mt-2 text-shadow-md">l'Afrique</span>
                 </motion.h1>
                 <motion.p 
                   variants={fadeInUp}
                   initial="hidden"
                   animate="visible"
                   transition={{ delay: 0.2 }}
-                  className="text-white/90 text-lg mb-8 max-w-lg"
+                  className="text-white text-lg md:text-xl mb-8 max-w-lg font-medium drop-shadow-md"
                 >
                   Billets d'avion, hôtels, voitures et packs pour la CAN 2025. Votre voyage sur mesure entre l'Afrique et le monde entier.
                 </motion.p>
+                <motion.div 
+                  className="flex flex-col sm:flex-row gap-4 justify-center md:justify-start"
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.5, delay: 1 }}
+                >
+                  <Button
+                    size="lg"
+                    className="text-lg px-8 py-7 font-semibold bg-secondary hover:bg-secondary/90 text-primary transition-all duration-300 hover:shadow-lg shadow-secondary/20"
+                    asChild
+                  >
+                    <Link to="#reservation">
+                      Réserver mon pack
+                    </Link>
+                  </Button>
+                  
+                  <Button
+                    variant="outline"
+                    size="lg"
+                    className="border-white text-white hover:bg-white/10 text-lg px-8 py-7 font-semibold transition-all duration-300"
+                    asChild
+                  >
+                    <Link to="#news">
+                      Dernières actualités
+                    </Link>
+                  </Button>
+                </motion.div>
               </motion.div>
             </div>
           </div>
+          
+          {/* Limited availability badge - positioned to match mockup */}
+          <motion.div 
+            className="absolute top-8 right-8 z-10"
+            initial={{ opacity: 0, x: 50 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.5, delay: 1.2 }}
+          >
+            <Badge className="bg-secondary text-primary px-4 py-2 text-sm font-medium rounded-full flex items-center gap-2 shadow-lg animate-pulse">
+              <Trophy className="h-5 w-5" />
+              Places limitées !
+            </Badge>
+          </motion.div>
         </div>
         
-        {/* Search Widget Position */}
-        <div className="container mx-auto px-4 relative z-20 -mt-24">
+        {/* Search Widget Position - Moved inside hero section for better visibility */}
+        <div className="container mx-auto px-4 relative z-20 -mt-36 md:-mt-32">
           <SearchWidget />
+        </div>
+        
+        {/* Stats counters grid */}
+        <div className="container mx-auto px-4 mt-36 md:mt-28">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-6 bg-primary/40 backdrop-blur-sm p-6 rounded-lg shadow-lg">
+            <motion.div 
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: 0.3 }}
+              className="bg-primary/60 rounded-md p-4 md:p-6 text-center hover:bg-primary/70 transition-all duration-300 cursor-pointer"
+            >
+              <div className="text-secondary mb-2">
+                <Trophy className="h-8 w-8 mx-auto" />
+              </div>
+              <div className="text-3xl md:text-4xl font-bold text-white">
+                {animateStats ? '24' : '0'}
+              </div>
+              <div className="text-base mt-1 text-white/90 font-medium">
+                Équipes
+              </div>
+            </motion.div>
+            
+            <motion.div 
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: 0.4 }}
+              className="bg-primary/60 rounded-md p-4 md:p-6 text-center hover:bg-primary/70 transition-all duration-300 cursor-pointer"
+            >
+              <div className="text-secondary mb-2">
+                <MapPin className="h-8 w-8 mx-auto" />
+              </div>
+              <div className="text-3xl md:text-4xl font-bold text-white">
+                {animateStats ? '6' : '0'}
+              </div>
+              <div className="text-base mt-1 text-white/90 font-medium">
+                Stades
+              </div>
+            </motion.div>
+            
+            <motion.div 
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: 0.5 }}
+              className="bg-primary/60 rounded-md p-4 md:p-6 text-center hover:bg-primary/70 transition-all duration-300 cursor-pointer"
+            >
+              <div className="text-secondary mb-2">
+                <Trophy className="h-8 w-8 mx-auto" />
+              </div>
+              <div className="text-3xl md:text-4xl font-bold text-white">
+                {animateStats ? '52' : '0'}
+              </div>
+              <div className="text-base mt-1 text-white/90 font-medium">
+                Matchs
+              </div>
+            </motion.div>
+            
+            <motion.div 
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: 0.6 }}
+              className="bg-primary/60 rounded-md p-4 md:p-6 text-center relative hover:bg-primary/70 transition-all duration-300 cursor-pointer"
+            >
+              {/* Urgence badge */}
+              <div className="absolute -top-3 -right-3">
+                <Badge className="bg-secondary text-primary shadow-md px-2 py-1 text-xs animate-pulse">
+                  <Trophy className="h-3 w-3 mr-1" /> Urgence
+                </Badge>
+              </div>
+              <div className="text-secondary mb-2">
+                <CalendarDays className="h-8 w-8 mx-auto" />
+              </div>
+              <div className="text-3xl md:text-4xl font-bold text-white">
+                {animateStats ? '14' : '0'}
+              </div>
+              <div className="text-base mt-1 text-white/90 font-medium">
+                Jours restants
+              </div>
+            </motion.div>
+          </div>
         </div>
       </section>
 

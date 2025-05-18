@@ -59,7 +59,7 @@ const PromotionBanner = ({
       <div className="container mx-auto flex items-center justify-center sm:justify-between">
         <div className="flex items-center">
           <Bell className="h-5 w-5 mr-3 animate-pulse text-secondary" />
-          <p className="text-sm md:text-base">
+          <p className="text-sm md:text-base font-medium">
             {displayTitle && <span className="font-bold mr-1 text-secondary">{displayTitle}:</span>}
             {displayText}
           </p>
