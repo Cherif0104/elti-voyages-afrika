@@ -89,7 +89,7 @@ const Cars = () => {
       logo: "/lovable-uploads/d80e170b-3282-4f7f-879b-af33bea2727d.png"
     },
     {
-      name: "Europcar",
+      name: "Inzar",
       logo: "/lovable-uploads/cc89c664-211c-47ef-89c5-4c30f61b6c2e.png"
     },
     {
