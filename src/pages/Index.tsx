@@ -2,13 +2,11 @@ import { useEffect, useState, useRef } from "react";
 import { motion, useInView } from "framer-motion";
 import { Plane, Hotel, Car, Map, Crown, Star, MapPin, UsersRound, CalendarDays, Coffee, Trophy } from "lucide-react";
 import { Link } from "react-router-dom";
-import BookingForm from "@/components/BookingForm";
+import HeroSection from "@/components/HeroSection";
 import ServiceCard from "@/components/ServiceCard";
 import PackageCard from "@/components/PackageCard";
 import PartnerLogo from "@/components/PartnerLogo";
-import PromotionBanner from "@/components/PromotionBanner";
 import PopularDestinations from "@/components/PopularDestinations";
-import SearchWidget from "@/components/SearchWidget";
 import { Button } from "@/components/ui/button";
 import {
   Carousel,
@@ -17,35 +15,18 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from "@/components/ui/carousel";
-import { 
-  staggerContainer, 
-  fadeInUp, 
-  fadeInDown,
-  fadeInLeft,
-  fadeInRight,
-  hoverScale, 
-  floatingAnimation,
-  shineEffect,
-  buttonTap,
-  limitedAvailabilityPulse
-} from "@/components/can2025/AnimationUtils";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Badge } from "@/components/ui/badge";
-import { Card } from "@/components/ui/card";
+import BookingForm from "@/components/BookingForm";
 
 const Index = () => {
-  const [isVisible, setIsVisible] = useState(false);
   const [animateStats, setAnimateStats] = useState(false);
   
-  // Reference for parallax effect
-  const heroRef = useRef(null);
+  // Reference for stats section
   const statsRef = useRef(null);
   const isStatsInView = useInView(statsRef, { once: false, margin: "-100px" });
   
-  // For tabs
-  const [activeTab, setActiveTab] = useState("popular");
-
-  // Popular destinations
+  // Example data for destinations
   const popularDestinations = [
     {
       name: "Marrakech",
@@ -176,28 +157,6 @@ const Index = () => {
     { name: "CAF", logo: "/lovable-uploads/ad2e6352-2bbd-43a0-ad6d-8760c3a39d60.png" },
   ];
 
-  // Example data for testimonials
-  const testimonials = [
-    {
-      name: "Ahmed K.",
-      location: "Casablanca",
-      text: "Un service exceptionnel! Notre séjour pour la CAN était parfaitement organisé.",
-      rating: 5,
-    },
-    {
-      name: "Fatou M.",
-      location: "Dakar",
-      text: "Des prestations de qualité et un accompagnement personnalisé tout au long du voyage.",
-      rating: 5,
-    },
-    {
-      name: "Pierre L.",
-      location: "Paris",
-      text: "J'ai découvert le Maroc authentique grâce à leurs circuits sur mesure.",
-      rating: 5,
-    },
-  ];
-
   // Current offers
   const currentOffers = [
     {
@@ -224,174 +183,34 @@ const Index = () => {
   ];
 
   useEffect(() => {
-    setIsVisible(true);
-    
     // Set a small delay before starting the stats animation
     setTimeout(() => {
       setAnimateStats(true);
     }, 500);
   }, []);
 
-  // Counter animation for stats
-  const Counter = ({ end, duration = 2000, title }) => {
-    const [count, setCount] = useState(0);
-    
-    useEffect(() => {
-      if (!isStatsInView) return;
-      
-      let start = 0;
-      const step = end / (duration / 16); // Update roughly every 16ms for smooth animation
-      
-      const timer = setInterval(() => {
-        start += step;
-        if (start > end) {
-          setCount(end);
-          clearInterval(timer);
-        } else {
-          setCount(Math.floor(start));
-        }
-      }, 16);
-      
-      return () => clearInterval(timer);
-    }, [end, duration, isStatsInView]);
-    
-    return (
-      <div>
-        <div className="text-3xl md:text-4xl font-bold text-primary mb-2">
-          {end.toString().includes('.') 
-            ? count >= end 
-              ? end 
-              : count.toFixed(1)
-            : count}{end.toString().endsWith('+') ? '+' : ''}
-        </div>
-        <div className="text-gray-600">{title}</div>
-      </div>
-    );
-  };
-
   return (
     <>
-      <PromotionBanner
-        title="CAN 2025"
-        text="Réservez votre pack supporter avant le 31 décembre et bénéficiez de -15%"
-        linkText="En savoir plus"
-        linkUrl="/can2025"
-        active={true}
-      />
-
       {/* Hero Section with Search Widget */}
-      <section className="pt-0 lg:pt-0 relative overflow-hidden" ref={heroRef}>
-        <div className="h-[650px] md:h-[700px] relative overflow-hidden">
-          {/* Background image with overlay */}
-          <div
-            className="absolute inset-0 bg-cover bg-center"
-            style={{
-              backgroundImage: "url('https://images.unsplash.com/photo-1506929562872-bb421503ef21?q=80&w=2568&auto=format&fit=crop')",
-            }}
-          />
-          <div className="absolute inset-0 bg-gradient-to-r from-primary/95 to-primary/80" />
-          
-          {/* Hero Content */}
-          <div className="absolute inset-0 flex items-center z-10">
-            <div className="container mx-auto px-4">
-              <motion.div 
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: isVisible ? 1 : 0, y: isVisible ? 0 : 20 }}
-                transition={{ duration: 0.8 }}
-                className="max-w-xl mx-auto md:mx-0 text-center md:text-left"
-              >
-                <motion.span 
-                  variants={fadeInDown}
-                  initial="hidden"
-                  animate="visible"
-                  className="text-secondary font-semibold mb-2 inline-block text-base md:text-lg drop-shadow-md"
-                >
-                  Votre partenaire de voyage officiel
-                </motion.span>
-                <motion.h1 
-                  variants={fadeInUp}
-                  initial="hidden"
-                  animate="visible"
-                  className="text-4xl md:text-6xl font-bold text-white mb-6 leading-tight drop-shadow-lg"
-                >
-                  Voyagez au cœur de 
-                  <span className="text-secondary block mt-2 text-shadow-md">l'Afrique</span>
-                </motion.h1>
-                <motion.p 
-                  variants={fadeInUp}
-                  initial="hidden"
-                  animate="visible"
-                  transition={{ delay: 0.2 }}
-                  className="text-white text-lg md:text-xl mb-8 max-w-lg font-medium drop-shadow-md"
-                >
-                  Billets d'avion, hôtels, voitures et packs pour la CAN 2025. Votre voyage sur mesure entre l'Afrique et le monde entier.
-                </motion.p>
-                <motion.div 
-                  className="flex flex-col sm:flex-row gap-4 justify-center md:justify-start"
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.5, delay: 1 }}
-                >
-                  <Button
-                    size="lg"
-                    className="text-lg px-8 py-7 font-semibold bg-secondary hover:bg-secondary/90 text-primary transition-all duration-300 hover:shadow-lg shadow-secondary/20"
-                    asChild
-                  >
-                    <Link to="#reservation">
-                      Réserver mon pack
-                    </Link>
-                  </Button>
-                  
-                  <Button
-                    variant="outline"
-                    size="lg"
-                    className="border-white text-white hover:bg-white/10 text-lg px-8 py-7 font-semibold transition-all duration-300"
-                    asChild
-                  >
-                    <Link to="#news">
-                      Dernières actualités
-                    </Link>
-                  </Button>
-                </motion.div>
-              </motion.div>
-            </div>
-          </div>
-          
-          {/* Limited availability badge - positioned to match mockup */}
-          <motion.div 
-            className="absolute top-8 right-8 z-10"
-            initial={{ opacity: 0, x: 50 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.5, delay: 1.2 }}
-          >
-            <Badge className="bg-secondary text-primary px-4 py-2 text-sm font-medium rounded-full flex items-center gap-2 shadow-lg animate-pulse">
-              <Trophy className="h-5 w-5" />
-              Places limitées !
-            </Badge>
-          </motion.div>
-        </div>
-        
-        {/* Search Widget Position - Moved inside hero section for better visibility */}
-        <div className="container mx-auto px-4 relative z-20 -mt-36 md:-mt-32">
-          <SearchWidget />
-        </div>
-        
-        {/* Stats counters grid */}
-        <div className="container mx-auto px-4 mt-36 md:mt-28">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-6 bg-primary/40 backdrop-blur-sm p-6 rounded-lg shadow-lg">
+      <HeroSection />
+
+      {/* Stats counters grid */}
+      <section className="bg-gray-100 py-12">
+        <div className="container mx-auto px-4">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
             <motion.div 
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: 0.3 }}
-              className="bg-primary/60 rounded-md p-4 md:p-6 text-center hover:bg-primary/70 transition-all duration-300 cursor-pointer"
+              className="bg-white rounded-lg p-6 text-center shadow-sm hover:shadow-md transition-all duration-300"
             >
-              <div className="text-secondary mb-2">
+              <div className="text-primary mb-2">
                 <Trophy className="h-8 w-8 mx-auto" />
               </div>
-              <div className="text-3xl md:text-4xl font-bold text-white">
+              <div className="text-3xl font-bold text-primary mb-2">
                 {animateStats ? '24' : '0'}
               </div>
-              <div className="text-base mt-1 text-white/90 font-medium">
+              <div className="text-gray-600 font-medium">
                 Équipes
               </div>
             </motion.div>
@@ -400,15 +219,15 @@ const Index = () => {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: 0.4 }}
-              className="bg-primary/60 rounded-md p-4 md:p-6 text-center hover:bg-primary/70 transition-all duration-300 cursor-pointer"
+              className="bg-white rounded-lg p-6 text-center shadow-sm hover:shadow-md transition-all duration-300"
             >
-              <div className="text-secondary mb-2">
+              <div className="text-primary mb-2">
                 <MapPin className="h-8 w-8 mx-auto" />
               </div>
-              <div className="text-3xl md:text-4xl font-bold text-white">
+              <div className="text-3xl font-bold text-primary mb-2">
                 {animateStats ? '6' : '0'}
               </div>
-              <div className="text-base mt-1 text-white/90 font-medium">
+              <div className="text-gray-600 font-medium">
                 Stades
               </div>
             </motion.div>
@@ -417,15 +236,15 @@ const Index = () => {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: 0.5 }}
-              className="bg-primary/60 rounded-md p-4 md:p-6 text-center hover:bg-primary/70 transition-all duration-300 cursor-pointer"
+              className="bg-white rounded-lg p-6 text-center shadow-sm hover:shadow-md transition-all duration-300"
             >
-              <div className="text-secondary mb-2">
+              <div className="text-primary mb-2">
                 <Trophy className="h-8 w-8 mx-auto" />
               </div>
-              <div className="text-3xl md:text-4xl font-bold text-white">
+              <div className="text-3xl font-bold text-primary mb-2">
                 {animateStats ? '52' : '0'}
               </div>
-              <div className="text-base mt-1 text-white/90 font-medium">
+              <div className="text-gray-600 font-medium">
                 Matchs
               </div>
             </motion.div>
@@ -434,21 +253,21 @@ const Index = () => {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: 0.6 }}
-              className="bg-primary/60 rounded-md p-4 md:p-6 text-center relative hover:bg-primary/70 transition-all duration-300 cursor-pointer"
+              className="bg-white rounded-lg p-6 text-center relative shadow-sm hover:shadow-md transition-all duration-300"
             >
               {/* Urgence badge */}
               <div className="absolute -top-3 -right-3">
                 <Badge className="bg-secondary text-primary shadow-md px-2 py-1 text-xs animate-pulse">
-                  <Trophy className="h-3 w-3 mr-1" /> Urgence
+                  <Trophy className="h-3 w-3 mr-1" /> Urgent
                 </Badge>
               </div>
-              <div className="text-secondary mb-2">
+              <div className="text-primary mb-2">
                 <CalendarDays className="h-8 w-8 mx-auto" />
               </div>
-              <div className="text-3xl md:text-4xl font-bold text-white">
+              <div className="text-3xl font-bold text-primary mb-2">
                 {animateStats ? '14' : '0'}
               </div>
-              <div className="text-base mt-1 text-white/90 font-medium">
+              <div className="text-gray-600 font-medium">
                 Jours restants
               </div>
             </motion.div>
@@ -457,7 +276,7 @@ const Index = () => {
       </section>
 
       {/* Current Offers Section */}
-      <section className="py-20 lg:pl-64 relative">
+      <section className="py-16 bg-white">
         <div className="container mx-auto px-4">
           <motion.div 
             initial={{ opacity: 0, y: 20 }}
@@ -466,17 +285,11 @@ const Index = () => {
             viewport={{ once: true }}
             className="text-center mb-12"
           >
-            <motion.span 
-              initial={{ opacity: 0 }}
-              whileInView={{ opacity: 1 }}
-              transition={{ duration: 0.6 }}
-              viewport={{ once: true }}
-              className="inline-block px-3 py-1 bg-primary/10 text-primary text-sm font-medium rounded-full mb-3"
-            >
+            <span className="inline-block px-3 py-1 bg-primary/10 text-primary text-sm font-medium rounded-md mb-3">
               Offres spéciales
-            </motion.span>
-            <h2 className="text-3xl md:text-4xl font-bold text-primary mb-4">Nos meilleures offres</h2>
-            <p className="text-gray-600 max-w-2xl mx-auto text-lg">
+            </span>
+            <h2 className="text-3xl font-bold text-primary mb-4">Nos meilleures offres</h2>
+            <p className="text-gray-600 max-w-2xl mx-auto">
               Découvrez nos promotions exclusives pour des voyages inoubliables.
             </p>
           </motion.div>
@@ -489,24 +302,22 @@ const Index = () => {
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5, delay: index * 0.1 }}
                 viewport={{ once: true }}
-                whileHover={{ y: -10 }}
-                className="group rounded-xl overflow-hidden shadow-lg relative h-[350px]"
+                className="bg-white rounded-lg overflow-hidden shadow-md hover:shadow-lg transition-all duration-300"
               >
-                <div className="absolute inset-0">
+                <div className="h-48 overflow-hidden">
                   <img 
                     src={offer.image} 
                     alt={offer.title} 
-                    className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                    className="w-full h-full object-cover transition-transform duration-500 hover:scale-105"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black to-transparent opacity-70"></div>
                 </div>
                 
-                <div className="absolute bottom-0 left-0 right-0 p-6 text-white z-10">
-                  <h3 className="text-2xl font-bold mb-2">{offer.title}</h3>
-                  <p className="mb-4 text-white/90">{offer.description}</p>
+                <div className="p-6">
+                  <h3 className="text-xl font-bold mb-2 text-primary">{offer.title}</h3>
+                  <p className="mb-4 text-gray-600">{offer.description}</p>
                   <Button 
-                    variant="secondary" 
-                    className="font-medium"
+                    variant="default" 
+                    className="w-full"
                     asChild
                   >
                     <Link to={offer.link}>
@@ -521,7 +332,7 @@ const Index = () => {
       </section>
 
       {/* Popular Destinations with Tabs */}
-      <section className="py-20 lg:pl-64 bg-gray-50">
+      <section className="py-16 bg-gray-100">
         <div className="container mx-auto px-4">
           <motion.div 
             initial={{ opacity: 0, y: 20 }}
@@ -530,8 +341,8 @@ const Index = () => {
             viewport={{ once: true }}
             className="text-center mb-12"
           >
-            <h2 className="text-3xl md:text-4xl font-bold text-primary mb-4">Destinations populaires</h2>
-            <p className="text-gray-600 max-w-2xl mx-auto text-lg">
+            <h2 className="text-3xl font-bold text-primary mb-4">Destinations populaires</h2>
+            <p className="text-gray-600 max-w-2xl mx-auto">
               Découvrez nos destinations phares au Maroc et au Sénégal.
             </p>
           </motion.div>
@@ -539,10 +350,10 @@ const Index = () => {
           <Tabs defaultValue="popular" className="w-full mb-8">
             <div className="flex justify-center">
               <TabsList className="mb-8">
-                <TabsTrigger value="popular" className="px-8">Populaires</TabsTrigger>
-                <TabsTrigger value="morocco" className="px-8">Maroc</TabsTrigger>
-                <TabsTrigger value="senegal" className="px-8">Sénégal</TabsTrigger>
-                <TabsTrigger value="can2025" className="px-8">CAN 2025</TabsTrigger>
+                <TabsTrigger value="popular" className="px-6">Populaires</TabsTrigger>
+                <TabsTrigger value="morocco" className="px-6">Maroc</TabsTrigger>
+                <TabsTrigger value="senegal" className="px-6">Sénégal</TabsTrigger>
+                <TabsTrigger value="can2025" className="px-6">CAN 2025</TabsTrigger>
               </TabsList>
             </div>
             
@@ -555,18 +366,18 @@ const Index = () => {
                     whileInView={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.5, delay: index * 0.1 }}
                     viewport={{ once: true }}
-                    whileHover={{ y: -10, transition: { duration: 0.3 } }}
-                    className="group relative rounded-xl overflow-hidden shadow-lg h-64"
+                    className="bg-white rounded-lg overflow-hidden shadow-md hover:shadow-lg transition-all duration-300 cursor-pointer"
                   >
-                    <img 
-                      src={destination.image} 
-                      alt={destination.name} 
-                      className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black to-transparent opacity-60"></div>
-                    <div className="absolute bottom-0 left-0 right-0 p-5 text-white">
-                      <span className="text-sm">{destination.country}</span>
-                      <h3 className="text-xl font-bold mb-1">{destination.name}</h3>
+                    <div className="h-48 overflow-hidden">
+                      <img 
+                        src={destination.image} 
+                        alt={destination.name} 
+                        className="w-full h-full object-cover transition-transform duration-500 hover:scale-105"
+                      />
+                    </div>
+                    <div className="p-4">
+                      <span className="text-sm text-gray-500">{destination.country}</span>
+                      <h3 className="text-lg font-bold text-primary">{destination.name}</h3>
                       <span className="text-secondary font-medium">{destination.price}</span>
                     </div>
                   </motion.div>
@@ -583,18 +394,18 @@ const Index = () => {
                     whileInView={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.5, delay: index * 0.1 }}
                     viewport={{ once: true }}
-                    whileHover={{ y: -10, transition: { duration: 0.3 } }}
-                    className="group relative rounded-xl overflow-hidden shadow-lg h-64"
+                    className="bg-white rounded-lg overflow-hidden shadow-md hover:shadow-lg transition-all duration-300 cursor-pointer"
                   >
-                    <img 
-                      src={destination.image} 
-                      alt={destination.name} 
-                      className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black to-transparent opacity-60"></div>
-                    <div className="absolute bottom-0 left-0 right-0 p-5 text-white">
-                      <span className="text-sm">{destination.country}</span>
-                      <h3 className="text-xl font-bold mb-1">{destination.name}</h3>
+                    <div className="h-48 overflow-hidden">
+                      <img 
+                        src={destination.image} 
+                        alt={destination.name} 
+                        className="w-full h-full object-cover transition-transform duration-500 hover:scale-105"
+                      />
+                    </div>
+                    <div className="p-4">
+                      <span className="text-sm text-gray-500">{destination.country}</span>
+                      <h3 className="text-lg font-bold text-primary">{destination.name}</h3>
                       <span className="text-secondary font-medium">{destination.price}</span>
                     </div>
                   </motion.div>
@@ -611,18 +422,18 @@ const Index = () => {
                     whileInView={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.5, delay: index * 0.1 }}
                     viewport={{ once: true }}
-                    whileHover={{ y: -10, transition: { duration: 0.3 } }}
-                    className="group relative rounded-xl overflow-hidden shadow-lg h-64"
+                    className="bg-white rounded-lg overflow-hidden shadow-md hover:shadow-lg transition-all duration-300 cursor-pointer"
                   >
-                    <img 
-                      src={destination.image} 
-                      alt={destination.name} 
-                      className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black to-transparent opacity-60"></div>
-                    <div className="absolute bottom-0 left-0 right-0 p-5 text-white">
-                      <span className="text-sm">{destination.country}</span>
-                      <h3 className="text-xl font-bold mb-1">{destination.name}</h3>
+                    <div className="h-48 overflow-hidden">
+                      <img 
+                        src={destination.image} 
+                        alt={destination.name} 
+                        className="w-full h-full object-cover transition-transform duration-500 hover:scale-105"
+                      />
+                    </div>
+                    <div className="p-4">
+                      <span className="text-sm text-gray-500">{destination.country}</span>
+                      <h3 className="text-lg font-bold text-primary">{destination.name}</h3>
                       <span className="text-secondary font-medium">{destination.price}</span>
                     </div>
                   </motion.div>
@@ -655,7 +466,7 @@ const Index = () => {
       </section>
 
       {/* Services Section */}
-      <section id="services" className="py-20 lg:pl-64">
+      <section id="services" className="py-16 bg-white">
         <div className="container mx-auto px-4">
           <motion.div 
             initial={{ opacity: 0, y: 20 }}
@@ -664,17 +475,11 @@ const Index = () => {
             viewport={{ once: true }}
             className="text-center mb-12"
           >
-            <motion.span 
-              initial={{ opacity: 0 }}
-              whileInView={{ opacity: 1 }}
-              transition={{ duration: 0.6 }}
-              viewport={{ once: true }}
-              className="inline-block px-3 py-1 bg-primary/10 text-primary text-sm font-medium rounded-full mb-3"
-            >
+            <span className="inline-block px-3 py-1 bg-primary/10 text-primary text-sm font-medium rounded-md mb-3">
               Nos prestations
-            </motion.span>
-            <h2 className="text-3xl md:text-4xl font-bold text-primary mb-4">Services complets</h2>
-            <p className="text-gray-600 max-w-2xl mx-auto text-lg">
+            </span>
+            <h2 className="text-3xl font-bold text-primary mb-4">Services complets</h2>
+            <p className="text-gray-600 max-w-2xl mx-auto">
               ELTI VOYAGES vous accompagne dans tous vos projets de voyage avec une offre complète de services premium.
             </p>
           </motion.div>
@@ -687,7 +492,6 @@ const Index = () => {
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5, delay: index * 0.1 }}
                 viewport={{ once: true }}
-                whileHover={{ y: -5, boxShadow: "0 15px 30px -10px rgba(0, 44, 95, 0.15)" }}
               >
                 <ServiceCard
                   icon={service.icon}
@@ -701,22 +505,22 @@ const Index = () => {
       </section>
 
       {/* CAN 2025 Special Section */}
-      <section className="py-24 lg:pl-64 relative overflow-hidden bg-primary/5">
+      <section className="py-16 bg-gray-100">
         <div className="container mx-auto px-4">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
             <motion.div
-              initial={{ opacity: 0, x: -30 }}
-              whileInView={{ opacity: 1, x: 0 }}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6 }}
               viewport={{ once: true }}
             >
               <Badge className="mb-4 px-3 py-1 bg-secondary text-primary">
                 Événement spécial
               </Badge>
-              <h2 className="text-3xl md:text-4xl font-bold text-primary mb-6">
+              <h2 className="text-3xl font-bold text-primary mb-6">
                 Coupe d'Afrique des Nations 2025
               </h2>
-              <p className="text-lg text-gray-700 mb-6">
+              <p className="text-gray-700 mb-6">
                 Vivez l'aventure de la CAN 2025 au Maroc avec nos packs supporters complets.
                 Vol, hébergement, billets de match et expériences exclusives pour un séjour inoubliable.
               </p>
@@ -747,7 +551,7 @@ const Index = () => {
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
               >
-                <Button size="lg" className="px-8 text-lg" asChild>
+                <Button className="px-8 text-lg" asChild>
                   <Link to="/can2025">
                     Découvrir nos packs supporters
                   </Link>
@@ -756,61 +560,29 @@ const Index = () => {
             </motion.div>
             
             <motion.div
-              initial={{ opacity: 0, x: 30 }}
-              whileInView={{ opacity: 1, x: 0 }}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.2 }}
               viewport={{ once: true }}
               className="relative"
             >
-              <div className="relative h-[400px] overflow-hidden rounded-2xl shadow-xl">
+              <div className="relative rounded-lg overflow-hidden shadow-xl">
                 <img 
                   src="/lovable-uploads/8a682208-d168-4383-a0bb-619fb16939f9.png" 
                   alt="CAN 2025" 
-                  className="w-full h-full object-cover"
+                  className="w-full h-auto"
                 />
-                <div className="absolute inset-0 bg-primary/20 rounded-2xl"></div>
-                <motion.div
-                  initial={{ opacity: 0, scale: 0.5 }}
-                  whileInView={{ opacity: 1, scale: 1 }}
-                  transition={{ delay: 0.6, duration: 0.5 }}
-                  viewport={{ once: true }}
-                  className="absolute bottom-6 right-6"
-                >
-                  <img 
-                    src="/lovable-uploads/ad2e6352-2bbd-43a0-ad6d-8760c3a39d60.png" 
-                    alt="CAF Logo" 
-                    className="w-24 h-24 object-contain rounded-full bg-white p-2 shadow-lg"
-                  />
-                </motion.div>
-                <div className="absolute top-6 left-6 bg-secondary/90 text-primary font-bold py-2 px-4 rounded-lg">
+                <div className="absolute top-6 left-6 bg-secondary/90 text-primary font-bold py-2 px-4 rounded">
                   Été 2025
                 </div>
               </div>
-              
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5, delay: 0.8 }}
-                viewport={{ once: true }}
-                className="absolute -bottom-8 -left-8 bg-white p-5 rounded-lg shadow-lg max-w-[220px]"
-              >
-                <div className="flex items-center gap-2 mb-2">
-                  <Star className="h-5 w-5 text-secondary fill-secondary" />
-                  <Star className="h-5 w-5 text-secondary fill-secondary" />
-                  <Star className="h-5 w-5 text-secondary fill-secondary" />
-                  <Star className="h-5 w-5 text-secondary fill-secondary" />
-                  <Star className="h-5 w-5 text-secondary fill-secondary" />
-                </div>
-                <p className="text-sm font-medium">"Une organisation parfaite pour notre voyage à la CAN 2023."</p>
-                <p className="text-xs text-gray-500 mt-1">Mamadou S., Dakar</p>
-              </motion.div>
             </motion.div>
           </div>
         </div>
       </section>
 
       {/* Partners Section */}
-      <section id="partners" className="py-20 lg:pl-64">
+      <section id="partners" className="py-16 bg-white">
         <div className="container mx-auto px-4">
           <motion.div 
             initial={{ opacity: 0, y: 20 }}
@@ -819,13 +591,13 @@ const Index = () => {
             viewport={{ once: true }}
             className="text-center mb-12"
           >
-            <h2 className="text-3xl md:text-4xl font-bold text-primary mb-4">Nos Partenaires</h2>
-            <p className="text-gray-600 max-w-2xl mx-auto text-lg">
+            <h2 className="text-3xl font-bold text-primary mb-4">Nos Partenaires</h2>
+            <p className="text-gray-600 max-w-2xl mx-auto">
               Nous collaborons avec les meilleurs acteurs du tourisme et du voyage pour vous garantir qualité et fiabilité.
             </p>
           </motion.div>
 
-          <div className="grid grid-cols-2 sm:grid-cols-4 gap-8">
+          <div className="grid grid-cols-2 sm:grid-cols-4 gap-6">
             {partners.map((partner, index) => (
               <motion.div
                 key={index}
@@ -833,8 +605,7 @@ const Index = () => {
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5, delay: index * 0.1 }}
                 viewport={{ once: true }}
-                whileHover={{ y: -5 }}
-                className="bg-white rounded-lg p-6 flex items-center justify-center shadow-sm hover:shadow-md transition-all duration-300 h-32"
+                className="bg-white rounded-lg p-6 flex items-center justify-center shadow-sm hover:shadow-md transition-all duration-300 h-32 border border-gray-100"
               >
                 {partner.logo ? (
                   <img 
@@ -852,7 +623,7 @@ const Index = () => {
       </section>
       
       {/* Stats Section */}
-      <section ref={statsRef} className="py-20 lg:pl-64 bg-primary text-white">
+      <section ref={statsRef} className="py-16 bg-primary text-white">
         <div className="container mx-auto px-4">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
             <motion.div 
@@ -861,7 +632,7 @@ const Index = () => {
               transition={{ duration: 0.6 }}
               className="text-center"
             >
-              <div className="text-4xl md:text-5xl font-bold mb-2">5000+</div>
+              <div className="text-4xl font-bold mb-2">5000+</div>
               <div className="text-white/80">Voyageurs satisfaits</div>
             </motion.div>
             
@@ -871,7 +642,7 @@ const Index = () => {
               transition={{ duration: 0.6, delay: 0.2 }}
               className="text-center"
             >
-              <div className="text-4xl md:text-5xl font-bold mb-2">12</div>
+              <div className="text-4xl font-bold mb-2">12</div>
               <div className="text-white/80">Destinations</div>
             </motion.div>
             
@@ -881,7 +652,7 @@ const Index = () => {
               transition={{ duration: 0.6, delay: 0.4 }}
               className="text-center"
             >
-              <div className="text-4xl md:text-5xl font-bold mb-2">8</div>
+              <div className="text-4xl font-bold mb-2">8</div>
               <div className="text-white/80">Années d'expérience</div>
             </motion.div>
             
@@ -891,7 +662,7 @@ const Index = () => {
               transition={{ duration: 0.6, delay: 0.6 }}
               className="text-center"
             >
-              <div className="text-4xl md:text-5xl font-bold mb-2">4.8</div>
+              <div className="text-4xl font-bold mb-2">4.8</div>
               <div className="text-white/80">Note moyenne</div>
             </motion.div>
           </div>
@@ -899,7 +670,7 @@ const Index = () => {
       </section>
 
       {/* Booking Form Section */}
-      <section id="reservation" className="py-20 lg:pl-64 bg-gray-50">
+      <section id="reservation" className="py-16 bg-gray-100">
         <div className="container mx-auto px-4">
           <motion.div 
             initial={{ opacity: 0, y: 20 }}
@@ -908,23 +679,17 @@ const Index = () => {
             viewport={{ once: true }}
             className="text-center mb-12"
           >
-            <motion.span 
-              initial={{ opacity: 0 }}
-              whileInView={{ opacity: 1 }}
-              transition={{ duration: 0.6 }}
-              viewport={{ once: true }}
-              className="inline-block px-3 py-1 bg-secondary/10 text-secondary text-sm font-medium rounded-full mb-3"
-            >
+            <span className="inline-block px-3 py-1 bg-secondary/10 text-secondary text-sm font-medium rounded-md mb-3">
               Contact
-            </motion.span>
-            <h2 className="text-3xl md:text-4xl font-bold text-primary mb-4">Réservation</h2>
-            <p className="text-gray-600 max-w-2xl mx-auto text-lg">
+            </span>
+            <h2 className="text-3xl font-bold text-primary mb-4">Réservation</h2>
+            <p className="text-gray-600 max-w-2xl mx-auto">
               Remplissez notre formulaire pour recevoir une proposition personnalisée sous 24h.
             </p>
           </motion.div>
 
           <motion.div 
-            className="max-w-2xl mx-auto"
+            className="max-w-2xl mx-auto bg-white p-8 rounded-lg shadow-md"
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.2 }}

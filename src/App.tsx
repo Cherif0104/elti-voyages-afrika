@@ -18,10 +18,9 @@ import Contact from "./pages/Contact";
 import NotFound from "./pages/NotFound";
 
 // Components
-import Sidebar from "./components/Sidebar";
+import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
 import PromotionBanner from "./components/PromotionBanner";
-import SearchWidget from "./components/SearchWidget";
 
 const queryClient = new QueryClient();
 
@@ -46,36 +45,33 @@ const App = () => {
         <Toaster />
         <Sonner />
         <BrowserRouter>
-          <div className="flex min-h-screen">
-            {/* Sidebar with fixed width */}
-            <Sidebar />
+          <div className="flex flex-col min-h-screen">
+            {/* Promotion banner at the top */}
+            <PromotionBanner 
+              text="Réservez votre pack supporter avant le 31 décembre et bénéficiez de -15%" 
+              ctaText="En savoir plus"
+              ctaUrl="#details"
+            />
             
-            {/* Main content area */}
-            <div className="flex-1 flex flex-col">
-              {/* Promotion banner at the top */}
-              <PromotionBanner 
-                text="Réservez votre pack supporter avant le 31 décembre et bénéficiez de -15%" 
-                ctaText="En savoir plus"
-                ctaUrl="#details"
-              />
-              
-              {/* Main content */}
-              <main className="flex-1 pt-16">
-                <Routes>
-                  <Route path="/" element={<Index />} />
-                  <Route path="/can2025" element={<Can2025 />} />
-                  <Route path="/billets-avion" element={<Flights />} />
-                  <Route path="/hotels" element={<Hotels />} />
-                  <Route path="/voitures" element={<Cars />} />
-                  <Route path="/excursions" element={<Excursions />} />
-                  <Route path="/vip" element={<Vip />} />
-                  <Route path="/contact" element={<Contact />} />
-                  <Route path="*" element={<NotFound />} />
-                </Routes>
-              </main>
-              
-              <Footer />
-            </div>
+            {/* Header */}
+            <Navbar />
+            
+            {/* Main content */}
+            <main className="flex-1">
+              <Routes>
+                <Route path="/" element={<Index />} />
+                <Route path="/can2025" element={<Can2025 />} />
+                <Route path="/billets-avion" element={<Flights />} />
+                <Route path="/hotels" element={<Hotels />} />
+                <Route path="/voitures" element={<Cars />} />
+                <Route path="/excursions" element={<Excursions />} />
+                <Route path="/vip" element={<Vip />} />
+                <Route path="/contact" element={<Contact />} />
+                <Route path="*" element={<NotFound />} />
+              </Routes>
+            </main>
+            
+            <Footer />
           </div>
         </BrowserRouter>
       </TooltipProvider>

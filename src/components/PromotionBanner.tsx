@@ -54,13 +54,13 @@ const PromotionBanner = ({
       initial={{ opacity: 0, y: -20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5 }}
-      className="bg-gradient-to-r from-primary via-primary to-secondary text-white py-3 px-4 relative z-50 text-center lg:pl-64"
+      className="bg-primary text-white py-2 relative z-50 text-center"
     >
-      <div className="container mx-auto flex items-center justify-center sm:justify-between">
+      <div className="container mx-auto flex items-center justify-center sm:justify-between px-4">
         <div className="flex items-center">
-          <Bell className="h-5 w-5 mr-3 animate-pulse text-secondary" />
+          <Bell className="h-5 w-5 mr-3 text-white" />
           <p className="text-sm md:text-base font-medium">
-            {displayTitle && <span className="font-bold mr-1 text-secondary">{displayTitle}:</span>}
+            {displayTitle && <span className="font-bold mr-1 text-white">{displayTitle}:</span>}
             {displayText}
           </p>
         </div>
@@ -68,7 +68,7 @@ const PromotionBanner = ({
         <div className="hidden sm:flex items-center gap-4">
           <Link 
             to={displayCtaUrl}
-            className="flex items-center text-white hover:text-white/80 text-sm whitespace-nowrap font-medium bg-secondary text-primary px-4 py-1.5 rounded-full hover:bg-secondary/90 transition-all"
+            className="flex items-center text-white hover:text-white/80 text-sm whitespace-nowrap font-medium underline"
           >
             {displayCtaText}
             <ChevronRight className="h-4 w-4 ml-1" />
@@ -87,7 +87,7 @@ const PromotionBanner = ({
       {/* Progress indicator */}
       <div className="absolute bottom-0 left-0 right-0 h-1 bg-white/20">
         <motion.div 
-          className="h-full bg-secondary"
+          className="h-full bg-white/50"
           initial={{ width: "0%" }}
           animate={{ width: "100%" }}
           transition={{ duration: 5, repeat: Infinity, repeatType: "loop" }}
