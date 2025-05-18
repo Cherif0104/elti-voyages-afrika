@@ -1,8 +1,7 @@
-
 import { useEffect, useState, useRef } from "react";
 import { Plane, Hotel, Car, Map, Crown, Star, MapPin, UsersRound, CalendarDays, Coffee, Trophy } from "lucide-react";
 import { Link } from "react-router-dom";
-import { motion } from "framer-motion";
+import { motion, useInView } from "framer-motion";
 import BookingForm from "@/components/BookingForm";
 import ServiceCard from "@/components/ServiceCard";
 import PackageCard from "@/components/PackageCard";
@@ -269,9 +268,6 @@ const Index = () => {
       </div>
     );
   };
-
-  // Import from framer-motion
-  const { useInView } = require("framer-motion");
 
   return (
     <>
