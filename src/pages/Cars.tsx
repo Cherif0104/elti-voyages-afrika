@@ -8,7 +8,7 @@ import PartnerLogo from "@/components/PartnerLogo";
 const CarCard = ({ category, model, price, features, imageClass = "bg-placeholder", imageSrc }) => {
   return (
     <Card className="overflow-hidden transition-all hover:shadow-lg">
-      <div className={`w-full h-48 relative ${!imageSrc ? imageClass : ''}`}>
+      <div className={`w-full h-36 sm:h-48 relative ${!imageSrc ? imageClass : ''}`}>
         {imageSrc && (
           <img 
             src={imageSrc} 
@@ -17,7 +17,7 @@ const CarCard = ({ category, model, price, features, imageClass = "bg-placeholde
           />
         )}
       </div>
-      <CardContent className="p-6">
+      <CardContent className="p-4 sm:p-6">
         <div className="flex justify-between items-start mb-4">
           <div>
             <h3 className="text-lg font-bold text-primary">{category}</h3>
@@ -31,8 +31,8 @@ const CarCard = ({ category, model, price, features, imageClass = "bg-placeholde
         <ul className="space-y-2 mb-6">
           {features.map((feature, idx) => (
             <li key={idx} className="text-sm flex items-center">
-              <span className="w-2 h-2 rounded-full bg-accent mr-2"></span>
-              {feature}
+              <span className="w-2 h-2 rounded-full bg-accent mr-2 flex-shrink-0"></span>
+              <span className="text-sm">{feature}</span>
             </li>
           ))}
         </ul>
@@ -99,17 +99,17 @@ const Cars = () => {
   ];
   
   return (
-    <div className="lg:pl-64 pt-20">
+    <div className="pt-20">
       <div className="container mx-auto px-4 py-10">
-        <h1 className="text-3xl font-bold text-primary mb-6">Location de véhicules</h1>
-        <p className="text-gray-600 mb-8">
+        <h1 className="text-2xl sm:text-3xl font-bold text-primary mb-4 sm:mb-6">Location de véhicules</h1>
+        <p className="text-gray-600 mb-6 sm:mb-8">
           De l'économique au luxe, avec ou sans chauffeur, nous proposons une large gamme de véhicules pour tous vos déplacements à travers le Maroc et le Sénégal.
         </p>
         
         {/* Rental Companies */}
-        <div className="mb-10">
+        <div className="mb-8 sm:mb-10">
           <h2 className="text-xl font-bold text-primary mb-4">Nos partenaires location</h2>
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-6">
             {rentalCompanies.map((company, index) => (
               <PartnerLogo 
                 key={index}
@@ -122,9 +122,9 @@ const Cars = () => {
         </div>
         
         {/* Car Categories */}
-        <h2 className="text-xl font-bold text-primary mb-6">Nos catégories de véhicules</h2>
+        <h2 className="text-xl font-bold text-primary mb-4 sm:mb-6">Nos catégories de véhicules</h2>
         
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
           {carCategories.map((car, index) => (
             <CarCard
               key={index}
@@ -138,30 +138,30 @@ const Cars = () => {
         </div>
         
         {/* VIP Service Banner */}
-        <div className="bg-primary my-12 rounded-lg overflow-hidden">
-          <div className="p-8 text-white">
-            <h2 className="text-2xl font-bold mb-4">Service Chauffeur Privé</h2>
-            <p className="mb-6 opacity-90">
+        <div className="bg-primary my-8 sm:my-12 rounded-lg overflow-hidden">
+          <div className="p-4 sm:p-8 text-white">
+            <h2 className="text-xl sm:text-2xl font-bold mb-2 sm:mb-4">Service Chauffeur Privé</h2>
+            <p className="mb-4 sm:mb-6 opacity-90">
               Optez pour le confort et la sécurité avec notre service de chauffeur privé disponible 24h/24.
               Nos chauffeurs professionnels connaissent parfaitement les routes et vous accompagnent tout au long de votre séjour.
             </p>
             
-            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
-              <div className="bg-white/10 backdrop-blur p-4 rounded-md">
-                <h3 className="text-lg font-bold mb-2">Transfert Aéroport</h3>
-                <p className="text-sm opacity-80">À partir de 50€</p>
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 sm:gap-4">
+              <div className="bg-white/10 backdrop-blur p-3 sm:p-4 rounded-md">
+                <h3 className="text-base sm:text-lg font-bold mb-1 sm:mb-2">Transfert Aéroport</h3>
+                <p className="text-xs sm:text-sm opacity-80">À partir de 50€</p>
               </div>
-              <div className="bg-white/10 backdrop-blur p-4 rounded-md">
-                <h3 className="text-lg font-bold mb-2">Journée complète</h3>
-                <p className="text-sm opacity-80">À partir de 150€</p>
+              <div className="bg-white/10 backdrop-blur p-3 sm:p-4 rounded-md">
+                <h3 className="text-base sm:text-lg font-bold mb-1 sm:mb-2">Journée complète</h3>
+                <p className="text-xs sm:text-sm opacity-80">À partir de 150€</p>
               </div>
-              <div className="bg-white/10 backdrop-blur p-4 rounded-md">
-                <h3 className="text-lg font-bold mb-2">Circuit personnalisé</h3>
-                <p className="text-sm opacity-80">Sur demande</p>
+              <div className="bg-white/10 backdrop-blur p-3 sm:p-4 rounded-md">
+                <h3 className="text-base sm:text-lg font-bold mb-1 sm:mb-2">Circuit personnalisé</h3>
+                <p className="text-xs sm:text-sm opacity-80">Sur demande</p>
               </div>
             </div>
             
-            <div className="mt-6 flex justify-center md:justify-end">
+            <div className="mt-4 sm:mt-6 flex justify-center md:justify-end">
               <Button 
                 asChild 
                 variant="outline" 
@@ -174,10 +174,10 @@ const Cars = () => {
         </div>
         
         {/* Additional Information */}
-        <div className="bg-gray-50 rounded-lg p-6">
-          <h3 className="text-lg font-bold text-primary mb-4">Informations complémentaires</h3>
+        <div className="bg-gray-50 rounded-lg p-4 sm:p-6">
+          <h3 className="text-lg font-bold text-primary mb-3 sm:mb-4">Informations complémentaires</h3>
           
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6">
             <div>
               <h4 className="font-bold text-sm mb-2">Conditions de location</h4>
               <ul className="space-y-1 text-sm text-gray-600">

@@ -84,7 +84,7 @@ const Sidebar = () => {
 
   return (
     <header className={cn(
-      "sticky top-0 z-50 w-full backdrop-blur supports-[backdrop-filter]:bg-background/60 transition-all duration-300",
+      "fixed top-0 z-50 w-full backdrop-blur supports-[backdrop-filter]:bg-background/60 transition-all duration-300",
       isScrolled ? "border-b border-border/40 bg-white/95 shadow-sm" : "bg-transparent"
     )}>
       <div className="container mx-auto px-4">
@@ -93,14 +93,14 @@ const Sidebar = () => {
           <div className="flex items-center gap-2">
             <Link to="/" className="flex items-center">
               <Logo size="md" />
-              <span className="text-xl font-poppins font-bold text-primary ml-2 hidden md:block">ELTI VOYAGES</span>
+              <span className="text-xl font-poppins font-bold text-primary ml-2 hidden sm:block">ELTI VOYAGES</span>
             </Link>
           </div>
           
           {/* Desktop Navigation */}
           <div className="hidden lg:flex items-center space-x-1">
             <NavigationMenu>
-              <NavigationMenuList>
+              <NavigationMenuList className="flex-wrap justify-center">
                 {navItems.map((item) => {
                   const isActive = 
                     location.pathname === item.path || 
@@ -113,11 +113,12 @@ const Sidebar = () => {
                         to={item.path}
                         className={cn(
                           navigationMenuTriggerStyle(),
+                          "px-3 py-2", // Reduce padding for better fit
                           isActive ? "bg-primary/10 text-primary" : ""
                         )}
                       >
-                        <item.icon className={cn("h-4 w-4 mr-2", isActive ? "text-primary" : "text-gray-500")} />
-                        {item.name}
+                        <item.icon className={cn("h-4 w-4 mr-1", isActive ? "text-primary" : "text-gray-500")} />
+                        <span className="whitespace-nowrap">{item.name}</span>
                       </Link>
                     </NavigationMenuItem>
                   );
@@ -140,10 +141,10 @@ const Sidebar = () => {
           </div>
           
           {/* CTA Button */}
-          <div className="hidden lg:block">
+          <div className="hidden sm:block">
             <Button
               asChild
-              className="bg-primary hover:bg-primary/90"
+              className="bg-primary hover:bg-primary/90 whitespace-nowrap"
             >
               <Link to="#reservation">
                 Réserver
@@ -156,7 +157,7 @@ const Sidebar = () => {
       {/* Mobile Navigation */}
       {isOpen && (
         <motion.div 
-          className="fixed inset-0 bg-white z-40 lg:hidden"
+          className="fixed inset-0 bg-white z-40 lg:hidden overflow-y-auto"
           initial={{ opacity: 0, x: "100%" }}
           animate={{ opacity: 1, x: 0 }}
           exit={{ opacity: 0, x: "100%" }}

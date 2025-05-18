@@ -23,29 +23,29 @@ const ExcursionCard = ({ excursion }: { excursion: Excursion }) => {
   const sizeClass = sizeClasses[size || 'small'];
   
   return (
-    <div className={`${sizeClass} relative group overflow-hidden rounded-lg shadow-md transition-all`}>
+    <div className={`${sizeClass} relative group overflow-hidden rounded-lg shadow-md transition-all h-64 sm:h-auto`}>
       <div className="absolute inset-0 bg-placeholder transition-transform group-hover:scale-110 duration-500 ease-in-out"></div>
       <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent"></div>
       
-      <div className="absolute inset-0 p-6 flex flex-col justify-end">
+      <div className="absolute inset-0 p-3 sm:p-6 flex flex-col justify-end">
         {featured && (
-          <span className="absolute top-4 right-4 bg-secondary text-primary text-xs font-bold py-1 px-2 rounded">
+          <span className="absolute top-2 sm:top-4 right-2 sm:right-4 bg-secondary text-primary text-xs font-bold py-1 px-2 rounded">
             Populaire
           </span>
         )}
         
-        <div className="flex items-center justify-between mb-2">
-          <span className="text-white/80 text-sm">{location}</span>
-          <span className="text-white/80 text-sm">{duration}</span>
+        <div className="flex items-center justify-between mb-1 sm:mb-2">
+          <span className="text-white/80 text-xs sm:text-sm">{location}</span>
+          <span className="text-white/80 text-xs sm:text-sm">{duration}</span>
         </div>
         
-        <h3 className="text-xl font-bold text-white mb-2">{title}</h3>
+        <h3 className="text-lg sm:text-xl font-bold text-white mb-1 sm:mb-2">{title}</h3>
         
-        <p className="text-white/70 text-sm mb-4 line-clamp-2">{description}</p>
+        <p className="text-white/70 text-xs sm:text-sm mb-2 sm:mb-4 line-clamp-2">{description}</p>
         
         <div className="flex justify-between items-center">
-          <span className="text-white font-bold">{price}</span>
-          <Button size="sm" className="bg-white text-primary hover:bg-white/90" asChild>
+          <span className="text-white font-bold text-sm sm:text-base">{price}</span>
+          <Button size="sm" className="bg-white text-primary hover:bg-white/90 text-xs sm:text-sm" asChild>
             <a href="#reservation">Réserver</a>
           </Button>
         </div>
@@ -117,26 +117,26 @@ const Excursions = () => {
   ];
   
   return (
-    <div className="lg:pl-64 pt-20">
+    <div className="pt-20">
       <div className="container mx-auto px-4 py-10">
-        <h1 className="text-3xl font-bold text-primary mb-6">Excursions & Circuits</h1>
-        <p className="text-gray-600 mb-8">
+        <h1 className="text-2xl sm:text-3xl font-bold text-primary mb-4 sm:mb-6">Excursions & Circuits</h1>
+        <p className="text-gray-600 mb-6 sm:mb-8">
           Explorez les plus beaux sites du Maroc et du Sénégal avec nos excursions guidées et nos circuits sur mesure. Des expériences authentiques pour découvrir les trésors cachés de l'Afrique.
         </p>
         
         {/* Excursions Masonry Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12 auto-rows-auto">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3 sm:gap-6 mb-8 sm:mb-12 auto-rows-auto">
           {excursions.map((excursion, index) => (
             <ExcursionCard key={index} excursion={excursion} />
           ))}
         </div>
         
         {/* Custom Excursion Banner */}
-        <div className="bg-primary rounded-lg p-8 text-white">
+        <div className="bg-primary rounded-lg p-4 sm:p-8 text-white">
           <div className="flex flex-col md:flex-row items-center justify-between">
-            <div className="mb-6 md:mb-0 md:mr-6">
-              <h3 className="text-2xl font-bold mb-2">Créez votre circuit sur mesure</h3>
-              <p className="text-white/80">
+            <div className="mb-4 md:mb-0 md:mr-6">
+              <h3 className="text-xl sm:text-2xl font-bold mb-2">Créez votre circuit sur mesure</h3>
+              <p className="text-white/80 text-sm sm:text-base">
                 Une destination particulière vous intéresse ? Vous souhaitez un itinéraire personnalisé ?
                 Notre équipe d'experts locaux peut concevoir un voyage unique qui correspond parfaitement à vos envies.
               </p>
@@ -152,36 +152,36 @@ const Excursions = () => {
         </div>
         
         {/* What's Included Section */}
-        <div className="my-12">
-          <h2 className="text-2xl font-bold text-primary mb-6">Ce qui est inclus</h2>
+        <div className="my-8 sm:my-12">
+          <h2 className="text-xl sm:text-2xl font-bold text-primary mb-4 sm:mb-6">Ce qui est inclus</h2>
           
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            <div className="bg-white p-6 rounded-lg shadow-sm border border-gray-100">
-              <div className="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center mb-4">
-                <span className="text-xl font-bold text-primary">1</span>
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 sm:gap-6">
+            <div className="bg-white p-4 sm:p-6 rounded-lg shadow-sm border border-gray-100">
+              <div className="w-10 h-10 sm:w-12 sm:h-12 bg-primary/10 rounded-full flex items-center justify-center mb-3 sm:mb-4">
+                <span className="text-lg sm:text-xl font-bold text-primary">1</span>
               </div>
-              <h3 className="text-lg font-bold mb-2">Transport confortable</h3>
-              <p className="text-gray-600 text-sm">
+              <h3 className="text-base sm:text-lg font-bold mb-1 sm:mb-2">Transport confortable</h3>
+              <p className="text-gray-600 text-xs sm:text-sm">
                 Véhicules climatisés et confortables adaptés à la taille du groupe, avec chauffeur professionnel.
               </p>
             </div>
             
-            <div className="bg-white p-6 rounded-lg shadow-sm border border-gray-100">
-              <div className="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center mb-4">
-                <span className="text-xl font-bold text-primary">2</span>
+            <div className="bg-white p-4 sm:p-6 rounded-lg shadow-sm border border-gray-100">
+              <div className="w-10 h-10 sm:w-12 sm:h-12 bg-primary/10 rounded-full flex items-center justify-center mb-3 sm:mb-4">
+                <span className="text-lg sm:text-xl font-bold text-primary">2</span>
               </div>
-              <h3 className="text-lg font-bold mb-2">Guide expert</h3>
-              <p className="text-gray-600 text-sm">
+              <h3 className="text-base sm:text-lg font-bold mb-1 sm:mb-2">Guide expert</h3>
+              <p className="text-gray-600 text-xs sm:text-sm">
                 Accompagnement par un guide local francophone ou anglophone passionné et connaisseur de la région.
               </p>
             </div>
             
-            <div className="bg-white p-6 rounded-lg shadow-sm border border-gray-100">
-              <div className="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center mb-4">
-                <span className="text-xl font-bold text-primary">3</span>
+            <div className="bg-white p-4 sm:p-6 rounded-lg shadow-sm border border-gray-100">
+              <div className="w-10 h-10 sm:w-12 sm:h-12 bg-primary/10 rounded-full flex items-center justify-center mb-3 sm:mb-4">
+                <span className="text-lg sm:text-xl font-bold text-primary">3</span>
               </div>
-              <h3 className="text-lg font-bold mb-2">Expériences authentiques</h3>
-              <p className="text-gray-600 text-sm">
+              <h3 className="text-base sm:text-lg font-bold mb-1 sm:mb-2">Expériences authentiques</h3>
+              <p className="text-gray-600 text-xs sm:text-sm">
                 Rencontres avec les locaux, découvertes culturelles et culinaires, activités typiques de la région.
               </p>
             </div>

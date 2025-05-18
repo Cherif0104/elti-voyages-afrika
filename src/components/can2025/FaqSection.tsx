@@ -39,18 +39,18 @@ const FaqSection = () => {
   };
 
   return (
-    <section id="faq" className="py-16 bg-placeholder">
+    <section id="faq" className="py-8 sm:py-16 bg-placeholder">
       <div className="container mx-auto px-4">
         <motion.div
           variants={fadeInUp}
           whileInView="visible"
           initial="hidden"
           viewport={{ once: true }}
-          className="text-center mb-12"
+          className="text-center mb-8 sm:mb-12"
         >
-          <span className="text-secondary font-medium text-sm uppercase tracking-wider bg-secondary/10 px-4 py-1 rounded-full">Questions fréquentes</span>
-          <h2 className="text-3xl md:text-4xl font-bold text-primary mt-3 mb-4">FAQ</h2>
-          <p className="text-gray-600 text-lg max-w-2xl mx-auto">
+          <span className="text-secondary font-medium text-xs sm:text-sm uppercase tracking-wider bg-secondary/10 px-3 py-1 rounded-full">Questions fréquentes</span>
+          <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-primary mt-3 mb-2 sm:mb-4">FAQ</h2>
+          <p className="text-gray-600 text-sm sm:text-lg max-w-2xl mx-auto">
             Réponses aux questions fréquemment posées sur la Coupe d'Afrique des Nations 2025.
           </p>
         </motion.div>
@@ -60,7 +60,7 @@ const FaqSection = () => {
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true }}
-          className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-12 max-w-4xl mx-auto"
+          className="grid grid-cols-1 md:grid-cols-2 gap-3 sm:gap-6 mt-6 sm:mt-12 max-w-4xl mx-auto"
         >
           {faqData.map((item, index) => (
             <motion.div
@@ -69,14 +69,14 @@ const FaqSection = () => {
               key={index}
             >
               <button
-                className="w-full text-left p-6 flex justify-between items-center focus:outline-none"
+                className="w-full text-left p-3 sm:p-6 flex justify-between items-center focus:outline-none"
                 onClick={() => toggleFaq(index)}
               >
-                <h3 className="text-lg font-bold text-primary pr-4">{item.question}</h3>
+                <h3 className="text-base sm:text-lg font-bold text-primary pr-3 sm:pr-4">{item.question}</h3>
                 {openIndex === index ? (
-                  <ChevronUp className="h-5 w-5 text-primary flex-shrink-0" />
+                  <ChevronUp className="h-4 w-4 sm:h-5 sm:w-5 text-primary flex-shrink-0" />
                 ) : (
-                  <ChevronDown className="h-5 w-5 text-primary flex-shrink-0" />
+                  <ChevronDown className="h-4 w-4 sm:h-5 sm:w-5 text-primary flex-shrink-0" />
                 )}
               </button>
               <div 
@@ -84,14 +84,14 @@ const FaqSection = () => {
                   openIndex === index ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0'
                 }`}
               >
-                <p className="text-gray-700 px-6 pb-6">{item.answer}</p>
+                <p className="text-gray-700 text-sm px-3 pb-3 sm:px-6 sm:pb-6">{item.answer}</p>
               </div>
             </motion.div>
           ))}
         </motion.div>
         
-        <div className="text-center mt-10">
-          <p className="text-gray-600 mb-4">Vous avez d'autres questions ?</p>
+        <div className="text-center mt-6 sm:mt-10">
+          <p className="text-gray-600 text-sm sm:text-base mb-3 sm:mb-4">Vous avez d'autres questions ?</p>
           <motion.div
             whileHover={{ scale: 1.05 }}
             transition={{ type: "spring", stiffness: 400, damping: 10 }}
@@ -101,7 +101,7 @@ const FaqSection = () => {
               className="inline-flex items-center text-primary font-medium hover:text-secondary transition-colors"
             >
               Contactez-nous
-              <ChevronDown className="h-4 w-4 ml-1 transform rotate-[-90deg]" />
+              <ChevronDown className="h-3 w-3 sm:h-4 sm:w-4 ml-1 transform rotate-[-90deg]" />
             </a>
           </motion.div>
         </div>
