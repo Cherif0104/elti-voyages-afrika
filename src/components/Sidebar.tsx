@@ -11,6 +11,12 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import {
+  Drawer,
+  DrawerClose,
+  DrawerContent,
+  DrawerTrigger,
+} from "@/components/ui/drawer";
 
 import { motion, AnimatePresence } from "framer-motion";
 
@@ -74,48 +80,77 @@ const Sidebar = () => {
 
   return (
     <>
+      {/* Desktop Sidebar */}
+      <div className="fixed left-0 top-0 z-40 h-full w-64 bg-white shadow-md hidden lg:block">
+        <div className="flex h-16 items-center px-4 border-b border-gray-100">
+          <Link to="/" className="flex items-center">
+            <Logo size="md" />
+            <span className="text-xl font-poppins font-bold text-primary ml-2">ELTI VOYAGES</span>
+          </Link>
+        </div>
+        
+        <div className="py-4 px-2">
+          <nav className="space-y-1">
+            {navItems.map((item) => {
+              const isActive = location.pathname === item.path;
+              return (
+                <Link
+                  key={item.path}
+                  to={item.path}
+                  className={cn(
+                    "flex items-center gap-3 px-3 py-3 rounded-md transition-colors",
+                    isActive
+                      ? "bg-primary/5 text-accent border-r-2 border-accent"
+                      : "text-gray-700 hover:bg-gray-50"
+                  )}
+                >
+                  <item.icon className={cn("h-5 w-5", isActive ? "text-accent" : "text-primary/60")} />
+                  <span className="font-medium">{item.name}</span>
+                </Link>
+              );
+            })}
+          </nav>
+        </div>
+        
+        <div className="absolute bottom-0 w-full p-4 border-t border-gray-100">
+          <Button
+            asChild
+            variant="secondary"
+            className="w-full bg-primary hover:bg-primary/90 text-white"
+          >
+            <Link to="#reservation">
+              Réserver
+            </Link>
+          </Button>
+          
+          <div className="mt-4 flex justify-center items-center">
+            <a href="tel:+212656136036" className="flex items-center gap-2 text-primary">
+              <Phone className="h-4 w-4" />
+              <span>+212 656 13 60 36</span>
+            </a>
+          </div>
+        </div>
+      </div>
+
       {/* Main Header - Full Width */}
       <header className={cn(
-        "fixed top-0 z-50 w-full backdrop-blur-md transition-all duration-300",
+        "fixed top-0 z-50 w-full backdrop-blur-md transition-all duration-300 lg:pl-64",
         isScrolled 
           ? "bg-white shadow-sm border-b border-gray-100" 
           : "bg-white/85"
       )}>
         <div className="container mx-auto px-4 max-w-[1320px]">
           <div className="flex h-16 items-center justify-between">
-            {/* Logo */}
-            <div className="flex items-center gap-2">
+            {/* Logo for Mobile */}
+            <div className="flex items-center gap-2 lg:hidden">
               <Link to="/" className="flex items-center">
                 <Logo size="md" />
                 <span className="text-xl font-poppins font-bold text-primary ml-2 hidden sm:block">ELTI VOYAGES</span>
               </Link>
             </div>
             
-            {/* Center Navigation */}
-            <nav className="hidden lg:flex items-center">
-              <ul className="flex space-x-1">
-                {navItems.map((item) => {
-                  const isActive = location.pathname === item.path;
-                  return (
-                    <li key={item.path}>
-                      <Link
-                        to={item.path}
-                        className={cn(
-                          "flex items-center px-3 py-2 rounded-md text-sm font-medium transition-colors",
-                          isActive ? "text-accent bg-primary/5" : "text-gray-700 hover:text-primary hover:bg-gray-50"
-                        )}
-                      >
-                        <item.icon className="w-4 h-4 mr-2" />
-                        <span>{item.name}</span>
-                      </Link>
-                    </li>
-                  );
-                })}
-              </ul>
-            </nav>
-            
             {/* Right Navigation */}
-            <div className="flex items-center gap-2 md:gap-4">
+            <div className="flex items-center gap-2 md:gap-4 ml-auto">
               <Button
                 variant="ghost"
                 size="sm"
@@ -140,7 +175,7 @@ const Sidebar = () => {
               >
                 <Link to="#reservation">Réserver</Link>
               </Button>
-                
+              
               {/* Mobile menu button */}
               <div className="lg:hidden flex items-center">
                 <Button
@@ -220,7 +255,7 @@ const Sidebar = () => {
                 <Button
                   asChild
                   variant="secondary"
-                  className="w-full bg-primary hover:bg-primary/90"
+                  className="w-full bg-primary hover:bg-primary/90 text-white"
                 >
                   <Link to="#reservation" onClick={() => setIsOpen(false)}>
                     Réserver
