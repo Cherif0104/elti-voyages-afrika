@@ -1,4 +1,3 @@
-
 import { CSSProperties } from "react";
 
 // Animations d'entrée
@@ -189,6 +188,7 @@ export const hoverRotate = {
   transition: { duration: 0.3 },
 };
 
+// Enhanced hover bounce animation
 export const hoverBounce = {
   y: [0, -8, 0],
   transition: { 
@@ -197,6 +197,45 @@ export const hoverBounce = {
     repeat: 0
   },
 };
+
+// New floating animation for decorative elements
+export const floatingAnimation = {
+  y: [0, -10, 0],
+  transition: {
+    duration: 3,
+    repeat: Infinity,
+    repeatType: "reverse",
+    ease: "easeInOut"
+  }
+};
+
+// Enhanced shine effect
+export const shineEffect = {
+  initial: { x: "-100%", opacity: 0.5 },
+  animate: {
+    x: "100%",
+    opacity: 0,
+    transition: {
+      duration: 1.5,
+      ease: "easeInOut"
+    }
+  }
+};
+
+// Enhanced button click animation
+export const buttonTap = {
+  scale: 0.95,
+  transition: { duration: 0.1 }
+};
+
+// Counting animation for stats
+export const countingAnimation = (end: number, duration: number = 2) => ({
+  initial: { count: 0 },
+  animate: {
+    count: end,
+    transition: { duration }
+  }
+});
 
 // Variants pour différents types de composants
 export const glassCardVariants = {
@@ -278,3 +317,14 @@ export const parallaxEffect = (strength: number = 0.1) => ({
     },
   },
 });
+
+// New limited availability pulse animation
+export const limitedAvailabilityPulse = {
+  scale: [1, 1.05, 1],
+  opacity: [0.7, 1, 0.7],
+  transition: {
+    duration: 2,
+    repeat: Infinity,
+    ease: "easeInOut"
+  }
+};
