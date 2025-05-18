@@ -10,7 +10,7 @@ type PartnerLogoProps = {
 
 const PartnerLogo = ({ name, logoSrc, className }: PartnerLogoProps) => {
   // Companies that need special scaling adjustment
-  const needsZoom = ["Sixt", "Hertz", "Inzar", "CTM Transport"].includes(name);
+  const needsZoom = ["Sixt", "Hertz", "Inzar", "CTM Transport", "Accor", "Barceló", "Terrou-Bi"].includes(name);
   
   return (
     <motion.div 

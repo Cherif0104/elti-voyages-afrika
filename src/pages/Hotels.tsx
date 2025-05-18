@@ -5,6 +5,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
 import { motion } from "framer-motion";
 import { fadeInUp, staggerContainer } from "@/components/can2025/AnimationUtils";
+import PartnerLogo from "@/components/PartnerLogo";
 
 const HotelCard = ({ category, city, price, features, imageUrl }) => {
   return (
@@ -78,7 +79,32 @@ const Hotels = () => {
     }
   ];
   
-  const hotelChains = ["Accor", "Radisson", "Barceló", "Fairmont", "Mövenpick", "Terrou-Bi"];
+  const hotelChains = [
+    {
+      name: "Accor",
+      logo: "/lovable-uploads/b952d7ee-cc6d-4ab8-8256-37a2f2847ea6.png"
+    },
+    {
+      name: "Radisson",
+      logo: "/lovable-uploads/54f2cb9e-5f0f-4f05-b859-3b24e4055428.png"
+    },
+    {
+      name: "Barceló",
+      logo: "/lovable-uploads/8a682208-d168-4383-a0bb-619fb16939f9.png"
+    },
+    {
+      name: "Mövenpick",
+      logo: "/lovable-uploads/fe852adb-2bf0-40f7-99d3-64654050726b.png"
+    },
+    {
+      name: "Terrou-Bi",
+      logo: "/lovable-uploads/7617fa37-efc0-49e0-a799-1ea981449f20.png"
+    },
+    {
+      name: "Fairmont",
+      logoSrc: null
+    }
+  ];
   
   return (
     <div className="lg:pl-64 pt-20">
@@ -93,9 +119,12 @@ const Hotels = () => {
           <h2 className="text-xl font-bold text-primary mb-4">Nos partenaires hôteliers</h2>
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
             {hotelChains.map((chain, index) => (
-              <div key={index} className="bg-white rounded-md p-6 shadow-sm border border-gray-100 flex items-center justify-center">
-                <span className="text-lg font-medium text-primary">{chain}</span>
-              </div>
+              <PartnerLogo
+                key={index}
+                name={chain.name}
+                logoSrc={chain.logo}
+                className="hover:shadow-lg transition-all duration-300"
+              />
             ))}
           </div>
         </div>
