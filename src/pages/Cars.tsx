@@ -6,6 +6,11 @@ import CarsHeroSection from "@/components/cars/CarsHeroSection";
 import CarStatsSection from "@/components/cars/CarStatsSection";
 import CarCtaSection from "@/components/cars/CarCtaSection";
 import CarCategoryCard from "@/components/cars/CarCategoryCard";
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
+import { motion } from "framer-motion";
+import { Clock, MapPin, Car } from "lucide-react";
+import { Link } from "react-router-dom";
 
 const Cars = () => {
   const carCategories = [
@@ -64,13 +69,85 @@ const Cars = () => {
       <CarsHeroSection />
       
       {/* Stats Section */}
-      <CarStatsSection />
+      <div className="bg-gray-100 py-12">
+        <div className="container mx-auto px-4">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
+            <motion.div 
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: 0.3 }}
+              className="bg-white rounded-lg p-6 text-center shadow-sm hover:shadow-md transition-all duration-300"
+            >
+              <div className="text-primary mb-2">
+                <Car className="h-8 w-8 mx-auto" />
+              </div>
+              <div className="text-3xl font-bold text-primary mb-2">50+</div>
+              <div className="text-gray-600 font-medium">Véhicules</div>
+            </motion.div>
+            
+            <motion.div 
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: 0.4 }}
+              className="bg-white rounded-lg p-6 text-center shadow-sm hover:shadow-md transition-all duration-300"
+            >
+              <div className="text-primary mb-2">
+                <MapPin className="h-8 w-8 mx-auto" />
+              </div>
+              <div className="text-3xl font-bold text-primary mb-2">12</div>
+              <div className="text-gray-600 font-medium">Agences</div>
+            </motion.div>
+            
+            <motion.div 
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: 0.5 }}
+              className="bg-white rounded-lg p-6 text-center shadow-sm hover:shadow-md transition-all duration-300"
+            >
+              <div className="text-primary mb-2">
+                <Clock className="h-8 w-8 mx-auto" />
+              </div>
+              <div className="text-3xl font-bold text-primary mb-2">24/7</div>
+              <div className="text-gray-600 font-medium">Assistance</div>
+            </motion.div>
+            
+            <motion.div 
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: 0.6 }}
+              className="bg-white rounded-lg p-6 text-center shadow-sm hover:shadow-md transition-all duration-300"
+            >
+              <div className="text-primary mb-2">
+                <MapPin className="h-8 w-8 mx-auto" />
+              </div>
+              <div className="text-3xl font-bold text-primary mb-2">6</div>
+              <div className="text-gray-600 font-medium">Villes</div>
+            </motion.div>
+          </div>
+        </div>
+      </div>
       
       {/* Main Content */}
       <div className="container mx-auto px-4 py-16">
+        {/* Current Offers Section */}
+        <motion.div 
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6 }}
+          viewport={{ once: true }}
+          className="text-center mb-12"
+        >
+          <span className="inline-block px-3 py-1 bg-primary/10 text-primary text-sm font-medium rounded-md mb-3">
+            Nos partenaires
+          </span>
+          <h2 className="text-3xl font-bold text-primary mb-4">Location de voitures</h2>
+          <p className="text-gray-600 max-w-2xl mx-auto">
+            Un large choix de véhicules disponibles dans les principaux aéroports et centres-villes du Maroc et du Sénégal.
+          </p>
+        </motion.div>
+        
         {/* Rental Companies */}
         <div className="mb-12">
-          <h2 className="text-2xl font-bold text-primary mb-6">Nos partenaires location</h2>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
             {rentalCompanies.map((company, index) => (
               <motion.div
@@ -144,6 +221,16 @@ const Cars = () => {
                     <p className="text-sm opacity-80">Sur demande</p>
                   </div>
                 </div>
+                
+                <Button 
+                  asChild
+                  size="lg"
+                  className="text-lg px-8 py-6 font-semibold bg-secondary hover:bg-secondary/90 text-primary transition-all duration-300"
+                >
+                  <Link to="#reservation">
+                    Réserver maintenant
+                  </Link>
+                </Button>
               </div>
             </Card>
           </motion.div>
@@ -178,7 +265,33 @@ const Cars = () => {
       </div>
       
       {/* CTA Section */}
-      <CarCtaSection />
+      <div className="py-16 bg-primary text-white">
+        <div className="container mx-auto px-4">
+          <div className="flex flex-col lg:flex-row items-center justify-between">
+            <div className="mb-6 lg:mb-0">
+              <Badge className="mb-4 px-3 py-1 bg-secondary text-primary">
+                Réservation facile
+              </Badge>
+              <h2 className="text-3xl font-bold mb-2">
+                Prêt à réserver votre véhicule ?
+              </h2>
+              <p className="text-white/80 max-w-lg">
+                Complétez notre formulaire en quelques étapes pour recevoir un devis sur mesure.
+              </p>
+            </div>
+            
+            <Button 
+              asChild
+              size="lg"
+              className="text-lg px-8 py-6 font-semibold bg-secondary hover:bg-secondary/90 text-primary transition-all duration-300"
+            >
+              <Link to="/contact">
+                Demander un devis
+              </Link>
+            </Button>
+          </div>
+        </div>
+      </div>
     </div>
   );
 };

@@ -3,10 +3,12 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
+import { Badge } from "@/components/ui/badge";
 import { toast } from "sonner";
 import { MapPin, Phone, Mail, Clock, CheckCircle } from "lucide-react";
 import { useState } from "react";
 import { motion } from "framer-motion";
+import { Link } from "react-router-dom";
 
 const ContactItem = ({ icon, title, content, link = null }) => {
   const ContentElement = link ? 'a' : 'p';
@@ -65,9 +67,9 @@ const Contact = () => {
             transition={{ duration: 0.5 }}
             className="text-center mb-10"
           >
-            <span className="inline-block px-3 py-1 bg-primary/10 text-primary text-sm font-medium rounded-full mb-3">
+            <Badge className="inline-block px-3 py-1 bg-primary/10 text-primary text-sm font-medium rounded-full mb-3">
               Demande d'information
-            </span>
+            </Badge>
             <h1 className="text-4xl font-bold text-primary mb-4">Contacts & Support</h1>
             <p className="text-gray-600 max-w-2xl mx-auto">
               Notre équipe est à votre disposition pour répondre à toutes vos questions et vous accompagner dans la préparation de votre voyage.
@@ -213,6 +215,9 @@ const Contact = () => {
             className="mt-10 bg-green-50 rounded-lg p-6 md:p-8 border border-green-100 flex flex-col md:flex-row md:items-center justify-between"
           >
             <div className="mb-4 md:mb-0 md:mr-6">
+              <Badge className="mb-3 px-3 py-1 bg-green-100 text-green-800">
+                Support rapide
+              </Badge>
               <h3 className="font-bold text-xl text-green-800 mb-2">Besoin d'une réponse urgente?</h3>
               <p className="text-green-700">
                 Contactez-nous directement sur WhatsApp pour une assistance immédiate.
@@ -235,6 +240,35 @@ const Contact = () => {
               </a>
             </Button>
           </motion.div>
+          
+          {/* CTA Section */}
+          <div className="py-12 my-12 bg-primary text-white rounded-lg">
+            <div className="container mx-auto px-4">
+              <div className="flex flex-col lg:flex-row items-center justify-between">
+                <div className="mb-6 lg:mb-0">
+                  <Badge className="mb-4 px-3 py-1 bg-secondary text-primary">
+                    Planifiez votre voyage
+                  </Badge>
+                  <h2 className="text-3xl font-bold mb-2">
+                    Prêt à explorer avec nous ?
+                  </h2>
+                  <p className="text-white/80 max-w-lg">
+                    Découvrez nos offres et réservez votre prochain voyage en Afrique.
+                  </p>
+                </div>
+                
+                <Button 
+                  asChild
+                  size="lg"
+                  className="text-lg px-8 py-6 font-semibold bg-secondary hover:bg-secondary/90 text-primary transition-all duration-300"
+                >
+                  <Link to="/">
+                    Voir nos offres
+                  </Link>
+                </Button>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>

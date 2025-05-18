@@ -3,8 +3,10 @@ import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import SearchWidget from "@/components/SearchWidget";
 import { Card, CardContent } from "@/components/ui/card";
-import { MapPin, Clock, Mail } from "lucide-react";
+import { MapPin, Clock, Mail, Trophy } from "lucide-react";
 import ExcursionsStatsSection from "@/components/excursions/ExcursionsStatsSection";
+import { Badge } from "@/components/ui/badge";
+import { Link } from "react-router-dom";
 
 type Excursion = {
   title: string;
@@ -183,17 +185,95 @@ const Excursions = () => {
         </div>
       </section>
 
+      {/* Stats Section */}
+      <section className="bg-gray-100 py-12">
+        <div className="container mx-auto px-4">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
+            <motion.div 
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: 0.3 }}
+              className="bg-white rounded-lg p-6 text-center shadow-sm hover:shadow-md transition-all duration-300"
+            >
+              <div className="text-primary mb-2">
+                <Trophy className="h-8 w-8 mx-auto" />
+              </div>
+              <div className="text-3xl font-bold text-primary mb-2">20+</div>
+              <div className="text-gray-600 font-medium">Excursions</div>
+            </motion.div>
+            
+            <motion.div 
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: 0.4 }}
+              className="bg-white rounded-lg p-6 text-center shadow-sm hover:shadow-md transition-all duration-300"
+            >
+              <div className="text-primary mb-2">
+                <MapPin className="h-8 w-8 mx-auto" />
+              </div>
+              <div className="text-3xl font-bold text-primary mb-2">12</div>
+              <div className="text-gray-600 font-medium">Destinations</div>
+            </motion.div>
+            
+            <motion.div 
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: 0.5 }}
+              className="bg-white rounded-lg p-6 text-center shadow-sm hover:shadow-md transition-all duration-300"
+            >
+              <div className="text-primary mb-2">
+                <Trophy className="h-8 w-8 mx-auto" />
+              </div>
+              <div className="text-3xl font-bold text-primary mb-2">1000+</div>
+              <div className="text-gray-600 font-medium">Voyageurs</div>
+            </motion.div>
+            
+            <motion.div 
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: 0.6 }}
+              className="bg-white rounded-lg p-6 text-center shadow-sm hover:shadow-md transition-all duration-300"
+            >
+              <div className="text-primary mb-2">
+                <Clock className="h-8 w-8 mx-auto" />
+              </div>
+              <div className="text-3xl font-bold text-primary mb-2">4.9</div>
+              <div className="text-gray-600 font-medium">Satisfaction</div>
+            </motion.div>
+          </div>
+        </div>
+      </section>
+
       {/* Main Content */}
       <div id="excursions" className="container mx-auto px-4 py-10">
-        <h2 className="text-2xl sm:text-3xl font-bold text-primary mb-4 sm:mb-6">Nos excursions populaires</h2>
-        <p className="text-gray-600 mb-6 sm:mb-8">
-          Des expériences authentiques pour découvrir les trésors cachés de l'Afrique. Choisissez parmi nos excursions guidées et circuits sur mesure.
-        </p>
+        <motion.div 
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6 }}
+          viewport={{ once: true }}
+          className="text-center mb-12"
+        >
+          <span className="inline-block px-3 py-1 bg-primary/10 text-primary text-sm font-medium rounded-md mb-3">
+            Voyages exceptionnels
+          </span>
+          <h2 className="text-3xl font-bold text-primary mb-4">Nos excursions populaires</h2>
+          <p className="text-gray-600 max-w-2xl mx-auto mb-6 sm:mb-8">
+            Des expériences authentiques pour découvrir les trésors cachés de l'Afrique. Choisissez parmi nos excursions guidées et circuits sur mesure.
+          </p>
+        </motion.div>
         
         {/* Excursions Grid */}
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 mb-12">
           {excursions.map((excursion, index) => (
-            <ExcursionCard key={index} excursion={excursion} />
+            <motion.div
+              key={index}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: index * 0.1 }}
+              viewport={{ once: true }}
+            >
+              <ExcursionCard excursion={excursion} />
+            </motion.div>
           ))}
         </div>
         
@@ -204,6 +284,9 @@ const Excursions = () => {
         <div className="bg-white rounded-lg shadow-md p-6 sm:p-10 my-12">
           <div className="flex flex-col md:flex-row items-center justify-between">
             <div className="mb-6 md:mb-0 md:mr-6 md:w-2/3">
+              <Badge className="mb-3 px-3 py-1 bg-primary/10 text-primary">
+                Sur mesure
+              </Badge>
               <h3 className="text-xl sm:text-2xl font-bold mb-3 text-primary">Créez votre circuit sur mesure</h3>
               <p className="text-gray-600">
                 Une destination particulière vous intéresse ? Vous souhaitez un itinéraire personnalisé ?
@@ -215,10 +298,10 @@ const Excursions = () => {
               className="bg-primary hover:bg-primary/90 whitespace-nowrap flex items-center gap-1.5"
               size="lg"
             >
-              <a href="#reservation">
+              <Link to="/contact">
                 <Mail className="h-4 w-4" />
                 Demander un devis
-              </a>
+              </Link>
             </Button>
           </div>
         </div>
@@ -228,7 +311,13 @@ const Excursions = () => {
           <h2 className="text-xl sm:text-2xl font-bold text-primary mb-4 sm:mb-6">Ce qui est inclus</h2>
           
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 sm:gap-6">
-            <div className="bg-white p-4 sm:p-6 rounded-lg shadow-sm border border-gray-100">
+            <motion.div 
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: 0.1 }}
+              viewport={{ once: true }}
+              className="bg-white p-4 sm:p-6 rounded-lg shadow-sm border border-gray-100"
+            >
               <div className="w-10 h-10 sm:w-12 sm:h-12 bg-primary/10 rounded-full flex items-center justify-center mb-3 sm:mb-4">
                 <span className="text-lg sm:text-xl font-bold text-primary">1</span>
               </div>
@@ -236,9 +325,15 @@ const Excursions = () => {
               <p className="text-gray-600 text-xs sm:text-sm">
                 Véhicules climatisés et confortables adaptés à la taille du groupe, avec chauffeur professionnel.
               </p>
-            </div>
+            </motion.div>
             
-            <div className="bg-white p-4 sm:p-6 rounded-lg shadow-sm border border-gray-100">
+            <motion.div 
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: 0.2 }}
+              viewport={{ once: true }}
+              className="bg-white p-4 sm:p-6 rounded-lg shadow-sm border border-gray-100"
+            >
               <div className="w-10 h-10 sm:w-12 sm:h-12 bg-primary/10 rounded-full flex items-center justify-center mb-3 sm:mb-4">
                 <span className="text-lg sm:text-xl font-bold text-primary">2</span>
               </div>
@@ -246,9 +341,15 @@ const Excursions = () => {
               <p className="text-gray-600 text-xs sm:text-sm">
                 Accompagnement par un guide local francophone ou anglophone passionné et connaisseur de la région.
               </p>
-            </div>
+            </motion.div>
             
-            <div className="bg-white p-4 sm:p-6 rounded-lg shadow-sm border border-gray-100">
+            <motion.div 
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: 0.3 }}
+              viewport={{ once: true }}
+              className="bg-white p-4 sm:p-6 rounded-lg shadow-sm border border-gray-100"
+            >
               <div className="w-10 h-10 sm:w-12 sm:h-12 bg-primary/10 rounded-full flex items-center justify-center mb-3 sm:mb-4">
                 <span className="text-lg sm:text-xl font-bold text-primary">3</span>
               </div>
@@ -256,6 +357,35 @@ const Excursions = () => {
               <p className="text-gray-600 text-xs sm:text-sm">
                 Rencontres avec les locaux, découvertes culturelles et culinaires, activités typiques de la région.
               </p>
+            </motion.div>
+          </div>
+        </div>
+        
+        {/* Final CTA Section */}
+        <div className="py-12 my-12 bg-primary text-white rounded-lg">
+          <div className="container mx-auto px-4">
+            <div className="flex flex-col lg:flex-row items-center justify-between">
+              <div className="mb-6 lg:mb-0">
+                <Badge className="mb-4 px-3 py-1 bg-secondary text-primary">
+                  Réservation simple
+                </Badge>
+                <h2 className="text-3xl font-bold mb-2">
+                  Prêt à partir à l'aventure ?
+                </h2>
+                <p className="text-white/80 max-w-lg">
+                  Contactez-nous pour réserver votre excursion ou créer votre circuit sur mesure.
+                </p>
+              </div>
+              
+              <Button 
+                asChild
+                size="lg"
+                className="text-lg px-8 py-6 font-semibold bg-secondary hover:bg-secondary/90 text-primary transition-all duration-300"
+              >
+                <Link to="/contact">
+                  Réserver maintenant
+                </Link>
+              </Button>
             </div>
           </div>
         </div>
