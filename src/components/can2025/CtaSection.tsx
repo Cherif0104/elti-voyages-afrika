@@ -2,6 +2,7 @@
 import { useRef } from "react";
 import { Link } from "react-router-dom";
 import { Phone, Calendar } from "lucide-react";
+import { motion } from "framer-motion";
 
 const CtaSection = () => {
   const ctaRef = useRef(null);
@@ -17,48 +18,61 @@ const CtaSection = () => {
           <div className="flex flex-wrap items-center">
             {/* Text Content */}
             <div className="w-full lg:w-1/2 mb-12 lg:mb-0 text-center lg:text-left">
-              <span className="inline-block bg-white/20 text-white px-4 py-2 rounded-md text-sm font-medium mb-4">
-                <Calendar className="inline-block mr-2 h-4 w-4" />
-                Été 2025
-              </span>
-              
-              <h2 className="text-3xl md:text-5xl font-bold text-white mb-6">
-                Prêt à vivre la CAN 2025 au Maroc ?
-              </h2>
-              
-              <p className="text-white/90 text-lg mb-10 max-w-xl mx-auto lg:mx-0">
-                Réservez dès maintenant votre pack supporter et vivez des moments inoubliables 
-                au cœur du football africain. Places limitées !
-              </p>
-              
-              <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
-                <Link
-                  to="#reservation"
-                  className="bg-white text-primary hover:bg-white/90 text-lg px-8 py-4 rounded-md transition-all duration-300 inline-block shadow-lg font-medium"
-                >
-                  Réserver mon pack
-                </Link>
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.6 }}
+              >
+                <span className="inline-block bg-white/20 text-white px-4 py-2 rounded-md text-sm font-medium mb-4">
+                  <Calendar className="inline-block mr-2 h-4 w-4" />
+                  Été 2025
+                </span>
                 
-                <a
-                  href="tel:+212656136036"
-                  className="flex items-center justify-center gap-2 border border-white/30 text-white hover:bg-white/10 text-lg px-6 py-4 rounded-md transition-all duration-300 font-medium"
-                >
-                  <Phone className="h-5 w-5" />
-                  <span>+212 656 13 60 36</span>
-                </a>
-              </div>
+                <h2 className="text-3xl md:text-5xl font-bold text-white mb-6">
+                  Prêt à supporter le Sénégal à la CAN 2025 au Maroc ?
+                </h2>
+                
+                <p className="text-white/90 text-lg mb-10 max-w-xl mx-auto lg:mx-0">
+                  Réservez dès maintenant votre pack supporter et vivez des moments inoubliables 
+                  au cœur du football africain. Places limitées !
+                </p>
+                
+                <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
+                  <Link
+                    to="#reservation"
+                    className="bg-white text-primary hover:bg-white/90 text-lg px-8 py-4 rounded-md transition-all duration-300 inline-block shadow-lg font-medium"
+                  >
+                    Réserver mon pack
+                  </Link>
+                  
+                  <a
+                    href="tel:+221777748374"
+                    className="flex items-center justify-center gap-2 border border-white/30 text-white hover:bg-white/10 text-lg px-6 py-4 rounded-md transition-all duration-300 font-medium"
+                  >
+                    <Phone className="h-5 w-5" />
+                    <span>+221 77 774 83 74</span>
+                  </a>
+                </div>
+              </motion.div>
             </div>
             
             {/* Right side card */}
             <div className="w-full lg:w-1/2 lg:pl-12">
-              <div className="bg-white rounded-lg shadow-xl p-8">
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.6, delay: 0.2 }}
+                className="bg-white rounded-lg shadow-xl p-8"
+              >
                 <div className="text-center">
                   <div className="mb-4">
                     <span className="inline-block bg-primary/10 text-primary rounded-md px-3 py-1 text-sm font-medium">
                       Promotion spéciale
                     </span>
                   </div>
-                  <h3 className="text-2xl font-bold text-primary mb-3">Pack supporter</h3>
+                  <h3 className="text-2xl font-bold text-primary mb-3">Pack supporter Sénégal</h3>
                   <p className="text-gray-600 mb-4">Accès VIP, hébergement et activités inclus</p>
                   <div className="flex justify-center items-baseline mb-6">
                     <span className="text-4xl font-bold text-primary">990€</span>
@@ -69,7 +83,7 @@ const CtaSection = () => {
                       <svg className="w-5 h-5 text-green-500 mr-2 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7"></path>
                       </svg>
-                      <span className="text-gray-700">Billets pour 2 matchs garantis</span>
+                      <span className="text-gray-700">Billets pour 2 matchs du Sénégal</span>
                     </li>
                     <li className="flex items-start">
                       <svg className="w-5 h-5 text-green-500 mr-2 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
@@ -83,6 +97,12 @@ const CtaSection = () => {
                       </svg>
                       <span className="text-gray-700">Transferts aéroport inclus</span>
                     </li>
+                    <li className="flex items-start">
+                      <svg className="w-5 h-5 text-green-500 mr-2 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7"></path>
+                      </svg>
+                      <span className="text-gray-700">Maillot officiel du Sénégal offert</span>
+                    </li>
                   </ul>
                   <Link
                     to="#reservation"
@@ -91,6 +111,30 @@ const CtaSection = () => {
                     Réserver maintenant
                   </Link>
                 </div>
+              </motion.div>
+              
+              {/* Contact information */}
+              <div className="mt-6 text-center text-white">
+                <motion.div
+                  initial={{ opacity: 0 }}
+                  whileInView={{ opacity: 1 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.6, delay: 0.4 }}
+                >
+                  <p className="font-medium mb-2">Pour plus d'informations:</p>
+                  <div className="flex flex-col sm:flex-row gap-2 justify-center text-sm">
+                    <div className="bg-white/10 rounded p-2">
+                      <span className="block">Sénégal : +221 750 10 32 89 - +221 77 774 83 74</span>
+                    </div>
+                    <div className="bg-white/10 rounded p-2">
+                      <span className="block">Maroc : +212 632 25 37 70 - +212 706 06 54 25</span>
+                    </div>
+                  </div>
+                  <p className="mt-2">
+                    <a href="mailto:contact@eltivoyages.com" className="underline hover:text-secondary">contact@eltivoyages.com</a> | 
+                    <a href="https://www.eltivoyages.com" className="underline hover:text-secondary ml-1" target="_blank" rel="noreferrer">www.eltivoyages.com</a>
+                  </p>
+                </motion.div>
               </div>
             </div>
           </div>

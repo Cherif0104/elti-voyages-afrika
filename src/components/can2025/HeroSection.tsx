@@ -6,6 +6,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Trophy, MapPin, AlertCircle, Info } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import SearchWidget from "../SearchWidget";
+import { motion } from "framer-motion";
 
 const HeroSection = () => {
   const [countValues, setCountValues] = useState({
@@ -54,18 +55,23 @@ const HeroSection = () => {
       {/* Hero content */}
       <div className="relative pt-16 pb-32 flex content-center items-center justify-center" style={{ minHeight: "75vh" }}>
         <div className="absolute top-0 w-full h-full bg-center bg-cover" style={{
-          backgroundImage: "url('https://images.unsplash.com/photo-1523361426107-57cd540162e7?q=80&w=2940&auto=format&fit=crop')",
-          backgroundPosition: "center 45%"
+          backgroundImage: "url('/lovable-uploads/47760044-f970-40c3-9b13-a9a245aa5573.png')",
+          backgroundPosition: "center center"
         }}>
           <span className="w-full h-full absolute opacity-75 bg-primary"></span>
         </div>
         
-        <div className="container relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        <div className="container relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 z-10">
           <div className="flex flex-wrap items-center">
             {/* Hero text */}
             <div className="w-full lg:w-6/12 px-4 ml-auto mr-auto text-center lg:text-left">
               {/* CAF Logo - Positioned at top left */}
-              <div className="absolute top-10 left-10 hidden lg:block">
+              <motion.div 
+                initial={{ opacity: 0, y: -20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5 }}
+                className="absolute top-10 left-10 hidden lg:block"
+              >
                 <div className="bg-white p-2 rounded-full w-16 h-16 flex items-center justify-center shadow-lg">
                   <img 
                     src="https://upload.wikimedia.org/wikipedia/en/thumb/c/c9/Confederation_of_African_Football_logo.svg/1200px-Confederation_of_African_Football_logo.svg.png" 
@@ -73,44 +79,64 @@ const HeroSection = () => {
                     className="w-10 h-10 object-contain"
                   />
                 </div>
-              </div>
+              </motion.div>
               
-              <h1 className="text-5xl md:text-6xl font-bold text-white mb-8 drop-shadow-lg">
+              <motion.h1 
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.7 }}
+                className="text-5xl md:text-6xl font-bold text-white mb-4 drop-shadow-lg"
+              >
                 <span className="block leading-tight">CAN 2025</span>
                 <span className="text-secondary">au Maroc</span>
-              </h1>
-              <p className="mt-4 text-lg text-white mb-12 font-medium drop-shadow-md max-w-lg mx-auto lg:mx-0">
-                Vivez la passion du football africain avec nos offres exclusives pour la Coupe d'Afrique des Nations 2025.
-              </p>
-              <div className="flex flex-wrap gap-4 justify-center lg:justify-start">
-                <Button
-                  size="lg"
-                  className="text-base px-6 py-3 font-medium bg-secondary hover:bg-secondary/90 text-primary transition-all duration-300"
-                  asChild
-                >
-                  <Link to="#reservation">
-                    Réserver mon pack
-                  </Link>
-                </Button>
-                
-                <Button
-                  variant="outline"
-                  size="lg"
-                  className="border-white text-white hover:bg-white/10 text-base px-6 py-3 font-medium transition-all duration-300"
-                  asChild
-                >
-                  <Link to="#news">
-                    Dernières actualités
-                  </Link>
-                </Button>
-              </div>
+              </motion.h1>
+
+              <motion.div
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ delay: 0.3, duration: 0.7 }}
+              >
+                <p className="text-yellow-300 text-xl md:text-2xl font-bold mb-4 drop-shadow-md">
+                  Vivez la CAN 2025 et vos voyages d'exception avec ELTI VOYAGES
+                </p>
+                <p className="mt-4 text-lg text-white mb-8 font-medium drop-shadow-md max-w-lg mx-auto lg:mx-0">
+                  Supportons le Sénégal vers la victoire avec nos offres exclusives pour la Coupe d'Afrique des Nations 2025.
+                </p>
+                <div className="flex flex-wrap gap-4 justify-center lg:justify-start">
+                  <Button
+                    size="lg"
+                    className="text-base px-6 py-3 font-medium bg-secondary hover:bg-secondary/90 text-primary transition-all duration-300"
+                    asChild
+                  >
+                    <Link to="#reservation">
+                      Réserver mon pack
+                    </Link>
+                  </Button>
+                  
+                  <Button
+                    variant="outline"
+                    size="lg"
+                    className="border-white text-white hover:bg-white/10 text-base px-6 py-3 font-medium transition-all duration-300"
+                    asChild
+                  >
+                    <Link to="#news">
+                      Dernières actualités
+                    </Link>
+                  </Button>
+                </div>
+              </motion.div>
             </div>
             
             {/* Search widget */}
             <div className="w-full lg:w-5/12 px-4 mt-12 lg:mt-0">
-              <div className="bg-white rounded-lg shadow-xl p-6">
+              <motion.div 
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.5, duration: 0.7 }}
+                className="bg-white rounded-lg shadow-xl p-6"
+              >
                 <SearchWidget />
-              </div>
+              </motion.div>
             </div>
           </div>
         </div>
@@ -189,48 +215,36 @@ const HeroSection = () => {
             </div>
           </div>
           
-          {/* Info cards */}
-          <div className="flex flex-wrap mt-8">
-            <div className="w-full lg:w-10/12 mx-auto">
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                <Card className="bg-white shadow-md hover:shadow-lg transition-all duration-300">
-                  <CardContent className="p-4 flex items-center">
-                    <div className="bg-secondary/10 rounded-full p-2 mr-3">
-                      <Trophy className="h-5 w-5 text-secondary" />
-                    </div>
-                    <div>
-                      <h3 className="font-bold text-primary text-sm">35ème Édition</h3>
-                      <p className="text-xs text-gray-500">Compétition de football africain</p>
-                    </div>
-                  </CardContent>
-                </Card>
-                
-                <Card className="bg-white shadow-md hover:shadow-lg transition-all duration-300">
-                  <CardContent className="p-4 flex items-center">
-                    <div className="bg-secondary/10 rounded-full p-2 mr-3">
-                      <Trophy className="h-5 w-5 text-secondary" />
-                    </div>
-                    <div>
-                      <h3 className="font-bold text-primary text-sm">Été 2025</h3>
-                      <p className="text-xs text-gray-500">Dates précises à confirmer</p>
-                    </div>
-                  </CardContent>
-                </Card>
-                
-                <Card className="bg-white shadow-md hover:shadow-lg transition-all duration-300">
-                  <CardContent className="p-4 flex items-center">
-                    <div className="bg-secondary/10 rounded-full p-2 mr-3">
-                      <MapPin className="h-5 w-5 text-secondary" />
-                    </div>
-                    <div>
-                      <h3 className="font-bold text-primary text-sm">Maroc</h3>
-                      <p className="text-xs text-gray-500">Pays hôte officiel</p>
-                    </div>
-                  </CardContent>
-                </Card>
+          {/* Partner logos */}
+          <motion.div 
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.7, duration: 0.5 }}
+            className="flex flex-wrap mt-8 justify-center"
+          >
+            <div className="w-full lg:w-10/12 mx-auto bg-white/90 p-4 rounded-lg">
+              <div className="grid grid-cols-2 md:grid-cols-6 gap-4 items-center">
+                <div className="flex justify-center">
+                  <img src="https://upload.wikimedia.org/wikipedia/fr/8/84/Logo_Air_S%C3%A9n%C3%A9gal.png" alt="Air Senegal" className="h-10 object-contain" />
+                </div>
+                <div className="flex justify-center">
+                  <img src="https://logos-world.net/wp-content/uploads/2021/08/Royal-Air-Maroc-Logo.png" alt="Royal Air Maroc" className="h-10 object-contain" />
+                </div>
+                <div className="flex justify-center">
+                  <img src="https://static.designmynight.com/uploads/2023/04/fairmont-logo-colour-primary-rgb.png" alt="Fairmont" className="h-10 object-contain" />
+                </div>
+                <div className="flex justify-center">
+                  <img src="https://1000logos.net/wp-content/uploads/2020/02/Four-Seasons-Logo-1997.png" alt="Four Seasons" className="h-10 object-contain" />
+                </div>
+                <div className="flex justify-center">
+                  <img src="https://www.hotelsbarriere.com/content/dam/hotels-barriere/logos/barriere/logos-barriere.svg" alt="Barriere" className="h-10 object-contain" />
+                </div>
+                <div className="flex justify-center">
+                  <img src="https://logos-world.net/wp-content/uploads/2023/02/Barcelo-Logo-500x281.png" alt="Barcelo" className="h-10 object-contain" />
+                </div>
               </div>
             </div>
-          </div>
+          </motion.div>
         </div>
       </div>
     </section>

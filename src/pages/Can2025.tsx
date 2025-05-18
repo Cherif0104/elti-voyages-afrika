@@ -8,6 +8,7 @@ import ContactSection from "@/components/can2025/ContactSection";
 import CtaSection from "@/components/can2025/CtaSection";
 import CanPackCard from "@/components/can2025/CanPackCard";
 import CanGallery from "@/components/can2025/CanGallery";
+import SenegalSupportSection from "@/components/can2025/SenegalSupportSection";
 import { motion, useScroll, useTransform, useInView, useAnimation } from "framer-motion";
 import { 
   staggerContainer, 
@@ -163,6 +164,9 @@ const Can2025 = () => {
           </div>
         </div>
       </section>
+      
+      {/* Senegal Support Section */}
+      <SenegalSupportSection />
       
       {/* Notre galerie d'offres de la CAN 2025 */}
       <CanGallery />
