@@ -44,7 +44,7 @@ const Sidebar = () => {
 
   useEffect(() => {
     const handleScroll = () => {
-      if (window.scrollY > 50) {
+      if (window.scrollY > 80) { // Changed from 50 to 80 per requirements
         setIsScrolled(true);
       } else {
         setIsScrolled(false);
@@ -74,12 +74,12 @@ const Sidebar = () => {
 
   return (
     <header className={cn(
-      "fixed top-0 z-50 w-full backdrop-blur-md transition-all duration-500",
+      "fixed top-0 z-50 w-full backdrop-blur-md transition-all duration-300",
       isScrolled 
-        ? "bg-white/95 shadow-sm border-b border-gray-100" 
-        : "bg-transparent"
+        ? "bg-white shadow-sm border-b border-gray-100" 
+        : "bg-white/85"
     )}>
-      <div className="container mx-auto px-4">
+      <div className="container mx-auto px-4 max-w-[1320px]">
         <div className="flex h-16 items-center justify-between">
           {/* Logo */}
           <div className="flex items-center gap-2">
@@ -106,7 +106,7 @@ const Sidebar = () => {
               <div className="mr-2">
                 <span className="font-medium text-sm">Voyageurs</span>
               </div>
-              <Button size="icon" variant="primary" className="rounded-full bg-primary flex-shrink-0">
+              <Button size="icon" variant="secondary" className="rounded-full bg-accent flex-shrink-0">
                 <Search className="h-4 w-4" />
               </Button>
             </motion.div>
@@ -123,17 +123,24 @@ const Sidebar = () => {
               <Link to="/billets-avion">Rechercher des vols</Link>
             </Button>
             
+            {/* WhatsApp number */}
+            <a href="tel:+212656136036" className="hidden md:flex items-center text-primary font-medium">
+              <Phone className="h-4 w-4 mr-1" />
+              <span>+212 656 13 60 36</span>
+            </a>
+            
+            {/* "Réserver" button */}
             <Button
-              variant="ghost"
+              variant="secondary"
               size="sm"
               asChild
-              className="hidden md:flex text-sm"
+              className="hidden md:flex"
             >
-              <Link to="/contact">Nous contacter</Link>
+              <Link to="#reservation">Réserver</Link>
             </Button>
               
             {/* Mobile menu button */}
-            <div className="md:hidden flex items-center">
+            <div className="lg:hidden flex items-center">
               <Button
                 variant="ghost"
                 size="icon"
@@ -168,6 +175,53 @@ const Sidebar = () => {
         </div>
       </div>
       
+      {/* Desktop Sidebar (≥1024px) */}
+      <div className="fixed left-0 top-0 bottom-0 w-60 bg-white shadow-md border-r border-gray-100 z-40 hidden lg:flex flex-col">
+        <div className="flex-grow p-4 overflow-y-auto">
+          <div className="flex items-center mb-8 pl-2">
+            <Logo size="sm" />
+            <span className="text-lg font-poppins font-bold text-primary ml-2">ELTI VOYAGES</span>
+          </div>
+          
+          <nav className="space-y-1">
+            {navItems.map((item) => {
+              const isActive = 
+                location.pathname === item.path || 
+                (item.path === '/' && location.pathname === '/');
+              
+              return (
+                <Link
+                  key={item.path}
+                  to={item.path}
+                  className={cn(
+                    "flex items-center gap-3 px-4 py-3 rounded-md transition-colors",
+                    isActive
+                      ? "bg-primary/5 text-accent border-r-2 border-accent"
+                      : "text-gray-700 hover:bg-gray-50"
+                  )}
+                >
+                  <item.icon className={cn("h-5 w-5", isActive ? "text-accent" : "text-primary/60")} />
+                  <span className="font-medium">{item.name}</span>
+                </Link>
+              );
+            })}
+          </nav>
+        </div>
+        
+        {/* Sticky "Réserver" button */}
+        <div className="p-4 border-t border-gray-100">
+          <Button
+            variant="secondary"
+            className="w-full bg-primary hover:bg-primary/90"
+            asChild
+          >
+            <Link to="#reservation">
+              Réserver
+            </Link>
+          </Button>
+        </div>
+      </div>
+      
       {/* Mobile Navigation */}
       <AnimatePresence>
         {isOpen && (
@@ -193,12 +247,12 @@ const Sidebar = () => {
                         className={cn(
                           "flex items-center gap-3 px-3 py-4 rounded-md transition-colors border-b border-gray-100",
                           isActive
-                            ? "bg-primary/5 text-primary"
+                            ? "bg-primary/5 text-accent"
                             : "text-gray-700 hover:bg-gray-50"
                         )}
                         onClick={() => setIsOpen(false)}
                       >
-                        <item.icon className={cn("h-5 w-5", isActive ? "text-primary" : "text-primary/60")} />
+                        <item.icon className={cn("h-5 w-5", isActive ? "text-accent" : "text-primary/60")} />
                         <span className="font-medium">{item.name}</span>
                       </Link>
                     );
@@ -209,6 +263,7 @@ const Sidebar = () => {
               <div className="p-4 border-t border-gray-100">
                 <Button
                   asChild
+                  variant="secondary"
                   className="w-full bg-primary hover:bg-primary/90"
                 >
                   <Link to="#reservation" onClick={() => setIsOpen(false)}>
@@ -229,7 +284,7 @@ const Sidebar = () => {
       </AnimatePresence>
       
       {/* Mobile Bottom Navigation (Airbnb Style) */}
-      <div className="fixed bottom-0 left-0 right-0 border-t border-gray-200 bg-white z-40 md:hidden">
+      <div className="fixed bottom-0 left-0 right-0 border-t border-gray-200 bg-white z-40 lg:hidden">
         <div className="flex justify-around py-2">
           {navItems.slice(0, 5).map((item) => {
             const isActive = location.pathname === item.path;
@@ -246,12 +301,12 @@ const Sidebar = () => {
                 )}>
                   <item.icon className={cn(
                     "h-5 w-5",
-                    isActive ? "text-primary" : "text-gray-500"
+                    isActive ? "text-accent" : "text-gray-500"
                   )} />
                 </div>
                 <span className={cn(
                   "text-[10px] mt-0.5",
-                  isActive ? "text-primary font-medium" : "text-gray-500"
+                  isActive ? "text-accent font-medium" : "text-gray-500"
                 )}>
                   {item.name.split(" ")[0]}
                 </span>
@@ -259,6 +314,24 @@ const Sidebar = () => {
             );
           })}
         </div>
+      </div>
+      
+      {/* Floating "Réserver" button for mobile */}
+      <div className="fixed bottom-6 right-6 lg:hidden z-50">
+        <motion.div
+          whileHover={{ scale: 1.05 }}
+          whileTap={{ scale: 0.95 }}
+        >
+          <Button 
+            variant="secondary" 
+            className="rounded-full shadow-lg bg-primary text-white px-6 py-6 h-auto"
+            asChild
+          >
+            <Link to="#reservation">
+              Réserver
+            </Link>
+          </Button>
+        </motion.div>
       </div>
     </header>
   );

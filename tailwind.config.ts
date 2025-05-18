@@ -15,7 +15,11 @@ export default {
 			center: true,
 			padding: '2rem',
 			screens: {
-				'2xl': '1400px'
+				'sm': '640px',
+				'md': '768px',
+				'lg': '1024px',
+				'xl': '1280px',
+				'2xl': '1320px'  // Changed to 1320px as per requirements
 			}
 		},
 		extend: {
@@ -26,13 +30,13 @@ export default {
 				background: 'hsl(var(--background))',
 				foreground: 'hsl(var(--foreground))',
 				primary: {
-					DEFAULT: '#002C5F', // Updated to Chronoel Navy
-					light: '#31A8E0',   // Updated to Chronoel Blue
+					DEFAULT: '#002366', // Dark Blue as per requirements
+					light: '#31A8E0',
 					foreground: '#FFFFFF'
 				},
 				secondary: {
-					DEFAULT: '#31A8E0', // Updated to Chronoel Blue
-					foreground: '#002C5F'
+					DEFAULT: '#4DA6FF', // Light Blue accent as per requirements
+					foreground: '#002366'
 				},
 				destructive: {
 					DEFAULT: 'hsl(var(--destructive))',
@@ -43,7 +47,7 @@ export default {
 					foreground: 'hsl(var(--muted-foreground))'
 				},
 				accent: {
-					DEFAULT: '#31A8E0', // Updated to Chronoel Blue
+					DEFAULT: '#4DA6FF', // Light Blue accent as per requirements
 					foreground: '#FFFFFF'
 				},
 				popover: {
@@ -58,8 +62,11 @@ export default {
 					DEFAULT: '#34A853', // Green for success toasts
 				},
 				placeholder: {
-					DEFAULT: '#F5F7FA', // Updated to Chronoel Gray
+					DEFAULT: '#F5F7FA',
 				},
+				luxury: {
+					DEFAULT: '#FFD700', // Gold color for luxury elements
+				}
 			},
 			fontFamily: {
 				sans: ['Open Sans', 'sans-serif'],
@@ -206,9 +213,9 @@ export default {
 			},
 			backgroundImage: {
 				'gradient-card': 'linear-gradient(135deg, var(--tw-gradient-from) 0%, var(--tw-gradient-to) 100%)',
-				'gradient-primary': 'linear-gradient(135deg, #002C5F 0%, #31A8E0 100%)',
-				'gradient-secondary': 'linear-gradient(135deg, #31A8E0 0%, #68c6f2 100%)',
-				'gradient-overlay': 'linear-gradient(180deg, rgba(0,0,0,0) 0%, rgba(0,44,95,0.8) 100%)',
+				'gradient-primary': 'linear-gradient(90deg, #002366 0%, #0A3F77 100%)', // Updated as per requirements
+				'gradient-secondary': 'linear-gradient(135deg, #4DA6FF 0%, #68c6f2 100%)',
+				'gradient-overlay': 'linear-gradient(180deg, rgba(0,0,0,0) 0%, rgba(0,35,102,0.8) 100%)', // Updated to use primary color
 				'pattern-dots': 'radial-gradient(currentColor 1px, transparent 1px)',
 				'pattern-grid': 'linear-gradient(to right, rgba(0,0,0,0.05) 1px, transparent 1px), linear-gradient(to bottom, rgba(0,0,0,0.05) 1px, transparent 1px)',
 			}

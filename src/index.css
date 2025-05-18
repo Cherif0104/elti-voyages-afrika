@@ -17,16 +17,16 @@
     --popover: 0 0% 100%;
     --popover-foreground: 222.2 84% 4.9%;
 
-    --primary: 210 100% 12%;
-    --primary-foreground: 210 40% 98%;
+    --primary: 225 100% 20%;
+    --primary-foreground: 0 0% 100%;
 
-    --secondary: 195 84% 54%;
-    --secondary-foreground: 0 0% 100%;
+    --secondary: 210 100% 65%;
+    --secondary-foreground: 225 100% 20%;
 
     --muted: 210 40% 96.1%;
     --muted-foreground: 215.4 16.3% 46.9%;
 
-    --accent: 195 84% 54%;
+    --accent: 210 100% 65%;
     --accent-foreground: 0 0% 100%;
 
     --destructive: 0 84.2% 60.2%;
@@ -98,11 +98,11 @@
   }
   
   .card {
-    @apply bg-white p-6 rounded-xl shadow-sm border border-gray-100 hover:shadow-md transition-all duration-300;
+    @apply bg-white p-6 rounded-xl shadow-sm border border-[#E0E6F5] hover:shadow-md transition-all duration-300;
   }
   
   .card-gradient {
-    @apply bg-gradient-to-br from-white to-gray-50 p-6 rounded-xl shadow-sm border border-gray-100 hover:shadow-md transition-all duration-300;
+    @apply bg-gradient-to-br from-white to-gray-50 p-6 rounded-xl shadow-sm border border-[#E0E6F5] hover:shadow-md transition-all duration-300;
   }
   
   .card-glass {
@@ -131,6 +131,20 @@
   
   .tag:hover {
     @apply bg-secondary/20;
+  }
+  
+  /* Card styles for CAN packs as per requirements */
+  .pack-card {
+    @apply bg-white p-6 rounded-xl shadow-sm border border-[#E0E6F5] w-[280px] transition-all duration-300;
+  }
+  
+  .pack-card-featured {
+    @apply border-accent border-2;
+  }
+  
+  /* Featured badge */
+  .featured-badge {
+    @apply bg-accent text-white text-xs px-3 py-1 rounded-full font-medium absolute -top-2 -right-2;
   }
 }
 
@@ -190,6 +204,20 @@
   
   .animate-shine {
     animation: shine 0.85s ease forwards;
+  }
+
+  /* Added styles for scroll-spy as per requirements */
+  .scroll-spy-active {
+    @apply text-accent border-r-2 border-accent;
+  }
+
+  /* Added class for smooth fade-up animation as per requirements */
+  .reveal {
+    @apply opacity-0 translate-y-8 transition-all duration-700;
+  }
+  
+  .reveal.active {
+    @apply opacity-100 translate-y-0;
   }
 
   @keyframes floating {

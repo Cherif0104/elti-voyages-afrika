@@ -16,12 +16,13 @@ const PartnerLogo = ({ name, logoSrc, className }: PartnerLogoProps) => {
   return (
     <motion.div 
       className={cn(
-        "bg-white rounded-xl p-3 sm:p-4 aspect-video flex items-center justify-center overflow-hidden shadow-sm border border-gray-100 transition-all duration-300", 
+        "bg-white rounded-xl p-3 sm:p-4 aspect-video flex items-center justify-center overflow-hidden shadow-sm border border-[#E0E6F5] transition-all duration-300", 
         className
       )}
       whileHover={{ 
         y: -5, 
-        boxShadow: "0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1)" 
+        boxShadow: "0 10px 25px -5px rgba(0, 35, 102, 0.15), 0 8px 10px -6px rgba(0, 35, 102, 0.1)",
+        borderColor: "#4DA6FF" 
       }}
     >
       {logoSrc ? (
