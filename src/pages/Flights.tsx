@@ -777,47 +777,82 @@ const Flights = () => {
   };
 
   return (
-    <div className="lg:pl-64 pt-20">
-      <div className="container mx-auto px-4 py-10">
-        <div className="flex items-center justify-between mb-4">
-          <h1 className="text-3xl font-bold text-primary">Billets d'avion</h1>
-          <Logo size="md" className="hidden md:block" />
-        </div>
-        
-        <div className="flex items-center mb-8 bg-gradient-to-r from-primary/5 to-secondary/5 p-4 rounded-lg">
-          <div className="mr-4 hidden md:block">
-            <img 
-              src="https://images.unsplash.com/photo-1436491865332-7a61a109cc05?q=80&w=200&auto=format&fit=crop"
-              alt="Avion dans le ciel" 
-              className="w-32 h-20 object-cover rounded-lg shadow-md"
-            />
-          </div>
-          <p className="text-gray-600">
-            Réservez vos vols vers les destinations de votre choix avec nos partenaires premium. 
-            Nous proposons des tarifs compétitifs et un service personnalisé pour tous vos voyages.
-          </p>
-        </div>
-        
-        {/* Popular Routes */}
-        {!searchPerformed && (
-          <div className="mb-12">
-            <h2 className="text-2xl font-bold text-primary mb-4">Routes populaires</h2>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-              {popularDestinations.map((dest, index) => (
-                <PopularRouteCard
-                  key={index}
-                  from={dest.from}
-                  to={dest.to}
-                  label={dest.label}
-                  price={dest.price}
-                  onSelect={() => handlePopularRouteSelect(dest.from, dest.to)}
-                />
-              ))}
+    <div className="min-h-screen bg-gray-50">
+      {/* Hero Section */}
+      <div className="relative bg-gradient-to-r from-primary to-primary/90 text-white">
+        <div className="absolute inset-0 opacity-10 bg-[url('https://images.unsplash.com/photo-1517479149777-5f3b1511d5ad?q=80&w=1000&auto=format&fit=crop')] bg-cover bg-center"></div>
+        <div className="container mx-auto px-4 pt-24 pb-16">
+          <div className="flex flex-col lg:flex-row items-center">
+            <div className="w-full lg:w-1/2 mb-10 lg:mb-0 z-10">
+              <motion.div 
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.8 }}
+                className="text-center lg:text-left"
+              >
+                <span className="inline-block text-secondary font-semibold mb-2 text-lg drop-shadow-md">
+                  Avec ELTI VOYAGE
+                </span>
+                <h1 className="text-4xl lg:text-5xl font-bold mb-6 leading-tight drop-shadow-lg">
+                  Trouvez vos 
+                  <span className="block mt-2 text-secondary">billets d'avion</span>
+                </h1>
+                <p className="text-lg mb-8 max-w-lg font-medium drop-shadow-md">
+                  Comparez les offres des meilleures compagnies aériennes et trouvez les tarifs les plus avantageux pour votre prochain voyage.
+                </p>
+                <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
+                  <Button
+                    size="lg"
+                    className="text-lg px-8 py-6 font-semibold bg-secondary hover:bg-secondary/90 text-primary transition-all duration-300"
+                    onClick={() => document.getElementById('searchForm')?.scrollIntoView({ behavior: 'smooth' })}
+                  >
+                    Réserver maintenant
+                  </Button>
+                </div>
+              </motion.div>
+            </div>
+            
+            <div className="w-full lg:w-1/2 flex justify-center lg:justify-end relative z-10">
+              <motion.div
+                initial={{ opacity: 0, y: 30 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.8, delay: 0.3 }}
+                className="relative w-full max-w-lg"
+              >
+                <div className="absolute inset-0 bg-gradient-to-r from-primary/20 to-secondary/20 rounded-3xl blur-xl"></div>
+                <div className="relative bg-white/10 backdrop-blur-sm p-6 rounded-2xl shadow-2xl border border-white/20">
+                  <div className="flex justify-between items-center mb-6">
+                    <h3 className="font-bold text-xl">Destinations populaires</h3>
+                    <Logo size="sm" />
+                  </div>
+                  <div className="grid grid-cols-2 gap-4">
+                    {popularDestinations.map((dest, index) => (
+                      <motion.div
+                        key={index}
+                        className="bg-white/20 backdrop-blur-sm rounded-xl p-3 cursor-pointer hover:bg-white/30 transition-all border border-white/10"
+                        whileHover={{ scale: 1.03 }}
+                        onClick={() => handlePopularRouteSelect(dest.from, dest.to)}
+                      >
+                        <div className="flex items-center gap-2 mb-1">
+                          <Plane className="h-4 w-4" />
+                          <span className="font-medium text-sm">{dest.label}</span>
+                        </div>
+                        <div className="flex justify-between items-center">
+                          <span className="text-xs opacity-75">Dès</span>
+                          <span className="font-bold">{dest.price}</span>
+                        </div>
+                      </motion.div>
+                    ))}
+                  </div>
+                </div>
+              </motion.div>
             </div>
           </div>
-        )}
-        
-        {/* Flight Search Form */}
+        </div>
+      </div>
+
+      {/* Main Content */}
+      <div className="container mx-auto px-4 -mt-10 relative z-20">
         <FlightSearchForm
           origin={origin}
           setOrigin={setOrigin}
@@ -833,73 +868,60 @@ const Flights = () => {
           isSearching={isSearching}
         />
         
-        {/* Flight Results with Filters */}
-        {searchPerformed && (
-          <div className="mb-10">
-            <div className="flex flex-col md:flex-row md:items-center justify-between mb-6">
-              <div>
-                <h2 className="text-2xl font-bold text-primary">Résultats ({sortedFlights.length})</h2>
-                <p className="text-gray-600">Vols disponibles pour votre recherche</p>
-              </div>
-              
-              <div className="mt-4 md:mt-0 flex items-center gap-4">
-                <Button
-                  variant="outline"
-                  size="sm"
-                  className="md:hidden"
-                  onClick={() => setShowFilters(!showFilters)}
-                >
-                  <Filter className="mr-2 h-4 w-4" />
-                  Filtres
-                </Button>
+        <div className="py-10">
+          {searchPerformed && (
+            <div className="mb-10">
+              <div className="flex flex-col md:flex-row md:items-center justify-between mb-6 p-6 bg-white rounded-lg shadow-sm">
+                <div>
+                  <h2 className="text-2xl font-bold text-primary">Résultats ({sortedFlights.length})</h2>
+                  <p className="text-gray-600">Vols disponibles pour votre recherche</p>
+                </div>
                 
-                <Popover>
-                  <PopoverTrigger asChild>
-                    <Button variant="outline" size="sm" className="flex items-center gap-2">
-                      <span>Trier par</span>
-                      <ArrowRight className="h-4 w-4" />
-                    </Button>
-                  </PopoverTrigger>
-                  <PopoverContent className="w-56 p-0">
-                    <div className="p-1 space-y-0.5">
-                      {[
-                        { value: "price_asc", label: "Prix: croissant" },
-                        { value: "price_desc", label: "Prix: décroissant" },
-                        { value: "duration_asc", label: "Durée: la plus courte" },
-                      ].map((option) => (
-                        <button
-                          key={option.value}
-                          className={`w-full flex items-center px-3 py-2 text-sm rounded-md hover:bg-gray-100 ${
-                            sortOption === option.value ? "bg-gray-100" : ""
-                          }`}
-                          onClick={() => setSortOption(option.value)}
-                        >
-                          {option.label}
-                          {sortOption === option.value && <Check className="h-4 w-4 ml-auto" />}
-                        </button>
-                      ))}
-                    </div>
-                  </PopoverContent>
-                </Popover>
-              </div>
-            </div>
-            
-            <div className="grid grid-cols-1 lg:grid-cols-4 gap-6">
-              {/* Filters - Desktop */}
-              <div className="hidden md:block">
-                <FilterSection 
-                  priceRange={priceRange}
-                  setPriceRange={setPriceRange}
-                  directOnly={directOnly}
-                  setDirectOnly={setDirectOnly}
-                  maxDuration={maxDuration}
-                  setMaxDuration={setMaxDuration}
-                />
+                <div className="mt-4 md:mt-0 flex items-center gap-4">
+                  <Button
+                    variant="outline"
+                    size="sm"
+                    className="md:hidden"
+                    onClick={() => setShowFilters(!showFilters)}
+                  >
+                    <Filter className="mr-2 h-4 w-4" />
+                    Filtres
+                  </Button>
+                  
+                  <Popover>
+                    <PopoverTrigger asChild>
+                      <Button variant="outline" size="sm" className="flex items-center gap-2">
+                        <span>Trier par</span>
+                        <ArrowRight className="h-4 w-4" />
+                      </Button>
+                    </PopoverTrigger>
+                    <PopoverContent className="w-56 p-0">
+                      <div className="p-1 space-y-0.5">
+                        {[
+                          { value: "price_asc", label: "Prix: croissant" },
+                          { value: "price_desc", label: "Prix: décroissant" },
+                          { value: "duration_asc", label: "Durée: la plus courte" },
+                        ].map((option) => (
+                          <button
+                            key={option.value}
+                            className={`w-full flex items-center px-3 py-2 text-sm rounded-md hover:bg-gray-100 ${
+                              sortOption === option.value ? "bg-gray-100" : ""
+                            }`}
+                            onClick={() => setSortOption(option.value)}
+                          >
+                            {option.label}
+                            {sortOption === option.value && <Check className="h-4 w-4 ml-auto" />}
+                          </button>
+                        ))}
+                      </div>
+                    </PopoverContent>
+                  </Popover>
+                </div>
               </div>
               
-              {/* Filters - Mobile */}
-              {showFilters && (
-                <div className="md:hidden">
+              <div className="grid grid-cols-1 lg:grid-cols-4 gap-6">
+                {/* Filters - Desktop */}
+                <div className="hidden md:block">
                   <FilterSection 
                     priceRange={priceRange}
                     setPriceRange={setPriceRange}
@@ -909,64 +931,98 @@ const Flights = () => {
                     setMaxDuration={setMaxDuration}
                   />
                 </div>
-              )}
-              
-              {/* Flights List */}
-              <div className="lg:col-span-3 space-y-4">
-                {sortedFlights.length > 0 ? (
-                  sortedFlights.map((offer) => (
-                    <FlightCard 
-                      key={offer.id} 
-                      offer={offer}
-                      onSelect={() => setSelectedFlight(offer)}
+                
+                {/* Filters - Mobile */}
+                {showFilters && (
+                  <div className="md:hidden">
+                    <FilterSection 
+                      priceRange={priceRange}
+                      setPriceRange={setPriceRange}
+                      directOnly={directOnly}
+                      setDirectOnly={setDirectOnly}
+                      maxDuration={maxDuration}
+                      setMaxDuration={setMaxDuration}
                     />
-                  ))
-                ) : (
-                  <div className="flex flex-col items-center justify-center py-12 bg-white rounded-lg border border-gray-100 shadow-sm">
-                    <Plane className="h-16 w-16 text-gray-300 mb-4" />
-                    <p className="text-gray-500 text-center mb-2">Aucun vol ne correspond à vos critères</p>
-                    <Button 
-                      variant="outline" 
-                      onClick={() => {
-                        setPriceRange([0, 1000]);
-                        setDirectOnly(false);
-                        setMaxDuration(24);
-                      }}
-                    >
-                      Réinitialiser les filtres
-                    </Button>
                   </div>
                 )}
+                
+                {/* Flights List */}
+                <div className="lg:col-span-3 space-y-4">
+                  {sortedFlights.length > 0 ? (
+                    sortedFlights.map((offer) => (
+                      <FlightCard 
+                        key={offer.id} 
+                        offer={offer}
+                        onSelect={() => setSelectedFlight(offer)}
+                      />
+                    ))
+                  ) : (
+                    <div className="flex flex-col items-center justify-center py-12 bg-white rounded-lg border border-gray-100 shadow-sm">
+                      <Plane className="h-16 w-16 text-gray-300 mb-4" />
+                      <p className="text-gray-500 text-center mb-2">Aucun vol ne correspond à vos critères</p>
+                      <Button 
+                        variant="outline" 
+                        onClick={() => {
+                          setPriceRange([0, 1000]);
+                          setDirectOnly(false);
+                          setMaxDuration(24);
+                        }}
+                      >
+                        Réinitialiser les filtres
+                      </Button>
+                    </div>
+                  )}
+                </div>
               </div>
             </div>
-          </div>
-        )}
+          )}
+          
+          {isSearching === false && !searchPerformed && (
+            <div className="bg-white rounded-lg shadow-sm p-8 mb-10">
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div className="flex flex-col items-center text-center p-5">
+                  <div className="bg-primary/10 p-4 rounded-full mb-4">
+                    <Plane className="h-8 w-8 text-primary" />
+                  </div>
+                  <h3 className="text-lg font-bold mb-2">Des centaines de destinations</h3>
+                  <p className="text-gray-600">Trouvez des vols pour des centaines de destinations dans le monde entier</p>
+                </div>
+                
+                <div className="flex flex-col items-center text-center p-5">
+                  <div className="bg-secondary/10 p-4 rounded-full mb-4">
+                    <BadgePercent className="h-8 w-8 text-secondary" />
+                  </div>
+                  <h3 className="text-lg font-bold mb-2">Prix compétitifs</h3>
+                  <p className="text-gray-600">Comparez les prix de différentes compagnies aériennes pour trouver les meilleures offres</p>
+                </div>
+                
+                <div className="flex flex-col items-center text-center p-5">
+                  <div className="bg-green-100 p-4 rounded-full mb-4">
+                    <Calendar className="h-8 w-8 text-green-600" />
+                  </div>
+                  <h3 className="text-lg font-bold mb-2">Réservation flexible</h3>
+                  <p className="text-gray-600">Modifiez ou annulez votre billet selon les conditions de la compagnie</p>
+                </div>
+              </div>
+            </div>
+          )}
+        </div>
         
-        {isSearching === false && !searchPerformed && (
-          <div className="flex flex-col items-center justify-center bg-white p-6 rounded-lg shadow-sm border border-gray-100 mb-10">
-            <img 
-              src="https://images.unsplash.com/photo-1556388158-158ea5ccacbd?q=80&w=300&auto=format&fit=crop"
-              alt="Avion en vol" 
-              className="h-32 w-52 object-cover rounded-lg shadow-md mb-4"
-            />
-            <p className="text-gray-500 text-center">
-              Utilisez le formulaire ci-dessus pour rechercher des vols disponibles
-            </p>
-          </div>
-        )}
-        
-        {/* Airline Partners Section */}
-        <FlightCompanySection />
+        {/* Flight Companies */}
+        <div className="bg-white rounded-lg shadow-sm p-8 mb-10">
+          <FlightCompanySection />
+        </div>
         
         {/* Tabs for Additional Information */}
-        <div className="mb-10">
+        <div className="bg-white rounded-lg shadow-sm p-8 mb-10">
+          <h2 className="text-2xl font-bold text-primary mb-6">Informations importantes</h2>
           <Tabs defaultValue="info">
             <TabsList className="grid w-full grid-cols-3">
               <TabsTrigger value="info">Bagages</TabsTrigger>
               <TabsTrigger value="payment">Paiement</TabsTrigger>
               <TabsTrigger value="cancel">Annulation</TabsTrigger>
             </TabsList>
-            <TabsContent value="info" className="p-4 bg-white rounded-lg shadow-sm mt-2">
+            <TabsContent value="info" className="p-4 mt-4 border rounded-lg">
               <div className="flex items-center gap-4">
                 <img 
                   src="https://images.unsplash.com/photo-1607237138185-eedd9c632b0b?q=80&w=200&auto=format&fit=crop"
@@ -986,7 +1042,7 @@ const Flights = () => {
                 </div>
               </div>
             </TabsContent>
-            <TabsContent value="payment" className="p-4 bg-white rounded-lg shadow-sm mt-2">
+            <TabsContent value="payment" className="p-4 mt-4 border rounded-lg">
               <div className="flex items-center gap-4">
                 <img 
                   src="https://images.unsplash.com/photo-1563013544-824ae1b704d3?q=80&w=200&auto=format&fit=crop"
@@ -1006,7 +1062,7 @@ const Flights = () => {
                 </div>
               </div>
             </TabsContent>
-            <TabsContent value="cancel" className="p-4 bg-white rounded-lg shadow-sm mt-2">
+            <TabsContent value="cancel" className="p-4 mt-4 border rounded-lg">
               <div className="flex items-center gap-4">
                 <img 
                   src="https://images.unsplash.com/photo-1524678714210-9917a6c619c2?q=80&w=200&auto=format&fit=crop"
@@ -1030,29 +1086,50 @@ const Flights = () => {
         </div>
         
         {/* Support Call to Action */}
-        <div className="bg-gradient-to-r from-primary to-secondary rounded-lg p-8 text-white">
-          <div className="flex flex-col md:flex-row items-center justify-between">
-            <div className="flex items-center mb-6 md:mb-0 md:mr-6">
-              <div className="hidden md:block">
-                <Logo size="lg" className="mr-4" />
+        <div className="bg-white rounded-lg shadow-sm overflow-hidden mb-10">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-0">
+            <div className="bg-gradient-to-r from-primary to-primary/90 p-8 text-white">
+              <div className="flex items-center mb-6">
+                <Logo size="md" className="mr-4" />
+                <div>
+                  <h3 className="text-xl font-bold">Besoin d'aide pour réserver votre vol?</h3>
+                  <p className="text-white/80">Notre équipe est disponible 24h/24 pour vous assister</p>
+                </div>
               </div>
-              <div>
-                <h3 className="text-xl font-bold mb-2">Besoin d'aide pour réserver votre vol?</h3>
-                <p className="text-white/80">
-                  Notre équipe est disponible 24h/24 pour vous assister dans votre recherche et réservation de vol.
-                  Bénéficiez d'un service personnalisé et de tarifs négociés.
+              <div className="space-y-4">
+                <p className="flex items-center">
+                  <Check className="h-5 w-5 mr-2 text-secondary" />
+                  Service personnalisé
+                </p>
+                <p className="flex items-center">
+                  <Check className="h-5 w-5 mr-2 text-secondary" />
+                  Tarifs négociés
+                </p>
+                <p className="flex items-center">
+                  <Check className="h-5 w-5 mr-2 text-secondary" />
+                  Assistance pendant votre voyage
                 </p>
               </div>
             </div>
-            <Button 
-              asChild
-              className="bg-white text-primary hover:bg-white/90 whitespace-nowrap"
-              size="lg"
-            >
-              <a href="https://wa.me/212656136036" target="_blank" rel="noopener noreferrer">
-                Contacter sur WhatsApp
-              </a>
-            </Button>
+            
+            <div className="p-8 flex flex-col justify-center items-start bg-[url('https://images.unsplash.com/photo-1521727857535-28d2047314ac?q=80&w=500&auto=format&fit=crop')] bg-cover bg-center relative">
+              <div className="absolute inset-0 bg-gray-900/50"></div>
+              <div className="relative z-10 text-white">
+                <h3 className="text-xl font-bold mb-4">Contactez-nous</h3>
+                <p className="mb-6 text-white/90">
+                  Notre équipe d'experts est disponible pour vous aider à trouver les meilleures options de vol pour votre prochain voyage.
+                </p>
+                <Button 
+                  asChild
+                  className="bg-white text-primary hover:bg-white/90 whitespace-nowrap"
+                  size="lg"
+                >
+                  <a href="https://wa.me/212656136036" target="_blank" rel="noopener noreferrer">
+                    Contacter sur WhatsApp
+                  </a>
+                </Button>
+              </div>
+            </div>
           </div>
         </div>
         
