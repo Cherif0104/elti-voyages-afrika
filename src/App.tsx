@@ -88,7 +88,7 @@ const App = () => {
           <div className="min-h-screen flex flex-col">
             <Sidebar />
             <Navbar />
-            <main className="flex-1">
+            <main className="flex-1 lg:pl-64">
               <AnimatedRoutes />
             </main>
             <Footer />
