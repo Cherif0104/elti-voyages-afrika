@@ -1,5 +1,5 @@
 import { useEffect, useState, useRef } from "react";
-import { Plane, Hotel, Car, Map, Crown, Star, MapPin, UsersRound } from "lucide-react";
+import { Plane, Hotel, Car, Map, Crown, Star, MapPin, UsersRound, CalendarDays } from "lucide-react";
 import { Link } from "react-router-dom";
 import BookingForm from "@/components/BookingForm";
 import ServiceCard from "@/components/ServiceCard";
@@ -657,7 +657,7 @@ const Index = () => {
               animate={limitedAvailabilityPulse}
               className="inline-flex items-center gap-2 bg-red-50 text-red-600 px-4 py-2 rounded-full border border-red-100"
             >
-              <Calendar className="h-5 w-5" />
+              <CalendarDays className="h-5 w-5" />
               <span className="font-medium">Places limitées — Réservez dès maintenant</span>
             </motion.div>
           </motion.div>
