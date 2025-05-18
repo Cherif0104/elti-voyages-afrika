@@ -2,11 +2,9 @@
 import { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { cn } from '@/lib/utils';
-import { Menu, X, Home, Plane, Hotel, Car, Map, Crown, Phone, Trophy, Star } from 'lucide-react';
+import { Menu, X, Home, Plane, Hotel, Car, Map, Crown, Phone, Trophy } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import Logo from '@/components/Logo';
-import { motion, AnimatePresence } from 'framer-motion';
-import { buttonTap } from '@/components/can2025/AnimationUtils';
 
 type NavItem = {
   name: string;
@@ -63,123 +61,58 @@ const Sidebar = () => {
     setIsOpen(!isOpen);
   };
 
-  // Floating decoration element
-  const FloatingElement = ({ children, delay = 0, x = 0, y = 0 }) => (
-    <motion.div
-      className="absolute text-primary/5 z-0 h-8 w-8"
-      style={{ left: `${x}%`, top: `${y}%` }}
-      initial={{ opacity: 0 }}
-      animate={{ 
-        opacity: 0.7,
-        y: [0, -8, 0],
-        transition: { 
-          y: { 
-            repeat: Infinity,
-            duration: 3,
-            ease: "easeInOut", 
-            delay 
-          },
-          opacity: { duration: 1, delay }
-        }
-      }}
-    >
-      {children}
-    </motion.div>
-  );
-
   return (
     <>
-      {/* Mobile menu button with enhanced animation */}
-      <motion.div 
-        className="fixed top-4 left-4 z-50 lg:hidden"
-        initial={{ opacity: 0, scale: 0.5 }}
-        animate={{ opacity: 1, scale: 1 }}
-        transition={{ duration: 0.3 }}
-      >
-        <motion.div
-          whileHover={{ scale: 1.1 }}
-          whileTap={{ scale: 0.9 }}
+      {/* Mobile menu button */}
+      <div className="fixed top-4 left-4 z-50 lg:hidden">
+        <Button
+          variant="outline"
+          size="icon"
+          aria-label={isOpen ? "Close menu" : "Open menu"}
+          className="bg-white shadow-md"
+          onClick={toggleSidebar}
         >
-          <Button
-            variant="outline"
-            size="icon"
-            aria-label={isOpen ? "Close menu" : "Open menu"}
-            className="bg-white shadow-md"
-            onClick={toggleSidebar}
-          >
-            {isOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
-          </Button>
-        </motion.div>
-      </motion.div>
+          {isOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
+        </Button>
+      </div>
 
-      {/* Sidebar backdrop on mobile with improved animation */}
-      <AnimatePresence>
-        {isOpen && (
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.3 }}
-            className="fixed inset-0 bg-black/50 z-40 lg:hidden"
-            onClick={() => setIsOpen(false)}
-          />
-        )}
-      </AnimatePresence>
+      {/* Sidebar backdrop on mobile */}
+      {isOpen && (
+        <div
+          className="fixed inset-0 bg-black/50 z-40 lg:hidden"
+          onClick={() => setIsOpen(false)}
+        />
+      )}
 
-      {/* Sidebar with enhanced animations */}
-      <motion.aside
+      {/* Sidebar */}
+      <aside
         className={cn(
           "fixed top-0 left-0 h-full bg-white z-40 transition-all duration-300 ease-in-out shadow-xl w-64",
           isOpen ? "translate-x-0" : "-translate-x-full lg:translate-x-0"
         )}
-        initial={{ x: "-100%" }}
-        animate={{ x: isOpen ? 0 : "-100%" }}
-        transition={{ type: "spring", stiffness: 300, damping: 30 }}
       >
-        <div className="flex flex-col h-full relative overflow-hidden">
-          {/* Decorative floating elements */}
-          <FloatingElement x={20} y={90} delay={0.2}>
-            <Star className="h-full w-full" />
-          </FloatingElement>
-          <FloatingElement x={80} y={50} delay={1.5}>
-            <Trophy className="h-full w-full" />
-          </FloatingElement>
-
-          {/* Logo with animation */}
-          <motion.div 
-            className="p-4 border-b"
-            initial={{ opacity: 0, y: -20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.2, duration: 0.5 }}
-          >
+        <div className="flex flex-col h-full">
+          {/* Logo */}
+          <div className="p-4 border-b">
             <Link to="/" className="flex items-center justify-center">
-              <motion.div 
-                className="flex items-center"
-                whileHover={{ scale: 1.05 }}
-                transition={{ duration: 0.2 }}
-              >
+              <div className="flex items-center">
                 <Logo size="md" />
                 <span className="text-xl font-poppins font-bold text-primary ml-2">ELTI VOYAGES</span>
-              </motion.div>
+              </div>
             </Link>
-          </motion.div>
+          </div>
 
-          {/* Navigation with staggered animations */}
+          {/* Navigation */}
           <nav className="flex-grow overflow-y-auto no-scrollbar py-4">
             <ul className="space-y-1 px-2">
-              {navItems.map((item, index) => {
+              {navItems.map((item) => {
                 const isActive = 
                   location.pathname === item.path || 
                   (item.path === '/' && location.pathname === '/') ||
                   (activeSection && item.name.toLowerCase().includes(activeSection.substring(1)));
                 
                 return (
-                  <motion.li 
-                    key={item.path}
-                    initial={{ opacity: 0, x: -20 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    transition={{ delay: 0.1 + index * 0.05, duration: 0.4 }}
-                  >
+                  <li key={item.path}>
                     <Link
                       to={item.path}
                       className={cn(
@@ -189,45 +122,28 @@ const Sidebar = () => {
                           : "text-gray-700 hover:bg-gray-100"
                       )}
                     >
-                      <motion.div
-                        whileHover={{ rotate: 15 }}
-                        transition={{ type: "spring", stiffness: 500 }}
-                      >
-                        <item.icon className={cn("h-5 w-5", isActive ? "text-white" : "text-primary")} />
-                      </motion.div>
+                      <item.icon className={cn("h-5 w-5", isActive ? "text-white" : "text-primary")} />
                       <span>{item.name}</span>
                     </Link>
-                  </motion.li>
+                  </li>
                 );
               })}
             </ul>
           </nav>
 
-          {/* Footer with enhanced button animation */}
-          <motion.div 
-            className="p-4 border-t"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.5, duration: 0.5 }}
-          >
-            <motion.div
-              whileHover={{ scale: 1.05 }}
-              whileTap={buttonTap}
-              transition={{ type: "spring", stiffness: 400, damping: 10 }}
+          {/* Footer */}
+          <div className="p-4 border-t">
+            <Button
+              asChild
+              className="w-full bg-primary hover:bg-primary/90"
             >
-              <Button
-                asChild
-                className="w-full bg-primary hover:bg-primary/90 relative overflow-hidden group"
-              >
-                <a href="#reservation">
-                  Réserver
-                  <span className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-[100%] group-hover:animate-shine" />
-                </a>
-              </Button>
-            </motion.div>
-          </motion.div>
+              <Link to="#reservation">
+                Réserver
+              </Link>
+            </Button>
+          </div>
         </div>
-      </motion.aside>
+      </aside>
     </>
   );
 };
