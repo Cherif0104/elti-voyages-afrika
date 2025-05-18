@@ -1,61 +1,48 @@
 
-import { useState } from "react";
-import { X } from "lucide-react";
-import { cn } from "@/lib/utils";
+import { useState } from 'react';
+import { motion } from 'framer-motion';
+import { X } from 'lucide-react';
+import { Link } from 'react-router-dom';
 
-type PromotionBannerProps = {
-  title: string;
+interface PromotionBannerProps {
   text: string;
-  linkText?: string;
-  linkUrl?: string;
-  active?: boolean;
-  className?: string;
-};
+  ctaText: string;
+  ctaUrl: string;
+}
 
-const PromotionBanner = ({
-  title,
-  text,
-  linkText,
-  linkUrl = "#",
-  active = true,
-  className,
-}: PromotionBannerProps) => {
-  const [isVisible, setIsVisible] = useState(active);
+const PromotionBanner = ({ text, ctaText, ctaUrl }: PromotionBannerProps) => {
+  const [isVisible, setIsVisible] = useState(true);
 
-  if (!isVisible) {
-    return null;
-  }
+  if (!isVisible) return null;
 
   return (
-    <div
-      className={cn(
-        "bg-gradient-to-r from-primary to-primary-light text-white p-3 relative animate-fade-in",
-        className
-      )}
+    <motion.div 
+      initial={{ opacity: 0, y: -20 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.5 }}
+      className="bg-primary text-white py-3 px-4 relative z-50 text-center lg:pl-64"
     >
-      <div className="container mx-auto flex flex-col md:flex-row items-center justify-center md:justify-between px-4">
-        <div className="flex flex-col md:flex-row items-center mb-2 md:mb-0">
-          <span className="font-bold mr-2">{title}</span>
-          <span className="text-sm text-center md:text-left">{text}</span>
-        </div>
-        {linkText && (
-          <a
-            href={linkUrl}
-            className="text-secondary hover:text-secondary/80 font-bold text-sm underline transition-colors"
+      <div className="container mx-auto flex items-center justify-center sm:justify-between">
+        <p className="text-sm md:text-base">{text}</p>
+        
+        <div className="hidden sm:flex items-center gap-4">
+          <Link 
+            to={ctaUrl}
+            className="underline text-white hover:text-white/80 text-sm whitespace-nowrap"
           >
-            {linkText}
-          </a>
-        )}
+            {ctaText}
+          </Link>
+          
+          <button
+            onClick={() => setIsVisible(false)}
+            className="hover:bg-white/10 rounded-full p-1 transition-colors"
+            aria-label="Fermer"
+          >
+            <X className="h-4 w-4" />
+          </button>
+        </div>
       </div>
-
-      <button
-        onClick={() => setIsVisible(false)}
-        className="absolute right-2 top-1/2 -translate-y-1/2 p-1 text-white/80 hover:text-white"
-        aria-label="Fermer"
-      >
-        <X className="h-4 w-4" />
-      </button>
-    </div>
+    </motion.div>
   );
 };
 

@@ -11,13 +11,6 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import {
-  Drawer,
-  DrawerClose,
-  DrawerContent,
-  DrawerTrigger,
-} from "@/components/ui/drawer";
-
 import { motion, AnimatePresence } from "framer-motion";
 
 type NavItem = {
@@ -80,8 +73,8 @@ const Sidebar = () => {
 
   return (
     <>
-      {/* Desktop Sidebar - Fixé à gauche sans marge */}
-      <div className="fixed left-0 top-0 z-40 h-full w-[290px] bg-white shadow-md hidden lg:block">
+      {/* Desktop Sidebar - Fixed width */}
+      <div className="fixed left-0 top-0 z-40 h-full w-64 bg-white shadow-md hidden lg:block border-r border-gray-100">
         <div className="flex h-16 items-center px-4 border-b border-gray-100">
           <Link to="/" className="flex items-center">
             <Logo size="md" />
@@ -115,16 +108,15 @@ const Sidebar = () => {
         <div className="absolute bottom-0 w-full p-4 border-t border-gray-100">
           <Button
             asChild
-            variant="secondary"
-            className="w-full bg-primary hover:bg-primary/90 text-white"
+            className="w-full bg-primary hover:bg-primary/90 text-white mb-4"
           >
             <Link to="#reservation">
               Réserver
             </Link>
           </Button>
           
-          <div className="mt-4 flex justify-center items-center">
-            <a href="tel:+212656136036" className="flex items-center gap-2 text-primary">
+          <div className="flex justify-center items-center">
+            <a href="tel:+212656136036" className="flex items-center gap-2 text-primary font-medium">
               <Phone className="h-4 w-4" />
               <span>+212 656 13 60 36</span>
             </a>
@@ -132,14 +124,14 @@ const Sidebar = () => {
         </div>
       </div>
 
-      {/* Main Header - Full Width, s'ajuste pour être à côté de la sidebar sur desktop */}
+      {/* Main Header - Full Width */}
       <header className={cn(
-        "fixed top-0 z-50 w-full backdrop-blur-md transition-all duration-300",
+        "fixed top-0 right-0 z-50 left-64 backdrop-blur-md transition-all duration-300 lg:pl-0",
         isScrolled 
-          ? "bg-white shadow-sm border-b border-gray-100" 
+          ? "bg-white/95 shadow-sm border-b border-gray-100" 
           : "bg-white/85"
       )}>
-        <div className="lg:pl-[290px] container mx-auto px-4">
+        <div className="container mx-auto px-4">
           <div className="flex h-16 items-center justify-between">
             {/* Logo for Mobile */}
             <div className="flex items-center gap-2 lg:hidden">
@@ -150,7 +142,7 @@ const Sidebar = () => {
             </div>
             
             {/* Right Navigation */}
-            <div className="flex items-center gap-2 md:gap-4 ml-auto">
+            <div className="flex items-center gap-4 ml-auto">
               <Button
                 variant="ghost"
                 size="sm"
@@ -160,7 +152,7 @@ const Sidebar = () => {
                 <Link to="/billets-avion">Rechercher des vols</Link>
               </Button>
               
-              {/* WhatsApp number */}
+              {/* Phone number */}
               <a href="tel:+212656136036" className="hidden md:flex items-center text-primary font-medium">
                 <Phone className="h-4 w-4 mr-1" />
                 <span>+212 656 13 60 36</span>
@@ -168,10 +160,9 @@ const Sidebar = () => {
               
               {/* "Réserver" button */}
               <Button
-                variant="secondary"
                 size="sm"
                 asChild
-                className="hidden md:flex"
+                className="hidden md:flex bg-primary hover:bg-primary/90 text-white"
               >
                 <Link to="#reservation">Réserver</Link>
               </Button>
@@ -227,10 +218,7 @@ const Sidebar = () => {
               <div className="overflow-y-auto flex-grow">
                 <nav className="flex flex-col p-4">
                   {navItems.map((item) => {
-                    const isActive = 
-                      location.pathname === item.path || 
-                      (item.path === '/' && location.pathname === '/');
-                    
+                    const isActive = location.pathname === item.path;
                     return (
                       <Link
                         key={item.path}
@@ -254,7 +242,6 @@ const Sidebar = () => {
               <div className="p-4 border-t border-gray-100">
                 <Button
                   asChild
-                  variant="secondary"
                   className="w-full bg-primary hover:bg-primary/90 text-white"
                 >
                   <Link to="#reservation" onClick={() => setIsOpen(false)}>
@@ -274,7 +261,7 @@ const Sidebar = () => {
         )}
       </AnimatePresence>
       
-      {/* Mobile Bottom Navigation (Airbnb Style) */}
+      {/* Mobile Bottom Navigation */}
       <div className="fixed bottom-0 left-0 right-0 border-t border-gray-200 bg-white z-40 lg:hidden">
         <div className="flex justify-around py-2">
           {navItems.slice(0, 5).map((item) => {
@@ -314,7 +301,6 @@ const Sidebar = () => {
           whileTap={{ scale: 0.95 }}
         >
           <Button 
-            variant="secondary" 
             className="rounded-full shadow-lg bg-primary text-white px-6 py-6 h-auto"
             asChild
           >
