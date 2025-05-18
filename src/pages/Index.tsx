@@ -1,3 +1,4 @@
+
 import { useEffect, useState, useRef } from "react";
 import { motion, useInView } from "framer-motion";
 import { Plane, Hotel, Car, Map, Crown, Star, MapPin, UsersRound, CalendarDays, Coffee, Trophy } from "lucide-react";
@@ -568,7 +569,7 @@ const Index = () => {
             >
               <div className="relative rounded-lg overflow-hidden shadow-xl">
                 <img 
-                  src="/lovable-uploads/8a682208-d168-4383-a0bb-619fb16939f9.png" 
+                  src="/lovable-uploads/6be21310-8d14-4ccf-92cc-167a85a0b427.png" 
                   alt="CAN 2025" 
                   className="w-full h-auto"
                 />
