@@ -3,6 +3,7 @@ import { Car } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
+import PartnerLogo from "@/components/PartnerLogo";
 
 const CarCard = ({ category, model, price, features, imageClass = "bg-placeholder", imageSrc }) => {
   return (
@@ -78,7 +79,24 @@ const Cars = () => {
     }
   ];
   
-  const rentalCompanies = ["Sixt", "Hertz", "Avis", "Europcar"];
+  const rentalCompanies = [
+    {
+      name: "Sixt",
+      logo: "/lovable-uploads/3d1d0740-fce2-4c0e-8d2a-38464c306939.png"
+    },
+    {
+      name: "Hertz",
+      logo: "/lovable-uploads/d80e170b-3282-4f7f-879b-af33bea2727d.png"
+    },
+    {
+      name: "Europcar",
+      logo: "/lovable-uploads/cc89c664-211c-47ef-89c5-4c30f61b6c2e.png"
+    },
+    {
+      name: "CTM Transport",
+      logo: "/lovable-uploads/eee3c5a7-6c4d-4806-ab11-7e2a4d34df45.png"
+    }
+  ];
   
   return (
     <div className="lg:pl-64 pt-20">
@@ -91,11 +109,13 @@ const Cars = () => {
         {/* Rental Companies */}
         <div className="mb-10">
           <h2 className="text-xl font-bold text-primary mb-4">Nos partenaires location</h2>
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
             {rentalCompanies.map((company, index) => (
-              <div key={index} className="bg-white rounded-md p-6 shadow-sm border border-gray-100 flex items-center justify-center">
-                <span className="text-lg font-medium text-primary">{company}</span>
-              </div>
+              <PartnerLogo 
+                key={index}
+                name={company.name}
+                logoSrc={company.logo}
+              />
             ))}
           </div>
         </div>
