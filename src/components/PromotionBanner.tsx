@@ -8,12 +8,30 @@ interface PromotionBannerProps {
   text: string;
   ctaText: string;
   ctaUrl: string;
+  title?: string;         // Added optional title prop
+  linkText?: string;      // Added optional linkText prop
+  linkUrl?: string;       // Added optional linkUrl prop
+  active?: boolean;       // Added optional active prop
 }
 
-const PromotionBanner = ({ text, ctaText, ctaUrl }: PromotionBannerProps) => {
-  const [isVisible, setIsVisible] = useState(true);
+const PromotionBanner = ({ 
+  text, 
+  ctaText, 
+  ctaUrl,
+  title,
+  linkText,
+  linkUrl,
+  active = true
+}: PromotionBannerProps) => {
+  const [isVisible, setIsVisible] = useState(active);
 
+  // If banner is closed or active is false, don't render
   if (!isVisible) return null;
+
+  // Use the appropriate props, with fallbacks
+  const displayText = text;
+  const displayCtaText = linkText || ctaText;
+  const displayCtaUrl = linkUrl || ctaUrl;
 
   return (
     <motion.div 
@@ -23,14 +41,17 @@ const PromotionBanner = ({ text, ctaText, ctaUrl }: PromotionBannerProps) => {
       className="bg-primary text-white py-3 px-4 relative z-50 text-center lg:pl-64"
     >
       <div className="container mx-auto flex items-center justify-center sm:justify-between">
-        <p className="text-sm md:text-base">{text}</p>
+        <p className="text-sm md:text-base">
+          {title && <span className="font-semibold mr-1">{title}:</span>}
+          {displayText}
+        </p>
         
         <div className="hidden sm:flex items-center gap-4">
           <Link 
-            to={ctaUrl}
+            to={displayCtaUrl}
             className="underline text-white hover:text-white/80 text-sm whitespace-nowrap"
           >
-            {ctaText}
+            {displayCtaText}
           </Link>
           
           <button
