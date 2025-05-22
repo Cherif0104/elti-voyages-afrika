@@ -15,6 +15,8 @@ import Cars from "./pages/Cars";
 import Excursions from "./pages/Excursions";
 import Vip from "./pages/Vip";
 import Contact from "./pages/Contact";
+import TravelGuides from "./pages/TravelGuides";
+import Destinations from "./pages/Destinations";
 import NotFound from "./pages/NotFound";
 
 // Components
@@ -66,6 +68,8 @@ const App = () => {
                 <Route path="/voitures" element={<Cars />} />
                 <Route path="/excursions" element={<Excursions />} />
                 <Route path="/vip" element={<Vip />} />
+                <Route path="/guides" element={<TravelGuides />} />
+                <Route path="/destinations" element={<Destinations />} />
                 <Route path="/contact" element={<Contact />} />
                 <Route path="*" element={<NotFound />} />
               </Routes>

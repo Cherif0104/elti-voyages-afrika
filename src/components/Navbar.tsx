@@ -2,7 +2,7 @@
 import { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { cn } from '@/lib/utils';
-import { Trophy, Menu, X, User, Search } from 'lucide-react';
+import { Trophy, Menu, X, User, Search, MapPin, Book, Compass } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import Logo from '@/components/Logo';
 import {
@@ -15,15 +15,18 @@ import {
 type NavItem = {
   name: string;
   path: string;
+  icon?: React.ReactNode;
 };
 
 const navItems: NavItem[] = [
   { name: "Accueil", path: "/" },
-  { name: "CAN 2025", path: "/can2025" },
+  { name: "CAN 2025", path: "/can2025", icon: <Trophy className="h-4 w-4 mr-1" /> },
   { name: "Billets d'avion", path: "/billets-avion" },
   { name: "Hôtels", path: "/hotels" },
   { name: "Voitures", path: "/voitures" },
   { name: "Excursions", path: "/excursions" },
+  { name: "Destinations", path: "/destinations", icon: <Compass className="h-4 w-4 mr-1" /> },
+  { name: "Guides de voyage", path: "/guides", icon: <Book className="h-4 w-4 mr-1" /> },
   { name: "VIP / Conciergerie", path: "/vip" },
   { name: "Contact", path: "/contact" },
 ];
@@ -77,12 +80,13 @@ const Navbar = () => {
                   key={item.path}
                   to={item.path}
                   className={cn(
-                    "px-4 py-2 rounded-md text-sm font-medium transition-colors",
+                    "px-4 py-2 rounded-md text-sm font-medium transition-colors flex items-center",
                     isActive
                       ? "bg-primary text-white"
                       : "text-gray-700 hover:bg-gray-100"
                   )}
                 >
+                  {item.icon && item.icon}
                   {item.name}
                 </Link>
               );
@@ -121,10 +125,13 @@ const Navbar = () => {
                   <Link to="#reservation" className="cursor-pointer">Réserver un voyage</Link>
                 </DropdownMenuItem>
                 <DropdownMenuItem asChild>
-                  <Link to="/contact" className="cursor-pointer">Contacter l'agence</Link>
+                  <Link to="/destinations" className="cursor-pointer">Destinations</Link>
                 </DropdownMenuItem>
                 <DropdownMenuItem asChild>
-                  <Link to="/billets-avion" className="cursor-pointer">Rechercher des vols</Link>
+                  <Link to="/guides" className="cursor-pointer">Guides de voyage</Link>
+                </DropdownMenuItem>
+                <DropdownMenuItem asChild>
+                  <Link to="/contact" className="cursor-pointer">Contacter l'agence</Link>
                 </DropdownMenuItem>
               </DropdownMenuContent>
             </DropdownMenu>
@@ -165,6 +172,7 @@ const Navbar = () => {
                       )}
                       onClick={() => setIsOpen(false)}
                     >
+                      {item.icon && item.icon}
                       <span className="font-medium">{item.name}</span>
                     </Link>
                   );
