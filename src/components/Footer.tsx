@@ -97,13 +97,13 @@ const Footer = () => {
                 </Link>
               </li>
               <li>
-                <Link to="/vip" className="text-white/80 hover:text-accent transition-colors hover:underline">
-                  VIP / Conciergerie
+                <Link to="/guides" className="text-white/80 hover:text-accent transition-colors hover:underline">
+                  Guides de voyage
                 </Link>
               </li>
               <li>
-                <Link to="/vip" className="text-white/80 hover:text-accent transition-colors hover:underline">
-                  Voyages religieux
+                <Link to="/destinations" className="text-white/80 hover:text-accent transition-colors hover:underline">
+                  Destinations
                 </Link>
               </li>
               <li>

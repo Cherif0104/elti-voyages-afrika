@@ -13,7 +13,6 @@ import Flights from "./pages/Flights";
 import Hotels from "./pages/Hotels";
 import Cars from "./pages/Cars";
 import Excursions from "./pages/Excursions";
-import Vip from "./pages/Vip";
 import Contact from "./pages/Contact";
 import TravelGuides from "./pages/TravelGuides";
 import GuideDetail from "./pages/GuideDetail";
@@ -68,7 +67,6 @@ const App = () => {
                 <Route path="/hotels" element={<Hotels />} />
                 <Route path="/voitures" element={<Cars />} />
                 <Route path="/excursions" element={<Excursions />} />
-                <Route path="/vip" element={<Vip />} />
                 <Route path="/guides" element={<TravelGuides />} />
                 <Route path="/guides/:slug" element={<GuideDetail />} />
                 <Route path="/destinations" element={<Destinations />} />

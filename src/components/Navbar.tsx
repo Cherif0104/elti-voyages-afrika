@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { cn } from '@/lib/utils';
@@ -27,7 +26,6 @@ const navItems: NavItem[] = [
   { name: "Excursions", path: "/excursions" },
   { name: "Destinations", path: "/destinations", icon: <Compass className="h-4 w-4 mr-1" /> },
   { name: "Guides de voyage", path: "/guides", icon: <Book className="h-4 w-4 mr-1" /> },
-  { name: "VIP / Conciergerie", path: "/vip" },
   { name: "Contact", path: "/contact" },
 ];
 
