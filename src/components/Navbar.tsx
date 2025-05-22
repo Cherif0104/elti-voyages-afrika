@@ -2,15 +2,12 @@
 import { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { cn } from '@/lib/utils';
-import { Trophy, Menu, X, User, Search, MapPin, Book, Compass } from 'lucide-react';
+import { Trophy, Menu, X, Search, Book, Compass } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import Logo from '@/components/Logo';
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
+import DesktopNav from '@/components/navigation/DesktopNav';
+import MobileNav from '@/components/navigation/MobileNav';
+import UserMenu from '@/components/navigation/UserMenu';
 
 type NavItem = {
   name: string;
@@ -55,6 +52,8 @@ const Navbar = () => {
     };
   }, []);
 
+  const toggleMenu = () => setIsOpen(!isOpen);
+
   return (
     <header className={cn(
       "sticky top-0 z-50 w-full transition-all duration-300",
@@ -71,26 +70,7 @@ const Navbar = () => {
           </Link>
           
           {/* Desktop Navigation */}
-          <nav className="hidden lg:flex items-center space-x-2">
-            {navItems.map((item) => {
-              const isActive = location.pathname === item.path;
-              return (
-                <Link
-                  key={item.path}
-                  to={item.path}
-                  className={cn(
-                    "px-4 py-2 rounded-md text-sm font-medium transition-colors flex items-center",
-                    isActive
-                      ? "bg-primary text-white"
-                      : "text-gray-700 hover:bg-gray-100"
-                  )}
-                >
-                  {item.icon && item.icon}
-                  {item.name}
-                </Link>
-              );
-            })}
-          </nav>
+          <DesktopNav navItems={navItems} />
           
           {/* Right side elements */}
           <div className="flex items-center gap-4">
@@ -113,27 +93,7 @@ const Navbar = () => {
             </Button>
             
             {/* User Profile */}
-            <DropdownMenu>
-              <DropdownMenuTrigger asChild>
-                <Button variant="outline" size="icon" className="rounded-full border-gray-200">
-                  <User className="h-5 w-5" />
-                </Button>
-              </DropdownMenuTrigger>
-              <DropdownMenuContent align="end" className="w-48">
-                <DropdownMenuItem asChild>
-                  <Link to="#reservation" className="cursor-pointer">Réserver un voyage</Link>
-                </DropdownMenuItem>
-                <DropdownMenuItem asChild>
-                  <Link to="/destinations" className="cursor-pointer">Destinations</Link>
-                </DropdownMenuItem>
-                <DropdownMenuItem asChild>
-                  <Link to="/guides" className="cursor-pointer">Guides de voyage</Link>
-                </DropdownMenuItem>
-                <DropdownMenuItem asChild>
-                  <Link to="/contact" className="cursor-pointer">Contacter l'agence</Link>
-                </DropdownMenuItem>
-              </DropdownMenuContent>
-            </DropdownMenu>
+            <UserMenu />
             
             {/* Mobile menu button */}
             <div className="lg:hidden">
@@ -141,7 +101,7 @@ const Navbar = () => {
                 variant="ghost"
                 size="icon"
                 aria-label={isOpen ? "Close menu" : "Open menu"}
-                onClick={() => setIsOpen(!isOpen)}
+                onClick={toggleMenu}
                 className="relative z-50"
               >
                 {isOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
@@ -152,46 +112,11 @@ const Navbar = () => {
       </div>
       
       {/* Mobile Navigation */}
-      {isOpen && (
-        <div className="fixed inset-0 bg-white z-40 lg:hidden overflow-y-auto pt-20">
-          <div className="flex flex-col h-full">
-            <div className="overflow-y-auto flex-grow">
-              <nav className="flex flex-col p-4">
-                {navItems.map((item) => {
-                  const isActive = location.pathname === item.path;
-                  return (
-                    <Link
-                      key={item.path}
-                      to={item.path}
-                      className={cn(
-                        "flex items-center px-4 py-4 mb-2 rounded-md transition-colors",
-                        isActive
-                          ? "bg-primary text-white"
-                          : "text-gray-700 hover:bg-gray-100"
-                      )}
-                      onClick={() => setIsOpen(false)}
-                    >
-                      {item.icon && item.icon}
-                      <span className="font-medium">{item.name}</span>
-                    </Link>
-                  );
-                })}
-              </nav>
-            </div>
-            
-            <div className="p-6 border-t border-gray-200 bg-gray-50">
-              <Button
-                asChild
-                className="w-full bg-secondary text-primary hover:bg-secondary/90 mb-4"
-              >
-                <Link to="#reservation" onClick={() => setIsOpen(false)}>
-                  Réserver
-                </Link>
-              </Button>
-            </div>
-          </div>
-        </div>
-      )}
+      <MobileNav 
+        isOpen={isOpen} 
+        navItems={navItems} 
+        onClose={() => setIsOpen(false)} 
+      />
     </header>
   );
 };
