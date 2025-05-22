@@ -1,6 +1,6 @@
 
 import { Link } from 'react-router-dom';
-import { User, PhoneCall, MapPin } from 'lucide-react';
+import { User, PhoneCall, MapPin, Compass } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import {
   DropdownMenu,
