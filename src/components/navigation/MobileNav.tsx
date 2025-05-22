@@ -2,6 +2,7 @@
 import { Link, useLocation } from 'react-router-dom';
 import { cn } from '@/lib/utils';
 import { Button } from '@/components/ui/button';
+import { motion } from 'framer-motion';
 
 type NavItem = {
   name: string;
@@ -21,7 +22,13 @@ const MobileNav = ({ isOpen, navItems, onClose }: MobileNavProps) => {
   if (!isOpen) return null;
   
   return (
-    <div className="fixed inset-0 bg-white z-40 lg:hidden overflow-y-auto pt-20">
+    <motion.div 
+      className="fixed inset-0 bg-white z-40 lg:hidden overflow-y-auto pt-20"
+      initial={{ opacity: 0, y: -20 }}
+      animate={{ opacity: 1, y: 0 }}
+      exit={{ opacity: 0, y: -20 }}
+      transition={{ duration: 0.3 }}
+    >
       <div className="flex flex-col h-full">
         <div className="overflow-y-auto flex-grow">
           <nav className="flex flex-col p-4">
@@ -39,7 +46,7 @@ const MobileNav = ({ isOpen, navItems, onClose }: MobileNavProps) => {
                   )}
                   onClick={onClose}
                 >
-                  {item.icon && item.icon}
+                  {item.icon && <div className="mr-3">{item.icon}</div>}
                   <span className="font-medium">{item.name}</span>
                 </Link>
               );
@@ -50,15 +57,25 @@ const MobileNav = ({ isOpen, navItems, onClose }: MobileNavProps) => {
         <div className="p-6 border-t border-gray-200 bg-gray-50">
           <Button
             asChild
-            className="w-full bg-secondary text-primary hover:bg-secondary/90 mb-4"
+            className="w-full bg-secondary text-primary hover:bg-secondary/90 mb-4 font-medium"
           >
             <Link to="#reservation" onClick={onClose}>
-              Réserver
+              Réserver maintenant
+            </Link>
+          </Button>
+          
+          <Button
+            asChild
+            variant="outline"
+            className="w-full border-primary text-primary hover:bg-primary/5"
+          >
+            <Link to="/contact" onClick={onClose}>
+              Nous contacter
             </Link>
           </Button>
         </div>
       </div>
-    </div>
+    </motion.div>
   );
 };
 

@@ -25,14 +25,14 @@ const DesktopNav = ({ navItems }: DesktopNavProps) => {
             key={item.path}
             to={item.path}
             className={cn(
-              "px-4 py-2 rounded-md text-sm font-medium transition-colors flex items-center",
+              "px-4 py-2 rounded-md text-sm font-medium transition-colors flex items-center gap-2",
               isActive
                 ? "bg-primary text-white"
                 : "text-gray-700 hover:bg-gray-100"
             )}
           >
             {item.icon && item.icon}
-            {item.name}
+            <span>{item.name}</span>
           </Link>
         );
       })}
