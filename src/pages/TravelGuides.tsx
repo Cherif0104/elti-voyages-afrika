@@ -1,69 +1,98 @@
 
 import { motion } from "framer-motion";
-import { Button } from "@/components/ui/button";
-import { Badge } from "@/components/ui/badge";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Input } from "@/components/ui/input";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { Search } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { Card } from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
+import { Search, MapPin, Calendar, User, ChevronRight, Globe, Book } from "lucide-react";
 import TravelGuideCard from "@/components/guides/TravelGuideCard";
 import { Link } from "react-router-dom";
+import { useState } from "react";
 
 const TravelGuides = () => {
+  const [searchTerm, setSearchTerm] = useState("");
+  
+  // Sample travel guides data
   const guides = [
     {
-      title: "Guide complet pour visiter Marrakech",
+      title: "Les incontournables de Marrakech",
       location: "Marrakech, Maroc",
-      date: "15 Avril 2025",
-      author: "Sofia Benali",
-      excerpt: "Découvrez les incontournables de la ville ocre : des souks animés de la médina à la majesté des jardins Majorelle, en passant par la fameuse place Jemaa el-Fna.",
+      date: "Mis à jour le 15 Mai 2025",
+      author: "Sarah Dubois",
+      excerpt: "Découvrez les lieux emblématiques de la ville ocre : médina, jardins, palais et souks. Un guide complet pour ne rien manquer.",
       imageSrc: "/lovable-uploads/d0e93051-21a2-40fb-8b25-5f07c3413af5.png",
-      slug: "guide-marrakech"
+      slug: "incontournables-marrakech",
+      categories: ["Maroc", "Ville", "Culture"]
     },
     {
-      title: "Explorer Chefchaouen, la ville bleue",
-      location: "Chefchaouen, Maroc",
-      date: "2 Mai 2025",
-      author: "Karim Idrissi",
-      excerpt: "Promenez-vous dans le labyrinthe de ruelles aux murs bleus, découvrez l'artisanat local et imprégnez-vous de l'ambiance unique de cette ville nichée dans les montagnes du Rif.",
-      imageSrc: "/lovable-uploads/d0e93051-21a2-40fb-8b25-5f07c3413af5.png",
-      slug: "explorer-chefchaouen"
-    },
-    {
-      title: "Les plages secrètes du Sénégal",
-      location: "Sénégal",
-      date: "10 Juin 2025",
-      author: "Aminata Diop",
-      excerpt: "Au-delà de Dakar et Saly, découvrez les criques isolées et les plages de sable fin méconnues qui bordent la côte atlantique du Sénégal.",
-      imageSrc: "/lovable-uploads/8f78671e-52ba-451f-826b-7eefe225183e.png",
-      slug: "plages-senegal"
-    },
-    {
-      title: "Fès : voyage au cœur de la plus ancienne médina",
-      location: "Fès, Maroc",
-      date: "25 Mai 2025",
-      author: "Hassan Alaoui",
-      excerpt: "Explorez la médina de Fès, classée au patrimoine mondial de l'UNESCO, avec ses 9000 ruelles, ses tanneries traditionnelles et ses monuments historiques.",
+      title: "Randonnées dans les montagnes de l'Atlas",
+      location: "Atlas, Maroc",
+      date: "Mis à jour le 2 Avril 2025",
+      author: "Michel Laurent",
+      excerpt: "Des sommets majestueux aux vallées verdoyantes, découvrez les plus beaux sentiers de randonnée de l'Atlas marocain.",
       imageSrc: "/lovable-uploads/c99e7d53-c8ff-4e7a-95e8-87fd146eef92.png",
-      slug: "fes-medina"
+      slug: "randonnees-atlas",
+      categories: ["Maroc", "Nature", "Aventure"]
     },
     {
-      title: "Safari dans le parc national du Niokolo-Koba",
-      location: "Sénégal",
-      date: "8 Juillet 2025",
-      author: "Ousmane Ndiaye",
-      excerpt: "Partez à la découverte de la faune sauvage du Sénégal dans l'un des plus grands parcs d'Afrique de l'Ouest, habitat des lions, éléphants, hippopotames et antilopes.",
-      imageSrc: "/lovable-uploads/f608db7e-7f02-4846-8e00-dd7719a0de18.png",
-      slug: "safari-niokolo-koba"
+      title: "Gastronomie sénégalaise : saveurs et traditions",
+      location: "Dakar, Sénégal",
+      date: "Mis à jour le 10 Mars 2025",
+      author: "Aminata Diop",
+      excerpt: "Plongez dans les saveurs authentiques de la cuisine sénégalaise, entre thieboudienne, mafé et yassa poulet.",
+      imageSrc: "/lovable-uploads/28d985f6-366d-45b3-89a2-e799b677f0dd.png",
+      slug: "gastronomie-senegalaise",
+      categories: ["Sénégal", "Gastronomie", "Culture"]
     },
     {
       title: "Le désert de Merzouga : guide pratique",
       location: "Merzouga, Maroc",
-      date: "30 Avril 2025",
-      author: "Youssef Benjelloun",
-      excerpt: "Tout ce que vous devez savoir pour préparer votre excursion dans les dunes de l'Erg Chebbi, depuis l'équipement nécessaire jusqu'aux meilleures périodes pour visiter.",
+      date: "Mis à jour le 20 Février 2025",
+      author: "Rachid Benali",
+      excerpt: "Comment préparer votre séjour dans le désert, quand partir, que prendre et comment profiter pleinement des dunes de l'Erg Chebbi.",
       imageSrc: "/lovable-uploads/00639225-b6c9-4ae6-bf80-d8c5154fb25f.png",
-      slug: "desert-merzouga"
+      slug: "desert-merzouga-guide",
+      categories: ["Maroc", "Désert", "Aventure"]
+    },
+    {
+      title: "Les plages de la Petite Côte au Sénégal",
+      location: "Saly, Sénégal",
+      date: "Mis à jour le 5 Janvier 2025",
+      author: "Jean Dupont",
+      excerpt: "De Saly à Somone, découvrez les plus belles plages de la Petite Côte sénégalaise et les activités incontournables.",
+      imageSrc: "/lovable-uploads/8f78671e-52ba-451f-826b-7eefe225183e.png",
+      slug: "plages-petite-cote",
+      categories: ["Sénégal", "Plage", "Détente"]
+    },
+    {
+      title: "Chefchaouen : la perle bleue du Maroc",
+      location: "Chefchaouen, Maroc",
+      date: "Mis à jour le 12 Décembre 2024",
+      author: "Emma Moreau",
+      excerpt: "Perdez-vous dans les ruelles bleues de Chefchaouen et découvrez l'artisanat local, les panoramas et la sérénité de la ville bleue.",
+      imageSrc: "/lovable-uploads/c99e7d53-c8ff-4e7a-95e8-87fd146eef92.png",
+      slug: "chefchaouen-perle-bleue",
+      categories: ["Maroc", "Ville", "Culture"]
     }
+  ];
+
+  const filteredGuides = searchTerm 
+    ? guides.filter(guide => 
+        guide.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        guide.location.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        guide.categories.some(cat => cat.toLowerCase().includes(searchTerm.toLowerCase()))
+      )
+    : guides;
+  
+  // Categories for filtering
+  const categories = [
+    { name: "Tous", value: "all" },
+    { name: "Maroc", value: "morocco" },
+    { name: "Sénégal", value: "senegal" },
+    { name: "Culture", value: "culture" },
+    { name: "Nature", value: "nature" },
+    { name: "Aventure", value: "adventure" },
   ];
 
   return (
@@ -78,149 +107,222 @@ const TravelGuides = () => {
             className="text-center max-w-3xl mx-auto"
           >
             <span className="inline-block text-secondary font-semibold mb-2 text-lg drop-shadow-md">
-              Conseils et astuces de voyage
+              Inspirations & conseils de voyage
             </span>
             <h1 className="text-4xl lg:text-5xl font-bold mb-6 leading-tight drop-shadow-lg">
               Guides de voyage
-              <span className="block mt-2 text-secondary">Maroc & Sénégal</span>
+              <span className="block mt-2 text-secondary">Experts locaux & expériences authentiques</span>
             </h1>
             <p className="text-lg mb-8 font-medium drop-shadow-md">
-              Découvrez nos guides détaillés pour préparer votre voyage et explorer les plus beaux sites d'Afrique du Nord et de l'Ouest.
+              Des conseils de voyage par nos experts locaux pour vous aider à découvrir l'authenticité du Maroc et du Sénégal.
             </p>
+            
+            {/* Search bar */}
+            <div className="max-w-2xl mx-auto mt-8 relative">
+              <div className="flex">
+                <div className="relative flex-grow">
+                  <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" size={20} />
+                  <Input 
+                    type="text"
+                    placeholder="Rechercher par destination, thème ou intérêt..."
+                    className="pl-10 pr-4 py-6 text-gray-800 rounded-l-md w-full border-r-0 focus-visible:ring-primary"
+                    value={searchTerm}
+                    onChange={(e) => setSearchTerm(e.target.value)}
+                  />
+                </div>
+                <Button 
+                  className="rounded-l-none bg-secondary hover:bg-secondary/80 text-primary px-6"
+                >
+                  Rechercher
+                </Button>
+              </div>
+            </div>
           </motion.div>
         </div>
       </section>
       
-      {/* Search and Filters Section */}
-      <div className="container mx-auto px-4 py-8">
-        <div className="bg-white rounded-lg shadow-md p-6 -mt-16 relative z-10">
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
-            <div className="relative">
-              <Input 
-                placeholder="Rechercher un guide..." 
-                className="pl-10"
-              />
-              <Search className="absolute left-3 top-2.5 h-5 w-5 text-gray-400" />
-            </div>
-            
-            <Select>
-              <SelectTrigger>
-                <SelectValue placeholder="Destination" />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem value="all">Toutes les destinations</SelectItem>
-                <SelectItem value="morocco">Maroc</SelectItem>
-                <SelectItem value="senegal">Sénégal</SelectItem>
-                <SelectItem value="marrakech">Marrakech</SelectItem>
-                <SelectItem value="casablanca">Casablanca</SelectItem>
-                <SelectItem value="dakar">Dakar</SelectItem>
-              </SelectContent>
-            </Select>
-            
-            <Select>
-              <SelectTrigger>
-                <SelectValue placeholder="Catégorie" />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem value="all">Toutes les catégories</SelectItem>
-                <SelectItem value="culture">Culture</SelectItem>
-                <SelectItem value="nature">Nature & Paysages</SelectItem>
-                <SelectItem value="adventure">Aventure</SelectItem>
-                <SelectItem value="food">Gastronomie</SelectItem>
-                <SelectItem value="tips">Conseils pratiques</SelectItem>
-              </SelectContent>
-            </Select>
-          </div>
-        </div>
-      </div>
-      
       {/* Main Content */}
-      <div className="container mx-auto px-4 py-10">
-        <motion.div 
+      <div className="container mx-auto px-4 py-16">
+        {/* Tabs for Categories */}
+        <Tabs defaultValue="all" className="mb-12">
+          <TabsList className="mb-8 w-full max-w-3xl mx-auto overflow-x-auto flex justify-start p-1 space-x-1">
+            {categories.map((category) => (
+              <TabsTrigger 
+                key={category.value} 
+                value={category.value}
+                className="px-4 py-2 whitespace-nowrap"
+              >
+                {category.name}
+              </TabsTrigger>
+            ))}
+          </TabsList>
+          
+          <TabsContent value="all">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {filteredGuides.map((guide, index) => (
+                <TravelGuideCard
+                  key={index}
+                  {...guide}
+                />
+              ))}
+            </div>
+          </TabsContent>
+          
+          <TabsContent value="morocco">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {filteredGuides
+                .filter(guide => guide.location.includes("Maroc"))
+                .map((guide, index) => (
+                  <TravelGuideCard
+                    key={index}
+                    {...guide}
+                  />
+                ))}
+            </div>
+          </TabsContent>
+          
+          <TabsContent value="senegal">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {filteredGuides
+                .filter(guide => guide.location.includes("Sénégal"))
+                .map((guide, index) => (
+                  <TravelGuideCard
+                    key={index}
+                    {...guide}
+                  />
+                ))}
+            </div>
+          </TabsContent>
+          
+          <TabsContent value="culture">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {filteredGuides
+                .filter(guide => guide.categories.includes("Culture"))
+                .map((guide, index) => (
+                  <TravelGuideCard
+                    key={index}
+                    {...guide}
+                  />
+                ))}
+            </div>
+          </TabsContent>
+          
+          <TabsContent value="nature">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {filteredGuides
+                .filter(guide => guide.categories.includes("Nature"))
+                .map((guide, index) => (
+                  <TravelGuideCard
+                    key={index}
+                    {...guide}
+                  />
+                ))}
+            </div>
+          </TabsContent>
+          
+          <TabsContent value="adventure">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {filteredGuides
+                .filter(guide => guide.categories.includes("Aventure"))
+                .map((guide, index) => (
+                  <TravelGuideCard
+                    key={index}
+                    {...guide}
+                  />
+                ))}
+            </div>
+          </TabsContent>
+        </Tabs>
+        
+        {/* Featured Expert Section */}
+        <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
+          transition={{ duration: 0.5 }}
           viewport={{ once: true }}
-          className="text-center mb-12"
+          className="my-16 bg-gray-50 p-8 rounded-lg"
         >
-          <span className="inline-block px-3 py-1 bg-primary/10 text-primary text-sm font-medium rounded-md mb-3">
-            Explorer & s'inspirer
-          </span>
-          <h2 className="text-3xl font-bold text-primary mb-4">Nos guides de voyage</h2>
-          <p className="text-gray-600 max-w-2xl mx-auto">
-            Des informations pratiques, des itinéraires testés et des conseils d'experts pour vous aider à planifier le voyage parfait.
-          </p>
-        </motion.div>
-        
-        {/* Travel Guides Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-16">
-          {guides.map((guide, index) => (
-            <TravelGuideCard
-              key={index}
-              title={guide.title}
-              location={guide.location}
-              date={guide.date}
-              author={guide.author}
-              excerpt={guide.excerpt}
-              imageSrc={guide.imageSrc}
-              slug={guide.slug}
-            />
-          ))}
-        </div>
-        
-        {/* Newsletter Section */}
-        <div className="bg-gray-50 rounded-lg p-8 text-center mb-16">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-            viewport={{ once: true }}
-          >
-            <Badge className="mb-3 px-3 py-1 bg-primary/10 text-primary">
-              Restez informé
-            </Badge>
-            <h3 className="text-2xl font-bold mb-3 text-primary">
-              Abonnez-vous à notre newsletter
-            </h3>
-            <p className="text-gray-600 max-w-2xl mx-auto mb-6">
-              Recevez nos derniers guides de voyage, conseils et offres spéciales directement dans votre boîte mail.
-            </p>
-            
-            <div className="flex flex-col sm:flex-row gap-4 max-w-lg mx-auto">
-              <Input placeholder="Votre adresse e-mail" className="flex-grow" />
-              <Button className="whitespace-nowrap bg-primary">
-                S'abonner
-              </Button>
-            </div>
-          </motion.div>
-        </div>
-        
-        {/* Final CTA */}
-        <div className="py-12 bg-primary text-white rounded-lg">
-          <div className="container mx-auto px-4">
-            <div className="flex flex-col lg:flex-row items-center justify-between">
-              <div className="mb-6 lg:mb-0">
-                <Badge className="mb-4 px-3 py-1 bg-secondary text-primary">
-                  Voyagez comme un local
-                </Badge>
-                <h2 className="text-3xl font-bold mb-2">
-                  Besoin d'un itinéraire sur mesure ?
-                </h2>
-                <p className="text-white/80 max-w-lg">
-                  Nos experts locaux sont là pour créer votre voyage personnalisé au Maroc et au Sénégal.
-                </p>
+          <div className="flex flex-col lg:flex-row items-center gap-8">
+            <div className="lg:w-1/3">
+              <div className="relative rounded-full overflow-hidden w-48 h-48 border-4 border-white shadow-lg mx-auto">
+                <img 
+                  src="/lovable-uploads/8a02378a-4b7f-4134-874a-8647c54e9c7d.png" 
+                  alt="Expert local" 
+                  className="w-full h-full object-cover"
+                />
               </div>
-              
-              <Button 
-                asChild
-                size="lg"
-                className="text-lg px-8 py-6 font-semibold bg-secondary hover:bg-secondary/90 text-primary transition-all duration-300"
-              >
+            </div>
+            <div className="lg:w-2/3 text-center lg:text-left">
+              <Badge className="mb-2 bg-secondary text-primary">Expert local</Badge>
+              <h2 className="text-2xl font-bold mb-3">Rachid Alaoui</h2>
+              <p className="text-gray-600 mb-4">
+                Guide certifié avec plus de 15 ans d'expérience dans l'organisation de voyages au Maroc, Rachid est passionné par l'histoire, la culture et les traditions de son pays. Il vous fera découvrir les joyaux cachés du Maroc que seuls les locaux connaissent.
+              </p>
+              <div className="flex flex-wrap gap-2 justify-center lg:justify-start mb-4">
+                <Badge variant="outline" className="bg-white">Marrakech</Badge>
+                <Badge variant="outline" className="bg-white">Désert</Badge>
+                <Badge variant="outline" className="bg-white">Histoire & Culture</Badge>
+              </div>
+              <Button asChild variant="outline" className="gap-2">
                 <Link to="/contact">
-                  Nous contacter
+                  Contacter Rachid
+                  <ChevronRight className="h-4 w-4" />
                 </Link>
               </Button>
             </div>
+          </div>
+        </motion.div>
+        
+        {/* Travel Planning Section */}
+        <div className="my-16">
+          <div className="text-center mb-10">
+            <span className="inline-block px-3 py-1 bg-primary/10 text-primary text-sm font-medium rounded-md mb-3">
+              Voyagez en toute confiance
+            </span>
+            <h2 className="text-3xl font-bold text-primary mb-3">Planifiez votre voyage avec nos experts</h2>
+            <p className="text-gray-600 max-w-2xl mx-auto">
+              Notre équipe d'experts locaux vous accompagne dans la création d'un voyage sur mesure qui correspond parfaitement à vos attentes et à votre budget.
+            </p>
+          </div>
+          
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <Card className="bg-white p-6 flex flex-col items-center text-center hover:shadow-lg transition-all duration-300">
+              <div className="bg-primary/10 w-16 h-16 rounded-full flex items-center justify-center mb-4">
+                <MapPin className="h-8 w-8 text-primary" />
+              </div>
+              <h3 className="text-xl font-bold mb-2">Expertise locale</h3>
+              <p className="text-gray-600 mb-4">
+                Nos conseillers sont tous des experts des destinations qu'ils proposent et connaissent chaque recoin du pays.
+              </p>
+            </Card>
+            
+            <Card className="bg-white p-6 flex flex-col items-center text-center hover:shadow-lg transition-all duration-300">
+              <div className="bg-primary/10 w-16 h-16 rounded-full flex items-center justify-center mb-4">
+                <Book className="h-8 w-8 text-primary" />
+              </div>
+              <h3 className="text-xl font-bold mb-2">Voyages personnalisés</h3>
+              <p className="text-gray-600 mb-4">
+                Chaque voyage est conçu selon vos envies, votre rythme et vos centres d'intérêt pour une expérience unique.
+              </p>
+            </Card>
+            
+            <Card className="bg-white p-6 flex flex-col items-center text-center hover:shadow-lg transition-all duration-300">
+              <div className="bg-primary/10 w-16 h-16 rounded-full flex items-center justify-center mb-4">
+                <Globe className="h-8 w-8 text-primary" />
+              </div>
+              <h3 className="text-xl font-bold mb-2">Tourisme responsable</h3>
+              <p className="text-gray-600 mb-4">
+                Nous privilégions un tourisme éthique qui respecte les communautés locales et préserve l'environnement.
+              </p>
+            </Card>
+          </div>
+          
+          <div className="text-center mt-10">
+            <Button asChild size="lg" className="bg-secondary text-primary hover:bg-secondary/90">
+              <Link to="/contact">
+                Contactez un expert
+              </Link>
+            </Button>
           </div>
         </div>
       </div>
