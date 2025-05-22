@@ -1,3 +1,4 @@
+
 import { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { cn } from '@/lib/utils';
@@ -66,7 +67,7 @@ const Navbar = () => {
           {/* Logo */}
           <Link to="/" className="flex items-center">
             <Logo size="md" />
-            <span className="text-xl font-bold text-primary ml-2 hidden sm:block">ELTI VOYAGES</span>
+            {/* Removed the ELTI VOYAGES text */}
           </Link>
           
           {/* Desktop Navigation */}
