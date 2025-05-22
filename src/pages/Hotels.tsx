@@ -1,8 +1,8 @@
-
-import { Building, Star, MapPin, Calendar, Users, Trophy, Heart, Plus, Check, ChevronRight } from "lucide-react";
+import { Building, Star, MapPin, Calendar, Users, Trophy, Heart, Plus, Check, ChevronRight, Home, Building2, BedDouble } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { motion } from "framer-motion";
 import { fadeInUp, staggerContainer } from "@/components/can2025/AnimationUtils";
 import PartnerLogo from "@/components/PartnerLogo";
@@ -10,7 +10,18 @@ import HotelsHeroSection from "@/components/hotels/HotelsHeroSection";
 import HotelStatsSection from "@/components/hotels/HotelStatsSection";
 import HotelCtaSection from "@/components/hotels/HotelCtaSection";
 
-const HotelCard = ({ category, city, price, features, imageUrl }) => {
+const AccommodationCard = ({ category, city, price, features, imageUrl, type }) => {
+  // Icon mapping for different accommodation types
+  const getTypeIcon = () => {
+    switch(type) {
+      case "hotel": return <Building className="h-4 w-4 text-primary" />;
+      case "apartment": return <Building2 className="h-4 w-4 text-primary" />;
+      case "villa": return <Home className="h-4 w-4 text-primary" />;
+      case "riad": return <BedDouble className="h-4 w-4 text-primary" />;
+      default: return <Building className="h-4 w-4 text-primary" />;
+    }
+  };
+
   return (
     <Card className="overflow-hidden transition-all hover:shadow-lg hover:translate-y-[-5px] duration-300">
       <div className="w-full h-48 relative group">
@@ -20,6 +31,10 @@ const HotelCard = ({ category, city, price, features, imageUrl }) => {
           className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
         />
         <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+        <div className="absolute top-2 left-2 bg-white/90 px-2 py-1 rounded text-xs font-medium flex items-center gap-1">
+          {getTypeIcon()}
+          <span>{type.charAt(0).toUpperCase() + type.slice(1)}</span>
+        </div>
         <div className="absolute bottom-0 left-0 p-3 text-white opacity-0 group-hover:opacity-100 transition-opacity duration-300">
           <MapPin className="h-4 w-4 inline mr-1" /> {city}
         </div>
@@ -58,34 +73,117 @@ const HotelCard = ({ category, city, price, features, imageUrl }) => {
 };
 
 const Hotels = () => {
-  const hotelCategories = [
+  const accommodations = [
+    // Morocco
     {
-      category: "Marrakech",
-      city: "Hôtels traditionnels & riads",
-      price: "80 € / nuit",
-      features: ["Centre historique", "Piscine", "Restaurant traditionnel", "Spa & hammam"],
-      imageUrl: "/lovable-uploads/af93fe88-9741-47cf-bb0f-4bdd4f5c1abc.png"
+      category: "Hôtel Royal Mansour",
+      city: "Marrakech, Maroc",
+      price: "350 € / nuit",
+      features: ["Service 5 étoiles", "Spa de luxe", "Restaurant gastronomique", "Piscine privée"],
+      imageUrl: "/lovable-uploads/af93fe88-9741-47cf-bb0f-4bdd4f5c1abc.png",
+      type: "hotel",
+      country: "maroc"
     },
     {
-      category: "Dakar",
-      city: "Hébergements design",
-      price: "95 € / nuit",
+      category: "Riad Palais Sebban",
+      city: "Médina de Marrakech, Maroc",
+      price: "120 € / nuit",
+      features: ["Patio traditionnel", "Piscine", "Terrasse panoramique", "Décoration authentique"],
+      imageUrl: "/lovable-uploads/d0e93051-21a2-40fb-8b25-5f07c3413af5.png",
+      type: "riad",
+      country: "maroc"
+    },
+    {
+      category: "Villa Palmeraie",
+      city: "Palmeraie, Marrakech, Maroc",
+      price: "280 € / nuit",
+      features: ["Jardin privé", "Piscine", "Personnel de maison", "6 chambres"],
+      imageUrl: "/lovable-uploads/c99e7d53-c8ff-4e7a-95e8-87fd146eef92.png",
+      type: "villa",
+      country: "maroc"
+    },
+    {
+      category: "Appartements Marina",
+      city: "Casablanca, Maroc",
+      price: "90 € / nuit",
+      features: ["Vue sur mer", "Sécurité 24h/24", "Entièrement meublé", "Proche commerces"],
+      imageUrl: "/lovable-uploads/8bc5d2ec-a33d-48d8-af8e-ca833e69098c.png",
+      type: "apartment",
+      country: "maroc"
+    },
+    // Senegal
+    {
+      category: "Radisson Blu Hotel",
+      city: "Dakar, Sénégal",
+      price: "160 € / nuit",
       features: ["Vue sur l'océan", "Piscine à débordement", "Restaurant gastronomique", "Centre d'affaires"],
-      imageUrl: "/lovable-uploads/1562369a-d2f9-417f-a03c-6ccf5e14e512.png"
+      imageUrl: "/lovable-uploads/1562369a-d2f9-417f-a03c-6ccf5e14e512.png",
+      type: "hotel",
+      country: "senegal"
     },
     {
-      category: "Monument Renaissance",
-      city: "Dakar",
-      price: "110 € / nuit",
-      features: ["Vue panoramique", "Proximité des sites historiques", "Transport inclus", "Visite guidée offerte"],
-      imageUrl: "/lovable-uploads/771002fe-2fef-4055-a080-056ff7e51723.png"
+      category: "Villa Saly",
+      city: "Saly, Sénégal",
+      price: "220 € / nuit",
+      features: ["Accès plage privée", "Piscine", "Personnel inclus", "4 chambres"],
+      imageUrl: "/lovable-uploads/28d985f6-366d-45b3-89a2-e799b677f0dd.png",
+      type: "villa",
+      country: "senegal"
     },
     {
-      category: "Casablanca",
-      city: "Hôtels de luxe",
-      price: "150 € / nuit",
-      features: ["Club privé", "Conciergerie 24h/24", "Restaurant étoilé", "Transferts privatifs"],
-      imageUrl: "/lovable-uploads/e4b218b7-e04c-4ba9-b820-3532d1f43e94.png"
+      category: "Appartement Corniche",
+      city: "Dakar, Sénégal",
+      price: "85 € / nuit",
+      features: ["Vue panoramique", "Sécurité", "Entièrement équipé", "Parking"],
+      imageUrl: "/lovable-uploads/771002fe-2fef-4055-a080-056ff7e51723.png",
+      type: "apartment",
+      country: "senegal"
+    },
+    {
+      category: "Terrou-Bi Resort",
+      city: "Dakar, Sénégal",
+      price: "175 € / nuit",
+      features: ["Casino", "Plage privée", "Restaurants", "Centre de bien-être"],
+      imageUrl: "/lovable-uploads/e4b218b7-e04c-4ba9-b820-3532d1f43e94.png",
+      type: "hotel",
+      country: "senegal"
+    },
+    // Other destinations
+    {
+      category: "Kasbah Tamadot",
+      city: "Asni, Atlas, Maroc",
+      price: "450 € / nuit",
+      features: ["Vue sur montagne", "Expérience berbère", "Piscine", "Restaurant gourmet"],
+      imageUrl: "/lovable-uploads/8f78671e-52ba-451f-826b-7eefe225183e.png",
+      type: "hotel",
+      country: "maroc"
+    },
+    {
+      category: "Riad Fès",
+      city: "Fès, Maroc",
+      price: "180 € / nuit",
+      features: ["Spa", "Restaurant marocain", "Terrasse", "Médina UNESCO"],
+      imageUrl: "/lovable-uploads/c99e7d53-c8ff-4e7a-95e8-87fd146eef92.png",
+      type: "riad",
+      country: "maroc"
+    },
+    {
+      category: "Lagoon Apartments",
+      city: "Mbour, Sénégal",
+      price: "95 € / nuit",
+      features: ["Vue lagune", "2 chambres", "Terrasse privée", "Accès piscine"],
+      imageUrl: "/lovable-uploads/00639225-b6c9-4ae6-bf80-d8c5154fb25f.png",
+      type: "apartment",
+      country: "senegal"
+    },
+    {
+      category: "Villa Cap Skirring",
+      city: "Casamance, Sénégal",
+      price: "140 € / nuit",
+      features: ["Vue océan", "Jardin tropical", "Personnel", "Sport aquatiques"],
+      imageUrl: "/lovable-uploads/8f78671e-52ba-451f-826b-7eefe225183e.png",
+      type: "villa",
+      country: "senegal"
     }
   ];
   
@@ -153,7 +251,7 @@ const Hotels = () => {
         </div>
       </section>
       
-      {/* Hotel Categories */}
+      {/* Accommodation Types */}
       <section className="bg-gray-50 py-16">
         <div className="container mx-auto px-4">
           <motion.div
@@ -164,27 +262,197 @@ const Hotels = () => {
             className="text-center mb-10"
           >
             <span className="inline-block px-3 py-1 bg-primary/10 text-primary text-sm font-medium rounded-full mb-3">
-              Destinations
+              Hébergements
             </span>
-            <h2 className="text-3xl font-bold text-primary mb-4">Nos hébergements populaires</h2>
+            <h2 className="text-3xl font-bold text-primary mb-4">Solutions d'hébergement variées</h2>
             <p className="text-gray-600 max-w-2xl mx-auto">
-              Du riad traditionnel à l'hôtel 5 étoiles, nous vous proposons des hébergements adaptés à tous les budgets et tous les styles.
+              Découvrez notre sélection d'hébergements pour tous les goûts et tous les budgets au Maroc, au Sénégal et dans nos autres destinations.
             </p>
           </motion.div>
           
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-            {hotelCategories.map((hotel, index) => (
-              <motion.div key={index} variants={fadeInUp}>
-                <HotelCard
-                  category={hotel.category}
-                  city={hotel.city}
-                  price={hotel.price}
-                  features={hotel.features}
-                  imageUrl={hotel.imageUrl}
-                />
-              </motion.div>
-            ))}
-          </div>
+          {/* Tabs for filtering by accommodation type */}
+          <Tabs defaultValue="all" className="mb-8">
+            <TabsList className="mb-8 w-full max-w-3xl mx-auto grid grid-cols-5 gap-2">
+              <TabsTrigger value="all" className="flex-1">Tous</TabsTrigger>
+              <TabsTrigger value="hotel" className="flex-1 flex items-center justify-center gap-1">
+                <Building className="h-4 w-4" />
+                <span>Hôtels</span>
+              </TabsTrigger>
+              <TabsTrigger value="riad" className="flex-1 flex items-center justify-center gap-1">
+                <BedDouble className="h-4 w-4" />
+                <span>Riads</span>
+              </TabsTrigger>
+              <TabsTrigger value="apartment" className="flex-1 flex items-center justify-center gap-1">
+                <Building2 className="h-4 w-4" />
+                <span>Appartements</span>
+              </TabsTrigger>
+              <TabsTrigger value="villa" className="flex-1 flex items-center justify-center gap-1">
+                <Home className="h-4 w-4" />
+                <span>Villas</span>
+              </TabsTrigger>
+            </TabsList>
+            
+            <TabsContent value="all">
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+                {accommodations.map((accommodation, index) => (
+                  <motion.div key={index} variants={fadeInUp}>
+                    <AccommodationCard
+                      category={accommodation.category}
+                      city={accommodation.city}
+                      price={accommodation.price}
+                      features={accommodation.features}
+                      imageUrl={accommodation.imageUrl}
+                      type={accommodation.type}
+                    />
+                  </motion.div>
+                ))}
+              </div>
+            </TabsContent>
+            
+            <TabsContent value="hotel">
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+                {accommodations
+                  .filter(acc => acc.type === "hotel")
+                  .map((accommodation, index) => (
+                    <motion.div key={index} variants={fadeInUp}>
+                      <AccommodationCard
+                        category={accommodation.category}
+                        city={accommodation.city}
+                        price={accommodation.price}
+                        features={accommodation.features}
+                        imageUrl={accommodation.imageUrl}
+                        type={accommodation.type}
+                      />
+                    </motion.div>
+                  ))}
+              </div>
+            </TabsContent>
+            
+            <TabsContent value="riad">
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+                {accommodations
+                  .filter(acc => acc.type === "riad")
+                  .map((accommodation, index) => (
+                    <motion.div key={index} variants={fadeInUp}>
+                      <AccommodationCard
+                        category={accommodation.category}
+                        city={accommodation.city}
+                        price={accommodation.price}
+                        features={accommodation.features}
+                        imageUrl={accommodation.imageUrl}
+                        type={accommodation.type}
+                      />
+                    </motion.div>
+                  ))}
+              </div>
+            </TabsContent>
+            
+            <TabsContent value="apartment">
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+                {accommodations
+                  .filter(acc => acc.type === "apartment")
+                  .map((accommodation, index) => (
+                    <motion.div key={index} variants={fadeInUp}>
+                      <AccommodationCard
+                        category={accommodation.category}
+                        city={accommodation.city}
+                        price={accommodation.price}
+                        features={accommodation.features}
+                        imageUrl={accommodation.imageUrl}
+                        type={accommodation.type}
+                      />
+                    </motion.div>
+                  ))}
+              </div>
+            </TabsContent>
+            
+            <TabsContent value="villa">
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+                {accommodations
+                  .filter(acc => acc.type === "villa")
+                  .map((accommodation, index) => (
+                    <motion.div key={index} variants={fadeInUp}>
+                      <AccommodationCard
+                        category={accommodation.category}
+                        city={accommodation.city}
+                        price={accommodation.price}
+                        features={accommodation.features}
+                        imageUrl={accommodation.imageUrl}
+                        type={accommodation.type}
+                      />
+                    </motion.div>
+                  ))}
+              </div>
+            </TabsContent>
+          </Tabs>
+
+          {/* Tabs for filtering by country */}
+          <Tabs defaultValue="all" className="mt-12">
+            <div className="text-center mb-6">
+              <h3 className="text-xl font-bold text-primary">Explorer par destination</h3>
+            </div>
+            
+            <TabsList className="mb-8 w-full max-w-md mx-auto">
+              <TabsTrigger value="all" className="flex-1">Toutes</TabsTrigger>
+              <TabsTrigger value="maroc" className="flex-1">Maroc</TabsTrigger>
+              <TabsTrigger value="senegal" className="flex-1">Sénégal</TabsTrigger>
+            </TabsList>
+            
+            <TabsContent value="all">
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+                {accommodations.map((accommodation, index) => (
+                  <motion.div key={index} variants={fadeInUp}>
+                    <AccommodationCard
+                      category={accommodation.category}
+                      city={accommodation.city}
+                      price={accommodation.price}
+                      features={accommodation.features}
+                      imageUrl={accommodation.imageUrl}
+                      type={accommodation.type}
+                    />
+                  </motion.div>
+                ))}
+              </div>
+            </TabsContent>
+            
+            <TabsContent value="maroc">
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+                {accommodations
+                  .filter(acc => acc.country === "maroc")
+                  .map((accommodation, index) => (
+                    <motion.div key={index} variants={fadeInUp}>
+                      <AccommodationCard
+                        category={accommodation.category}
+                        city={accommodation.city}
+                        price={accommodation.price}
+                        features={accommodation.features}
+                        imageUrl={accommodation.imageUrl}
+                        type={accommodation.type}
+                      />
+                    </motion.div>
+                  ))}
+              </div>
+            </TabsContent>
+            
+            <TabsContent value="senegal">
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+                {accommodations
+                  .filter(acc => acc.country === "senegal")
+                  .map((accommodation, index) => (
+                    <motion.div key={index} variants={fadeInUp}>
+                      <AccommodationCard
+                        category={accommodation.category}
+                        city={accommodation.city}
+                        price={accommodation.price}
+                        features={accommodation.features}
+                        imageUrl={accommodation.imageUrl}
+                        type={accommodation.type}
+                      />
+                    </motion.div>
+                  ))}
+              </div>
+            </TabsContent>
+          </Tabs>
         </div>
       </section>
       
