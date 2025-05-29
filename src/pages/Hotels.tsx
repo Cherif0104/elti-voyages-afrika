@@ -1,69 +1,57 @@
-
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Building, MapPin, Star, Wifi, Car, Coffee, Search } from "lucide-react";
-
 const Hotels = () => {
   const [destination, setDestination] = useState("");
   const [checkIn, setCheckIn] = useState("");
   const [checkOut, setCheckOut] = useState("");
   const [guests, setGuests] = useState("2");
-
-  const accommodations = [
-    {
-      type: "Hôtel",
-      name: "Hôtel Atlas Casablanca",
-      location: "Casablanca, Maroc",
-      price: "89€",
-      rating: 4.5,
-      image: "https://images.unsplash.com/photo-1566073771259-6a8506099945?q=80&w=400&auto=format&fit=crop",
-      amenities: ["Wifi", "Parking", "Restaurant"]
-    },
-    {
-      type: "Riad",
-      name: "Riad Marrakech Luxury",
-      location: "Marrakech, Maroc",
-      price: "156€",
-      rating: 4.8,
-      image: "https://images.unsplash.com/photo-1571896349842-33c89424de2d?q=80&w=400&auto=format&fit=crop",
-      amenities: ["Wifi", "Piscine", "Spa"]
-    },
-    {
-      type: "Appartement",
-      name: "Appartement Vue Océan",
-      location: "Dakar, Sénégal",
-      price: "67€",
-      rating: 4.3,
-      image: "https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?q=80&w=400&auto=format&fit=crop",
-      amenities: ["Wifi", "Cuisine", "Balcon"]
-    },
-    {
-      type: "Villa",
-      name: "Villa Prestige Rabat",
-      location: "Rabat, Maroc",
-      price: "234€",
-      rating: 4.9,
-      image: "https://images.unsplash.com/photo-1613490493576-7fde63acd811?q=80&w=400&auto=format&fit=crop",
-      amenities: ["Wifi", "Piscine", "Jardin"]
-    }
-  ];
-
+  const accommodations = [{
+    type: "Hôtel",
+    name: "Hôtel Atlas Casablanca",
+    location: "Casablanca, Maroc",
+    price: "89€",
+    rating: 4.5,
+    image: "https://images.unsplash.com/photo-1566073771259-6a8506099945?q=80&w=400&auto=format&fit=crop",
+    amenities: ["Wifi", "Parking", "Restaurant"]
+  }, {
+    type: "Riad",
+    name: "Riad Marrakech Luxury",
+    location: "Marrakech, Maroc",
+    price: "156€",
+    rating: 4.8,
+    image: "https://images.unsplash.com/photo-1571896349842-33c89424de2d?q=80&w=400&auto=format&fit=crop",
+    amenities: ["Wifi", "Piscine", "Spa"]
+  }, {
+    type: "Appartement",
+    name: "Appartement Vue Océan",
+    location: "Dakar, Sénégal",
+    price: "67€",
+    rating: 4.3,
+    image: "https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?q=80&w=400&auto=format&fit=crop",
+    amenities: ["Wifi", "Cuisine", "Balcon"]
+  }, {
+    type: "Villa",
+    name: "Villa Prestige Rabat",
+    location: "Rabat, Maroc",
+    price: "234€",
+    rating: 4.9,
+    image: "https://images.unsplash.com/photo-1613490493576-7fde63acd811?q=80&w=400&auto=format&fit=crop",
+    amenities: ["Wifi", "Piscine", "Jardin"]
+  }];
   const handleSearch = (e: React.FormEvent) => {
     e.preventDefault();
     // Handle search logic
   };
-
-  return (
-    <div className="min-h-screen bg-gray-50">
+  return <div className="min-h-screen bg-gray-50">
       {/* Hero Section */}
       <section className="relative bg-gradient-to-r from-primary to-primary/90 text-white py-20">
-        <div 
-          className="absolute inset-0 bg-black/30 bg-cover bg-center"
-          style={{ backgroundImage: "url('https://images.unsplash.com/photo-1566073771259-6a8506099945?q=80&w=1000&auto=format&fit=crop')" }}
-        />
+        <div style={{
+        backgroundImage: "url('https://images.unsplash.com/photo-1566073771259-6a8506099945?q=80&w=1000&auto=format&fit=crop')"
+      }} className="absolute inset-0 bg-cover bg-center bg-blue-950" />
         
         <div className="container mx-auto px-4 relative z-10">
           <div className="max-w-4xl mx-auto text-center">
@@ -89,27 +77,13 @@ const Hotels = () => {
           <CardContent>
             <form onSubmit={handleSearch} className="grid grid-cols-1 md:grid-cols-5 gap-4">
               <div>
-                <Input
-                  placeholder="Destination"
-                  value={destination}
-                  onChange={(e) => setDestination(e.target.value)}
-                />
+                <Input placeholder="Destination" value={destination} onChange={e => setDestination(e.target.value)} />
               </div>
               <div>
-                <Input
-                  type="date"
-                  placeholder="Arrivée"
-                  value={checkIn}
-                  onChange={(e) => setCheckIn(e.target.value)}
-                />
+                <Input type="date" placeholder="Arrivée" value={checkIn} onChange={e => setCheckIn(e.target.value)} />
               </div>
               <div>
-                <Input
-                  type="date"
-                  placeholder="Départ"
-                  value={checkOut}
-                  onChange={(e) => setCheckOut(e.target.value)}
-                />
+                <Input type="date" placeholder="Départ" value={checkOut} onChange={e => setCheckOut(e.target.value)} />
               </div>
               <div>
                 <Select value={guests} onValueChange={setGuests}>
@@ -134,14 +108,9 @@ const Hotels = () => {
 
         {/* Accommodations Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 mb-16">
-          {accommodations.map((item, index) => (
-            <Card key={index} className="overflow-hidden hover:shadow-lg transition-shadow">
+          {accommodations.map((item, index) => <Card key={index} className="overflow-hidden hover:shadow-lg transition-shadow">
               <div className="relative">
-                <img 
-                  src={item.image} 
-                  alt={item.name}
-                  className="w-full h-48 object-cover"
-                />
+                <img src={item.image} alt={item.name} className="w-full h-48 object-cover" />
                 <div className="absolute top-2 left-2 bg-primary text-white px-2 py-1 rounded text-sm">
                   {item.type}
                 </div>
@@ -159,11 +128,9 @@ const Hotels = () => {
                   <span className="text-sm">{item.location}</span>
                 </div>
                 <div className="flex flex-wrap gap-2 mb-4">
-                  {item.amenities.map((amenity, i) => (
-                    <span key={i} className="text-xs bg-gray-100 px-2 py-1 rounded">
+                  {item.amenities.map((amenity, i) => <span key={i} className="text-xs bg-gray-100 px-2 py-1 rounded">
                       {amenity}
-                    </span>
-                  ))}
+                    </span>)}
                 </div>
                 <div className="flex items-center justify-between">
                   <div>
@@ -173,8 +140,7 @@ const Hotels = () => {
                   <Button size="sm">Réserver</Button>
                 </div>
               </CardContent>
-            </Card>
-          ))}
+            </Card>)}
         </div>
 
         {/* Types of Accommodations */}
@@ -220,8 +186,6 @@ const Hotels = () => {
           </div>
         </section>
       </div>
-    </div>
-  );
+    </div>;
 };
-
 export default Hotels;
