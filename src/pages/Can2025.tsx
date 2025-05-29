@@ -1,190 +1,138 @@
 
-import { useEffect, useState, useRef } from "react";
-import HeroSection from "@/components/can2025/HeroSection";
-import KeyDatesSection from "@/components/can2025/KeyDatesSection";
-import NewsSection from "@/components/can2025/NewsSection";
-import FaqSection from "@/components/can2025/FaqSection";
-import ContactSection from "@/components/can2025/ContactSection";
-import CtaSection from "@/components/can2025/CtaSection";
-import CanPackCard from "@/components/can2025/CanPackCard";
-import CanGallery from "@/components/can2025/CanGallery";
-import SenegalSupportSection from "@/components/can2025/SenegalSupportSection";
-import { motion, useScroll, useTransform, useInView, useAnimation } from "framer-motion";
-import { 
-  staggerContainer,
-  fadeInUp, 
-  hoverScale, 
-  scrollReveal, 
-  floatingAnimation, 
-  limitedAvailabilityPulse,
-  buttonTap 
-} from "@/components/can2025/AnimationUtils";
-import { Calendar, Users, Clock, MapPin, Flag, Star } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { Trophy, Calendar, MapPin, Users, Star, Phone } from "lucide-react";
+import { Link } from "react-router-dom";
 
 const Can2025 = () => {
-  const [isVisible, setIsVisible] = useState(false);
-  const [daysRemaining, setDaysRemaining] = useState(14);
-  const counterRef = useRef(null);
-  const isInView = useInView(counterRef, { once: false, margin: "-100px" });
-  const controls = useAnimation();
-  
-  // Parallax effect references
-  const backgroundRef = useRef(null);
-  const { scrollYProgress } = useScroll({
-    target: backgroundRef,
-    offset: ["start start", "end start"]
-  });
-  
-  const y = useTransform(scrollYProgress, [0, 1], ["0%", "30%"]);
-  const opacity = useTransform(scrollYProgress, [0, 0.5, 1], [1, 0.8, 0.6]);
-
-  // CAN 2025 pack offers data
-  const packOffers = [
+  const packages = [
     {
-      title: "Yoonu Sénégal",
-      price: "960000",
-      features: [
-        "Vol aller-retour économique",
-        "Hébergement 3★",
-        "1 match de groupe",
-        "Transferts aéroport",
-        "Guide local",
-        "Hammam & Carte SIM",
-        "Maillot offert",
-        "Soirée Nouvel An (option)"
-      ],
-      isPremium: false,
+      title: "Pack Supporter Standard",
+      price: "1,299€",
+      description: "L'essentiel pour vivre la CAN 2025",
+      features: ["Vol A/R", "Hébergement 7 nuits", "Billets matchs groupe", "Transferts"]
     },
     {
-      title: "Délégation Lions",
-      price: "1150000",
-      features: [
-        "Vol aller-retour",
-        "Hébergement 4★",
-        "3 matchs garantis",
-        "Van privé",
-        "Guide francophone",
-        "Hammam & Spa",
-        "Maillot officiel offert",
-        "Excursion culturelle"
-      ],
-      isPremium: false,
+      title: "Pack Supporter Premium",
+      price: "1,899€",
+      description: "L'expérience complète de supporter",
+      features: ["Vol A/R", "Hébergement 10 nuits", "Billets tous matchs", "Transferts VIP", "Excursions"]
     },
     {
-      title: "Lion d'Or Prestige",
-      price: "2300000",
-      features: [
-        "Vol Business",
-        "Hébergement 5★",
-        "Tous les matchs du Sénégal",
-        "Voiture privée",
-        "Accueil VIP",
-        "Hammam & Spa quotidien",
-        "Tenue complète offerte",
-        "Accès VIP aux stades"
-      ],
-      isPremium: true,
-    },
-    {
-      title: "Sur mesure",
-      price: "2490000",
-      features: [
-        "Dates flexibles",
-        "Vol Business / First",
-        "Hébergement de luxe",
-        "Place finale garantie",
-        "Chauffeur & concierge 24h/24",
-        "Accès backstage équipes",
-        "Rencontres privées",
-        "Excursions personnalisées"
-      ],
-      isPremium: false,
-    },
-  ];
-
-  useEffect(() => {
-    setIsVisible(true);
-    
-    // Set days remaining to 14 to match mockup
-    setDaysRemaining(14);
-    
-    // Start animation when component mounts
-    controls.start("animate");
-  }, [controls]);
-
-  // Counter animation variant
-  const counterVariants = {
-    hidden: { opacity: 0, scale: 0.8 },
-    visible: {
-      opacity: 1,
-      scale: 1,
-      transition: { 
-        duration: 0.5,
-        type: "spring",
-        stiffness: 100
-      }
+      title: "Pack VIP",
+      price: "2,599€",
+      description: "L'expérience ultime",
+      features: ["Vol A/R Business", "Hôtel 5*", "Billets VIP", "Transferts privés", "Accès lounge"]
     }
-  };
-  
-  // Stats
-  const stats = [
-    { value: 24, label: "Équipes", icon: <Users className="h-6 w-6 text-secondary" /> },
-    { value: 6, label: "Stades", icon: <MapPin className="h-6 w-6 text-secondary" /> },
-    { value: 52, label: "Matchs", icon: <Flag className="h-6 w-6 text-secondary" /> },
-    { value: daysRemaining, label: "Jours restants", icon: <Clock className="h-6 w-6 text-secondary" /> }
   ];
 
   return (
-    <div className="bg-gray-50">
-      <HeroSection />
-      
-      {/* Senegal Support Section */}
-      <SenegalSupportSection />
-      
-      {/* Notre galerie d'offres de la CAN 2025 */}
-      <CanGallery />
-      
-      {/* CAN 2025 Packs Section */}
-      <section id="can2025" className="py-24 bg-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-16">
-            <span className="inline-block px-3 py-1 bg-primary/10 text-primary text-sm font-medium rounded-full mb-3">
-              Offre Spéciale
-            </span>
-            <h2 className="text-4xl font-bold text-primary mb-4">Nos Packs CAN 2025</h2>
-            <p className="text-gray-600 max-w-2xl mx-auto text-lg">
-              Des solutions clé en main pour vivre la compétition comme vous le souhaitez. Chaque pack est entièrement personnalisable selon vos besoins.
+    <div className="min-h-screen">
+      {/* Hero Section */}
+      <section className="relative bg-gradient-to-r from-green-600 to-red-600 text-white py-20">
+        <div 
+          className="absolute inset-0 bg-black/40 bg-cover bg-center"
+          style={{ backgroundImage: "url('/lovable-uploads/af93fe88-9741-47cf-bb0f-4bdd4f5c1abc.png')" }}
+        />
+        
+        <div className="container mx-auto px-4 relative z-10">
+          <div className="max-w-4xl mx-auto text-center">
+            <div className="flex items-center justify-center mb-6">
+              <Trophy className="h-16 w-16 text-yellow-400 mr-4" />
+              <h1 className="text-5xl md:text-7xl font-bold">CAN 2025</h1>
+            </div>
+            <h2 className="text-2xl md:text-3xl mb-6">Coupe d'Afrique des Nations - Maroc</h2>
+            <p className="text-xl mb-8 max-w-2xl mx-auto">
+              Vivez l'événement football le plus prestigieux d'Afrique avec nos packs supporters exclusifs
             </p>
+            <Button size="lg" className="bg-yellow-500 text-black hover:bg-yellow-400 text-lg px-8">
+              Réserver mon pack
+            </Button>
           </div>
+        </div>
+      </section>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-            {packOffers.map((pack, index) => (
-              <div key={index}>
-                <CanPackCard
-                  title={pack.title}
-                  price={pack.price}
-                  features={pack.features}
-                  isPremium={pack.isPremium}
-                />
-              </div>
-            ))}
-          </div>
-          
-          {/* Places limitées indicator */}
-          <div className="mt-16 text-center">
-            <div className="inline-flex items-center gap-2 bg-red-50 text-red-600 px-4 py-2 rounded-full border border-red-100">
-              <Clock className="h-5 w-5" />
-              <span className="font-medium">Places limitées — Réservez dès maintenant</span>
+      {/* Key Info */}
+      <section className="py-16 bg-gray-50">
+        <div className="container mx-auto px-4">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-4xl mx-auto">
+            <div className="text-center">
+              <Calendar className="h-12 w-12 text-primary mx-auto mb-4" />
+              <h3 className="text-xl font-bold mb-2">Dates</h3>
+              <p className="text-gray-600">21 Décembre 2025 - 18 Janvier 2026</p>
+            </div>
+            <div className="text-center">
+              <MapPin className="h-12 w-12 text-primary mx-auto mb-4" />
+              <h3 className="text-xl font-bold mb-2">Lieu</h3>
+              <p className="text-gray-600">Maroc - 6 villes hôtes</p>
+            </div>
+            <div className="text-center">
+              <Users className="h-12 w-12 text-primary mx-auto mb-4" />
+              <h3 className="text-xl font-bold mb-2">Équipes</h3>
+              <p className="text-gray-600">24 équipes africaines</p>
             </div>
           </div>
         </div>
       </section>
-      
-      <KeyDatesSection />
-      <NewsSection />
-      <FaqSection />
-      <ContactSection />
-      <CtaSection />
+
+      {/* Packages */}
+      <section className="py-16">
+        <div className="container mx-auto px-4">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl md:text-4xl font-bold text-primary mb-4">Nos Packs CAN 2025</h2>
+            <p className="text-xl text-gray-600">Choisissez votre formule pour vivre la CAN 2025</p>
+          </div>
+          
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto">
+            {packages.map((pack, index) => (
+              <Card key={index} className="relative overflow-hidden">
+                {index === 1 && (
+                  <div className="absolute top-0 right-0 bg-yellow-500 text-black px-3 py-1 text-sm font-bold">
+                    POPULAIRE
+                  </div>
+                )}
+                <CardHeader>
+                  <CardTitle className="text-xl">{pack.title}</CardTitle>
+                  <CardDescription>{pack.description}</CardDescription>
+                  <div className="text-3xl font-bold text-primary">{pack.price}</div>
+                </CardHeader>
+                <CardContent>
+                  <ul className="space-y-2 mb-6">
+                    {pack.features.map((feature, i) => (
+                      <li key={i} className="flex items-center">
+                        <Star className="h-4 w-4 text-yellow-500 mr-2" />
+                        {feature}
+                      </li>
+                    ))}
+                  </ul>
+                  <Button className="w-full">Réserver ce pack</Button>
+                </CardContent>
+              </Card>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* CTA Section */}
+      <section className="py-16 bg-primary text-white">
+        <div className="container mx-auto px-4">
+          <div className="max-w-4xl mx-auto text-center">
+            <h2 className="text-3xl md:text-4xl font-bold mb-6">Prêt pour l'aventure ?</h2>
+            <p className="text-xl mb-8">
+              Contactez nos experts pour personnaliser votre séjour CAN 2025
+            </p>
+            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+              <Button size="lg" className="bg-secondary text-primary hover:bg-secondary/90">
+                <Phone className="mr-2 h-5 w-5" />
+                Nous appeler
+              </Button>
+              <Button size="lg" variant="outline" className="border-white text-white hover:bg-white hover:text-primary">
+                Demander un devis
+              </Button>
+            </div>
+          </div>
+        </div>
+      </section>
     </div>
   );
 };
