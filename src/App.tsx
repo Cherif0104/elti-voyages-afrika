@@ -4,10 +4,9 @@ import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import { useEffect } from "react";
 
 // Pages
-import Index from "./pages/Index";
+import SimpleIndex from "./pages/SimpleIndex";
 import Can2025 from "./pages/Can2025";
 import Flights from "./pages/Flights";
 import Hotels from "./pages/Hotels";
@@ -19,28 +18,14 @@ import GuideDetail from "./pages/GuideDetail";
 import Destinations from "./pages/Destinations";
 import NotFound from "./pages/NotFound";
 
-// Components
-import Navbar from "./components/Navbar";
-import Footer from "./components/Footer";
+// Layout Components
+import Header from "./components/layout/Header";
+import SimpleFooter from "./components/layout/SimpleFooter";
 import PromotionBanner from "./components/PromotionBanner";
 
 const queryClient = new QueryClient();
 
 const App = () => {
-  useEffect(() => {
-    // Add scroll to top on route change
-    const handleScrollToTop = () => {
-      window.scrollTo(0, 0);
-    };
-    
-    // Listen for route changes
-    window.addEventListener("popstate", handleScrollToTop);
-    
-    return () => {
-      window.removeEventListener("popstate", handleScrollToTop);
-    };
-  }, []);
-
   return (
     <QueryClientProvider client={queryClient}>
       <TooltipProvider>
@@ -48,20 +33,20 @@ const App = () => {
         <Sonner />
         <BrowserRouter>
           <div className="flex flex-col min-h-screen">
-            {/* Promotion banner at the top */}
+            {/* Promotion banner */}
             <PromotionBanner 
-              text="Réservez votre pack supporter avant le 31 décembre et bénéficiez de -15%" 
-              ctaText="En savoir plus"
-              ctaUrl="#details"
+              text="CAN 2025 au Maroc - Réservez vos packs supporters dès maintenant !" 
+              ctaText="Voir les offres"
+              ctaUrl="/can2025"
             />
             
             {/* Header */}
-            <Navbar />
+            <Header />
             
             {/* Main content */}
             <main className="flex-1">
               <Routes>
-                <Route path="/" element={<Index />} />
+                <Route path="/" element={<SimpleIndex />} />
                 <Route path="/can2025" element={<Can2025 />} />
                 <Route path="/billets-avion" element={<Flights />} />
                 <Route path="/hotels" element={<Hotels />} />
@@ -75,7 +60,7 @@ const App = () => {
               </Routes>
             </main>
             
-            <Footer />
+            <SimpleFooter />
           </div>
         </BrowserRouter>
       </TooltipProvider>
