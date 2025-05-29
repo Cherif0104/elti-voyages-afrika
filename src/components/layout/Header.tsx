@@ -44,14 +44,14 @@ const Header = () => {
           {/* Right Actions */}
           <div className="flex items-center space-x-4">
             <Button size="sm" className="hidden md:flex" asChild>
-              <a href="tel:+212656136036">
+              <a href="tel:+212614082524">
                 <Phone className="h-4 w-4 mr-2" />
                 Appeler
               </a>
             </Button>
             
             <Button size="sm" className="bg-secondary text-primary hover:bg-secondary/90" asChild>
-              <Link to="#reservation">Réserver</Link>
+              <a href="https://wa.me/212614082524" target="_blank" rel="noopener noreferrer">Réserver</a>
             </Button>
 
             {/* Mobile menu button */}

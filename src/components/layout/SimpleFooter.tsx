@@ -37,11 +37,11 @@ const SimpleFooter = () => {
             <div className="space-y-3">
               <div className="flex items-center space-x-2">
                 <Phone className="h-4 w-4" />
-                <span>+212 656 13 60 36</span>
+                <span>+212 014 082 524</span>
               </div>
               <div className="flex items-center space-x-2">
                 <Mail className="h-4 w-4" />
-                <span>contact@elti-voyages.com</span>
+                <span>contact@eltivoyages.com</span>
               </div>
               <div className="flex items-center space-x-2">
                 <MapPin className="h-4 w-4" />

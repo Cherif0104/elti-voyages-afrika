@@ -129,8 +129,8 @@ const Footer = () => {
               </li>
               <li className="flex">
                 <Phone className="h-5 w-5 mr-3 flex-shrink-0 text-accent" />
-                <a href="tel:+212656136036" className="text-white/80 hover:text-white transition-colors">
-                  +212 656 13 60 36
+                <a href="tel:+212014082524" className="text-white/80 hover:text-white transition-colors">
+                  +212 014 082 524
                 </a>
               </li>
               <li className="flex">
@@ -146,9 +146,9 @@ const Footer = () => {
               asChild 
               className="mt-6 bg-accent text-primary hover:bg-accent/90 w-full group"
             >
-              <a href="tel:+212656136036">
+              <a href="https://wa.me/212614082524" target="_blank" rel="noopener noreferrer">
                 <Phone className="h-4 w-4 mr-2 group-hover:animate-pulse" />
-                Appeler maintenant
+                WhatsApp
               </a>
             </Button>
           </div>

@@ -40,7 +40,8 @@ const ContactSection = () => {
                 </div>
                 <div>
                   <p className="text-gray-500 text-sm mb-1">Téléphone</p>
-                  <a href="tel:+212656136036" className="text-primary hover:text-secondary transition-colors">+212 656 13 60 36</a>
+                  <a href="tel:+212014082524" className="text-primary hover:text-secondary transition-colors">+212 014 082 524</a>
+                  <p className="text-xs text-gray-400">WhatsApp: +212 614 082 524</p>
                 </div>
               </div>
               

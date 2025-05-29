@@ -2,7 +2,6 @@
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Trophy, Calendar, MapPin, Users, Star, Phone } from "lucide-react";
-import { Link } from "react-router-dom";
 
 const Can2025 = () => {
   const packages = [
@@ -45,8 +44,10 @@ const Can2025 = () => {
             <p className="text-xl mb-8 max-w-2xl mx-auto">
               Vivez l'événement football le plus prestigieux d'Afrique avec nos packs supporters exclusifs
             </p>
-            <Button size="lg" className="bg-yellow-500 text-black hover:bg-yellow-400 text-lg px-8">
-              Réserver mon pack
+            <Button size="lg" className="bg-yellow-500 text-black hover:bg-yellow-400 text-lg px-8" asChild>
+              <a href="https://wa.me/212614082524" target="_blank" rel="noopener noreferrer">
+                Réserver mon pack
+              </a>
             </Button>
           </div>
         </div>
@@ -105,7 +106,11 @@ const Can2025 = () => {
                       </li>
                     ))}
                   </ul>
-                  <Button className="w-full">Réserver ce pack</Button>
+                  <Button className="w-full" asChild>
+                    <a href="https://wa.me/212614082524" target="_blank" rel="noopener noreferrer">
+                      Réserver ce pack
+                    </a>
+                  </Button>
                 </CardContent>
               </Card>
             ))}
@@ -122,12 +127,16 @@ const Can2025 = () => {
               Contactez nos experts pour personnaliser votre séjour CAN 2025
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Button size="lg" className="bg-secondary text-primary hover:bg-secondary/90">
-                <Phone className="mr-2 h-5 w-5" />
-                Nous appeler
+              <Button size="lg" className="bg-secondary text-primary hover:bg-secondary/90" asChild>
+                <a href="tel:+212014082524">
+                  <Phone className="mr-2 h-5 w-5" />
+                  Nous appeler
+                </a>
               </Button>
-              <Button size="lg" variant="outline" className="border-white text-white hover:bg-white hover:text-primary">
-                Demander un devis
+              <Button size="lg" variant="outline" className="border-white text-white hover:bg-white hover:text-primary" asChild>
+                <a href="https://wa.me/212614082524" target="_blank" rel="noopener noreferrer">
+                  Demander un devis
+                </a>
               </Button>
             </div>
           </div>

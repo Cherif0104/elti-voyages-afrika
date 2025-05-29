@@ -43,19 +43,21 @@ const CtaSection = () => {
                 </p>
                 
                 <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
-                  <Link
-                    to="#reservation"
+                  <a
+                    href="https://wa.me/212614082524"
+                    target="_blank"
+                    rel="noopener noreferrer"
                     className="bg-primary text-white hover:bg-primary/90 text-lg px-8 py-4 rounded-md transition-all duration-300 inline-block shadow-lg font-medium"
                   >
                     Réserver mon pack
-                  </Link>
+                  </a>
                   
                   <a
-                    href="tel:+221777748374"
+                    href="tel:+212014082524"
                     className="flex items-center justify-center gap-2 border border-primary/30 text-primary hover:bg-primary/5 text-lg px-6 py-4 rounded-md transition-all duration-300 font-medium"
                   >
                     <Phone className="h-5 w-5" />
-                    <span>+221 77 774 83 74</span>
+                    <span>+212 014 082 524</span>
                   </a>
                 </div>
               </motion.div>
@@ -108,12 +110,14 @@ const CtaSection = () => {
                       <span className="text-gray-700">Maillot officiel du Sénégal offert</span>
                     </li>
                   </ul>
-                  <Link
-                    to="#reservation"
+                  <a
+                    href="https://wa.me/212614082524"
+                    target="_blank"
+                    rel="noopener noreferrer"
                     className="bg-primary text-white hover:bg-primary/90 text-base w-full py-4 px-6 rounded-md transition-all duration-300 inline-block font-medium"
                   >
                     Réserver maintenant
-                  </Link>
+                  </a>
                 </div>
               </motion.div>
               
@@ -131,7 +135,7 @@ const CtaSection = () => {
                       <span className="block">Sénégal : +221 750 10 32 89 - +221 77 774 83 74</span>
                     </div>
                     <div className="bg-gray-100 rounded p-2">
-                      <span className="block">Maroc : +212 632 25 37 70 - +212 706 06 54 25</span>
+                      <span className="block">Maroc : +212 614 082 524 - +212 014 082 524</span>
                     </div>
                   </div>
                   <p className="mt-2 text-gray-600">
