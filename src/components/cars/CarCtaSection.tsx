@@ -49,7 +49,7 @@ const CarCtaSection = () => {
                   </div>
                   <div>
                     <div className="text-sm text-white/70">Téléphone</div>
-                    <div className="font-semibold">+221 78 109 82 63</div>
+                    <div className="font-semibold">+212 614 082 524</div>
                   </div>
                 </div>
                 
@@ -59,7 +59,7 @@ const CarCtaSection = () => {
                   </div>
                   <div>
                     <div className="text-sm text-white/70">Email</div>
-                    <div className="font-semibold">reservations@eltivoyages.com</div>
+                    <div className="font-semibold">contact@eltivoyages.com</div>
                   </div>
                 </div>
                 
@@ -79,9 +79,9 @@ const CarCtaSection = () => {
                 className="bg-secondary text-primary hover:bg-secondary/90 px-6 py-5 text-lg font-medium"
                 asChild
               >
-                <Link to="/contact">
+                <a href="https://wa.me/212614082524" target="_blank" rel="noopener noreferrer">
                   Réserver un chauffeur <ChevronRight className="ml-1 h-5 w-5" />
-                </Link>
+                </a>
               </Button>
             </motion.div>
           </div>
