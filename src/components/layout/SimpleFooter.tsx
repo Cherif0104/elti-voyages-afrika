@@ -34,7 +34,11 @@ const SimpleFooter = () => {
             <div className="space-y-3">
               <div className="flex items-center space-x-2">
                 <Phone className="h-4 w-4" />
-                <span>+212 614 082 524</span>
+                <span className="py-[12px] px-[62px]">+212 614 082 524 
+
+Dr Commercial 
++221 78 429 46 46
++221 77 474 83 74</span>
               </div>
               <div className="flex items-center space-x-2">
                 <Mail className="h-4 w-4" />
