@@ -1,11 +1,8 @@
-
 import { Phone, Mail, MapPin } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import Logo from '@/components/Logo';
-
 const SimpleFooter = () => {
-  return (
-    <footer className="bg-primary text-white py-12">
+  return <footer className="bg-primary text-white py-12">
       <div className="container mx-auto px-4">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           {/* Company Info */}
@@ -41,7 +38,7 @@ const SimpleFooter = () => {
               </div>
               <div className="flex items-center space-x-2">
                 <Mail className="h-4 w-4" />
-                <span>contact@impulcia-afrique.com</span>
+                <span>contact@elti-voyages.com</span>
               </div>
               <div className="flex items-center space-x-2">
                 <MapPin className="h-4 w-4" />
@@ -57,8 +54,6 @@ const SimpleFooter = () => {
           </p>
         </div>
       </div>
-    </footer>
-  );
+    </footer>;
 };
-
 export default SimpleFooter;
