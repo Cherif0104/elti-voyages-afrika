@@ -1,14 +1,11 @@
-
 import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { Plane, Building, Car } from 'lucide-react';
-
 const SimpleHero = () => {
-  return (
-    <section className="relative bg-gradient-to-r from-primary to-primary/90 text-white py-20">
+  return <section className="relative bg-gradient-to-r from-primary to-primary/90 text-white py-20">
       <div style={{
-        backgroundImage: "url('/lovable-uploads/af93fe88-9741-47cf-bb0f-4bdd4f5c1abc.png')"
-      }} className="absolute inset-0 bg-cover bg-center bg-blue-950" />
+      backgroundImage: "url('/lovable-uploads/af93fe88-9741-47cf-bb0f-4bdd4f5c1abc.png')"
+    }} className="absolute inset-0 bg-cover bg-center bg-blue-950" />
       
       <div className="container mx-auto px-4 relative z-10">
         <div className="max-w-4xl mx-auto text-center">
@@ -48,8 +45,6 @@ const SimpleHero = () => {
           </Button>
         </div>
       </div>
-    </section>
-  );
+    </section>;
 };
-
 export default SimpleHero;
