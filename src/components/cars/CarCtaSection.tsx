@@ -59,7 +59,7 @@ const CarCtaSection = () => {
                   </div>
                   <div>
                     <div className="text-sm text-white/70">Email</div>
-                    <div className="font-semibold">contact@eltivoyages.com</div>
+                    <div className="font-semibold">contact@impulcia-afrique.com</div>
                   </div>
                 </div>
                 

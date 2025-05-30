@@ -128,7 +128,7 @@ const Can2025 = () => {
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Button size="lg" className="bg-secondary text-primary hover:bg-secondary/90" asChild>
-                <a href="tel:+212014082524">
+                <a href="tel:+212614082524">
                   <Phone className="mr-2 h-5 w-5" />
                   Nous appeler
                 </a>

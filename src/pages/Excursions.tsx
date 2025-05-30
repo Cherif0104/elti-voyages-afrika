@@ -1,4 +1,3 @@
-
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -155,7 +154,9 @@ const Excursions = () => {
                     <span className="text-2xl font-bold text-primary">{excursion.price}</span>
                     <span className="text-sm text-gray-600">/pers.</span>
                   </div>
-                  <Button>Réserver</Button>
+                  <Button asChild>
+                    <a href="https://wa.me/212614082524" target="_blank" rel="noopener noreferrer">Réserver</a>
+                  </Button>
                 </div>
               </CardContent>
             </Card>

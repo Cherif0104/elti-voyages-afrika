@@ -105,8 +105,8 @@ const Contact = () => {
                   <Phone className="h-6 w-6 text-primary mt-1" />
                   <div>
                     <h3 className="font-semibold">Téléphone</h3>
-                    <p className="text-gray-600">+212 014 082 524</p>
-                    <p className="text-sm text-gray-500">Réservations WhatsApp: +212 614 082 524</p>
+                    <p className="text-gray-600">+212 614 082 524</p>
+                    <p className="text-sm text-gray-500">Réservations WhatsApp</p>
                   </div>
                 </div>
                 
@@ -114,7 +114,7 @@ const Contact = () => {
                   <Mail className="h-6 w-6 text-primary mt-1" />
                   <div>
                     <h3 className="font-semibold">Email</h3>
-                    <p className="text-gray-600">contact@eltivoyages.com</p>
+                    <p className="text-gray-600">contact@impulcia-afrique.com</p>
                   </div>
                 </div>
                 
@@ -146,7 +146,7 @@ const Contact = () => {
                     </a>
                   </Button>
                   <Button variant="outline" className="w-full" asChild>
-                    <a href="tel:+212014082524">
+                    <a href="tel:+212614082524">
                       Appeler maintenant
                     </a>
                   </Button>

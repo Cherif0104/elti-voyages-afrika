@@ -129,14 +129,14 @@ const Footer = () => {
               </li>
               <li className="flex">
                 <Phone className="h-5 w-5 mr-3 flex-shrink-0 text-accent" />
-                <a href="tel:+212014082524" className="text-white/80 hover:text-white transition-colors">
-                  +212 014 082 524
+                <a href="tel:+212614082524" className="text-white/80 hover:text-white transition-colors">
+                  +212 614 082 524
                 </a>
               </li>
               <li className="flex">
                 <Mail className="h-5 w-5 mr-3 flex-shrink-0 text-accent" />
-                <a href="mailto:contact@eltivoyages.com" className="text-white/80 hover:text-white transition-colors">
-                  contact@eltivoyages.com
+                <a href="mailto:contact@impulcia-afrique.com" className="text-white/80 hover:text-white transition-colors">
+                  contact@impulcia-afrique.com
                 </a>
               </li>
             </ul>

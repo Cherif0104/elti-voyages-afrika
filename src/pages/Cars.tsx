@@ -4,57 +4,67 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Input } from "@/components/ui/input";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Car, Users, Fuel, Settings, Search, Shield } from "lucide-react";
+
 const Cars = () => {
   const [pickupLocation, setPickupLocation] = useState("");
   const [pickupDate, setPickupDate] = useState("");
   const [returnDate, setReturnDate] = useState("");
-  const carCategories = [{
-    category: "Économique",
-    example: "Dacia Logan ou similaire",
-    passengers: 5,
-    luggage: 2,
-    transmission: "Manuelle",
-    fuel: "Essence",
-    price: "25€",
-    image: "https://images.unsplash.com/photo-1494905998402-395d579af36f?q=80&w=400&auto=format&fit=crop"
-  }, {
-    category: "Compacte",
-    example: "Peugeot 208 ou similaire",
-    passengers: 5,
-    luggage: 3,
-    transmission: "Manuelle",
-    fuel: "Essence",
-    price: "35€",
-    image: "https://images.unsplash.com/photo-1552519507-da3b142c6e3d?q=80&w=400&auto=format&fit=crop"
-  }, {
-    category: "SUV",
-    example: "Dacia Duster ou similaire",
-    passengers: 5,
-    luggage: 4,
-    transmission: "Automatique",
-    fuel: "Diesel",
-    price: "55€",
-    image: "https://images.unsplash.com/photo-1533473359331-0135ef1b58bf?q=80&w=400&auto=format&fit=crop"
-  }, {
-    category: "Luxe",
-    example: "BMW Série 3 ou similaire",
-    passengers: 5,
-    luggage: 4,
-    transmission: "Automatique",
-    fuel: "Essence",
-    price: "89€",
-    image: "https://images.unsplash.com/photo-1555215695-3004980ad54e?q=80&w=400&auto=format&fit=crop"
-  }];
+
+  const carCategories = [
+    {
+      category: "Économique",
+      example: "Dacia Logan ou similaire",
+      passengers: 5,
+      luggage: 2,
+      transmission: "Manuelle",
+      fuel: "Essence",
+      price: "25€",
+      image: "https://images.unsplash.com/photo-1494905998402-395d579af36f?q=80&w=400&auto=format&fit=crop"
+    },
+    {
+      category: "Compacte",
+      example: "Peugeot 208 ou similaire",
+      passengers: 5,
+      luggage: 3,
+      transmission: "Manuelle",
+      fuel: "Essence",
+      price: "35€",
+      image: "https://images.unsplash.com/photo-1552519507-da3b142c6e3d?q=80&w=400&auto=format&fit=crop"
+    },
+    {
+      category: "SUV",
+      example: "Dacia Duster ou similaire",
+      passengers: 5,
+      luggage: 4,
+      transmission: "Automatique",
+      fuel: "Diesel",
+      price: "55€",
+      image: "https://images.unsplash.com/photo-1533473359331-0135ef1b58bf?q=80&w=400&auto=format&fit=crop"
+    },
+    {
+      category: "Luxe",
+      example: "BMW Série 3 ou similaire",
+      passengers: 5,
+      luggage: 4,
+      transmission: "Automatique",
+      fuel: "Essence",
+      price: "89€",
+      image: "https://images.unsplash.com/photo-1555215695-3004980ad54e?q=80&w=400&auto=format&fit=crop"
+    }
+  ];
+
   const handleSearch = (e: React.FormEvent) => {
     e.preventDefault();
     // Handle search logic
   };
-  return <div className="min-h-screen bg-gray-50">
+
+  return (
+    <div className="min-h-screen bg-gray-50">
       {/* Hero Section */}
       <section className="relative bg-gradient-to-r from-primary to-primary/90 text-white py-20">
         <div style={{
-        backgroundImage: "url('https://images.unsplash.com/photo-1449824913935-59a10b8d2000?q=80&w=1000&auto=format&fit=crop')"
-      }} className="absolute inset-0 bg-cover bg-center bg-blue-950" />
+          backgroundImage: "url('https://images.unsplash.com/photo-1449824913935-59a10b8d2000?q=80&w=1000&auto=format&fit=crop')"
+        }} className="absolute inset-0 bg-cover bg-center bg-blue-950" />
         
         <div className="container mx-auto px-4 relative z-10">
           <div className="max-w-4xl mx-auto text-center">
@@ -80,13 +90,13 @@ const Cars = () => {
           <CardContent>
             <form onSubmit={handleSearch} className="grid grid-cols-1 md:grid-cols-4 gap-4">
               <div>
-                <Input placeholder="Lieu de prise en charge" value={pickupLocation} onChange={e => setPickupLocation(e.target.value)} />
+                <Input placeholder="Lieu de prise en charge" value={pickupLocation} onChange={(e) => setPickupLocation(e.target.value)} />
               </div>
               <div>
-                <Input type="date" placeholder="Date de prise en charge" value={pickupDate} onChange={e => setPickupDate(e.target.value)} />
+                <Input type="date" placeholder="Date de prise en charge" value={pickupDate} onChange={(e) => setPickupDate(e.target.value)} />
               </div>
               <div>
-                <Input type="date" placeholder="Date de retour" value={returnDate} onChange={e => setReturnDate(e.target.value)} />
+                <Input type="date" placeholder="Date de retour" value={returnDate} onChange={(e) => setReturnDate(e.target.value)} />
               </div>
               <Button type="submit" className="w-full">
                 <Search className="mr-2 h-4 w-4" />
@@ -98,7 +108,8 @@ const Cars = () => {
 
         {/* Car Categories */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-16">
-          {carCategories.map((car, index) => <Card key={index} className="overflow-hidden hover:shadow-lg transition-shadow">
+          {carCategories.map((car, index) => (
+            <Card key={index} className="overflow-hidden hover:shadow-lg transition-shadow">
               <div className="relative">
                 <img src={car.image} alt={car.category} className="w-full h-48 object-cover" />
               </div>
@@ -126,10 +137,13 @@ const Cars = () => {
                     <span className="text-2xl font-bold text-primary">{car.price}</span>
                     <span className="text-sm text-gray-600">/jour</span>
                   </div>
-                  <Button size="sm">Réserver</Button>
+                  <Button size="sm" asChild>
+                    <a href="https://wa.me/212614082524" target="_blank" rel="noopener noreferrer">Réserver</a>
+                  </Button>
                 </div>
               </CardContent>
-            </Card>)}
+            </Card>
+          ))}
         </div>
 
         {/* Features */}
@@ -167,6 +181,8 @@ const Cars = () => {
           </div>
         </section>
       </div>
-    </div>;
+    </div>
+  );
 };
+
 export default Cars;
