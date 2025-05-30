@@ -99,7 +99,7 @@ const Can2025SpecialOffer = () => {
                       <div className="absolute bottom-0 left-0 right-0 p-6 text-white">
                         <h3 className="text-xl font-bold mb-2 drop-shadow-lg">{offer.title}</h3>
                         <p className="text-sm text-white/90 mb-3 drop-shadow">{offer.description}</p>
-                        <div className="text-lg font-bold text-green-400 drop-shadow-lg">{offer.price}</div>
+                        <div className="text-lg font-bold text-green-400 drop-shadow-lg bg-transparent">{offer.price}</div>
                       </div>
                       
                     </div>
