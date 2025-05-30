@@ -2,6 +2,7 @@
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Trophy, Calendar, MapPin, Users, Star, Phone } from "lucide-react";
+import Can2025SpecialOffer from "@/components/home/Can2025SpecialOffer";
 
 const Can2025 = () => {
   const packages = [
@@ -66,6 +67,9 @@ const Can2025 = () => {
           </div>
         </div>
       </section>
+
+      {/* Special Offers Section */}
+      <Can2025SpecialOffer />
 
       {/* Key Info */}
       <section className="py-16 bg-gray-50">
