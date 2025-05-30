@@ -3,9 +3,13 @@ import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { Trophy, Star } from "lucide-react";
+import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
+import { Trophy, Star, X } from "lucide-react";
+import { useState } from "react";
 
 const Can2025SpecialOffer = () => {
+  const [selectedImage, setSelectedImage] = useState<string | null>(null);
+
   const offerImages = [
     {
       id: 1,
@@ -84,24 +88,49 @@ const Can2025SpecialOffer = () => {
               viewport={{ once: true }}
               className="group cursor-pointer"
             >
-              <Card className="overflow-hidden hover:shadow-2xl transition-all duration-500 group-hover:-translate-y-3 border-0 shadow-lg">
-                <div className="relative h-80 overflow-hidden">
-                  <img 
-                    src={offer.image} 
-                    alt={offer.title} 
-                    className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
-                  <div className="absolute top-4 right-4">
-                    <Star className="h-8 w-8 text-yellow-400 fill-current drop-shadow-lg" />
+              <Dialog>
+                <DialogTrigger asChild>
+                  <Card className="overflow-hidden hover:shadow-2xl transition-all duration-500 group-hover:-translate-y-3 border-0 shadow-lg">
+                    <div className="relative h-80 overflow-hidden">
+                      <motion.img 
+                        src={offer.image} 
+                        alt={offer.title} 
+                        className="w-full h-full object-cover transition-transform duration-700 cursor-pointer"
+                        whileHover={{ scale: 1.1 }}
+                        transition={{ duration: 0.3 }}
+                      />
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
+                      <div className="absolute top-4 right-4">
+                        <Star className="h-8 w-8 text-yellow-400 fill-current drop-shadow-lg" />
+                      </div>
+                      <div className="absolute bottom-0 left-0 right-0 p-6 text-white">
+                        <h3 className="text-xl font-bold mb-2 drop-shadow-lg">{offer.title}</h3>
+                        <p className="text-sm text-white/90 mb-3 drop-shadow">{offer.description}</p>
+                        <div className="text-lg font-bold text-green-400 drop-shadow-lg">{offer.price}</div>
+                      </div>
+                      <div className="absolute inset-0 bg-black/0 hover:bg-black/10 transition-colors duration-300 flex items-center justify-center">
+                        <div className="opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-white/20 backdrop-blur-sm rounded-full p-3">
+                          <span className="text-white font-semibold text-sm">Cliquez pour agrandir</span>
+                        </div>
+                      </div>
+                    </div>
+                  </Card>
+                </DialogTrigger>
+                <DialogContent className="max-w-4xl w-full p-0 bg-transparent border-0">
+                  <div className="relative">
+                    <img 
+                      src={offer.image} 
+                      alt={offer.title}
+                      className="w-full h-auto max-h-[90vh] object-contain rounded-lg"
+                    />
+                    <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 to-transparent p-6 rounded-b-lg">
+                      <h3 className="text-2xl font-bold text-white mb-2">{offer.title}</h3>
+                      <p className="text-white/90 mb-3">{offer.description}</p>
+                      <div className="text-xl font-bold text-green-400">{offer.price}</div>
+                    </div>
                   </div>
-                  <div className="absolute bottom-0 left-0 right-0 p-6 text-white">
-                    <h3 className="text-xl font-bold mb-2 drop-shadow-lg">{offer.title}</h3>
-                    <p className="text-sm text-white/90 mb-3 drop-shadow">{offer.description}</p>
-                    <div className="text-lg font-bold text-green-400 drop-shadow-lg">{offer.price}</div>
-                  </div>
-                </div>
-              </Card>
+                </DialogContent>
+              </Dialog>
             </motion.div>
           ))}
         </div>
