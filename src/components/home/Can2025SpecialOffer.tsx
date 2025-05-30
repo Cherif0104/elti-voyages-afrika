@@ -87,15 +87,19 @@ const Can2025SpecialOffer = () => {
                 <DialogTrigger asChild>
                   <Card className="overflow-hidden hover:shadow-2xl transition-all duration-500 group-hover:-translate-y-3 border-0 shadow-lg">
                     <div className="relative h-80 overflow-hidden">
-                      
+                      <motion.img src={offer.image} alt={offer.title} className="w-full h-full object-cover transition-transform duration-700 cursor-pointer" whileHover={{
+                    scale: 1.1
+                  }} transition={{
+                    duration: 0.3
+                  }} />
                       
                       <div className="absolute top-4 right-4">
                         <Star className="h-8 w-8 text-yellow-400 fill-current drop-shadow-lg" />
                       </div>
                       <div className="absolute bottom-0 left-0 right-0 p-6 text-white">
-                        
-                        
-                        
+                        <h3 className="text-xl font-bold mb-2 drop-shadow-lg">{offer.title}</h3>
+                        <p className="text-sm text-white/90 mb-3 drop-shadow">{offer.description}</p>
+                        <div className="text-lg font-bold text-green-400 drop-shadow-lg">{offer.price}</div>
                       </div>
                       
                     </div>
