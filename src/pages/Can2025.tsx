@@ -28,12 +28,7 @@ const Can2025 = () => {
   return (
     <div className="min-h-screen">
       {/* Hero Section */}
-      <section className="relative bg-gradient-to-r from-green-600 to-red-600 text-white py-20">
-        <div 
-          className="absolute inset-0 bg-black/40 bg-cover bg-center"
-          style={{ backgroundImage: "url('/lovable-uploads/af93fe88-9741-47cf-bb0f-4bdd4f5c1abc.png')" }}
-        />
-        
+      <section className="relative text-white py-20" style={{ backgroundColor: '#172554' }}>
         <div className="container mx-auto px-4 relative z-10">
           <div className="max-w-4xl mx-auto text-center">
             <div className="flex items-center justify-center mb-6">
@@ -41,14 +36,33 @@ const Can2025 = () => {
               <h1 className="text-5xl md:text-7xl font-bold">CAN 2025</h1>
             </div>
             <h2 className="text-2xl md:text-3xl mb-6">Coupe d'Afrique des Nations - Maroc</h2>
+            
+            {/* Accroche spéciale */}
+            <div className="bg-white/10 backdrop-blur-sm rounded-lg p-6 mb-8">
+              <p className="text-xl md:text-2xl font-bold text-yellow-300 mb-2">
+                Page dédiée à la Coupe d'Afrique des Nations 2025 – Destination Maroc
+              </p>
+              <p className="text-lg text-white/90">
+                Nous sommes Sénégalais et nous supportons fièrement les Lions de la Teranga 🇸🇳
+              </p>
+            </div>
+
             <p className="text-xl mb-8 max-w-2xl mx-auto">
               Vivez l'événement football le plus prestigieux d'Afrique avec nos packs supporters exclusifs
             </p>
-            <Button size="lg" className="bg-yellow-500 text-black hover:bg-yellow-400 text-lg px-8" asChild>
-              <a href="https://wa.me/212614082524" target="_blank" rel="noopener noreferrer">
-                Réserver mon pack
-              </a>
-            </Button>
+            
+            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+              <Button size="lg" className="bg-green-600 hover:bg-green-700 text-white text-lg px-8" asChild>
+                <a href="https://wa.me/212614082524" target="_blank" rel="noopener noreferrer">
+                  En savoir plus
+                </a>
+              </Button>
+              <Button size="lg" className="bg-yellow-500 text-black hover:bg-yellow-400 text-lg px-8" asChild>
+                <a href="https://wa.me/212614082524" target="_blank" rel="noopener noreferrer">
+                  Réserver
+                </a>
+              </Button>
+            </div>
           </div>
         </div>
       </section>
@@ -127,15 +141,14 @@ const Can2025 = () => {
               Contactez nos experts pour personnaliser votre séjour CAN 2025
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Button size="lg" className="bg-secondary text-primary hover:bg-secondary/90" asChild>
-                <a href="tel:+212614082524">
-                  <Phone className="mr-2 h-5 w-5" />
-                  Nous appeler
+              <Button size="lg" className="bg-green-600 hover:bg-green-700 text-white" asChild>
+                <a href="https://wa.me/212614082524" target="_blank" rel="noopener noreferrer">
+                  En savoir plus
                 </a>
               </Button>
-              <Button size="lg" variant="outline" className="border-white text-white hover:bg-white hover:text-primary" asChild>
+              <Button size="lg" className="bg-secondary text-primary hover:bg-secondary/90" asChild>
                 <a href="https://wa.me/212614082524" target="_blank" rel="noopener noreferrer">
-                  Demander un devis
+                  Réserver
                 </a>
               </Button>
             </div>

@@ -1,12 +1,11 @@
+
 import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { Plane, Building, Car } from 'lucide-react';
+
 const SimpleHero = () => {
-  return <section className="relative bg-gradient-to-r from-primary to-primary/90 text-white py-20">
-      <div style={{
-      backgroundImage: "url('/lovable-uploads/af93fe88-9741-47cf-bb0f-4bdd4f5c1abc.png')"
-    }} className="absolute inset-0 bg-cover bg-center bg-blue-950" />
-      
+  return (
+    <section className="relative text-white py-20" style={{ backgroundColor: '#172554' }}>
       <div className="container mx-auto px-4 relative z-10">
         <div className="max-w-4xl mx-auto text-center">
           <h1 className="text-4xl md:text-6xl font-bold mb-6">
@@ -38,13 +37,22 @@ const SimpleHero = () => {
             </Button>
           </div>
 
-          <Button size="lg" className="bg-secondary text-primary hover:bg-secondary/90 text-lg px-8" asChild>
-            <a href="https://wa.me/212614082524" target="_blank" rel="noopener noreferrer">
-              Découvrir la CAN 2025
-            </a>
-          </Button>
+          <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            <Button size="lg" className="bg-green-600 hover:bg-green-700 text-white text-lg px-8" asChild>
+              <a href="https://wa.me/212614082524" target="_blank" rel="noopener noreferrer">
+                En savoir plus
+              </a>
+            </Button>
+            <Button size="lg" className="bg-secondary text-primary hover:bg-secondary/90 text-lg px-8" asChild>
+              <a href="https://wa.me/212614082524" target="_blank" rel="noopener noreferrer">
+                Réserver
+              </a>
+            </Button>
+          </div>
         </div>
       </div>
-    </section>;
+    </section>
+  );
 };
+
 export default SimpleHero;

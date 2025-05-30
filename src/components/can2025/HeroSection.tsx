@@ -2,7 +2,6 @@
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent } from "@/components/ui/card";
 import { Trophy, MapPin, AlertCircle, Info } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import SearchWidget from "../SearchWidget";
@@ -52,19 +51,9 @@ const HeroSection = () => {
   }, []);
 
   return (
-    <section className="relative bg-gradient-to-r from-primary to-primary/80">
+    <section className="relative" style={{ backgroundColor: '#172554' }}>
       {/* Hero content */}
       <div className="relative pt-16 pb-32 flex content-center items-center justify-center min-h-[75vh]">
-        <div 
-          className="absolute top-0 w-full h-full bg-center bg-cover" 
-          style={{
-            backgroundImage: "url('/lovable-uploads/47760044-f970-40c3-9b13-a9a245aa5573.png')",
-            backgroundPosition: "center center"
-          }}
-        >
-          <span className="w-full h-full absolute opacity-75 bg-primary"></span>
-        </div>
-        
         <div className="container relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 z-10">
           <div className="flex flex-wrap items-center">
             {/* Hero text */}
@@ -103,23 +92,22 @@ const HeroSection = () => {
                 <div className="flex flex-wrap gap-4 justify-center lg:justify-start">
                   <Button
                     size="lg"
-                    className="text-base px-6 py-3 font-medium bg-secondary hover:bg-secondary/90 text-primary transition-all duration-300"
+                    className="text-base px-6 py-3 font-medium bg-green-600 hover:bg-green-700 text-white transition-all duration-300"
                     asChild
                   >
-                    <Link to="#reservation">
-                      Réserver mon pack
-                    </Link>
+                    <a href="https://wa.me/212614082524" target="_blank" rel="noopener noreferrer">
+                      En savoir plus
+                    </a>
                   </Button>
                   
                   <Button
-                    variant="outline"
                     size="lg"
-                    className="border-white text-white hover:bg-white/10 text-base px-6 py-3 font-medium transition-all duration-300"
+                    className="text-base px-6 py-3 font-medium bg-secondary hover:bg-secondary/90 text-primary transition-all duration-300"
                     asChild
                   >
-                    <Link to="#news">
-                      Dernières actualités
-                    </Link>
+                    <a href="https://wa.me/212614082524" target="_blank" rel="noopener noreferrer">
+                      Réserver
+                    </a>
                   </Button>
                 </div>
               </motion.div>

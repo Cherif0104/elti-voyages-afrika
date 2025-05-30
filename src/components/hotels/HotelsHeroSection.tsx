@@ -1,97 +1,64 @@
 
-import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
-import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
+import { MapPin, Star, Users, Calendar } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
-import { Building, Star } from "lucide-react";
-import Logo from "@/components/Logo";
-import SearchWidget from "@/components/SearchWidget";
 
 const HotelsHeroSection = () => {
-  const [isVisible, setIsVisible] = useState(false);
-
-  useEffect(() => {
-    setIsVisible(true);
-  }, []);
-
   return (
-    <section className="relative bg-gradient-to-r from-primary to-primary/80 text-white pt-8 pb-24">
-      {/* Background image overlay */}
-      <div className="absolute inset-0 bg-black/40 z-0"></div>
-      
-      {/* Background image */}
-      <div 
-        className="absolute inset-0 bg-cover bg-center z-[-1]" 
-        style={{ backgroundImage: "url('/lovable-uploads/af93fe88-9741-47cf-bb0f-4bdd4f5c1abc.png')" }}
-      ></div>
-      
+    <section className="relative text-white py-20" style={{ backgroundColor: '#172554' }}>
       <div className="container mx-auto px-4 relative z-10">
-        <div className="flex items-center mb-6">
-          <Logo size="md" className="mr-4" />
-          <span className="bg-secondary/80 text-primary px-4 py-1 rounded-full text-sm font-bold inline-block backdrop-blur-sm">
-            HÉBERGEMENTS PREMIUM
-          </span>
-        </div>
-        
-        <div className="flex flex-col lg:flex-row items-center">
-          <div className="w-full lg:w-1/2 mb-12 lg:mb-20">
-            <motion.div 
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: isVisible ? 1 : 0, y: isVisible ? 0 : 20 }}
-              transition={{ duration: 0.8 }}
-              className="text-center lg:text-left"
-            >
-              <h1 className="text-4xl lg:text-6xl font-bold mb-6 leading-tight drop-shadow-lg">
-                Trouvez l'hébergement
-                <span className="block mt-2 text-secondary">idéal</span>
-              </h1>
-              <p className="text-lg lg:text-xl mb-8 max-w-lg font-medium drop-shadow-md">
-                Des riads traditionnels aux hôtels de luxe, nous vous proposons des hébergements d'exception au Maroc et au Sénégal.
-              </p>
-              <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
-                <Button
-                  size="lg"
-                  className="text-lg px-6 py-5 font-semibold bg-secondary hover:bg-secondary/90 text-primary transition-all duration-300"
-                  asChild
-                >
-                  <Link to="#popular-hotels">
-                    Explorer les hôtels
-                  </Link>
-                </Button>
-                
-                <Button
-                  variant="outline"
-                  size="lg"
-                  className="border-white text-white hover:bg-white/10 text-lg px-6 py-5 font-semibold transition-all duration-300"
-                  asChild
-                >
-                  <Link to="#special-offers">
-                    Offres spéciales
-                  </Link>
-                </Button>
+        <div className="max-w-4xl mx-auto text-center">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+          >
+            <Badge className="mb-4 px-4 py-2 bg-secondary text-primary">
+              Hébergements premium
+            </Badge>
+            <h1 className="text-4xl md:text-6xl font-bold mb-6 drop-shadow-lg">
+              Hébergements
+              <span className="block text-secondary">de Luxe</span>
+            </h1>
+            <p className="text-xl md:text-2xl mb-8 max-w-3xl mx-auto text-white/90">
+              Séjournez dans les plus beaux hôtels du Maroc et du Sénégal avec nos partenaires de confiance
+            </p>
+            
+            <div className="flex flex-col sm:flex-row gap-4 justify-center mb-12">
+              <Button size="lg" className="bg-green-600 hover:bg-green-700 text-white text-lg px-8" asChild>
+                <a href="https://wa.me/212614082524" target="_blank" rel="noopener noreferrer">
+                  En savoir plus
+                </a>
+              </Button>
+              <Button size="lg" className="bg-secondary text-primary hover:bg-secondary/90 text-lg px-8" asChild>
+                <a href="https://wa.me/212614082524" target="_blank" rel="noopener noreferrer">
+                  Réserver
+                </a>
+              </Button>
+            </div>
+
+            {/* Stats */}
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-6 mt-16">
+              <div className="text-center">
+                <div className="text-3xl font-bold text-secondary mb-2">50+</div>
+                <div className="text-white/80">Hôtels partenaires</div>
               </div>
-            </motion.div>
-          </div>
+              <div className="text-center">
+                <div className="text-3xl font-bold text-secondary mb-2">5★</div>
+                <div className="text-white/80">Catégorie maximum</div>
+              </div>
+              <div className="text-center">
+                <div className="text-3xl font-bold text-secondary mb-2">12</div>
+                <div className="text-white/80">Villes couvertes</div>
+              </div>
+              <div className="text-center">
+                <div className="text-3xl font-bold text-secondary mb-2">24h</div>
+                <div className="text-white/80">Service client</div>
+              </div>
+            </div>
+          </motion.div>
         </div>
-        
-        {/* Widget de recherche déplacé en bas et centré */}
-        <div className="max-w-5xl mx-auto -mb-36 relative z-20">
-          <SearchWidget />
-        </div>
-        
-        {/* Hotel badge */}
-        <motion.div 
-          className="absolute top-8 right-8"
-          initial={{ opacity: 0, x: 50 }}
-          animate={{ opacity: 1, x: 0 }}
-          transition={{ duration: 0.5, delay: 1.2 }}
-        >
-          <Badge className="bg-white text-primary px-4 py-2 text-sm font-medium rounded-full flex items-center gap-2 shadow-lg">
-            <Star className="h-5 w-5 fill-yellow-400 text-yellow-400" />
-            Hôtels sélectionnés
-          </Badge>
-        </motion.div>
       </div>
     </section>
   );

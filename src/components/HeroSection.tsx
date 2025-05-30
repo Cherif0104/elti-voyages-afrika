@@ -15,7 +15,7 @@ const HeroSection = () => {
   }, []);
 
   return (
-    <section className="relative bg-gradient-to-r from-primary to-primary/80 text-white">
+    <section className="relative text-white" style={{ backgroundColor: '#172554' }}>
       <div className="container mx-auto px-4 py-16">
         <div className="flex flex-col lg:flex-row items-center">
           <div className="w-full lg:w-1/2 mb-10 lg:mb-0">
@@ -38,23 +38,22 @@ const HeroSection = () => {
               <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
                 <Button
                   size="lg"
-                  className="text-lg px-8 py-6 font-semibold bg-secondary hover:bg-secondary/90 text-primary transition-all duration-300"
+                  className="text-lg px-8 py-6 font-semibold bg-green-600 hover:bg-green-700 text-white transition-all duration-300"
                   asChild
                 >
-                  <Link to="#reservation">
-                    Réserver mon pack
-                  </Link>
+                  <a href="https://wa.me/212614082524" target="_blank" rel="noopener noreferrer">
+                    En savoir plus
+                  </a>
                 </Button>
                 
                 <Button
-                  variant="outline"
                   size="lg"
-                  className="border-white text-white hover:bg-white/10 text-lg px-8 py-6 font-semibold transition-all duration-300"
+                  className="text-lg px-8 py-6 font-semibold bg-secondary hover:bg-secondary/90 text-primary transition-all duration-300"
                   asChild
                 >
-                  <Link to="#news">
-                    Dernières actualités
-                  </Link>
+                  <a href="https://wa.me/212614082524" target="_blank" rel="noopener noreferrer">
+                    Réserver
+                  </a>
                 </Button>
               </div>
             </motion.div>

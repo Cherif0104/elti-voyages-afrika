@@ -1,97 +1,65 @@
 
-import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
-import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
+import { Car, MapPin, Clock, Shield } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
-import { Car, Clock } from "lucide-react";
-import Logo from "@/components/Logo";
-import SearchWidget from "@/components/SearchWidget";
 
 const CarsHeroSection = () => {
-  const [isVisible, setIsVisible] = useState(false);
-
-  useEffect(() => {
-    setIsVisible(true);
-  }, []);
-
   return (
-    <section className="relative bg-gradient-to-r from-primary to-primary/80 text-white pt-8 pb-24">
-      {/* Background image overlay */}
-      <div className="absolute inset-0 bg-black/40 z-0"></div>
-      
-      {/* Background image */}
-      <div 
-        className="absolute inset-0 bg-cover bg-center z-[-1]" 
-        style={{ backgroundImage: "url('/lovable-uploads/c6c802b2-f2e0-41cb-80f9-0b3db899bbcb.png')" }}
-      ></div>
-      
+    <section className="relative text-white py-20" style={{ backgroundColor: '#172554' }}>
       <div className="container mx-auto px-4 relative z-10">
-        <div className="flex items-center mb-6">
-          <Logo size="md" className="mr-4" />
-          <span className="bg-secondary/80 text-primary px-4 py-1 rounded-full text-sm font-bold inline-block backdrop-blur-sm">
-            LOCATION DE VÉHICULES
-          </span>
-        </div>
-        
-        <div className="flex flex-col lg:flex-row items-center">
-          <div className="w-full lg:w-1/2 mb-12 lg:mb-20">
-            <motion.div 
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: isVisible ? 1 : 0, y: isVisible ? 0 : 20 }}
-              transition={{ duration: 0.8 }}
-              className="text-center lg:text-left"
-            >
-              <h1 className="text-4xl lg:text-6xl font-bold mb-6 leading-tight drop-shadow-lg">
-                Votre liberté de
-                <span className="block mt-2 text-secondary">mouvement</span>
-              </h1>
-              <p className="text-lg lg:text-xl mb-8 max-w-lg font-medium drop-shadow-md">
-                De l'économique au luxe, avec ou sans chauffeur, nous proposons une large gamme de véhicules pour tous vos déplacements.
-              </p>
-              <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
-                <Button
-                  size="lg"
-                  className="text-lg px-6 py-5 font-semibold bg-secondary hover:bg-secondary/90 text-primary transition-all duration-300"
-                  asChild
-                >
-                  <Link to="#cars-categories">
-                    Explorer les véhicules
-                  </Link>
-                </Button>
-                
-                <Button
-                  variant="outline"
-                  size="lg"
-                  className="border-white text-white hover:bg-white/10 text-lg px-6 py-5 font-semibold transition-all duration-300"
-                  asChild
-                >
-                  <Link to="#chauffeur">
-                    Service chauffeur
-                  </Link>
-                </Button>
+        <div className="max-w-4xl mx-auto text-center">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+          >
+            <Badge className="mb-4 px-4 py-2 bg-secondary text-primary">
+              <Car className="h-4 w-4 mr-2" />
+              Location de véhicules
+            </Badge>
+            <h1 className="text-4xl md:text-6xl font-bold mb-6 drop-shadow-lg">
+              Location de
+              <span className="block text-secondary">Véhicules</span>
+            </h1>
+            <p className="text-xl md:text-2xl mb-8 max-w-3xl mx-auto text-white/90">
+              Explorez le Maroc et le Sénégal en toute liberté avec notre flotte de véhicules premium
+            </p>
+            
+            <div className="flex flex-col sm:flex-row gap-4 justify-center mb-12">
+              <Button size="lg" className="bg-green-600 hover:bg-green-700 text-white text-lg px-8" asChild>
+                <a href="https://wa.me/212614082524" target="_blank" rel="noopener noreferrer">
+                  En savoir plus
+                </a>
+              </Button>
+              <Button size="lg" className="bg-secondary text-primary hover:bg-secondary/90 text-lg px-8" asChild>
+                <a href="https://wa.me/212614082524" target="_blank" rel="noopener noreferrer">
+                  Réserver
+                </a>
+              </Button>
+            </div>
+
+            {/* Features */}
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-6 mt-16">
+              <div className="text-center">
+                <Car className="h-8 w-8 text-secondary mx-auto mb-2" />
+                <div className="text-white/80">Véhicules récents</div>
               </div>
-            </motion.div>
-          </div>
+              <div className="text-center">
+                <Shield className="h-8 w-8 text-secondary mx-auto mb-2" />
+                <div className="text-white/80">Assurance incluse</div>
+              </div>
+              <div className="text-center">
+                <Clock className="h-8 w-8 text-secondary mx-auto mb-2" />
+                <div className="text-white/80">Service 24h/24</div>
+              </div>
+              <div className="text-center">
+                <MapPin className="h-8 w-8 text-secondary mx-auto mb-2" />
+                <div className="text-white/80">Livraison gratuite</div>
+              </div>
+            </div>
+          </motion.div>
         </div>
-        
-        {/* Widget de recherche déplacé en bas et centré */}
-        <div className="max-w-5xl mx-auto -mb-36 relative z-20">
-          <SearchWidget />
-        </div>
-        
-        {/* Car badge */}
-        <motion.div 
-          className="absolute top-8 right-8"
-          initial={{ opacity: 0, x: 50 }}
-          animate={{ opacity: 1, x: 0 }}
-          transition={{ duration: 0.5, delay: 1.2 }}
-        >
-          <Badge className="bg-white text-primary px-4 py-2 text-sm font-medium rounded-full flex items-center gap-2 shadow-lg">
-            <Clock className="h-5 w-5 text-secondary" />
-            Réservation 24h/24
-          </Badge>
-        </motion.div>
       </div>
     </section>
   );
