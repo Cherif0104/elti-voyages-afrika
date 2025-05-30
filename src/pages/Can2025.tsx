@@ -1,35 +1,29 @@
-
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Trophy, Calendar, MapPin, Users, Star, Phone } from "lucide-react";
 import Can2025SpecialOffer from "@/components/home/Can2025SpecialOffer";
-
 const Can2025 = () => {
-  const packages = [
-    {
-      title: "Pack Supporter Standard",
-      price: "1,299€",
-      description: "L'essentiel pour vivre la CAN 2025",
-      features: ["Vol A/R", "Hébergement 7 nuits", "Billets matchs groupe", "Transferts"]
-    },
-    {
-      title: "Pack Supporter Premium",
-      price: "1,899€",
-      description: "L'expérience complète de supporter",
-      features: ["Vol A/R", "Hébergement 10 nuits", "Billets tous matchs", "Transferts VIP", "Excursions"]
-    },
-    {
-      title: "Pack VIP",
-      price: "2,599€",
-      description: "L'expérience ultime",
-      features: ["Vol A/R Business", "Hôtel 5*", "Billets VIP", "Transferts privés", "Accès lounge"]
-    }
-  ];
-
-  return (
-    <div className="min-h-screen">
+  const packages = [{
+    title: "Pack Supporter Standard",
+    price: "1,299€",
+    description: "L'essentiel pour vivre la CAN 2025",
+    features: ["Vol A/R", "Hébergement 7 nuits", "Billets matchs groupe", "Transferts"]
+  }, {
+    title: "Pack Supporter Premium",
+    price: "1,899€",
+    description: "L'expérience complète de supporter",
+    features: ["Vol A/R", "Hébergement 10 nuits", "Billets tous matchs", "Transferts VIP", "Excursions"]
+  }, {
+    title: "Pack VIP",
+    price: "2,599€",
+    description: "L'expérience ultime",
+    features: ["Vol A/R Business", "Hôtel 5*", "Billets VIP", "Transferts privés", "Accès lounge"]
+  }];
+  return <div className="min-h-screen">
       {/* Hero Section */}
-      <section className="relative text-white py-20" style={{ backgroundColor: '#172554' }}>
+      <section className="relative text-white py-20" style={{
+      backgroundColor: '#172554'
+    }}>
         <div className="container mx-auto px-4 relative z-10">
           <div className="max-w-4xl mx-auto text-center">
             <div className="flex items-center justify-center mb-6">
@@ -96,44 +90,7 @@ const Can2025 = () => {
 
       {/* Packages */}
       <section className="py-16">
-        <div className="container mx-auto px-4">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl md:text-4xl font-bold text-primary mb-4">Nos Packs CAN 2025</h2>
-            <p className="text-xl text-gray-600">Choisissez votre formule pour vivre la CAN 2025</p>
-          </div>
-          
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto">
-            {packages.map((pack, index) => (
-              <Card key={index} className="relative overflow-hidden">
-                {index === 1 && (
-                  <div className="absolute top-0 right-0 bg-yellow-500 text-black px-3 py-1 text-sm font-bold">
-                    POPULAIRE
-                  </div>
-                )}
-                <CardHeader>
-                  <CardTitle className="text-xl">{pack.title}</CardTitle>
-                  <CardDescription>{pack.description}</CardDescription>
-                  <div className="text-3xl font-bold text-primary">{pack.price}</div>
-                </CardHeader>
-                <CardContent>
-                  <ul className="space-y-2 mb-6">
-                    {pack.features.map((feature, i) => (
-                      <li key={i} className="flex items-center">
-                        <Star className="h-4 w-4 text-yellow-500 mr-2" />
-                        {feature}
-                      </li>
-                    ))}
-                  </ul>
-                  <Button className="w-full" asChild>
-                    <a href="https://wa.me/212614082524" target="_blank" rel="noopener noreferrer">
-                      Réserver ce pack
-                    </a>
-                  </Button>
-                </CardContent>
-              </Card>
-            ))}
-          </div>
-        </div>
+        
       </section>
 
       {/* CTA Section */}
@@ -159,8 +116,6 @@ const Can2025 = () => {
           </div>
         </div>
       </section>
-    </div>
-  );
+    </div>;
 };
-
 export default Can2025;
