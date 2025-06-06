@@ -309,9 +309,6 @@ const Can2025 = () => {
         </div>
       </section>
 
-      {/* Special Offers Section */}
-      <Can2025SpecialOffer />
-
       {/* Key Info avec animations améliorées */}
       <section className="py-16 bg-gradient-to-br from-gray-50 to-green-50">
         <div className="container mx-auto px-4">
