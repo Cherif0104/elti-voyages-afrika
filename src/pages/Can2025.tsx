@@ -94,6 +94,14 @@ const Can2025 = () => {
         <div className="container mx-auto px-4 relative z-10">
           <div className="max-w-4xl mx-auto text-center">
             <div className="flex items-center justify-center mb-6">
+              {/* Logo officiel CAN 2025 */}
+              <div className="mr-6">
+                <img 
+                  src="/lovable-uploads/8cf372e0-686c-4103-8b67-539fa4022a8b.png" 
+                  alt="Logo CAN 2025 Morocco" 
+                  className="h-24 w-auto object-contain"
+                />
+              </div>
               <Trophy className="h-16 w-16 text-yellow-400 mr-4" />
               <h1 className="text-5xl md:text-7xl font-bold">CAN 2025</h1>
             </div>
