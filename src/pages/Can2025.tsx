@@ -291,7 +291,7 @@ const Can2025 = () => {
             >
               <div className="relative rounded-xl overflow-hidden shadow-2xl">
                 <motion.img 
-                  src="/lovable-uploads/36fcf6f0-086c-42e1-8fd4-79fc459386c9.png" 
+                  src="/lovable-uploads/b8effe4b-8ba1-45da-b2fb-8f739711b323.png" 
                   alt="Équipe du Sénégal - CAN 2025 avec ELTI VOYAGES" 
                   className="w-full h-auto object-cover"
                   whileHover={{ scale: 1.02 }}
@@ -299,7 +299,7 @@ const Can2025 = () => {
                 />
                 
                 {/* Overlay avec informations */}
-                <div className="absolute inset-0 bg-gradient-to-t from-black/30 via-transparent to-black/20"></div>
+                <div className="absolute inset-0 bg-gradient-to-t from-green-900/40 via-transparent to-transparent"></div>
                 
                 <motion.div 
                   className="absolute top-6 left-6 bg-green-600/90 text-white font-bold py-3 px-6 rounded-lg backdrop-blur-sm"
