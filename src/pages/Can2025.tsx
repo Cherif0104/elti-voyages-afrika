@@ -113,11 +113,12 @@ const Can2025 = () => {
     }
   };
 
-  return <div className="min-h-screen overflow-hidden">
+  return (
+    <div className="min-h-screen overflow-hidden">
       {/* Hero Section avec animations améliorées */}
       <section className="relative text-white py-20 overflow-hidden" style={{
-      background: 'linear-gradient(135deg, #1a365d 0%, #2d5a2d 30%, #d4af37 100%)'
-    }}>
+        background: 'linear-gradient(135deg, #1a365d 0%, #2d5a2d 30%, #d4af37 100%)'
+      }}>
         {/* Motifs africains animés en arrière-plan */}
         <div className="absolute inset-0 opacity-10">
           <motion.div 
@@ -625,13 +626,13 @@ const Can2025 = () => {
                 </a>
               </Button>
             </motion.div>
-          </div>
+          </motion.div>
         </div>
       </section>
 
-      {/* Packages */}
+      {/* Packages Section */}
       <section className="py-16">
-        
+        {/* Contenu des packages sera ajouté ici */}
       </section>
 
       {/* CTA Section avec animations africaines */}
@@ -711,7 +712,8 @@ const Can2025 = () => {
           </motion.div>
         </div>
       </section>
-    </div>;
+    </div>
+  );
 };
 
 export default Can2025;
