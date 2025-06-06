@@ -125,18 +125,21 @@ const Footer = () => {
             <ul className="space-y-4">
               <li className="flex">
                 <MapPin className="h-5 w-5 mr-3 flex-shrink-0 text-accent" />
-                <span className="text-white/80">17 Rue El Oraibi Jilali, Casablanca, Maroc</span>
+                <span className="text-white/80">Casablanca, Maroc</span>
               </li>
               <li className="flex">
                 <Phone className="h-5 w-5 mr-3 flex-shrink-0 text-accent" />
-                <a href="tel:+212614082524" className="text-white/80 hover:text-white transition-colors">
-                  +212 614 082 524
-                </a>
+                <div className="text-white/80">
+                  <div className="font-semibold">Direction commerciale</div>
+                  <div>Maroc +212 614 08 25 24</div>
+                  <div>Sénégal Mr. Papis Sagna</div>
+                  <div>+221 77 474 83 74 - +221 78 429 46 46</div>
+                </div>
               </li>
               <li className="flex">
                 <Mail className="h-5 w-5 mr-3 flex-shrink-0 text-accent" />
-                <a href="mailto:contact@impulcia-afrique.com" className="text-white/80 hover:text-white transition-colors">
-                  contact@impulcia-afrique.com
+                <a href="mailto:contact@elti-voyages.com" className="text-white/80 hover:text-white transition-colors">
+                  contact@elti-voyages.com
                 </a>
               </li>
             </ul>

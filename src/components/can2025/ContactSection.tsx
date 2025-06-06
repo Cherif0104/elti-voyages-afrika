@@ -39,9 +39,11 @@ const ContactSection = () => {
                   <Phone className="h-5 w-5 text-secondary" />
                 </div>
                 <div>
-                  <p className="text-gray-500 text-sm mb-1">Téléphone</p>
-                  <a href="tel:+212614082524" className="text-primary hover:text-secondary transition-colors">+212 614 082 524</a>
-                  <p className="text-xs text-gray-400">WhatsApp disponible</p>
+                  <p className="text-gray-500 text-sm mb-1">Direction commerciale</p>
+                  <p className="text-primary hover:text-secondary transition-colors">Maroc +212 614 08 25 24</p>
+                  <p className="text-primary hover:text-secondary transition-colors">Sénégal Mr. Papis Sagna</p>
+                  <p className="text-primary hover:text-secondary transition-colors">+221 77 474 83 74 - +221 78 429 46 46</p>
+                  <p className="text-xs text-gray-400 mt-1">WhatsApp disponible</p>
                 </div>
               </div>
               
@@ -51,7 +53,7 @@ const ContactSection = () => {
                 </div>
                 <div>
                   <p className="text-gray-500 text-sm mb-1">Email</p>
-                  <a href="mailto:contact@impulcia-afrique.com" className="text-primary hover:text-secondary transition-colors">contact@impulcia-afrique.com</a>
+                  <a href="mailto:contact@elti-voyages.com" className="text-primary hover:text-secondary transition-colors">contact@elti-voyages.com</a>
                 </div>
               </div>
               
@@ -61,7 +63,7 @@ const ContactSection = () => {
                 </div>
                 <div>
                   <p className="text-gray-500 text-sm mb-1">Adresse</p>
-                  <p>17 Rue El Oraibi Jilali,<br/>Casablanca, Maroc</p>
+                  <p>Casablanca, Maroc</p>
                 </div>
               </div>
             </div>
@@ -72,7 +74,7 @@ const ContactSection = () => {
             className="md:col-span-2 bg-white rounded-xl overflow-hidden shadow-sm border border-gray-100"
           >
             <iframe
-              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3325.499299749476!2d-7.621799984741399!3d33.58428938074177!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xda7cd4a548073a1%3A0x595332652699790c!2s17%20Rue%20El%20Oraibi%20Jilali%2C%20Casablanca!5e0!3m2!1sfr!2sma!4v1621947144999!5m2!1sfr!2sma"
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3325.499299749476!2d-7.621799984741399!3d33.58428938074177!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xda7cd4a548073a1%3A0x595332652699790c!2sCasablanca!5e0!3m2!1sfr!2sma!4v1621947144999!5m2!1sfr!2sma"
               width="100%"
               height="450"
               style={{ border: 0 }}

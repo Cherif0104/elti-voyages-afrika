@@ -1,8 +1,11 @@
+
 import { Phone, Mail, MapPin } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import Logo from '@/components/Logo';
+
 const SimpleFooter = () => {
-  return <footer className="bg-primary text-white py-12">
+  return (
+    <footer className="bg-primary text-white py-12">
       <div className="container mx-auto px-4">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           {/* Company Info */}
@@ -32,9 +35,14 @@ const SimpleFooter = () => {
           <div>
             <h3 className="text-lg font-semibold mb-4">Contact</h3>
             <div className="space-y-3">
-              <div className="flex items-center space-x-2">
-                <Phone className="h-4 w-4" />
-                <span className="px-[13px] text-left mx-[32px] py-0 my-0 font-extralight">Direction commerciale Maroc +212 614 082 524  Sénégal  Mr. Papis Sagna +221 77 474 83 74 -  +221 78 429 46 46</span>
+              <div className="flex items-start space-x-2">
+                <Phone className="h-4 w-4 mt-1 flex-shrink-0" />
+                <div className="text-sm">
+                  <p className="font-medium">Direction commerciale</p>
+                  <p>Maroc +212 614 08 25 24</p>
+                  <p>Sénégal Mr. Papis Sagna</p>
+                  <p>+221 77 474 83 74 - +221 78 429 46 46</p>
+                </div>
               </div>
               <div className="flex items-center space-x-2">
                 <Mail className="h-4 w-4" />
@@ -54,6 +62,8 @@ const SimpleFooter = () => {
           </p>
         </div>
       </div>
-    </footer>;
+    </footer>
+  );
 };
+
 export default SimpleFooter;

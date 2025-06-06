@@ -49,7 +49,7 @@ const CarCtaSection = () => {
                   </div>
                   <div>
                     <div className="text-sm text-white/70">Téléphone</div>
-                    <div className="font-semibold">+212 614 082 524</div>
+                    <div className="font-semibold">+212 614 08 25 24</div>
                   </div>
                 </div>
                 
@@ -59,7 +59,7 @@ const CarCtaSection = () => {
                   </div>
                   <div>
                     <div className="text-sm text-white/70">Email</div>
-                    <div className="font-semibold">contact@impulcia-afrique.com</div>
+                    <div className="font-semibold">contact@elti-voyages.com</div>
                   </div>
                 </div>
                 

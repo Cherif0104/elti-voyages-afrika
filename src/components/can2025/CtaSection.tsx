@@ -57,7 +57,7 @@ const CtaSection = () => {
                     className="flex items-center justify-center gap-2 border border-primary/30 text-primary hover:bg-primary/5 text-lg px-6 py-4 rounded-md transition-all duration-300 font-medium"
                   >
                     <Phone className="h-5 w-5" />
-                    <span>+212 614 082 524</span>
+                    <span>+212 614 08 25 24</span>
                   </a>
                 </div>
               </motion.div>
@@ -132,14 +132,14 @@ const CtaSection = () => {
                   <p className="font-medium mb-2 text-gray-700">Pour plus d'informations:</p>
                   <div className="flex flex-col sm:flex-row gap-2 justify-center text-sm">
                     <div className="bg-gray-100 rounded p-2">
-                      <span className="block">Sénégal : +221 750 10 32 89 - +221 77 774 83 74</span>
+                      <span className="block">Sénégal : +221 77 474 83 74 - +221 78 429 46 46</span>
                     </div>
                     <div className="bg-gray-100 rounded p-2">
-                      <span className="block">Maroc : +212 614 082 524</span>
+                      <span className="block">Maroc : +212 614 08 25 24</span>
                     </div>
                   </div>
                   <p className="mt-2 text-gray-600">
-                    <a href="mailto:contact@impulcia-afrique.com" className="underline hover:text-primary">contact@impulcia-afrique.com</a> | 
+                    <a href="mailto:contact@elti-voyages.com" className="underline hover:text-primary">contact@elti-voyages.com</a> | 
                     <a href="https://www.eltivoyages.com" className="underline hover:text-primary ml-1" target="_blank" rel="noreferrer">www.eltivoyages.com</a>
                   </p>
                 </motion.div>

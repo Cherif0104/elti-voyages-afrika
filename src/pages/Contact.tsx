@@ -10,31 +10,31 @@ const Contact = () => {
   const contactMethods = [
     {
       icon: <Phone className="h-8 w-8" />,
-      title: "Téléphone",
-      content: "+212 614 082 524",
-      description: "Disponible 7j/7 de 9h à 20h",
+      title: "Téléphone Maroc",
+      content: "+212 614 08 25 24",
+      description: "Direction commerciale",
       link: "tel:+212614082524"
+    },
+    {
+      icon: <Phone className="h-8 w-8" />,
+      title: "Téléphone Sénégal",
+      content: "Mr. Papis Sagna",
+      description: "+221 77 474 83 74 - +221 78 429 46 46",
+      link: "tel:+221774748374"
     },
     {
       icon: <MessageCircle className="h-8 w-8" />,
       title: "WhatsApp",
-      content: "+212 614 082 524",
+      content: "+212 614 08 25 24",
       description: "Réponse rapide garantie",
       link: "https://wa.me/212614082524"
     },
     {
       icon: <Mail className="h-8 w-8" />,
       title: "Email",
-      content: "contact@impulcia-afrique.com",
+      content: "contact@elti-voyages.com",
       description: "Réponse sous 24h",
-      link: "mailto:contact@impulcia-afrique.com"
-    },
-    {
-      icon: <MapPin className="h-8 w-8" />,
-      title: "Adresse",
-      content: "17 Rue El Oraibi Jilali, Casablanca",
-      description: "Maroc, 20250",
-      link: "#"
+      link: "mailto:contact@elti-voyages.com"
     }
   ];
 
@@ -140,13 +140,11 @@ const Contact = () => {
                   <CardContent>
                     <p className="font-semibold text-primary mb-2">{method.content}</p>
                     <p className="text-gray-600 text-sm mb-4">{method.description}</p>
-                    {method.link !== "#" && (
-                      <Button variant="outline" size="sm" asChild>
-                        <a href={method.link} target={method.link.startsWith('http') ? '_blank' : undefined} rel={method.link.startsWith('http') ? 'noopener noreferrer' : undefined}>
-                          Contacter
-                        </a>
-                      </Button>
-                    )}
+                    <Button variant="outline" size="sm" asChild>
+                      <a href={method.link} target={method.link.startsWith('http') ? '_blank' : undefined} rel={method.link.startsWith('http') ? 'noopener noreferrer' : undefined}>
+                        Contacter
+                      </a>
+                    </Button>
                   </CardContent>
                 </Card>
               </motion.div>
@@ -178,14 +176,14 @@ const Contact = () => {
               </Card>
             </motion.div>
 
-            {/* Office Hours */}
+            {/* Office Hours & Contact Info */}
             <motion.div 
               initial={{ opacity: 0, x: 20 }}
               whileInView={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.6, delay: 0.2 }}
               viewport={{ once: true }}
             >
-              <Card className="h-fit">
+              <Card className="h-fit mb-6">
                 <CardHeader>
                   <CardTitle className="text-xl text-primary flex items-center">
                     <Clock className="h-5 w-5 mr-2" />
@@ -209,8 +207,42 @@ const Contact = () => {
                 </CardContent>
               </Card>
 
+              {/* Contact Details */}
+              <Card className="mb-6">
+                <CardHeader>
+                  <CardTitle className="text-xl text-primary">Nos coordonnées</CardTitle>
+                </CardHeader>
+                <CardContent className="space-y-4">
+                  <div className="flex items-start space-x-3">
+                    <MapPin className="h-5 w-5 text-primary mt-1" />
+                    <div>
+                      <p className="font-medium">Adresse</p>
+                      <p className="text-gray-600">Casablanca, Maroc</p>
+                    </div>
+                  </div>
+                  
+                  <div className="flex items-start space-x-3">
+                    <Phone className="h-5 w-5 text-primary mt-1" />
+                    <div>
+                      <p className="font-medium">Direction commerciale</p>
+                      <p className="text-gray-600">Maroc +212 614 08 25 24</p>
+                      <p className="text-gray-600">Sénégal Mr. Papis Sagna</p>
+                      <p className="text-gray-600">+221 77 474 83 74 - +221 78 429 46 46</p>
+                    </div>
+                  </div>
+                  
+                  <div className="flex items-start space-x-3">
+                    <Mail className="h-5 w-5 text-primary mt-1" />
+                    <div>
+                      <p className="font-medium">Email</p>
+                      <a href="mailto:contact@elti-voyages.com" className="text-primary hover:underline">contact@elti-voyages.com</a>
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
+
               {/* Quick Contact */}
-              <Card className="mt-6">
+              <Card>
                 <CardHeader>
                   <CardTitle className="text-xl text-primary">Contact rapide</CardTitle>
                 </CardHeader>
@@ -256,7 +288,7 @@ const Contact = () => {
             className="bg-white rounded-lg overflow-hidden shadow-lg"
           >
             <iframe
-              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3325.499299749476!2d-7.621799984741399!3d33.58428938074177!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xda7cd4a548073a1%3A0x595332652699790c!2s17%20Rue%20El%20Oraibi%20Jilali%2C%20Casablanca!5e0!3m2!1sfr!2sma!4v1621947144999!5m2!1sfr!2sma"
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3325.499299749476!2d-7.621799984741399!3d33.58428938074177!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xda7cd4a548073a1%3A0x595332652699790c!2sCasablanca!5e0!3m2!1sfr!2sma!4v1621947144999!5m2!1sfr!2sma"
               width="100%"
               height="400"
               style={{ border: 0 }}
