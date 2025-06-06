@@ -9,21 +9,34 @@ const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   const mainNavItems = [
-    { name: "Accueil", path: "/" },
-    { name: "CAN 2025", path: "/can2025" },
-    { name: "Vols", path: "/billets-avion" },
-    { name: "Hébergements", path: "/hotels" },
-    { name: "Voitures", path: "/voitures" },
-    { name: "Excursions", path: "/excursions" },
-    { name: "Contact", path: "/contact" }
+    { name: "Accueil", path: "/#header" },
+    { name: "CAN 2025", path: "/can2025#header" },
+    { name: "Vols", path: "/billets-avion#header" },
+    { name: "Hébergements", path: "/hotels#header" },
+    { name: "Voitures", path: "/voitures#header" },
+    { name: "Excursions", path: "/excursions#header" },
+    { name: "Contact", path: "/contact#header" }
   ];
 
+  const handleNavClick = (path: string) => {
+    setIsMenuOpen(false);
+    // Scroll to header section after navigation
+    setTimeout(() => {
+      const headerElement = document.getElementById('header-section');
+      if (headerElement) {
+        headerElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      } else {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      }
+    }, 100);
+  };
+
   return (
-    <header className="bg-white shadow-sm border-b sticky top-0 z-50">
+    <header id="header-section" className="bg-white shadow-sm border-b sticky top-0 z-50">
       <div className="container mx-auto px-4">
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
-          <Link to="/" className="flex items-center space-x-2">
+          <Link to="/#header" className="flex items-center space-x-2" onClick={() => handleNavClick("/#header")}>
             <Logo size="md" />
             <span className="text-xl font-bold text-primary">ELTI VOYAGES</span>
           </Link>
@@ -35,6 +48,7 @@ const Header = () => {
                 key={item.path}
                 to={item.path}
                 className="text-gray-700 hover:text-primary transition-colors font-medium"
+                onClick={() => handleNavClick(item.path)}
               >
                 {item.name}
               </Link>
@@ -73,7 +87,7 @@ const Header = () => {
                   key={item.path}
                   to={item.path}
                   className="py-2 text-gray-700 hover:text-primary transition-colors"
-                  onClick={() => setIsMenuOpen(false)}
+                  onClick={() => handleNavClick(item.path)}
                 >
                   {item.name}
                 </Link>

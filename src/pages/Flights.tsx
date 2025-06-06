@@ -6,7 +6,23 @@ import { Badge } from "@/components/ui/badge";
 import FlightCard from "@/components/flights/FlightCard";
 import FlightSearchForm from "@/components/flights/FlightSearchForm";
 import FlightCompanySection from "@/components/flights/FlightCompanySection";
+import { useEffect } from "react";
+
 const Flights = () => {
+  useEffect(() => {
+    // Scroll to header on page load if hash is present
+    if (window.location.hash === '#header') {
+      setTimeout(() => {
+        const headerElement = document.getElementById('header-section');
+        if (headerElement) {
+          headerElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        } else {
+          window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+      }, 100);
+    }
+  }, []);
+
   const flightFeatures = [{
     icon: <Globe className="h-8 w-8" />,
     title: "Destinations multiples",
@@ -24,6 +40,7 @@ const Flights = () => {
     title: "Compagnies premium",
     description: "Partenariats avec les meilleures compagnies aériennes"
   }];
+  
   const popularFlights = [{
     departure: "Casablanca",
     arrival: "Dakar",
@@ -46,9 +63,10 @@ const Flights = () => {
     duration: "4h 45min",
     logo: "/lovable-uploads/ab63324d-f67c-462a-9b92-16f736061c0a.png"
   }];
+
   return <div className="min-h-screen">
       {/* Hero Section */}
-      <section className="relative text-white py-20" style={{
+      <section id="flights-header" className="relative text-white py-20" style={{
       backgroundColor: '#172554'
     }}>
         <div className="container mx-auto px-4 relative z-10">
@@ -245,4 +263,5 @@ const Flights = () => {
       </section>
     </div>;
 };
+
 export default Flights;

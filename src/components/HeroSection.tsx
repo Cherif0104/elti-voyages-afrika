@@ -1,4 +1,3 @@
-
 import { motion } from "framer-motion";
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
@@ -12,10 +11,19 @@ const HeroSection = () => {
 
   useEffect(() => {
     setIsVisible(true);
+    // Check if we need to scroll to header on page load
+    if (window.location.hash === '#header') {
+      setTimeout(() => {
+        const headerElement = document.getElementById('header-section');
+        if (headerElement) {
+          headerElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+      }, 100);
+    }
   }, []);
 
   return (
-    <section className="relative text-white" style={{ backgroundColor: '#172554' }}>
+    <section id="hero-section" className="relative text-white" style={{ backgroundColor: '#172554' }}>
       <div className="container mx-auto px-4 py-16">
         <div className="flex flex-col lg:flex-row items-center">
           <div className="w-full lg:w-1/2 mb-10 lg:mb-0">

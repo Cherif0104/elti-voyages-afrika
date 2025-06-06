@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
@@ -17,6 +16,18 @@ const HeroSection = () => {
   });
 
   useEffect(() => {
+    // Check if we need to scroll to header on page load
+    if (window.location.hash === '#header') {
+      setTimeout(() => {
+        const headerElement = document.getElementById('header-section');
+        if (headerElement) {
+          headerElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        } else {
+          window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+      }, 100);
+    }
+
     // Animated counter for stats
     const targetValues = {
       teams: 24,
@@ -51,7 +62,7 @@ const HeroSection = () => {
   }, []);
 
   return (
-    <section className="relative" style={{ backgroundColor: '#172554' }}>
+    <section id="can2025-header" className="relative" style={{ backgroundColor: '#172554' }}>
       {/* Hero content */}
       <div className="relative pt-16 pb-32 flex content-center items-center justify-center min-h-[75vh]">
         <div className="container relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 z-10">
