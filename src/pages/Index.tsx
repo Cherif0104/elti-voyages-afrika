@@ -1,3 +1,4 @@
+
 import { useEffect, useState, useRef } from "react";
 import { motion, useInView } from "framer-motion";
 import { Plane, Hotel, Car, Map, Crown, Star, MapPin, UsersRound, CalendarDays, Coffee, Trophy } from "lucide-react";
@@ -504,7 +505,7 @@ const Index = () => {
         </div>
       </section>
 
-      {/* CAN 2025 Special Section with new promotional image */}
+      {/* CAN 2025 Special Section */}
       <section className="py-16 bg-gray-100">
         <div className="container mx-auto px-4">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
@@ -568,15 +569,12 @@ const Index = () => {
             >
               <div className="relative rounded-lg overflow-hidden shadow-xl">
                 <img 
-                  src="/lovable-uploads/36fcf6f0-086c-42e1-8fd4-79fc459386c9.png" 
-                  alt="Équipe du Sénégal - CAN 2025 avec ELTI VOYAGES" 
-                  className="w-full h-auto object-cover"
+                  src="/lovable-uploads/6be21310-8d14-4ccf-92cc-167a85a0b427.png" 
+                  alt="CAN 2025" 
+                  className="w-full h-auto"
                 />
                 <div className="absolute top-6 left-6 bg-secondary/90 text-primary font-bold py-2 px-4 rounded">
-                  CAN 2025
-                </div>
-                <div className="absolute bottom-6 right-6 bg-green-600/90 text-white font-bold py-2 px-4 rounded">
-                  Lions de la Teranga 🇸🇳
+                  Été 2025
                 </div>
               </div>
             </motion.div>

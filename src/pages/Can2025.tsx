@@ -113,7 +113,7 @@ const Can2025 = () => {
 
   return (
     <div className="min-h-screen overflow-hidden">
-      {/* Hero Section avec animations améliorées et image promotionnelle */}
+      {/* Hero Section avec animations améliorées */}
       <section className="relative text-white py-20 overflow-hidden" style={{
         background: 'linear-gradient(135deg, #1a365d 0%, #2d5a2d 30%, #d4af37 100%)'
       }}>
@@ -148,177 +148,135 @@ const Can2025 = () => {
         </div>
 
         <div className="container mx-auto px-4 relative z-10">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-            {/* Contenu textuel */}
-            <div className="text-center lg:text-left">
+          <div className="max-w-4xl mx-auto text-center">
+            <motion.div 
+              className="flex items-center justify-center mb-6"
+              initial={{ opacity: 0, y: -50 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, ease: "easeOut" }}
+            >
+              {/* Logo officiel CAN 2025 avec effet de brillance */}
               <motion.div 
-                className="flex items-center justify-center lg:justify-start mb-6"
-                initial={{ opacity: 0, y: -50 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.8, ease: "easeOut" }}
+                className="mr-6 relative"
+                whileHover={{ scale: 1.1, rotate: 5 }}
+                transition={{ type: "spring", stiffness: 300, damping: 10 }}
               >
-                {/* Logo officiel CAN 2025 avec effet de brillance */}
-                <motion.div 
-                  className="mr-6 relative"
-                  whileHover={{ scale: 1.1, rotate: 5 }}
-                  transition={{ type: "spring", stiffness: 300, damping: 10 }}
+                <img 
+                  src="/lovable-uploads/8cf372e0-686c-4103-8b67-539fa4022a8b.png" 
+                  alt="Logo CAN 2025 Morocco" 
+                  className="h-24 w-auto object-contain drop-shadow-2xl"
+                />
+                <motion.div
+                  className="absolute inset-0 bg-gradient-to-r from-transparent via-white to-transparent opacity-0"
+                  animate={{ 
+                    x: ["-100%", "100%"],
+                    opacity: [0, 0.3, 0]
+                  }}
+                  transition={{ 
+                    duration: 3,
+                    repeat: Infinity,
+                    repeatDelay: 2
+                  }}
+                />
+              </motion.div>
+              
+              <motion.div
+                animate={footballAnimation.bounce}
+                className="mr-4"
+              >
+                <Trophy className="h-16 w-16 text-yellow-400 drop-shadow-lg" />
+              </motion.div>
+              
+              <motion.h1 
+                className="text-5xl md:text-7xl font-bold bg-gradient-to-r from-yellow-300 via-white to-green-400 bg-clip-text text-transparent"
+                initial={{ opacity: 0, scale: 0.5 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ duration: 1, delay: 0.3 }}
+              >
+                CAN 2025
+              </motion.h1>
+            </motion.div>
+            
+            <motion.h2 
+              className="text-2xl md:text-3xl mb-6 text-yellow-200"
+              initial={{ opacity: 0, x: -50 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.8, delay: 0.5 }}
+            >
+              Coupe d'Afrique des Nations - Maroc
+            </motion.h2>
+            
+            {/* Accroche spéciale avec animations */}
+            <motion.div 
+              className="bg-gradient-to-r from-green-600/20 via-yellow-500/20 to-red-600/20 backdrop-blur-sm rounded-lg p-6 mb-8 border border-yellow-400/30"
+              initial={{ opacity: 0, y: 50 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.7 }}
+              whileHover={{ scale: 1.02 }}
+            >
+              <motion.div className="flex items-center justify-center mb-3">
+                <motion.div
+                  animate={heartPulseAnimation.pulse}
+                  className="mr-3"
                 >
-                  <img 
-                    src="/lovable-uploads/8cf372e0-686c-4103-8b67-539fa4022a8b.png" 
-                    alt="Logo CAN 2025 Morocco" 
-                    className="h-24 w-auto object-contain drop-shadow-2xl"
-                  />
-                  <motion.div
-                    className="absolute inset-0 bg-gradient-to-r from-transparent via-white to-transparent opacity-0"
-                    animate={{ 
-                      x: ["-100%", "100%"],
-                      opacity: [0, 0.3, 0]
-                    }}
-                    transition={{ 
-                      duration: 3,
-                      repeat: Infinity,
-                      repeatDelay: 2
-                    }}
-                  />
+                  <Heart className="h-8 w-8 text-red-500 fill-red-500" />
                 </motion.div>
-                
+                <motion.div
+                  animate={flagWaveAnimation.wave}
+                  className="mr-3"
+                >
+                  <Flag className="h-8 w-8 text-green-500" />
+                </motion.div>
                 <motion.div
                   animate={footballAnimation.bounce}
-                  className="mr-4"
                 >
-                  <Trophy className="h-16 w-16 text-yellow-400 drop-shadow-lg" />
+                  <Zap className="h-8 w-8 text-yellow-400" />
                 </motion.div>
-                
-                <motion.h1 
-                  className="text-5xl md:text-7xl font-bold bg-gradient-to-r from-yellow-300 via-white to-green-400 bg-clip-text text-transparent"
-                  initial={{ opacity: 0, scale: 0.5 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  transition={{ duration: 1, delay: 0.3 }}
-                >
-                  CAN 2025
-                </motion.h1>
               </motion.div>
               
-              <motion.h2 
-                className="text-2xl md:text-3xl mb-6 text-yellow-200"
-                initial={{ opacity: 0, x: -50 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ duration: 0.8, delay: 0.5 }}
-              >
-                Coupe d'Afrique des Nations - Maroc
-              </motion.h2>
-              
-              {/* Accroche spéciale avec animations */}
-              <motion.div 
-                className="bg-gradient-to-r from-green-600/20 via-yellow-500/20 to-red-600/20 backdrop-blur-sm rounded-lg p-6 mb-8 border border-yellow-400/30"
-                initial={{ opacity: 0, y: 50 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.8, delay: 0.7 }}
-                whileHover={{ scale: 1.02 }}
-              >
-                <motion.div className="flex items-center justify-center lg:justify-start mb-3">
-                  <motion.div
-                    animate={heartPulseAnimation.pulse}
-                    className="mr-3"
-                  >
-                    <Heart className="h-8 w-8 text-red-500 fill-red-500" />
-                  </motion.div>
-                  <motion.div
-                    animate={flagWaveAnimation.wave}
-                    className="mr-3"
-                  >
-                    <Flag className="h-8 w-8 text-green-500" />
-                  </motion.div>
-                  <motion.div
-                    animate={footballAnimation.bounce}
-                  >
-                    <Zap className="h-8 w-8 text-yellow-400" />
-                  </motion.div>
-                </motion.div>
-                
-                <p className="text-xl md:text-2xl font-bold text-yellow-300 mb-2">
-                  🦁 ALLEZ LES LIONS DE LA TERANGA ! 🇸🇳
-                </p>
-                <p className="text-lg text-white/90">
-                  Vivons ensemble la passion du football africain au Maroc 🏆
-                </p>
-              </motion.div>
+              <p className="text-xl md:text-2xl font-bold text-yellow-300 mb-2">
+                🦁 ALLEZ LES LIONS DE LA TERANGA ! 🇸🇳
+              </p>
+              <p className="text-lg text-white/90">
+                Vivons ensemble la passion du football africain au Maroc 🏆
+              </p>
+            </motion.div>
 
-              <motion.p 
-                className="text-xl mb-8 max-w-2xl mx-auto lg:mx-0 text-gray-100"
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ duration: 1, delay: 0.9 }}
-              >
-                Vibrez avec les Champions d'Afrique 2021 dans leur quête du doublé historique ! 🏆🔥
-              </motion.p>
-              
-              <motion.div 
-                className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start"
-                initial={{ opacity: 0, y: 30 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.8, delay: 1.1 }}
-              >
-                <motion.div
-                  whileHover={{ scale: 1.05, boxShadow: "0 20px 40px rgba(0,0,0,0.3)" }}
-                  whileTap={{ scale: 0.95 }}
-                >
-                  <Button size="lg" className="bg-green-600 hover:bg-green-700 text-white text-lg px-8 shadow-2xl" asChild>
-                    <a href="https://wa.me/212614082524" target="_blank" rel="noopener noreferrer">
-                      🚀 En savoir plus
-                    </a>
-                  </Button>
-                </motion.div>
-                <motion.div
-                  whileHover={{ scale: 1.05, boxShadow: "0 20px 40px rgba(0,0,0,0.3)" }}
-                  whileTap={{ scale: 0.95 }}
-                >
-                  <Button size="lg" className="bg-yellow-500 text-black hover:bg-yellow-400 text-lg px-8 shadow-2xl" asChild>
-                    <a href="https://wa.me/212614082524" target="_blank" rel="noopener noreferrer">
-                      ⚡ Réserver maintenant
-                    </a>
-                  </Button>
-                </motion.div>
-              </motion.div>
-            </div>
-
-            {/* Image promotionnelle de l'équipe du Sénégal */}
-            <motion.div
-              initial={{ opacity: 0, x: 50 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ duration: 1, delay: 0.5 }}
-              className="relative"
+            <motion.p 
+              className="text-xl mb-8 max-w-2xl mx-auto text-gray-100"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 1, delay: 0.9 }}
             >
-              <div className="relative rounded-xl overflow-hidden shadow-2xl">
-                <motion.img 
-                  src="/lovable-uploads/36fcf6f0-086c-42e1-8fd4-79fc459386c9.png" 
-                  alt="Équipe du Sénégal - CAN 2025 avec ELTI VOYAGES" 
-                  className="w-full h-auto object-cover"
-                  whileHover={{ scale: 1.02 }}
-                  transition={{ duration: 0.3 }}
-                />
-                
-                {/* Overlay avec informations */}
-                <div className="absolute inset-0 bg-gradient-to-t from-black/30 via-transparent to-black/20"></div>
-                
-                <motion.div 
-                  className="absolute top-6 left-6 bg-green-600/90 text-white font-bold py-3 px-6 rounded-lg backdrop-blur-sm"
-                  initial={{ opacity: 0, y: -20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 1.2 }}
-                >
-                  🇸🇳 Lions de la Teranga
-                </motion.div>
-                
-                <motion.div 
-                  className="absolute bottom-6 right-6 bg-yellow-500/90 text-black font-bold py-3 px-6 rounded-lg backdrop-blur-sm"
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 1.4 }}
-                >
-                  CAN 2025 🏆
-                </motion.div>
-              </div>
+              Vibrez avec les Champions d'Afrique 2021 dans leur quête du doublé historique ! 🏆🔥
+            </motion.p>
+            
+            <motion.div 
+              className="flex flex-col sm:flex-row gap-4 justify-center"
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 1.1 }}
+            >
+              <motion.div
+                whileHover={{ scale: 1.05, boxShadow: "0 20px 40px rgba(0,0,0,0.3)" }}
+                whileTap={{ scale: 0.95 }}
+              >
+                <Button size="lg" className="bg-green-600 hover:bg-green-700 text-white text-lg px-8 shadow-2xl" asChild>
+                  <a href="https://wa.me/212614082524" target="_blank" rel="noopener noreferrer">
+                    🚀 En savoir plus
+                  </a>
+                </Button>
+              </motion.div>
+              <motion.div
+                whileHover={{ scale: 1.05, boxShadow: "0 20px 40px rgba(0,0,0,0.3)" }}
+                whileTap={{ scale: 0.95 }}
+              >
+                <Button size="lg" className="bg-yellow-500 text-black hover:bg-yellow-400 text-lg px-8 shadow-2xl" asChild>
+                  <a href="https://wa.me/212614082524" target="_blank" rel="noopener noreferrer">
+                    ⚡ Réserver maintenant
+                  </a>
+                </Button>
+              </motion.div>
             </motion.div>
           </div>
         </div>
