@@ -1,4 +1,3 @@
-
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Trophy, Calendar, MapPin, Users, Star, Phone, Clock } from "lucide-react";
@@ -24,64 +23,56 @@ const Can2025 = () => {
     features: ["Vol A/R Business", "Hôtel 5*", "Billets VIP", "Transferts privés", "Accès lounge"]
   }];
 
-  const groupMatches = [
-    {
-      date: "21 Décembre 2025",
-      matches: [
-        { time: "17:00", team1: "Maroc", team2: "Comores", venue: "Rabat" },
-        { time: "20:00", team1: "Mali", team2: "Zambie", venue: "Rabat" }
-      ]
-    },
+  // Matchs du Sénégal uniquement
+  const senegalMatches = [
     {
       date: "22 Décembre 2025",
       matches: [
-        { time: "14:00", team1: "Égypte", team2: "Cap-Vert", venue: "Casablanca" },
-        { time: "17:00", team1: "Ghana", team2: "Angola", venue: "Casablanca" },
-        { time: "20:00", team1: "Sénégal", team2: "RD Congo", venue: "Casablanca" }
+        { time: "20:00", team1: "Sénégal", team2: "RD Congo", venue: "Casablanca", phase: "Phase de groupes" }
       ]
     },
     {
-      date: "23 Décembre 2025",
+      date: "26 Décembre 2025", 
       matches: [
-        { time: "14:00", team1: "Algérie", team2: "Burkina Faso", venue: "Marrakech" },
-        { time: "17:00", team1: "Cameroun", team2: "Namibie", venue: "Marrakech" },
-        { time: "20:00", team1: "Tunisie", team2: "Madagascar", venue: "Marrakech" }
+        { time: "17:00", team1: "Sénégal", team2: "Cameroun", venue: "Casablanca", phase: "Phase de groupes" }
+      ]
+    },
+    {
+      date: "30 Décembre 2025",
+      matches: [
+        { time: "20:00", team1: "Sénégal", team2: "Bénin", venue: "Casablanca", phase: "Phase de groupes" }
       ]
     }
   ];
 
-  const knockoutMatches = [
+  // Matchs potentiels en phase finale (si qualification)
+  const senegalKnockoutMatches = [
     {
       phase: "Huitièmes de finale",
       date: "5-6 Janvier 2026",
       matches: [
-        { time: "17:00", team1: "1er Groupe A", team2: "2e Groupe B", venue: "Casablanca" },
-        { time: "20:00", team1: "1er Groupe B", team2: "2e Groupe A", venue: "Rabat" },
-        { time: "17:00", team1: "1er Groupe C", team2: "2e Groupe D", venue: "Marrakech" },
-        { time: "20:00", team1: "1er Groupe D", team2: "2e Groupe C", venue: "Agadir" }
+        { time: "À déterminer", team1: "Sénégal", team2: "Adversaire qualifié", venue: "À déterminer" }
       ]
     },
     {
-      phase: "Quarts de finale",
+      phase: "Quarts de finale", 
       date: "9-10 Janvier 2026",
       matches: [
-        { time: "17:00", team1: "Vainqueur 1/8 #1", team2: "Vainqueur 1/8 #2", venue: "Casablanca" },
-        { time: "20:00", team1: "Vainqueur 1/8 #3", team2: "Vainqueur 1/8 #4", venue: "Rabat" }
+        { time: "À déterminer", team1: "Sénégal", team2: "Vainqueur 1/8", venue: "À déterminer" }
       ]
     },
     {
       phase: "Demi-finales",
-      date: "13-14 Janvier 2026",
+      date: "13-14 Janvier 2026", 
       matches: [
-        { time: "18:00", team1: "Vainqueur 1/4 #1", team2: "Vainqueur 1/4 #2", venue: "Casablanca" },
-        { time: "18:00", team1: "Vainqueur 1/4 #3", team2: "Vainqueur 1/4 #4", venue: "Rabat" }
+        { time: "À déterminer", team1: "Sénégal", team2: "Vainqueur 1/4", venue: "À déterminer" }
       ]
     },
     {
       phase: "Finale",
       date: "18 Janvier 2026",
       matches: [
-        { time: "20:00", team1: "Finaliste 1", team2: "Finaliste 2", venue: "Casablanca" }
+        { time: "20:00", team1: "Sénégal", team2: "Finaliste", venue: "Casablanca" }
       ]
     }
   ];
@@ -163,17 +154,17 @@ const Can2025 = () => {
         </div>
       </section>
 
-      {/* Calendrier Section */}
+      {/* Calendrier Section - Matchs du Sénégal */}
       <section className="py-16 bg-white">
         <div className="container mx-auto px-4">
           <div className="text-center mb-12">
             <Badge className="mb-4 px-4 py-2 text-base font-semibold bg-primary text-white">
               <Calendar className="h-5 w-5 mr-2" />
-              Programme officiel
+              Lions de la Teranga 🇸🇳
             </Badge>
-            <h2 className="text-3xl md:text-4xl font-bold text-primary mb-4">Calendrier CAN 2025</h2>
+            <h2 className="text-3xl md:text-4xl font-bold text-primary mb-4">Calendrier du Sénégal - CAN 2025</h2>
             <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-              Suivez le programme complet de la Coupe d'Afrique des Nations 2025 au Maroc
+              Suivez tous les matchs des Lions de la Teranga à la CAN 2025 au Maroc
             </p>
           </div>
 
@@ -187,31 +178,31 @@ const Can2025 = () => {
 
             <TabsContent value="groupes" className="space-y-6">
               <div className="text-center mb-6">
-                <h3 className="text-2xl font-bold text-primary mb-2">Phase de groupes</h3>
-                <p className="text-gray-600">21 Décembre 2025 - 2 Janvier 2026</p>
+                <h3 className="text-2xl font-bold text-primary mb-2">Phase de groupes - Groupe C</h3>
+                <p className="text-gray-600">22 Décembre 2025 - 30 Décembre 2025</p>
               </div>
               
               <div className="grid gap-6">
-                {groupMatches.map((day, dayIndex) => (
-                  <Card key={dayIndex} className="overflow-hidden">
-                    <CardHeader className="bg-primary/5 border-b">
+                {senegalMatches.map((day, dayIndex) => (
+                  <Card key={dayIndex} className="overflow-hidden border-l-4 border-l-green-500">
+                    <CardHeader className="bg-green-50 border-b">
                       <CardTitle className="text-lg flex items-center">
-                        <Calendar className="h-5 w-5 mr-2 text-primary" />
+                        <Calendar className="h-5 w-5 mr-2 text-green-600" />
                         {day.date}
                       </CardTitle>
                     </CardHeader>
                     <CardContent className="p-0">
                       <div className="space-y-0">
                         {day.matches.map((match, matchIndex) => (
-                          <div key={matchIndex} className="flex items-center justify-between p-4 border-b last:border-b-0 hover:bg-gray-50">
+                          <div key={matchIndex} className="flex items-center justify-between p-4 bg-gradient-to-r from-green-50 to-yellow-50 hover:from-green-100 hover:to-yellow-100 transition-colors">
                             <div className="flex items-center space-x-4">
                               <div className="flex items-center text-sm text-gray-600 min-w-[60px]">
                                 <Clock className="h-4 w-4 mr-1" />
                                 {match.time}
                               </div>
                               <div className="flex items-center space-x-3">
-                                <span className="font-semibold text-primary">{match.team1}</span>
-                                <span className="text-gray-400">vs</span>
+                                <span className="font-bold text-green-700 text-lg">🇸🇳 {match.team1}</span>
+                                <span className="text-gray-400 font-bold">vs</span>
                                 <span className="font-semibold text-primary">{match.team2}</span>
                               </div>
                             </div>
@@ -231,15 +222,15 @@ const Can2025 = () => {
             <TabsContent value="elimination" className="space-y-6">
               <div className="text-center mb-6">
                 <h3 className="text-2xl font-bold text-primary mb-2">Phase à élimination directe</h3>
-                <p className="text-gray-600">5 Janvier - 18 Janvier 2026</p>
+                <p className="text-gray-600">5 Janvier - 18 Janvier 2026 (si qualification)</p>
               </div>
 
               <div className="grid gap-6">
-                {knockoutMatches.map((phase, phaseIndex) => (
-                  <Card key={phaseIndex} className="overflow-hidden">
-                    <CardHeader className="bg-secondary/10 border-b">
+                {senegalKnockoutMatches.map((phase, phaseIndex) => (
+                  <Card key={phaseIndex} className="overflow-hidden border-l-4 border-l-yellow-500">
+                    <CardHeader className="bg-yellow-50 border-b">
                       <CardTitle className="text-lg flex items-center">
-                        <Trophy className="h-5 w-5 mr-2 text-secondary" />
+                        <Trophy className="h-5 w-5 mr-2 text-yellow-600" />
                         {phase.phase}
                       </CardTitle>
                       <CardDescription>{phase.date}</CardDescription>
@@ -247,15 +238,15 @@ const Can2025 = () => {
                     <CardContent className="p-0">
                       <div className="space-y-0">
                         {phase.matches.map((match, matchIndex) => (
-                          <div key={matchIndex} className="flex items-center justify-between p-4 border-b last:border-b-0 hover:bg-gray-50">
+                          <div key={matchIndex} className="flex items-center justify-between p-4 bg-gradient-to-r from-yellow-50 to-green-50 hover:from-yellow-100 hover:to-green-100 transition-colors">
                             <div className="flex items-center space-x-4">
-                              <div className="flex items-center text-sm text-gray-600 min-w-[60px]">
+                              <div className="flex items-center text-sm text-gray-600 min-w-[80px]">
                                 <Clock className="h-4 w-4 mr-1" />
                                 {match.time}
                               </div>
                               <div className="flex items-center space-x-3">
-                                <span className="font-semibold text-primary text-sm">{match.team1}</span>
-                                <span className="text-gray-400">vs</span>
+                                <span className="font-bold text-green-700 text-lg">🇸🇳 {match.team1}</span>
+                                <span className="text-gray-400 font-bold">vs</span>
                                 <span className="font-semibold text-primary text-sm">{match.team2}</span>
                               </div>
                             </div>
@@ -275,11 +266,11 @@ const Can2025 = () => {
 
           <div className="text-center mt-8">
             <p className="text-sm text-gray-500 mb-4">
-              * Les horaires sont en heure locale marocaine (GMT+1)
+              * Les horaires sont en heure locale marocaine (GMT+1) | 🇸🇳 Allez les Lions !
             </p>
             <Button className="px-8" asChild>
               <a href="https://wa.me/212614082524" target="_blank" rel="noopener noreferrer">
-                Réserver vos billets maintenant
+                Réserver pour supporter le Sénégal
               </a>
             </Button>
           </div>
