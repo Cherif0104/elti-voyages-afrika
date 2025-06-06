@@ -3,6 +3,7 @@ import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Trophy } from "lucide-react";
+import { Link } from "react-router-dom";
 
 const Can2025SpecialOffer = () => {
   return (
@@ -44,9 +45,9 @@ const Can2025SpecialOffer = () => {
                 className="px-10 py-4 text-lg bg-yellow-500 hover:bg-yellow-600 text-green-800 font-bold shadow-lg hover:shadow-xl transition-all duration-300 border-2 border-yellow-400" 
                 asChild
               >
-                <a href="https://wa.me/212614082524" target="_blank" rel="noopener noreferrer">
+                <Link to="/can2025">
                   En savoir plus
-                </a>
+                </Link>
               </Button>
               <Button 
                 size="lg" 
