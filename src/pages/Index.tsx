@@ -1,4 +1,3 @@
-
 import { useEffect, useState, useRef } from "react";
 import { motion, useInView } from "framer-motion";
 import { Plane, Hotel, Car, Map, Crown, Star, MapPin, UsersRound, CalendarDays, Coffee, Trophy } from "lucide-react";
@@ -183,6 +182,34 @@ const Index = () => {
     }
   ];
 
+  // Nos offres CAN 2025
+  const nosOffres = [
+    {
+      title: "Yoonu Sénégal",
+      image: "/lovable-uploads/f7a5409d-c576-406e-8965-3cfb2a831260.png",
+      description: "Du 18 Décembre 2025 au 1 Janvier 2026",
+      price: "960 000 FCFA"
+    },
+    {
+      title: "Délégation Lions",
+      image: "/lovable-uploads/6022c9b1-7383-48a2-bf2d-c87386c98ccd.png", 
+      description: "Du 03 Janvier 2026 au 10 Janvier 2026",
+      price: "1 150 000 FCFA"
+    },
+    {
+      title: "Lion d'Or Prestige",
+      image: "/lovable-uploads/870be09a-6b38-4b23-8d32-61286d54de50.png",
+      description: "Du 14 Janvier 2026 au 19 Janvier 2026",
+      price: "2 300 000 FCFA"
+    },
+    {
+      title: "Services Additionnels",
+      image: "/lovable-uploads/f20045fb-2388-4795-9b23-557d8a04fd11.png",
+      description: "Services complémentaires pour votre séjour",
+      price: "Sur devis"
+    }
+  ];
+
   useEffect(() => {
     // Set a small delay before starting the stats animation
     setTimeout(() => {
@@ -329,6 +356,89 @@ const Index = () => {
               </motion.div>
             ))}
           </div>
+        </div>
+      </section>
+
+      {/* Nos Offres CAN 2025 Section */}
+      <section className="py-16 bg-gradient-to-br from-green-50 to-yellow-50">
+        <div className="container mx-auto px-4">
+          <motion.div 
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+            viewport={{ once: true }}
+            className="text-center mb-12"
+          >
+            <Badge className="mb-4 px-6 py-3 text-base font-semibold bg-gradient-to-r from-green-600 to-yellow-600 text-white shadow-lg">
+              <Trophy className="h-5 w-5 mr-2" />
+              CAN 2025 - Offres Spéciales
+            </Badge>
+            <h2 className="text-3xl md:text-4xl font-bold text-primary mb-4">Nos Offres CAN 2025</h2>
+            <p className="text-gray-600 max-w-2xl mx-auto">
+              Découvrez nos packages exclusifs pour vivre la Coupe d'Afrique des Nations 2025 au Maroc avec les Lions de la Teranga 🇸🇳
+            </p>
+          </motion.div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-6xl mx-auto">
+            {nosOffres.map((offre, index) => (
+              <motion.div
+                key={index}
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: index * 0.1 }}
+                viewport={{ once: true }}
+                whileHover={{ scale: 1.02, y: -5 }}
+                className="bg-white rounded-xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 border border-gray-100"
+              >
+                <div className="relative h-80 overflow-hidden">
+                  <img 
+                    src={offre.image} 
+                    alt={offre.title} 
+                    className="w-full h-full object-cover transition-transform duration-500 hover:scale-105"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent" />
+                  <div className="absolute bottom-4 left-4 right-4">
+                    <h3 className="text-2xl font-bold text-white mb-2">{offre.title}</h3>
+                    <p className="text-white/90 text-sm mb-2">{offre.description}</p>
+                    {offre.price !== "Sur devis" && (
+                      <div className="flex items-center justify-between">
+                        <span className="text-yellow-400 font-bold text-lg">À partir de {offre.price}</span>
+                      </div>
+                    )}
+                  </div>
+                </div>
+                
+                <div className="p-6">
+                  <Button 
+                    className="w-full bg-gradient-to-r from-green-600 to-yellow-600 hover:from-green-700 hover:to-yellow-700 text-white font-semibold"
+                    asChild
+                  >
+                    <Link to="/can2025">
+                      {offre.price === "Sur devis" ? "En savoir plus" : "Réserver maintenant"}
+                    </Link>
+                  </Button>
+                </div>
+              </motion.div>
+            ))}
+          </div>
+
+          <motion.div 
+            className="text-center mt-12"
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8 }}
+          >
+            <Button 
+              size="lg" 
+              className="px-8 bg-gradient-to-r from-green-600 to-yellow-600 hover:from-green-700 hover:to-yellow-700 shadow-lg text-lg"
+              asChild
+            >
+              <Link to="/can2025">
+                🦁 Voir toutes nos offres CAN 2025
+              </Link>
+            </Button>
+          </motion.div>
         </div>
       </section>
 
