@@ -660,136 +660,75 @@ const Can2025 = () => {
       {/* Section Nos Offres CAN 2025 */}
       <section className="py-16 bg-gradient-to-br from-green-50 to-yellow-50">
         <div className="container mx-auto px-4">
-          <motion.div 
-            className="text-center mb-12"
-            initial={{ opacity: 0, y: -30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.8 }}
-          >
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
             <motion.div
-              whileHover={{ scale: 1.1 }}
-              className="inline-block"
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6, delay: 0 * 0.1 }}
+              whileHover={{ scale: 1.02, y: -5 }}
+              className="group"
             >
-              <Badge className="mb-4 px-6 py-3 text-base font-semibold bg-gradient-to-r from-green-600 to-yellow-600 text-white shadow-lg">
-                <Trophy className="h-5 w-5 mr-2" />
-                Nos Offres CAN 2025 🦁
-              </Badge>
+              <div className="overflow-hidden rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300">
+                <img 
+                  src="/lovable-uploads/f7a5409d-c576-406e-8965-3cfb2a831260.png" 
+                  alt="Offre CAN 2025"
+                  className="w-full h-auto object-cover transition-transform duration-300 group-hover:scale-105"
+                />
+              </div>
             </motion.div>
-            
-            <motion.h2 
-              className="text-3xl md:text-4xl font-bold text-primary mb-4"
-              initial={{ opacity: 0, scale: 0.8 }}
-              whileInView={{ opacity: 1, scale: 1 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6, delay: 0.2 }}
-            >
-              🇸🇳 Packs Supporters Lions de la Teranga 🇸🇳
-            </motion.h2>
-            
-            <motion.p 
-              className="text-xl text-gray-600 max-w-3xl mx-auto"
-              initial={{ opacity: 0 }}
-              whileInView={{ opacity: 1 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.8, delay: 0.4 }}
-            >
-              Choisissez votre formule pour vivre la CAN 2025 avec les Champions d'Afrique ! 🏆⚽
-            </motion.p>
-          </motion.div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-6xl mx-auto">
-            {can2025Offers.map((offer, index) => (
-              <motion.div
-                key={index}
-                initial={{ opacity: 0, y: 50 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.6, delay: index * 0.1 }}
-                whileHover={{ scale: 1.02, y: -5 }}
-                className="group"
-              >
-                <Card className="overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 border-2 border-transparent hover:border-green-200">
-                  <div className="relative overflow-hidden">
-                    <img 
-                      src={offer.image} 
-                      alt={offer.title}
-                      className="w-full h-48 object-cover transition-transform duration-300 group-hover:scale-110"
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-                    <motion.div 
-                      className="absolute top-4 right-4 bg-green-600 text-white px-3 py-1 rounded-full text-sm font-bold"
-                      whileHover={{ scale: 1.1 }}
-                    >
-                      🦁 Lions
-                    </motion.div>
-                  </div>
-                  
-                  <CardContent className="p-6">
-                    <h3 className="text-xl font-bold mb-2 text-gray-800 group-hover:text-green-600 transition-colors">
-                      {offer.title}
-                    </h3>
-                    <p className="text-gray-600 mb-4">{offer.description}</p>
-                    
-                    <div className="mb-4">
-                      <span className="text-2xl font-bold text-green-600">{offer.price}</span>
-                      <span className="text-sm text-gray-500 ml-2">par personne</span>
-                    </div>
-                    
-                    <ul className="space-y-2 mb-6">
-                      {offer.features.map((feature, featureIndex) => (
-                        <li key={featureIndex} className="flex items-center text-sm">
-                          <div className="w-2 h-2 bg-green-500 rounded-full mr-3 flex-shrink-0"></div>
-                          <span>{feature}</span>
-                        </li>
-                      ))}
-                    </ul>
-                    
-                    <motion.div
-                      whileHover={{ scale: 1.05 }}
-                      whileTap={{ scale: 0.95 }}
-                    >
-                      <Button 
-                        className="w-full bg-gradient-to-r from-green-600 to-yellow-600 hover:from-green-700 hover:to-yellow-700 shadow-lg"
-                        asChild
-                      >
-                        <a href="https://wa.me/212614082524" target="_blank" rel="noopener noreferrer">
-                          🚀 Réserver maintenant
-                        </a>
-                      </Button>
-                    </motion.div>
-                  </CardContent>
-                </Card>
-              </motion.div>
-            ))}
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6, delay: 1 * 0.1 }}
+              whileHover={{ scale: 1.02, y: -5 }}
+              className="group"
+            >
+              <div className="overflow-hidden rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300">
+                <img 
+                  src="/lovable-uploads/6022c9b1-7383-48a2-bf2d-c87386c98ccd.png" 
+                  alt="Offre CAN 2025"
+                  className="w-full h-auto object-cover transition-transform duration-300 group-hover:scale-105"
+                />
+              </div>
+            </motion.div>
+
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6, delay: 2 * 0.1 }}
+              whileHover={{ scale: 1.02, y: -5 }}
+              className="group"
+            >
+              <div className="overflow-hidden rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300">
+                <img 
+                  src="/lovable-uploads/870be09a-6b38-4b23-8d32-61286d54de50.png" 
+                  alt="Offre CAN 2025"
+                  className="w-full h-auto object-cover transition-transform duration-300 group-hover:scale-105"
+                />
+              </div>
+            </motion.div>
+
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6, delay: 3 * 0.1 }}
+              whileHover={{ scale: 1.02, y: -5 }}
+              className="group"
+            >
+              <div className="overflow-hidden rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300">
+                <img 
+                  src="/lovable-uploads/f20045fb-2388-4795-9b23-557d8a04fd11.png" 
+                  alt="Offre CAN 2025"
+                  className="w-full h-auto object-cover transition-transform duration-300 group-hover:scale-105"
+                />
+              </div>
+            </motion.div>
           </div>
-
-          <motion.div 
-            className="text-center mt-12"
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.8 }}
-          >
-            <p className="text-sm text-gray-500 mb-4">
-              🦁 Tous nos packs incluent l'assistance 24h/24 et un guide francophone 🇸🇳
-            </p>
-            <motion.div
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-            >
-              <Button 
-                size="lg" 
-                variant="outline" 
-                className="border-green-600 text-green-600 hover:bg-green-50"
-                asChild
-              >
-                <a href="https://wa.me/212614082524" target="_blank" rel="noopener noreferrer">
-                  💬 Demander un devis personnalisé
-                </a>
-              </Button>
-            </motion.div>
-          </motion.div>
         </div>
       </section>
 
