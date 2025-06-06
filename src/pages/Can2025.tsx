@@ -497,7 +497,7 @@ const Can2025 = () => {
                 asChild
               >
                 <a 
-                  href="https://www.cafonline.com/total-energies-africa-cup-of-nations/fixtures-results" 
+                  href="https://www.cafonline.com/fr/coupe-dafrique-des-nations/calendrier-resultats/" 
                   target="_blank" 
                   rel="noopener noreferrer"
                   className="flex items-center gap-2"
@@ -736,7 +736,7 @@ const Can2025 = () => {
                   asChild
                 >
                   <a 
-                    href="https://www.cafonline.com/total-energies-africa-cup-of-nations/fixtures-results" 
+                    href="https://www.cafonline.com/fr/coupe-dafrique-des-nations/calendrier-resultats/" 
                     target="_blank" 
                     rel="noopener noreferrer"
                   >
