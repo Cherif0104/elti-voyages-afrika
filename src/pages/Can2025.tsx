@@ -1,6 +1,7 @@
+
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { Trophy, Calendar, MapPin, Users, Star, Phone, Clock, Heart, Flag, Zap } from "lucide-react";
+import { Trophy, Calendar, MapPin, Users, Star, Phone, Clock, Heart, Flag, Zap, ExternalLink } from "lucide-react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Badge } from "@/components/ui/badge";
 import { motion } from "framer-motion";
@@ -23,56 +24,73 @@ const Can2025 = () => {
     features: ["Vol A/R Business", "Hôtel 5*", "Billets VIP", "Transferts privés", "Accès lounge"]
   }];
 
-  // Matchs du Sénégal uniquement
-  const senegalMatches = [
+  // Matchs de la phase de groupes - échantillon
+  const groupMatches = [
     {
-      date: "22 Décembre 2025",
+      date: "21 Décembre 2025",
       matches: [
-        { time: "20:00", team1: "Sénégal", team2: "RD Congo", venue: "Casablanca", phase: "Phase de groupes" }
+        { time: "17:00", team1: "Maroc", team2: "Mali", venue: "Rabat", group: "Groupe A" },
+        { time: "20:00", team1: "Zambie", team2: "Comores", venue: "Rabat", group: "Groupe A" }
       ]
     },
     {
-      date: "26 Décembre 2025", 
+      date: "22 Décembre 2025", 
       matches: [
-        { time: "17:00", team1: "Sénégal", team2: "Cameroun", venue: "Casablanca", phase: "Phase de groupes" }
+        { time: "17:00", team1: "Égypte", team2: "Cap-Vert", venue: "Casablanca", group: "Groupe B" },
+        { time: "20:00", team1: "Sénégal", team2: "RD Congo", venue: "Casablanca", group: "Groupe C" }
       ]
     },
     {
-      date: "30 Décembre 2025",
+      date: "23 Décembre 2025",
       matches: [
-        { time: "20:00", team1: "Sénégal", team2: "Bénin", venue: "Casablanca", phase: "Phase de groupes" }
+        { time: "17:00", team1: "Algérie", team2: "Burkina Faso", venue: "Fès", group: "Groupe D" },
+        { time: "20:00", team1: "Nigeria", team2: "Tunisie", venue: "Fès", group: "Groupe E" }
       ]
     }
   ];
 
-  // Matchs potentiels en phase finale (si qualification)
-  const senegalKnockoutMatches = [
+  // Matchs des phases finales
+  const knockoutMatches = [
     {
       phase: "Huitièmes de finale",
       date: "5-6 Janvier 2026",
       matches: [
-        { time: "À déterminer", team1: "Sénégal", team2: "Adversaire qualifié", venue: "À déterminer" }
+        { time: "17:00", team1: "1er Groupe A", team2: "2ème Groupe B", venue: "Casablanca" },
+        { time: "20:00", team1: "1er Groupe C", team2: "2ème Groupe D", venue: "Rabat" },
+        { time: "17:00", team1: "1er Groupe E", team2: "2ème Groupe F", venue: "Marrakech" },
+        { time: "20:00", team1: "1er Groupe B", team2: "2ème Groupe A", venue: "Fès" }
       ]
     },
     {
       phase: "Quarts de finale", 
       date: "9-10 Janvier 2026",
       matches: [
-        { time: "À déterminer", team1: "Sénégal", team2: "Vainqueur 1/8", venue: "À déterminer" }
+        { time: "17:00", team1: "Vainqueur 1/8 - 1", team2: "Vainqueur 1/8 - 2", venue: "Casablanca" },
+        { time: "20:00", team1: "Vainqueur 1/8 - 3", team2: "Vainqueur 1/8 - 4", venue: "Rabat" },
+        { time: "17:00", team1: "Vainqueur 1/8 - 5", team2: "Vainqueur 1/8 - 6", venue: "Marrakech" },
+        { time: "20:00", team1: "Vainqueur 1/8 - 7", team2: "Vainqueur 1/8 - 8", venue: "Fès" }
       ]
     },
     {
       phase: "Demi-finales",
       date: "13-14 Janvier 2026", 
       matches: [
-        { time: "À déterminer", team1: "Sénégal", team2: "Vainqueur 1/4", venue: "À déterminer" }
+        { time: "17:00", team1: "Vainqueur 1/4 - 1", team2: "Vainqueur 1/4 - 2", venue: "Casablanca" },
+        { time: "20:00", team1: "Vainqueur 1/4 - 3", team2: "Vainqueur 1/4 - 4", venue: "Rabat" }
+      ]
+    },
+    {
+      phase: "Match pour la 3ème place",
+      date: "17 Janvier 2026",
+      matches: [
+        { time: "17:00", team1: "Perdant Demi 1", team2: "Perdant Demi 2", venue: "Rabat" }
       ]
     },
     {
       phase: "Finale",
       date: "18 Janvier 2026",
       matches: [
-        { time: "20:00", team1: "Sénégal", team2: "Finaliste", venue: "Casablanca" }
+        { time: "20:00", team1: "Finaliste 1", team2: "Finaliste 2", venue: "Casablanca" }
       ]
     }
   ];
@@ -421,7 +439,7 @@ const Can2025 = () => {
         </div>
       </section>
 
-      {/* Calendrier Section - Matchs du Sénégal avec animations */}
+      {/* Calendrier Section - Tous les matchs de la CAN 2025 */}
       <section className="py-16 bg-gradient-to-br from-green-50 via-white to-yellow-50">
         <div className="container mx-auto px-4">
           <motion.div 
@@ -442,7 +460,7 @@ const Can2025 = () => {
                 >
                   <Calendar className="h-5 w-5" />
                 </motion.div>
-                Lions de la Teranga 🇸🇳🦁
+                Calendrier Complet CAN 2025 🏆
               </Badge>
             </motion.div>
             
@@ -453,18 +471,42 @@ const Can2025 = () => {
               viewport={{ once: true }}
               transition={{ duration: 0.6, delay: 0.2 }}
             >
-              🏆 Calendrier du Sénégal - CAN 2025 🏆
+              🏆 Calendrier Officiel CAN 2025 🏆
             </motion.h2>
             
             <motion.p 
-              className="text-xl text-gray-600 max-w-3xl mx-auto"
+              className="text-xl text-gray-600 max-w-3xl mx-auto mb-6"
               initial={{ opacity: 0 }}
               whileInView={{ opacity: 1 }}
               viewport={{ once: true }}
               transition={{ duration: 0.8, delay: 0.4 }}
             >
-              Suivez chaque match de nos Lions vers la gloire ! 🦁⚽🔥
+              Découvrez le programme complet de la Coupe d'Afrique des Nations 2025 au Maroc ! 🇲🇦⚽
             </motion.p>
+
+            {/* Lien vers le calendrier officiel */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6, delay: 0.6 }}
+            >
+              <Button 
+                variant="outline" 
+                className="mb-8 px-6 py-3 text-base border-2 border-primary text-primary hover:bg-primary hover:text-white transition-all duration-300"
+                asChild
+              >
+                <a 
+                  href="https://www.cafonline.com/total-energies-africa-cup-of-nations/fixtures-results" 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="flex items-center gap-2"
+                >
+                  <ExternalLink className="h-5 w-5" />
+                  Voir le calendrier officiel CAF
+                </a>
+              </Button>
+            </motion.div>
           </motion.div>
 
           <Tabs defaultValue="groupes" className="w-full">
@@ -493,13 +535,13 @@ const Can2025 = () => {
                 viewport={{ once: true }}
               >
                 <h3 className="text-2xl font-bold text-primary mb-2">
-                  🦁 Phase de groupes - Groupe C 🇸🇳
+                  🌍 Phase de groupes - Toutes les équipes 🏆
                 </h3>
-                <p className="text-gray-600">22 Décembre 2025 - 30 Décembre 2025</p>
+                <p className="text-gray-600">21 Décembre 2025 - 2 Janvier 2026 | 24 équipes - 6 groupes</p>
               </motion.div>
               
               <div className="grid gap-6">
-                {senegalMatches.map((day, dayIndex) => (
+                {groupMatches.map((day, dayIndex) => (
                   <motion.div
                     key={dayIndex}
                     initial={{ opacity: 0, x: -50 }}
@@ -525,7 +567,7 @@ const Can2025 = () => {
                           {day.matches.map((match, matchIndex) => (
                             <motion.div 
                               key={matchIndex} 
-                              className="flex items-center justify-between p-4 bg-gradient-to-r from-green-50 to-yellow-50 hover:from-green-100 hover:to-yellow-100 transition-all duration-300"
+                              className="flex items-center justify-between p-4 bg-gradient-to-r from-green-50 to-yellow-50 hover:from-green-100 hover:to-yellow-100 transition-all duration-300 border-b last:border-b-0"
                               whileHover={{ backgroundColor: "rgba(34, 197, 94, 0.1)" }}
                             >
                               <div className="flex items-center space-x-4">
@@ -535,14 +577,17 @@ const Can2025 = () => {
                                 </div>
                                 <div className="flex items-center space-x-3">
                                   <motion.span 
-                                    className="font-bold text-green-700 text-lg flex items-center"
+                                    className="font-bold text-primary text-lg flex items-center"
                                     whileHover={{ scale: 1.1 }}
                                   >
-                                    🇸🇳 {match.team1} 🦁
+                                    {match.team1}
                                   </motion.span>
                                   <span className="text-gray-400 font-bold">⚔️</span>
-                                  <span className="font-semibold text-primary">{match.team2}</span>
+                                  <span className="font-bold text-primary text-lg">{match.team2}</span>
                                 </div>
+                                <Badge variant="outline" className="text-xs">
+                                  {match.group}
+                                </Badge>
                               </div>
                               <div className="flex items-center text-sm text-gray-600">
                                 <MapPin className="h-4 w-4 mr-1" />
@@ -556,6 +601,30 @@ const Can2025 = () => {
                   </motion.div>
                 ))}
               </div>
+
+              <motion.div 
+                className="text-center mt-6"
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+              >
+                <p className="text-sm text-gray-500 mb-4">
+                  * Échantillon des matchs - Consultez le calendrier officiel pour le programme complet
+                </p>
+                <Button 
+                  variant="outline" 
+                  className="border-primary text-primary hover:bg-primary hover:text-white"
+                  asChild
+                >
+                  <a 
+                    href="https://www.cafonline.com/total-energies-africa-cup-of-nations/fixtures-results" 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                  >
+                    Voir tous les matchs de groupe
+                  </a>
+                </Button>
+              </motion.div>
             </TabsContent>
 
             <TabsContent value="elimination" className="space-y-6">
@@ -568,11 +637,11 @@ const Can2025 = () => {
                 <h3 className="text-2xl font-bold text-primary mb-2">
                   🏆 Phase à élimination directe 🔥
                 </h3>
-                <p className="text-gray-600">5 Janvier - 18 Janvier 2026 (si qualification)</p>
+                <p className="text-gray-600">5 Janvier - 18 Janvier 2026 | Du meilleur 16 à la finale</p>
               </motion.div>
 
               <div className="grid gap-6">
-                {senegalKnockoutMatches.map((phase, phaseIndex) => (
+                {knockoutMatches.map((phase, phaseIndex) => (
                   <motion.div
                     key={phaseIndex}
                     initial={{ opacity: 0, x: 50 }}
@@ -599,7 +668,7 @@ const Can2025 = () => {
                           {phase.matches.map((match, matchIndex) => (
                             <motion.div 
                               key={matchIndex} 
-                              className="flex items-center justify-between p-4 bg-gradient-to-r from-yellow-50 to-green-50 hover:from-yellow-100 hover:to-green-100 transition-all duration-300"
+                              className="flex items-center justify-between p-4 bg-gradient-to-r from-yellow-50 to-green-50 hover:from-yellow-100 hover:to-green-100 transition-all duration-300 border-b last:border-b-0"
                               whileHover={{ backgroundColor: "rgba(234, 179, 8, 0.1)" }}
                             >
                               <div className="flex items-center space-x-4">
@@ -609,18 +678,18 @@ const Can2025 = () => {
                                 </div>
                                 <div className="flex items-center space-x-3">
                                   <motion.span 
-                                    className="font-bold text-green-700 text-lg flex items-center"
+                                    className="font-bold text-primary text-base flex items-center"
                                     whileHover={{ scale: 1.1 }}
                                   >
-                                    🇸🇳 {match.team1} 🦁
+                                    {match.team1}
                                   </motion.span>
                                   <span className="text-gray-400 font-bold">⚔️</span>
-                                  <span className="font-semibold text-primary text-sm">{match.team2}</span>
+                                  <span className="font-bold text-primary text-base">{match.team2}</span>
                                 </div>
                               </div>
                               <div className="flex items-center text-sm text-gray-600">
                                 <MapPin className="h-4 w-4 mr-1" />
-                                {match.venue}
+                                {match.venue} 🇲🇦
                               </div>
                             </motion.div>
                           ))}
@@ -641,18 +710,41 @@ const Can2025 = () => {
             transition={{ duration: 0.8 }}
           >
             <p className="text-sm text-gray-500 mb-4">
-              * Les horaires sont en heure locale marocaine (GMT+1) | 🇸🇳 ALLEZ LES LIONS ! 🦁⚽
+              * Les horaires sont en heure locale marocaine (GMT+1) | 🏆 CAN 2025 - MAROC 🇲🇦
             </p>
-            <motion.div
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-            >
-              <Button className="px-8 bg-gradient-to-r from-green-600 to-yellow-600 hover:from-green-700 hover:to-yellow-700 shadow-lg" asChild>
-                <a href="https://wa.me/212614082524" target="_blank" rel="noopener noreferrer">
-                  🚀 Réserver pour supporter le Sénégal 🇸🇳
-                </a>
-              </Button>
-            </motion.div>
+            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+              <motion.div
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+              >
+                <Button 
+                  className="px-8 bg-gradient-to-r from-green-600 to-yellow-600 hover:from-green-700 hover:to-yellow-700 shadow-lg" 
+                  asChild
+                >
+                  <a href="https://wa.me/212614082524" target="_blank" rel="noopener noreferrer">
+                    🚀 Réserver votre séjour CAN 2025
+                  </a>
+                </Button>
+              </motion.div>
+              <motion.div
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+              >
+                <Button 
+                  variant="outline" 
+                  className="border-primary text-primary hover:bg-primary hover:text-white"
+                  asChild
+                >
+                  <a 
+                    href="https://www.cafonline.com/total-energies-africa-cup-of-nations/fixtures-results" 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                  >
+                    📅 Calendrier complet CAF
+                  </a>
+                </Button>
+              </motion.div>
+            </div>
           </motion.div>
         </div>
       </section>
