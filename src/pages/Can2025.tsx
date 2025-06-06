@@ -1,8 +1,6 @@
-
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Trophy, Calendar, MapPin, Users, Star, Phone, Clock, Heart, Flag, Zap } from "lucide-react";
-import Can2025SpecialOffer from "@/components/home/Can2025SpecialOffer";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Badge } from "@/components/ui/badge";
 import { motion } from "framer-motion";
