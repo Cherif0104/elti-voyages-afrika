@@ -6,57 +6,98 @@ import { Trophy } from "lucide-react";
 
 const Can2025SpecialOffer = () => {
   return (
-    <section className="py-20 bg-gradient-to-br from-gray-50 to-white">
-      <div className="container mx-auto px-4">
-        <motion.div 
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
-          viewport={{ once: true }}
-          className="text-center mb-16"
-        >
-          <Badge className="mb-6 px-6 py-3 text-lg font-semibold bg-gradient-to-r from-green-600 to-green-700 text-white">
-            <Trophy className="h-6 w-6 mr-3" />
-            Offre Spéciale CAN 2025
-          </Badge>
-          <h2 className="text-4xl md:text-5xl font-bold text-primary mb-6">
-            OFFRE DU MOMENT CAN 2025
-          </h2>
-          <p className="text-xl text-gray-600 max-w-4xl mx-auto leading-relaxed">
-            Découvrez nos packs exclusifs pour la Coupe d'Afrique des Nations 2025 au Maroc. 
-            Supportons fièrement les Lions de la Teranga 🇸🇳
-          </p>
-        </motion.div>
+    <section className="py-20 bg-gradient-to-br from-green-600 via-green-700 to-yellow-600 relative overflow-hidden">
+      {/* Background pattern */}
+      <div className="absolute inset-0 opacity-10">
+        <div className="absolute inset-0 bg-[url('data:image/svg+xml,%3Csvg width="60" height="60" viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg"%3E%3Cg fill="none" fill-rule="evenodd"%3E%3Cg fill="%23ffffff" fill-opacity="0.1"%3E%3Ccircle cx="30" cy="30" r="4"/%3E%3C/g%3E%3C/g%3E%3C/svg%3E')]"></div>
+      </div>
+      
+      <div className="container mx-auto px-4 relative z-10">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+          {/* Contenu textuel */}
+          <motion.div 
+            initial={{ opacity: 0, x: -50 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.8 }}
+            viewport={{ once: true }}
+            className="text-center lg:text-left"
+          >
+            <Badge className="mb-6 px-6 py-3 text-lg font-semibold bg-white/20 text-white border-white/30 backdrop-blur-sm">
+              <Trophy className="h-6 w-6 mr-3" />
+              Offre Spéciale CAN 2025
+            </Badge>
+            <h2 className="text-4xl md:text-6xl font-bold text-white mb-6 leading-tight">
+              CAN 2025
+              <span className="block text-yellow-300">AU MAROC</span>
+            </h2>
+            <p className="text-xl text-white/90 mb-8 leading-relaxed">
+              Vivez la CAN 2025 et vos voyages d'exception avec ELTI VOYAGES
+            </p>
+            <p className="text-lg text-white/80 mb-10 leading-relaxed">
+              Découvrez nos packs exclusifs pour la Coupe d'Afrique des Nations 2025 au Maroc. 
+              Supportons fièrement les Lions de la Teranga 🇸🇳
+            </p>
 
-        <motion.div 
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.3 }}
-          viewport={{ once: true }}
-          className="text-center"
-        >
-          <div className="flex flex-col sm:flex-row gap-6 justify-center">
-            <Button 
-              size="lg" 
-              className="px-10 py-4 text-lg bg-green-600 hover:bg-green-700 shadow-lg hover:shadow-xl transition-all duration-300" 
-              asChild
-            >
-              <a href="https://wa.me/212614082524" target="_blank" rel="noopener noreferrer">
-                En savoir plus
-              </a>
-            </Button>
-            <Button 
-              size="lg" 
-              variant="outline" 
-              className="px-10 py-4 text-lg border-2 border-primary text-primary hover:bg-primary hover:text-white shadow-lg hover:shadow-xl transition-all duration-300" 
-              asChild
-            >
-              <a href="https://wa.me/212614082524" target="_blank" rel="noopener noreferrer">
-                Réserver
-              </a>
-            </Button>
-          </div>
-        </motion.div>
+            <div className="flex flex-col sm:flex-row gap-6 justify-center lg:justify-start">
+              <Button 
+                size="lg" 
+                className="px-10 py-4 text-lg bg-yellow-500 hover:bg-yellow-600 text-green-800 font-bold shadow-lg hover:shadow-xl transition-all duration-300 border-2 border-yellow-400" 
+                asChild
+              >
+                <a href="https://wa.me/212614082524" target="_blank" rel="noopener noreferrer">
+                  En savoir plus
+                </a>
+              </Button>
+              <Button 
+                size="lg" 
+                variant="outline" 
+                className="px-10 py-4 text-lg border-2 border-white text-white hover:bg-white hover:text-green-700 shadow-lg hover:shadow-xl transition-all duration-300 backdrop-blur-sm" 
+                asChild
+              >
+                <a href="https://wa.me/212614082524" target="_blank" rel="noopener noreferrer">
+                  Réserver
+                </a>
+              </Button>
+            </div>
+          </motion.div>
+
+          {/* Image de l'équipe du Sénégal */}
+          <motion.div
+            initial={{ opacity: 0, x: 50 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.8, delay: 0.2 }}
+            viewport={{ once: true }}
+            className="relative"
+          >
+            <div className="relative rounded-2xl overflow-hidden shadow-2xl transform hover:scale-105 transition-transform duration-500">
+              <img 
+                src="/lovable-uploads/4dc6af3a-645d-417a-b469-e71da1ffef36.png" 
+                alt="Équipe nationale du Sénégal - Lions de la Teranga CAN 2025" 
+                className="w-full h-auto object-cover"
+              />
+              {/* Overlay gradient */}
+              <div className="absolute inset-0 bg-gradient-to-t from-black/30 via-transparent to-transparent"></div>
+              
+              {/* Badge flottant */}
+              <div className="absolute top-4 left-4">
+                <Badge className="bg-green-600/90 text-white px-4 py-2 text-base font-bold backdrop-blur-sm">
+                  🦁 Lions de la Teranga
+                </Badge>
+              </div>
+              
+              {/* Badge CAN 2025 */}
+              <div className="absolute bottom-4 right-4">
+                <Badge className="bg-yellow-500/90 text-green-800 px-4 py-2 text-base font-bold backdrop-blur-sm">
+                  🏆 CAN 2025
+                </Badge>
+              </div>
+            </div>
+            
+            {/* Éléments décoratifs */}
+            <div className="absolute -top-4 -right-4 w-24 h-24 bg-yellow-400/20 rounded-full blur-xl"></div>
+            <div className="absolute -bottom-4 -left-4 w-32 h-32 bg-green-400/20 rounded-full blur-xl"></div>
+          </motion.div>
+        </div>
       </div>
     </section>
   );
